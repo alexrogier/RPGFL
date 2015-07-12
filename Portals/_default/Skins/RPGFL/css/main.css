@@ -1,0 +1,27 @@
+﻿/** SITE WIDE */
+#Body{
+	background-color: #030303;
+    background-image: url("../img/Background_Image.png");
+    background-size: 1200px 1000px;
+    background-repeat: no-repeat;
+    background-position: center top;
+    margin-top: 20%;
+}
+#header_title{ color: white; }
+#header_subtitle{ color: lightgray; }
+
+/** HOME PAGE */
+#home_carousel{
+	height: 600px;
+	width: 900px;
+	margin: auto;
+	border: 5px solid darkgray;
+}
+#home_news_body{
+	margin: 15px;
+}
+
+/** HELPERS */
+.opacity-high{
+	opacity: 0.8;
+}
