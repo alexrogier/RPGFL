@@ -4,7 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RPGFLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RPGFLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accolades">
+          <Key>
+            <PropertyRef Name="Accolade_PK" />
+          </Key>
+          <Property Name="Accolade_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Accolade_Point_Value" Type="int" Nullable="false" />
+          <Property Name="Accolade_Description" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
         <EntityType Name="Affiliates">
           <Key>
             <PropertyRef Name="AffiliateId" />
@@ -4326,6 +4334,7 @@ warning 6002: The table/view 'RPGFL.dbo.Combat_Logs' does not have a primary key
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="RPGFLModelStoreContainer">
+          <EntitySet Name="Accolades" EntityType="Self.Accolades" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Affiliates" EntityType="Self.Affiliates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AnonymousUsers" EntityType="Self.AnonymousUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="aspnet_Applications" EntityType="Self.aspnet_Applications" Schema="dbo" store:Type="Tables" />
@@ -5122,8 +5131,7 @@ warning 6002: The table/view 'RPGFL.dbo.Combat_Logs' does not have a primary key
             <End Role="WorkflowStates" EntitySet="WorkflowStates" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RPGFLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -10543,7 +10551,16 @@ warning 6002: The table/view 'RPGFL.dbo.Combat_Logs' does not have a primary key
             <End Role="Workflow" EntitySet="Workflow" />
             <End Role="WorkflowStates" EntitySet="WorkflowStates" />
           </AssociationSet>
+          <EntitySet Name="Accolades" EntityType="RPGFLModel.Accolades" />
         </EntityContainer>
+        <EntityType Name="Accolades">
+          <Key>
+            <PropertyRef Name="Accolade_PK" />
+          </Key>
+          <Property Name="Accolade_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Accolade_Point_Value" Type="Int32" Nullable="false" />
+          <Property Name="Accolade_Description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12884,6 +12901,15 @@ warning 6002: The table/view 'RPGFL.dbo.Combat_Logs' does not have a primary key
                 <ScalarProperty Name="Damage_Final_Result" ColumnName="Damage_Final_Result" />
                 <ScalarProperty Name="Damage_Values" ColumnName="Damage_Values" />
                 <ScalarProperty Name="Conditions" ColumnName="Conditions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accolades">
+            <EntityTypeMapping TypeName="RPGFLModel.Accolades">
+              <MappingFragment StoreEntitySet="Accolades">
+                <ScalarProperty Name="Accolade_Description" ColumnName="Accolade_Description" />
+                <ScalarProperty Name="Accolade_Point_Value" ColumnName="Accolade_Point_Value" />
+                <ScalarProperty Name="Accolade_PK" ColumnName="Accolade_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

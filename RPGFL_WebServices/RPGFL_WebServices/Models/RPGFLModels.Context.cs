@@ -180,5 +180,6 @@ namespace RPGFL_WebServices.Models
         public virtual DbSet<Workflow> Workflow { get; set; }
         public virtual DbSet<WorkflowStates> WorkflowStates { get; set; }
         public virtual DbSet<Combat_Logs> Combat_Logs { get; set; }
+        public virtual DbSet<Accolades> Accolades { get; set; }
     }
 }

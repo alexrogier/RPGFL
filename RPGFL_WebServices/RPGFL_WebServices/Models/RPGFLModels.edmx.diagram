@@ -317,6 +317,7 @@
         <AssociationConnector Association="RPGFLModel.FK_UsersOnline_Users" ManuallyRouted="false" />
         <AssociationConnector Association="RPGFLModel.FK_VendorClassification_Vendors" ManuallyRouted="false" />
         <AssociationConnector Association="RPGFLModel.FK_WorkflowStates_Workflow" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RPGFLModel.Accolades" Width="1.5" PointX="8.375" PointY="26.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,0 +1,2351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RPGFLModelStoreContainer" CdmEntityContainer="RPGFLEntities">
+    <EntitySetMapping Name="Affiliates">
+      <EntityTypeMapping TypeName="RPGFLModel.Affiliates">
+        <MappingFragment StoreEntitySet="Affiliates">
+          <ScalarProperty Name="AffiliateId" ColumnName="AffiliateId" />
+          <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="CPC" ColumnName="CPC" />
+          <ScalarProperty Name="Clicks" ColumnName="Clicks" />
+          <ScalarProperty Name="CPA" ColumnName="CPA" />
+          <ScalarProperty Name="Acquisitions" ColumnName="Acquisitions" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AnonymousUsers">
+      <EntityTypeMapping TypeName="RPGFLModel.AnonymousUsers">
+        <MappingFragment StoreEntitySet="AnonymousUsers">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="TabID" ColumnName="TabID" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="LastActiveDate" ColumnName="LastActiveDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aspnet_Applications">
+      <EntityTypeMapping TypeName="RPGFLModel.aspnet_Applications">
+        <MappingFragment StoreEntitySet="aspnet_Applications">
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aspnet_Membership">
+      <EntityTypeMapping TypeName="RPGFLModel.aspnet_Membership">
+        <MappingFragment StoreEntitySet="aspnet_Membership">
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="MobilePIN" ColumnName="MobilePIN" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
+          <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+          <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+          <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+          <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+          <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
+          <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
+          <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aspnet_SchemaVersions">
+      <EntityTypeMapping TypeName="RPGFLModel.aspnet_SchemaVersions">
+        <MappingFragment StoreEntitySet="aspnet_SchemaVersions">
+          <ScalarProperty Name="Feature" ColumnName="Feature" />
+          <ScalarProperty Name="CompatibleSchemaVersion" ColumnName="CompatibleSchemaVersion" />
+          <ScalarProperty Name="IsCurrentVersion" ColumnName="IsCurrentVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aspnet_Users">
+      <EntityTypeMapping TypeName="RPGFLModel.aspnet_Users">
+        <MappingFragment StoreEntitySet="aspnet_Users">
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
+          <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
+          <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Assemblies">
+      <EntityTypeMapping TypeName="RPGFLModel.Assemblies">
+        <MappingFragment StoreEntitySet="Assemblies">
+          <ScalarProperty Name="AssemblyID" ColumnName="AssemblyID" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="AssemblyName" ColumnName="AssemblyName" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Authentication">
+      <EntityTypeMapping TypeName="RPGFLModel.Authentication">
+        <MappingFragment StoreEntitySet="Authentication">
+          <ScalarProperty Name="AuthenticationID" ColumnName="AuthenticationID" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="AuthenticationType" ColumnName="AuthenticationType" />
+          <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+          <ScalarProperty Name="SettingsControlSrc" ColumnName="SettingsControlSrc" />
+          <ScalarProperty Name="LoginControlSrc" ColumnName="LoginControlSrc" />
+          <ScalarProperty Name="LogoffControlSrc" ColumnName="LogoffControlSrc" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Banners">
+      <EntityTypeMapping TypeName="RPGFLModel.Banners">
+        <MappingFragment StoreEntitySet="Banners">
+          <ScalarProperty Name="BannerId" ColumnName="BannerId" />
+          <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+          <ScalarProperty Name="ImageFile" ColumnName="ImageFile" />
+          <ScalarProperty Name="BannerName" ColumnName="BannerName" />
+          <ScalarProperty Name="Impressions" ColumnName="Impressions" />
+          <ScalarProperty Name="CPM" ColumnName="CPM" />
+          <ScalarProperty Name="Views" ColumnName="Views" />
+          <ScalarProperty Name="ClickThroughs" ColumnName="ClickThroughs" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="CreatedByUser" ColumnName="CreatedByUser" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="BannerTypeId" ColumnName="BannerTypeId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="Criteria" ColumnName="Criteria" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="Width" ColumnName="Width" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Campaign_to_Character">
+      <EntityTypeMapping TypeName="RPGFLModel.Campaign_to_Character">
+        <MappingFragment StoreEntitySet="Campaign_to_Character">
+          <ScalarProperty Name="EF_PK" ColumnName="EF_PK" />
+          <ScalarProperty Name="Campaign_FK" ColumnName="Campaign_FK" />
+          <ScalarProperty Name="Character_FK" ColumnName="Character_FK" />
+          <ScalarProperty Name="Remaining_Energy" ColumnName="Remaining_Energy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Campaigns">
+      <EntityTypeMapping TypeName="RPGFLModel.Campaigns">
+        <MappingFragment StoreEntitySet="Campaigns">
+          <ScalarProperty Name="Campaign_PK" ColumnName="Campaign_PK" />
+          <ScalarProperty Name="Campaign_Start_Date" ColumnName="Campaign_Start_Date" />
+          <ScalarProperty Name="Campaign_End_Date" ColumnName="Campaign_End_Date" />
+          <ScalarProperty Name="Series_FK" ColumnName="Series_FK" />
+          <ScalarProperty Name="bIsLive" ColumnName="bIsLive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Character_to_Series">
+      <EntityTypeMapping TypeName="RPGFLModel.Character_to_Series">
+        <MappingFragment StoreEntitySet="Character_to_Series">
+          <ScalarProperty Name="EF_PK" ColumnName="EF_PK" />
+          <ScalarProperty Name="Character_FK" ColumnName="Character_FK" />
+          <ScalarProperty Name="Series_FK" ColumnName="Series_FK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Character_to_Skill">
+      <EntityTypeMapping TypeName="RPGFLModel.Character_to_Skill">
+        <MappingFragment StoreEntitySet="Character_to_Skill">
+          <ScalarProperty Name="EF_PK" ColumnName="EF_PK" />
+          <ScalarProperty Name="Character_FK" ColumnName="Character_FK" />
+          <ScalarProperty Name="Skill_FK" ColumnName="Skill_FK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Character_to_Skirmish">
+      <EntityTypeMapping TypeName="RPGFLModel.Character_to_Skirmish">
+        <MappingFragment StoreEntitySet="Character_to_Skirmish">
+          <ScalarProperty Name="EF_PK" ColumnName="EF_PK" />
+          <ScalarProperty Name="Character_FK" ColumnName="Character_FK" />
+          <ScalarProperty Name="Skirmish_FK" ColumnName="Skirmish_FK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Character_Track_Log">
+      <EntityTypeMapping TypeName="RPGFLModel.Character_Track_Log">
+        <MappingFragment StoreEntitySet="Character_Track_Log">
+          <ScalarProperty Name="CharTrackLog_PK" ColumnName="CharTrackLog_PK" />
+          <ScalarProperty Name="Character_FK" ColumnName="Character_FK" />
+          <ScalarProperty Name="Damage_Dealt" ColumnName="Damage_Dealt" />
+          <ScalarProperty Name="Damage_Taken" ColumnName="Damage_Taken" />
+          <ScalarProperty Name="Opponent_Knock_Outs" ColumnName="Opponent_Knock_Outs" />
+          <ScalarProperty Name="Self_Knock_Outs" ColumnName="Self_Knock_Outs" />
+          <ScalarProperty Name="Assist_Knock_Outs" ColumnName="Assist_Knock_Outs" />
+          <ScalarProperty Name="Attacks_Dodged" ColumnName="Attacks_Dodged" />
+          <ScalarProperty Name="Critical_Successes" ColumnName="Critical_Successes" />
+          <ScalarProperty Name="Critical_Fails" ColumnName="Critical_Fails" />
+          <ScalarProperty Name="Series_Participated" ColumnName="Series_Participated" />
+          <ScalarProperty Name="Skirmishes_Participated" ColumnName="Skirmishes_Participated" />
+          <ScalarProperty Name="Health_Regained" ColumnName="Health_Regained" />
+          <ScalarProperty Name="Skirmishes_Survived" ColumnName="Skirmishes_Survived" />
+          <ScalarProperty Name="Ally_Bonus_Damage" ColumnName="Ally_Bonus_Damage" />
+          <ScalarProperty Name="Enemy_Less_Damage" ColumnName="Enemy_Less_Damage" />
+          <ScalarProperty Name="Afflictions_Inflicted" ColumnName="Afflictions_Inflicted" />
+          <ScalarProperty Name="Initiative_Acted_First" ColumnName="Initiative_Acted_First" />
+          <ScalarProperty Name="Series_FK" ColumnName="Series_FK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Characters">
+      <EntityTypeMapping TypeName="RPGFLModel.Characters">
+        <MappingFragment StoreEntitySet="Characters">
+          <ScalarProperty Name="Character_PK" ColumnName="Character_PK" />
+          <ScalarProperty Name="Character_Name" ColumnName="Character_Name" />
+          <ScalarProperty Name="Title_Desc" ColumnName="Title_Desc" />
+          <ScalarProperty Name="Health" ColumnName="Health" />
+          <ScalarProperty Name="Dodge" ColumnName="Dodge" />
+          <ScalarProperty Name="Archetype" ColumnName="Archetype" />
+          <ScalarProperty Name="Finesse" ColumnName="Finesse" />
+          <ScalarProperty Name="Agility" ColumnName="Agility" />
+          <ScalarProperty Name="Senses" ColumnName="Senses" />
+          <ScalarProperty Name="Mana" ColumnName="Mana" />
+          <ScalarProperty Name="Immunities" ColumnName="Immunities" />
+          <ScalarProperty Name="Vulnerabilities" ColumnName="Vulnerabilities" />
+          <ScalarProperty Name="Resistances" ColumnName="Resistances" />
+          <ScalarProperty Name="Guild_FK" ColumnName="Guild_FK" />
+          <ScalarProperty Name="Initiative" ColumnName="Initiative" />
+          <ScalarProperty Name="Max_Energy" ColumnName="Max_Energy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Classification">
+      <EntityTypeMapping TypeName="RPGFLModel.Classification">
+        <MappingFragment StoreEntitySet="Classification">
+          <ScalarProperty Name="ClassificationId" ColumnName="ClassificationId" />
+          <ScalarProperty Name="ClassificationName" ColumnName="ClassificationName" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Conditions">
+      <EntityTypeMapping TypeName="RPGFLModel.Conditions">
+        <MappingFragment StoreEntitySet="Conditions">
+          <ScalarProperty Name="Condition_PK" ColumnName="Condition_PK" />
+          <ScalarProperty Name="Condition_Name" ColumnName="Condition_Name" />
+          <ScalarProperty Name="Condition_Description" ColumnName="Condition_Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentItems">
+      <EntityTypeMapping TypeName="RPGFLModel.ContentItems">
+        <MappingFragment StoreEntitySet="ContentItems">
+          <ScalarProperty Name="ContentItemID" ColumnName="ContentItemID" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="ContentTypeID" ColumnName="ContentTypeID" />
+          <ScalarProperty Name="TabID" ColumnName="TabID" />
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="ContentKey" ColumnName="ContentKey" />
+          <ScalarProperty Name="Indexed" ColumnName="Indexed" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentItems_MetaData">
+      <EntityTypeMapping TypeName="RPGFLModel.ContentItems_MetaData">
+        <MappingFragment StoreEntitySet="ContentItems_MetaData">
+          <ScalarProperty Name="ContentItemMetaDataID" ColumnName="ContentItemMetaDataID" />
+          <ScalarProperty Name="ContentItemID" ColumnName="ContentItemID" />
+          <ScalarProperty Name="MetaDataID" ColumnName="MetaDataID" />
+          <ScalarProperty Name="MetaDataValue" ColumnName="MetaDataValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentItems_Tags">
+      <EntityTypeMapping TypeName="RPGFLModel.ContentItems_Tags">
+        <MappingFragment StoreEntitySet="ContentItems_Tags">
+          <ScalarProperty Name="ContentItemTagID" ColumnName="ContentItemTagID" />
+          <ScalarProperty Name="ContentItemID" ColumnName="ContentItemID" />
+          <ScalarProperty Name="TermID" ColumnName="TermID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentTypes">
+      <EntityTypeMapping TypeName="RPGFLModel.ContentTypes">
+        <MappingFragment StoreEntitySet="ContentTypes">
+          <ScalarProperty Name="ContentTypeID" ColumnName="ContentTypeID" />
+          <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentWorkflowActions">
+      <EntityTypeMapping TypeName="RPGFLModel.ContentWorkflowActions">
+        <MappingFragment StoreEntitySet="ContentWorkflowActions">
+          <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+          <ScalarProperty Name="ContentTypeId" ColumnName="ContentTypeId" />
+          <ScalarProperty Name="ActionType" ColumnName="ActionType" />
+          <ScalarProperty Name="ActionSource" ColumnName="ActionSource" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentWorkflowLogs">
+      <EntityTypeMapping TypeName="RPGFLModel.ContentWorkflowLogs">
+        <MappingFragment StoreEntitySet="ContentWorkflowLogs">
+          <ScalarProperty Name="WorkflowLogID" ColumnName="WorkflowLogID" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="WorkflowID" ColumnName="WorkflowID" />
+          <ScalarProperty Name="ContentItemID" ColumnName="ContentItemID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentWorkflows">
+      <EntityTypeMapping TypeName="RPGFLModel.ContentWorkflows">
+        <MappingFragment StoreEntitySet="ContentWorkflows">
+          <ScalarProperty Name="WorkflowID" ColumnName="WorkflowID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="WorkflowName" ColumnName="WorkflowName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="StartAfterCreating" ColumnName="StartAfterCreating" />
+          <ScalarProperty Name="StartAfterEditing" ColumnName="StartAfterEditing" />
+          <ScalarProperty Name="DispositionEnabled" ColumnName="DispositionEnabled" />
+          <ScalarProperty Name="IsSystem" ColumnName="IsSystem" />
+          <ScalarProperty Name="WorkflowKey" ColumnName="WorkflowKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentWorkflowSources">
+      <EntityTypeMapping TypeName="RPGFLModel.ContentWorkflowSources">
+        <MappingFragment StoreEntitySet="ContentWorkflowSources">
+          <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+          <ScalarProperty Name="WorkflowID" ColumnName="WorkflowID" />
+          <ScalarProperty Name="SourceName" ColumnName="SourceName" />
+          <ScalarProperty Name="SourceType" ColumnName="SourceType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentWorkflowStatePermission">
+      <EntityTypeMapping TypeName="RPGFLModel.ContentWorkflowStatePermission">
+        <MappingFragment StoreEntitySet="ContentWorkflowStatePermission">
+          <ScalarProperty Name="WorkflowStatePermissionID" ColumnName="WorkflowStatePermissionID" />
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+          <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+          <ScalarProperty Name="AllowAccess" ColumnName="AllowAccess" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentWorkflowStates">
+      <EntityTypeMapping TypeName="RPGFLModel.ContentWorkflowStates">
+        <MappingFragment StoreEntitySet="ContentWorkflowStates">
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+          <ScalarProperty Name="WorkflowID" ColumnName="WorkflowID" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="SendEmail" ColumnName="SendEmail" />
+          <ScalarProperty Name="SendMessage" ColumnName="SendMessage" />
+          <ScalarProperty Name="IsDisposalState" ColumnName="IsDisposalState" />
+          <ScalarProperty Name="OnCompleteMessageSubject" ColumnName="OnCompleteMessageSubject" />
+          <ScalarProperty Name="OnCompleteMessageBody" ColumnName="OnCompleteMessageBody" />
+          <ScalarProperty Name="OnDiscardMessageSubject" ColumnName="OnDiscardMessageSubject" />
+          <ScalarProperty Name="OnDiscardMessageBody" ColumnName="OnDiscardMessageBody" />
+          <ScalarProperty Name="IsSystem" ColumnName="IsSystem" />
+          <ScalarProperty Name="SendNotification" ColumnName="SendNotification" />
+          <ScalarProperty Name="SendNotificationToAdministrators" ColumnName="SendNotificationToAdministrators" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoreMessaging_MessageAttachments">
+      <EntityTypeMapping TypeName="RPGFLModel.CoreMessaging_MessageAttachments">
+        <MappingFragment StoreEntitySet="CoreMessaging_MessageAttachments">
+          <ScalarProperty Name="MessageAttachmentID" ColumnName="MessageAttachmentID" />
+          <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+          <ScalarProperty Name="FileID" ColumnName="FileID" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoreMessaging_MessageRecipients">
+      <EntityTypeMapping TypeName="RPGFLModel.CoreMessaging_MessageRecipients">
+        <MappingFragment StoreEntitySet="CoreMessaging_MessageRecipients">
+          <ScalarProperty Name="RecipientID" ColumnName="RecipientID" />
+          <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Read" ColumnName="Read" />
+          <ScalarProperty Name="Archived" ColumnName="Archived" />
+          <ScalarProperty Name="EmailSent" ColumnName="EmailSent" />
+          <ScalarProperty Name="EmailSentDate" ColumnName="EmailSentDate" />
+          <ScalarProperty Name="EmailSchedulerInstance" ColumnName="EmailSchedulerInstance" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="SendToast" ColumnName="SendToast" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoreMessaging_Messages">
+      <EntityTypeMapping TypeName="RPGFLModel.CoreMessaging_Messages">
+        <MappingFragment StoreEntitySet="CoreMessaging_Messages">
+          <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="NotificationTypeID" ColumnName="NotificationTypeID" />
+          <ScalarProperty Name="To" ColumnName="To" />
+          <ScalarProperty Name="From" ColumnName="From" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="ConversationID" ColumnName="ConversationID" />
+          <ScalarProperty Name="ReplyAllAllowed" ColumnName="ReplyAllAllowed" />
+          <ScalarProperty Name="SenderUserID" ColumnName="SenderUserID" />
+          <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+          <ScalarProperty Name="Context" ColumnName="Context" />
+          <ScalarProperty Name="IncludeDismissAction" ColumnName="IncludeDismissAction" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoreMessaging_NotificationTypeActions">
+      <EntityTypeMapping TypeName="RPGFLModel.CoreMessaging_NotificationTypeActions">
+        <MappingFragment StoreEntitySet="CoreMessaging_NotificationTypeActions">
+          <ScalarProperty Name="NotificationTypeActionID" ColumnName="NotificationTypeActionID" />
+          <ScalarProperty Name="NotificationTypeID" ColumnName="NotificationTypeID" />
+          <ScalarProperty Name="NameResourceKey" ColumnName="NameResourceKey" />
+          <ScalarProperty Name="DescriptionResourceKey" ColumnName="DescriptionResourceKey" />
+          <ScalarProperty Name="ConfirmResourceKey" ColumnName="ConfirmResourceKey" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="APICall" ColumnName="APICall" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoreMessaging_NotificationTypes">
+      <EntityTypeMapping TypeName="RPGFLModel.CoreMessaging_NotificationTypes">
+        <MappingFragment StoreEntitySet="CoreMessaging_NotificationTypes">
+          <ScalarProperty Name="NotificationTypeID" ColumnName="NotificationTypeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TTL" ColumnName="TTL" />
+          <ScalarProperty Name="DesktopModuleID" ColumnName="DesktopModuleID" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="IsTask" ColumnName="IsTask" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoreMessaging_Subscriptions">
+      <EntityTypeMapping TypeName="RPGFLModel.CoreMessaging_Subscriptions">
+        <MappingFragment StoreEntitySet="CoreMessaging_Subscriptions">
+          <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PortalId" ColumnName="PortalId" />
+          <ScalarProperty Name="SubscriptionTypeId" ColumnName="SubscriptionTypeId" />
+          <ScalarProperty Name="ObjectKey" ColumnName="ObjectKey" />
+          <ScalarProperty Name="ObjectData" ColumnName="ObjectData" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+          <ScalarProperty Name="TabId" ColumnName="TabId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoreMessaging_SubscriptionTypes">
+      <EntityTypeMapping TypeName="RPGFLModel.CoreMessaging_SubscriptionTypes">
+        <MappingFragment StoreEntitySet="CoreMessaging_SubscriptionTypes">
+          <ScalarProperty Name="SubscriptionTypeId" ColumnName="SubscriptionTypeId" />
+          <ScalarProperty Name="SubscriptionName" ColumnName="SubscriptionName" />
+          <ScalarProperty Name="FriendlyName" ColumnName="FriendlyName" />
+          <ScalarProperty Name="DesktopModuleId" ColumnName="DesktopModuleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoreMessaging_UserPreferences">
+      <EntityTypeMapping TypeName="RPGFLModel.CoreMessaging_UserPreferences">
+        <MappingFragment StoreEntitySet="CoreMessaging_UserPreferences">
+          <ScalarProperty Name="UserPreferenceId" ColumnName="UserPreferenceId" />
+          <ScalarProperty Name="PortalId" ColumnName="PortalId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="MessagesEmailFrequency" ColumnName="MessagesEmailFrequency" />
+          <ScalarProperty Name="NotificationsEmailFrequency" ColumnName="NotificationsEmailFrequency" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Damage_Types">
+      <EntityTypeMapping TypeName="RPGFLModel.Damage_Types">
+        <MappingFragment StoreEntitySet="Damage_Types">
+          <ScalarProperty Name="DamageType_Name" ColumnName="DamageType_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dashboard_Controls">
+      <EntityTypeMapping TypeName="RPGFLModel.Dashboard_Controls">
+        <MappingFragment StoreEntitySet="Dashboard_Controls">
+          <ScalarProperty Name="DashboardControlID" ColumnName="DashboardControlID" />
+          <ScalarProperty Name="DashboardControlKey" ColumnName="DashboardControlKey" />
+          <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+          <ScalarProperty Name="DashboardControlSrc" ColumnName="DashboardControlSrc" />
+          <ScalarProperty Name="DashboardControlLocalResources" ColumnName="DashboardControlLocalResources" />
+          <ScalarProperty Name="ControllerClass" ColumnName="ControllerClass" />
+          <ScalarProperty Name="ViewOrder" ColumnName="ViewOrder" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DesktopModulePermission">
+      <EntityTypeMapping TypeName="RPGFLModel.DesktopModulePermission">
+        <MappingFragment StoreEntitySet="DesktopModulePermission">
+          <ScalarProperty Name="DesktopModulePermissionID" ColumnName="DesktopModulePermissionID" />
+          <ScalarProperty Name="PortalDesktopModuleID" ColumnName="PortalDesktopModuleID" />
+          <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+          <ScalarProperty Name="AllowAccess" ColumnName="AllowAccess" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DesktopModules">
+      <EntityTypeMapping TypeName="RPGFLModel.DesktopModules">
+        <MappingFragment StoreEntitySet="DesktopModules">
+          <ScalarProperty Name="DesktopModuleID" ColumnName="DesktopModuleID" />
+          <ScalarProperty Name="FriendlyName" ColumnName="FriendlyName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="IsPremium" ColumnName="IsPremium" />
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+          <ScalarProperty Name="BusinessControllerClass" ColumnName="BusinessControllerClass" />
+          <ScalarProperty Name="FolderName" ColumnName="FolderName" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="SupportedFeatures" ColumnName="SupportedFeatures" />
+          <ScalarProperty Name="CompatibleVersions" ColumnName="CompatibleVersions" />
+          <ScalarProperty Name="Dependencies" ColumnName="Dependencies" />
+          <ScalarProperty Name="Permissions" ColumnName="Permissions" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="ContentItemId" ColumnName="ContentItemId" />
+          <ScalarProperty Name="Shareable" ColumnName="Shareable" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Draft_Table">
+      <EntityTypeMapping TypeName="RPGFLModel.Draft_Table">
+        <MappingFragment StoreEntitySet="Draft_Table">
+          <ScalarProperty Name="EF_PK" ColumnName="EF_PK" />
+          <ScalarProperty Name="User_FK" ColumnName="User_FK" />
+          <ScalarProperty Name="League_FK" ColumnName="League_FK" />
+          <ScalarProperty Name="Character_FK" ColumnName="Character_FK" />
+          <ScalarProperty Name="Char_Accolade_Points_For_User" ColumnName="Char_Accolade_Points_For_User" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EventLog">
+      <EntityTypeMapping TypeName="RPGFLModel.EventLog">
+        <MappingFragment StoreEntitySet="EventLog">
+          <ScalarProperty Name="LogGUID" ColumnName="LogGUID" />
+          <ScalarProperty Name="LogTypeKey" ColumnName="LogTypeKey" />
+          <ScalarProperty Name="LogConfigID" ColumnName="LogConfigID" />
+          <ScalarProperty Name="LogUserID" ColumnName="LogUserID" />
+          <ScalarProperty Name="LogUserName" ColumnName="LogUserName" />
+          <ScalarProperty Name="LogPortalID" ColumnName="LogPortalID" />
+          <ScalarProperty Name="LogPortalName" ColumnName="LogPortalName" />
+          <ScalarProperty Name="LogCreateDate" ColumnName="LogCreateDate" />
+          <ScalarProperty Name="LogServerName" ColumnName="LogServerName" />
+          <ScalarProperty Name="LogProperties" ColumnName="LogProperties" />
+          <ScalarProperty Name="LogNotificationPending" ColumnName="LogNotificationPending" />
+          <ScalarProperty Name="LogEventID" ColumnName="LogEventID" />
+          <ScalarProperty Name="ExceptionHash" ColumnName="ExceptionHash" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EventLogConfig">
+      <EntityTypeMapping TypeName="RPGFLModel.EventLogConfig">
+        <MappingFragment StoreEntitySet="EventLogConfig">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="LogTypeKey" ColumnName="LogTypeKey" />
+          <ScalarProperty Name="LogTypePortalID" ColumnName="LogTypePortalID" />
+          <ScalarProperty Name="LoggingIsActive" ColumnName="LoggingIsActive" />
+          <ScalarProperty Name="KeepMostRecent" ColumnName="KeepMostRecent" />
+          <ScalarProperty Name="EmailNotificationIsActive" ColumnName="EmailNotificationIsActive" />
+          <ScalarProperty Name="NotificationThreshold" ColumnName="NotificationThreshold" />
+          <ScalarProperty Name="NotificationThresholdTime" ColumnName="NotificationThresholdTime" />
+          <ScalarProperty Name="NotificationThresholdTimeType" ColumnName="NotificationThresholdTimeType" />
+          <ScalarProperty Name="MailFromAddress" ColumnName="MailFromAddress" />
+          <ScalarProperty Name="MailToAddress" ColumnName="MailToAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EventLogTypes">
+      <EntityTypeMapping TypeName="RPGFLModel.EventLogTypes">
+        <MappingFragment StoreEntitySet="EventLogTypes">
+          <ScalarProperty Name="LogTypeKey" ColumnName="LogTypeKey" />
+          <ScalarProperty Name="LogTypeFriendlyName" ColumnName="LogTypeFriendlyName" />
+          <ScalarProperty Name="LogTypeDescription" ColumnName="LogTypeDescription" />
+          <ScalarProperty Name="LogTypeOwner" ColumnName="LogTypeOwner" />
+          <ScalarProperty Name="LogTypeCSSClass" ColumnName="LogTypeCSSClass" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EventQueue">
+      <EntityTypeMapping TypeName="RPGFLModel.EventQueue">
+        <MappingFragment StoreEntitySet="EventQueue">
+          <ScalarProperty Name="EventMessageID" ColumnName="EventMessageID" />
+          <ScalarProperty Name="EventName" ColumnName="EventName" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="ProcessorType" ColumnName="ProcessorType" />
+          <ScalarProperty Name="ProcessorCommand" ColumnName="ProcessorCommand" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="Sender" ColumnName="Sender" />
+          <ScalarProperty Name="Subscriber" ColumnName="Subscriber" />
+          <ScalarProperty Name="AuthorizedRoles" ColumnName="AuthorizedRoles" />
+          <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
+          <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+          <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+          <ScalarProperty Name="Attributes" ColumnName="Attributes" />
+          <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExceptionEvents">
+      <EntityTypeMapping TypeName="RPGFLModel.ExceptionEvents">
+        <MappingFragment StoreEntitySet="ExceptionEvents">
+          <ScalarProperty Name="LogEventID" ColumnName="LogEventID" />
+          <ScalarProperty Name="AssemblyVersion" ColumnName="AssemblyVersion" />
+          <ScalarProperty Name="PortalId" ColumnName="PortalId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="TabId" ColumnName="TabId" />
+          <ScalarProperty Name="RawUrl" ColumnName="RawUrl" />
+          <ScalarProperty Name="Referrer" ColumnName="Referrer" />
+          <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Exceptions">
+      <EntityTypeMapping TypeName="RPGFLModel.Exceptions">
+        <MappingFragment StoreEntitySet="Exceptions">
+          <ScalarProperty Name="ExceptionHash" ColumnName="ExceptionHash" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+          <ScalarProperty Name="InnerMessage" ColumnName="InnerMessage" />
+          <ScalarProperty Name="InnerStackTrace" ColumnName="InnerStackTrace" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExtensionUrlProviderConfiguration">
+      <EntityTypeMapping TypeName="RPGFLModel.ExtensionUrlProviderConfiguration">
+        <MappingFragment StoreEntitySet="ExtensionUrlProviderConfiguration">
+          <ScalarProperty Name="ExtensionUrlProviderID" ColumnName="ExtensionUrlProviderID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExtensionUrlProviders">
+      <EntityTypeMapping TypeName="RPGFLModel.ExtensionUrlProviders">
+        <MappingFragment StoreEntitySet="ExtensionUrlProviders">
+          <ScalarProperty Name="ExtensionUrlProviderID" ColumnName="ExtensionUrlProviderID" />
+          <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+          <ScalarProperty Name="ProviderType" ColumnName="ProviderType" />
+          <ScalarProperty Name="SettingsControlSrc" ColumnName="SettingsControlSrc" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RewriteAllUrls" ColumnName="RewriteAllUrls" />
+          <ScalarProperty Name="RedirectAllUrls" ColumnName="RedirectAllUrls" />
+          <ScalarProperty Name="ReplaceAllUrls" ColumnName="ReplaceAllUrls" />
+          <ScalarProperty Name="DesktopModuleId" ColumnName="DesktopModuleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExtensionUrlProviderSetting">
+      <EntityTypeMapping TypeName="RPGFLModel.ExtensionUrlProviderSetting">
+        <MappingFragment StoreEntitySet="ExtensionUrlProviderSetting">
+          <ScalarProperty Name="ExtensionUrlProviderID" ColumnName="ExtensionUrlProviderID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="SettingName" ColumnName="SettingName" />
+          <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExtensionUrlProviderTab">
+      <EntityTypeMapping TypeName="RPGFLModel.ExtensionUrlProviderTab">
+        <MappingFragment StoreEntitySet="ExtensionUrlProviderTab">
+          <ScalarProperty Name="ExtensionUrlProviderID" ColumnName="ExtensionUrlProviderID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="TabID" ColumnName="TabID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Files">
+      <EntityTypeMapping TypeName="RPGFLModel.Files">
+        <MappingFragment StoreEntitySet="Files">
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+          <ScalarProperty Name="PortalId" ColumnName="PortalId" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="Extension" ColumnName="Extension" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Width" ColumnName="Width" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+          <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+          <ScalarProperty Name="FolderID" ColumnName="FolderID" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
+          <ScalarProperty Name="VersionGuid" ColumnName="VersionGuid" />
+          <ScalarProperty Name="SHA1Hash" ColumnName="SHA1Hash" />
+          <ScalarProperty Name="LastModificationTime" ColumnName="LastModificationTime" />
+          <ScalarProperty Name="Folder" ColumnName="Folder" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EnablePublishPeriod" ColumnName="EnablePublishPeriod" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="PublishedVersion" ColumnName="PublishedVersion" />
+          <ScalarProperty Name="ContentItemID" ColumnName="ContentItemID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FileVersions">
+      <EntityTypeMapping TypeName="RPGFLModel.FileVersions">
+        <MappingFragment StoreEntitySet="FileVersions">
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="Extension" ColumnName="Extension" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Width" ColumnName="Width" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+          <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="SHA1Hash" ColumnName="SHA1Hash" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FolderMappings">
+      <EntityTypeMapping TypeName="RPGFLModel.FolderMappings">
+        <MappingFragment StoreEntitySet="FolderMappings">
+          <ScalarProperty Name="FolderMappingID" ColumnName="FolderMappingID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="MappingName" ColumnName="MappingName" />
+          <ScalarProperty Name="FolderProviderType" ColumnName="FolderProviderType" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FolderMappingsSettings">
+      <EntityTypeMapping TypeName="RPGFLModel.FolderMappingsSettings">
+        <MappingFragment StoreEntitySet="FolderMappingsSettings">
+          <ScalarProperty Name="FolderMappingID" ColumnName="FolderMappingID" />
+          <ScalarProperty Name="SettingName" ColumnName="SettingName" />
+          <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FolderPermission">
+      <EntityTypeMapping TypeName="RPGFLModel.FolderPermission">
+        <MappingFragment StoreEntitySet="FolderPermission">
+          <ScalarProperty Name="FolderPermissionID" ColumnName="FolderPermissionID" />
+          <ScalarProperty Name="FolderID" ColumnName="FolderID" />
+          <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+          <ScalarProperty Name="AllowAccess" ColumnName="AllowAccess" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Folders">
+      <EntityTypeMapping TypeName="RPGFLModel.Folders">
+        <MappingFragment StoreEntitySet="Folders">
+          <ScalarProperty Name="FolderID" ColumnName="FolderID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="FolderPath" ColumnName="FolderPath" />
+          <ScalarProperty Name="StorageLocation" ColumnName="StorageLocation" />
+          <ScalarProperty Name="IsProtected" ColumnName="IsProtected" />
+          <ScalarProperty Name="IsCached" ColumnName="IsCached" />
+          <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
+          <ScalarProperty Name="VersionGuid" ColumnName="VersionGuid" />
+          <ScalarProperty Name="FolderMappingID" ColumnName="FolderMappingID" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="IsVersioned" ColumnName="IsVersioned" />
+          <ScalarProperty Name="WorkflowID" ColumnName="WorkflowID" />
+          <ScalarProperty Name="MappedPath" ColumnName="MappedPath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Guilds">
+      <EntityTypeMapping TypeName="RPGFLModel.Guilds">
+        <MappingFragment StoreEntitySet="Guilds">
+          <ScalarProperty Name="Guild_PK" ColumnName="Guild_PK" />
+          <ScalarProperty Name="Guild_Name" ColumnName="Guild_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HostSettings">
+      <EntityTypeMapping TypeName="RPGFLModel.HostSettings">
+        <MappingFragment StoreEntitySet="HostSettings">
+          <ScalarProperty Name="SettingName" ColumnName="SettingName" />
+          <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+          <ScalarProperty Name="SettingIsSecure" ColumnName="SettingIsSecure" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HtmlText">
+      <EntityTypeMapping TypeName="RPGFLModel.HtmlText">
+        <MappingFragment StoreEntitySet="HtmlText">
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+          <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="Summary" ColumnName="Summary" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HtmlTextLog">
+      <EntityTypeMapping TypeName="RPGFLModel.HtmlTextLog">
+        <MappingFragment StoreEntitySet="HtmlTextLog">
+          <ScalarProperty Name="HtmlTextLogID" ColumnName="HtmlTextLogID" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Approved" ColumnName="Approved" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HtmlTextUsers">
+      <EntityTypeMapping TypeName="RPGFLModel.HtmlTextUsers">
+        <MappingFragment StoreEntitySet="HtmlTextUsers">
+          <ScalarProperty Name="HtmlTextUserID" ColumnName="HtmlTextUserID" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="TabID" ColumnName="TabID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPFilter">
+      <EntityTypeMapping TypeName="RPGFLModel.IPFilter">
+        <MappingFragment StoreEntitySet="IPFilter">
+          <ScalarProperty Name="IPFilterID" ColumnName="IPFilterID" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+          <ScalarProperty Name="SubnetMask" ColumnName="SubnetMask" />
+          <ScalarProperty Name="RuleType" ColumnName="RuleType" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JavaScriptLibraries">
+      <EntityTypeMapping TypeName="RPGFLModel.JavaScriptLibraries">
+        <MappingFragment StoreEntitySet="JavaScriptLibraries">
+          <ScalarProperty Name="JavaScriptLibraryID" ColumnName="JavaScriptLibraryID" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="LibraryName" ColumnName="LibraryName" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="ObjectName" ColumnName="ObjectName" />
+          <ScalarProperty Name="PreferredScriptLocation" ColumnName="PreferredScriptLocation" />
+          <ScalarProperty Name="CDNPath" ColumnName="CDNPath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Journal">
+      <EntityTypeMapping TypeName="RPGFLModel.Journal">
+        <MappingFragment StoreEntitySet="Journal">
+          <ScalarProperty Name="JournalId" ColumnName="JournalId" />
+          <ScalarProperty Name="JournalTypeId" ColumnName="JournalTypeId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="PortalId" ColumnName="PortalId" />
+          <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Summary" ColumnName="Summary" />
+          <ScalarProperty Name="ItemData" ColumnName="ItemData" />
+          <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+          <ScalarProperty Name="ObjectKey" ColumnName="ObjectKey" />
+          <ScalarProperty Name="AccessKey" ColumnName="AccessKey" />
+          <ScalarProperty Name="ContentItemId" ColumnName="ContentItemId" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CommentsDisabled" ColumnName="CommentsDisabled" />
+          <ScalarProperty Name="CommentsHidden" ColumnName="CommentsHidden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Journal_Access">
+      <EntityTypeMapping TypeName="RPGFLModel.Journal_Access">
+        <MappingFragment StoreEntitySet="Journal_Access">
+          <ScalarProperty Name="JournalAccessId" ColumnName="JournalAccessId" />
+          <ScalarProperty Name="JournalTypeId" ColumnName="JournalTypeId" />
+          <ScalarProperty Name="PortalId" ColumnName="PortalId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="AccessKey" ColumnName="AccessKey" />
+          <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Journal_Comments">
+      <EntityTypeMapping TypeName="RPGFLModel.Journal_Comments">
+        <MappingFragment StoreEntitySet="Journal_Comments">
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+          <ScalarProperty Name="JournalId" ColumnName="JournalId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+          <ScalarProperty Name="CommentXML" ColumnName="CommentXML" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Journal_Data">
+      <EntityTypeMapping TypeName="RPGFLModel.Journal_Data">
+        <MappingFragment StoreEntitySet="Journal_Data">
+          <ScalarProperty Name="JournalDataId" ColumnName="JournalDataId" />
+          <ScalarProperty Name="JournalId" ColumnName="JournalId" />
+          <ScalarProperty Name="JournalXML" ColumnName="JournalXML" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Journal_Security">
+      <EntityTypeMapping TypeName="RPGFLModel.Journal_Security">
+        <MappingFragment StoreEntitySet="Journal_Security">
+          <ScalarProperty Name="JournalSecurityId" ColumnName="JournalSecurityId" />
+          <ScalarProperty Name="JournalId" ColumnName="JournalId" />
+          <ScalarProperty Name="SecurityKey" ColumnName="SecurityKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Journal_TypeFilters">
+      <EntityTypeMapping TypeName="RPGFLModel.Journal_TypeFilters">
+        <MappingFragment StoreEntitySet="Journal_TypeFilters">
+          <ScalarProperty Name="JournalTypeFilterId" ColumnName="JournalTypeFilterId" />
+          <ScalarProperty Name="PortalId" ColumnName="PortalId" />
+          <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+          <ScalarProperty Name="JournalTypeId" ColumnName="JournalTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Journal_Types">
+      <EntityTypeMapping TypeName="RPGFLModel.Journal_Types">
+        <MappingFragment StoreEntitySet="Journal_Types">
+          <ScalarProperty Name="JournalTypeId" ColumnName="JournalTypeId" />
+          <ScalarProperty Name="JournalType" ColumnName="JournalType" />
+          <ScalarProperty Name="icon" ColumnName="icon" />
+          <ScalarProperty Name="PortalId" ColumnName="PortalId" />
+          <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+          <ScalarProperty Name="AppliesToProfile" ColumnName="AppliesToProfile" />
+          <ScalarProperty Name="AppliesToGroup" ColumnName="AppliesToGroup" />
+          <ScalarProperty Name="AppliesToStream" ColumnName="AppliesToStream" />
+          <ScalarProperty Name="Options" ColumnName="Options" />
+          <ScalarProperty Name="SupportsNotify" ColumnName="SupportsNotify" />
+          <ScalarProperty Name="EnableComments" ColumnName="EnableComments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LanguagePacks">
+      <EntityTypeMapping TypeName="RPGFLModel.LanguagePacks">
+        <MappingFragment StoreEntitySet="LanguagePacks">
+          <ScalarProperty Name="LanguagePackID" ColumnName="LanguagePackID" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="DependentPackageID" ColumnName="DependentPackageID" />
+          <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Languages">
+      <EntityTypeMapping TypeName="RPGFLModel.Languages">
+        <MappingFragment StoreEntitySet="Languages">
+          <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+          <ScalarProperty Name="CultureCode" ColumnName="CultureCode" />
+          <ScalarProperty Name="CultureName" ColumnName="CultureName" />
+          <ScalarProperty Name="FallbackCulture" ColumnName="FallbackCulture" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="League_to_User">
+      <EntityTypeMapping TypeName="RPGFLModel.League_to_User">
+        <MappingFragment StoreEntitySet="League_to_User">
+          <ScalarProperty Name="EF_PK" ColumnName="EF_PK" />
+          <ScalarProperty Name="League_FK" ColumnName="League_FK" />
+          <ScalarProperty Name="User_FK" ColumnName="User_FK" />
+          <ScalarProperty Name="Accolade_Points" ColumnName="Accolade_Points" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Leagues">
+      <EntityTypeMapping TypeName="RPGFLModel.Leagues">
+        <MappingFragment StoreEntitySet="Leagues">
+          <ScalarProperty Name="League_PK" ColumnName="League_PK" />
+          <ScalarProperty Name="League_Type" ColumnName="League_Type" />
+          <ScalarProperty Name="League_Name" ColumnName="League_Name" />
+          <ScalarProperty Name="League_Description" ColumnName="League_Description" />
+          <ScalarProperty Name="Trade_Day_Enabled" ColumnName="Trade_Day_Enabled" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lists">
+      <EntityTypeMapping TypeName="RPGFLModel.Lists">
+        <MappingFragment StoreEntitySet="Lists">
+          <ScalarProperty Name="EntryID" ColumnName="EntryID" />
+          <ScalarProperty Name="ListName" ColumnName="ListName" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+          <ScalarProperty Name="DefinitionID" ColumnName="DefinitionID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="SystemList" ColumnName="SystemList" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messaging_Messages">
+      <EntityTypeMapping TypeName="RPGFLModel.Messaging_Messages">
+        <MappingFragment StoreEntitySet="Messaging_Messages">
+          <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="FromUserID" ColumnName="FromUserID" />
+          <ScalarProperty Name="ToUserName" ColumnName="ToUserName" />
+          <ScalarProperty Name="FromUserName" ColumnName="FromUserName" />
+          <ScalarProperty Name="ToUserID" ColumnName="ToUserID" />
+          <ScalarProperty Name="ToRoleID" ColumnName="ToRoleID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Conversation" ColumnName="Conversation" />
+          <ScalarProperty Name="ReplyTo" ColumnName="ReplyTo" />
+          <ScalarProperty Name="AllowReply" ColumnName="AllowReply" />
+          <ScalarProperty Name="SkipPortal" ColumnName="SkipPortal" />
+          <ScalarProperty Name="EmailSent" ColumnName="EmailSent" />
+          <ScalarProperty Name="EmailSentDate" ColumnName="EmailSentDate" />
+          <ScalarProperty Name="EmailSchedulerInstance" ColumnName="EmailSchedulerInstance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MetaData">
+      <EntityTypeMapping TypeName="RPGFLModel.MetaData">
+        <MappingFragment StoreEntitySet="MetaData">
+          <ScalarProperty Name="MetaDataID" ColumnName="MetaDataID" />
+          <ScalarProperty Name="MetaDataName" ColumnName="MetaDataName" />
+          <ScalarProperty Name="MetaDataDescription" ColumnName="MetaDataDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mobile_PreviewProfiles">
+      <EntityTypeMapping TypeName="RPGFLModel.Mobile_PreviewProfiles">
+        <MappingFragment StoreEntitySet="Mobile_PreviewProfiles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PortalId" ColumnName="PortalId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Width" ColumnName="Width" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+          <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mobile_RedirectionRules">
+      <EntityTypeMapping TypeName="RPGFLModel.Mobile_RedirectionRules">
+        <MappingFragment StoreEntitySet="Mobile_RedirectionRules">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RedirectionId" ColumnName="RedirectionId" />
+          <ScalarProperty Name="Capability" ColumnName="Capability" />
+          <ScalarProperty Name="Expression" ColumnName="Expression" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mobile_Redirections">
+      <EntityTypeMapping TypeName="RPGFLModel.Mobile_Redirections">
+        <MappingFragment StoreEntitySet="Mobile_Redirections">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PortalId" ColumnName="PortalId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+          <ScalarProperty Name="SourceTabId" ColumnName="SourceTabId" />
+          <ScalarProperty Name="IncludeChildTabs" ColumnName="IncludeChildTabs" />
+          <ScalarProperty Name="TargetType" ColumnName="TargetType" />
+          <ScalarProperty Name="TargetValue" ColumnName="TargetValue" />
+          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModuleControls">
+      <EntityTypeMapping TypeName="RPGFLModel.ModuleControls">
+        <MappingFragment StoreEntitySet="ModuleControls">
+          <ScalarProperty Name="ModuleControlID" ColumnName="ModuleControlID" />
+          <ScalarProperty Name="ModuleDefID" ColumnName="ModuleDefID" />
+          <ScalarProperty Name="ControlKey" ColumnName="ControlKey" />
+          <ScalarProperty Name="ControlTitle" ColumnName="ControlTitle" />
+          <ScalarProperty Name="ControlSrc" ColumnName="ControlSrc" />
+          <ScalarProperty Name="IconFile" ColumnName="IconFile" />
+          <ScalarProperty Name="ControlType" ColumnName="ControlType" />
+          <ScalarProperty Name="ViewOrder" ColumnName="ViewOrder" />
+          <ScalarProperty Name="HelpUrl" ColumnName="HelpUrl" />
+          <ScalarProperty Name="SupportsPartialRendering" ColumnName="SupportsPartialRendering" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="SupportsPopUps" ColumnName="SupportsPopUps" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModuleDefinitions">
+      <EntityTypeMapping TypeName="RPGFLModel.ModuleDefinitions">
+        <MappingFragment StoreEntitySet="ModuleDefinitions">
+          <ScalarProperty Name="ModuleDefID" ColumnName="ModuleDefID" />
+          <ScalarProperty Name="FriendlyName" ColumnName="FriendlyName" />
+          <ScalarProperty Name="DesktopModuleID" ColumnName="DesktopModuleID" />
+          <ScalarProperty Name="DefaultCacheTime" ColumnName="DefaultCacheTime" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="DefinitionName" ColumnName="DefinitionName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModulePermission">
+      <EntityTypeMapping TypeName="RPGFLModel.ModulePermission">
+        <MappingFragment StoreEntitySet="ModulePermission">
+          <ScalarProperty Name="ModulePermissionID" ColumnName="ModulePermissionID" />
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+          <ScalarProperty Name="AllowAccess" ColumnName="AllowAccess" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Modules">
+      <EntityTypeMapping TypeName="RPGFLModel.Modules">
+        <MappingFragment StoreEntitySet="Modules">
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="ModuleDefID" ColumnName="ModuleDefID" />
+          <ScalarProperty Name="AllTabs" ColumnName="AllTabs" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="InheritViewPermissions" ColumnName="InheritViewPermissions" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="LastContentModifiedOnDate" ColumnName="LastContentModifiedOnDate" />
+          <ScalarProperty Name="ContentItemID" ColumnName="ContentItemID" />
+          <ScalarProperty Name="IsShareable" ColumnName="IsShareable" />
+          <ScalarProperty Name="IsShareableViewOnly" ColumnName="IsShareableViewOnly" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModuleSettings">
+      <EntityTypeMapping TypeName="RPGFLModel.ModuleSettings">
+        <MappingFragment StoreEntitySet="ModuleSettings">
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="SettingName" ColumnName="SettingName" />
+          <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PackageDependencies">
+      <EntityTypeMapping TypeName="RPGFLModel.PackageDependencies">
+        <MappingFragment StoreEntitySet="PackageDependencies">
+          <ScalarProperty Name="PackageDependencyID" ColumnName="PackageDependencyID" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Packages">
+      <EntityTypeMapping TypeName="RPGFLModel.Packages">
+        <MappingFragment StoreEntitySet="Packages">
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="FriendlyName" ColumnName="FriendlyName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PackageType" ColumnName="PackageType" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="License" ColumnName="License" />
+          <ScalarProperty Name="Manifest" ColumnName="Manifest" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="Organization" ColumnName="Organization" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="ReleaseNotes" ColumnName="ReleaseNotes" />
+          <ScalarProperty Name="IsSystemPackage" ColumnName="IsSystemPackage" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="FolderName" ColumnName="FolderName" />
+          <ScalarProperty Name="IconFile" ColumnName="IconFile" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PackageTypes">
+      <EntityTypeMapping TypeName="RPGFLModel.PackageTypes">
+        <MappingFragment StoreEntitySet="PackageTypes">
+          <ScalarProperty Name="PackageType" ColumnName="PackageType" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="SecurityAccessLevel" ColumnName="SecurityAccessLevel" />
+          <ScalarProperty Name="EditorControlSrc" ColumnName="EditorControlSrc" />
+          <ScalarProperty Name="SupportsSideBySideInstallation" ColumnName="SupportsSideBySideInstallation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PasswordHistory">
+      <EntityTypeMapping TypeName="RPGFLModel.PasswordHistory">
+        <MappingFragment StoreEntitySet="PasswordHistory">
+          <ScalarProperty Name="PasswordHistoryID" ColumnName="PasswordHistoryID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Permission">
+      <EntityTypeMapping TypeName="RPGFLModel.Permission">
+        <MappingFragment StoreEntitySet="Permission">
+          <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+          <ScalarProperty Name="PermissionCode" ColumnName="PermissionCode" />
+          <ScalarProperty Name="ModuleDefID" ColumnName="ModuleDefID" />
+          <ScalarProperty Name="PermissionKey" ColumnName="PermissionKey" />
+          <ScalarProperty Name="PermissionName" ColumnName="PermissionName" />
+          <ScalarProperty Name="ViewOrder" ColumnName="ViewOrder" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PortalAlias">
+      <EntityTypeMapping TypeName="RPGFLModel.PortalAlias">
+        <MappingFragment StoreEntitySet="PortalAlias">
+          <ScalarProperty Name="PortalAliasID" ColumnName="PortalAliasID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="HTTPAlias" ColumnName="HTTPAlias" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="BrowserType" ColumnName="BrowserType" />
+          <ScalarProperty Name="Skin" ColumnName="Skin" />
+          <ScalarProperty Name="CultureCode" ColumnName="CultureCode" />
+          <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PortalDesktopModules">
+      <EntityTypeMapping TypeName="RPGFLModel.PortalDesktopModules">
+        <MappingFragment StoreEntitySet="PortalDesktopModules">
+          <ScalarProperty Name="PortalDesktopModuleID" ColumnName="PortalDesktopModuleID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="DesktopModuleID" ColumnName="DesktopModuleID" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PortalGroups">
+      <EntityTypeMapping TypeName="RPGFLModel.PortalGroups">
+        <MappingFragment StoreEntitySet="PortalGroups">
+          <ScalarProperty Name="PortalGroupID" ColumnName="PortalGroupID" />
+          <ScalarProperty Name="MasterPortalID" ColumnName="MasterPortalID" />
+          <ScalarProperty Name="PortalGroupName" ColumnName="PortalGroupName" />
+          <ScalarProperty Name="PortalGroupDescription" ColumnName="PortalGroupDescription" />
+          <ScalarProperty Name="AuthenticationDomain" ColumnName="AuthenticationDomain" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PortalLanguages">
+      <EntityTypeMapping TypeName="RPGFLModel.PortalLanguages">
+        <MappingFragment StoreEntitySet="PortalLanguages">
+          <ScalarProperty Name="PortalLanguageID" ColumnName="PortalLanguageID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PortalLocalization">
+      <EntityTypeMapping TypeName="RPGFLModel.PortalLocalization">
+        <MappingFragment StoreEntitySet="PortalLocalization">
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="CultureCode" ColumnName="CultureCode" />
+          <ScalarProperty Name="PortalName" ColumnName="PortalName" />
+          <ScalarProperty Name="LogoFile" ColumnName="LogoFile" />
+          <ScalarProperty Name="FooterText" ColumnName="FooterText" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+          <ScalarProperty Name="BackgroundFile" ColumnName="BackgroundFile" />
+          <ScalarProperty Name="HomeTabId" ColumnName="HomeTabId" />
+          <ScalarProperty Name="LoginTabId" ColumnName="LoginTabId" />
+          <ScalarProperty Name="UserTabId" ColumnName="UserTabId" />
+          <ScalarProperty Name="AdminTabId" ColumnName="AdminTabId" />
+          <ScalarProperty Name="SplashTabId" ColumnName="SplashTabId" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="RegisterTabId" ColumnName="RegisterTabId" />
+          <ScalarProperty Name="SearchTabId" ColumnName="SearchTabId" />
+          <ScalarProperty Name="Custom404TabId" ColumnName="Custom404TabId" />
+          <ScalarProperty Name="Custom500TabId" ColumnName="Custom500TabId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Portals">
+      <EntityTypeMapping TypeName="RPGFLModel.Portals">
+        <MappingFragment StoreEntitySet="Portals">
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+          <ScalarProperty Name="UserRegistration" ColumnName="UserRegistration" />
+          <ScalarProperty Name="BannerAdvertising" ColumnName="BannerAdvertising" />
+          <ScalarProperty Name="AdministratorId" ColumnName="AdministratorId" />
+          <ScalarProperty Name="Currency" ColumnName="Currency" />
+          <ScalarProperty Name="HostFee" ColumnName="HostFee" />
+          <ScalarProperty Name="HostSpace" ColumnName="HostSpace" />
+          <ScalarProperty Name="AdministratorRoleId" ColumnName="AdministratorRoleId" />
+          <ScalarProperty Name="RegisteredRoleId" ColumnName="RegisteredRoleId" />
+          <ScalarProperty Name="GUID" ColumnName="GUID" />
+          <ScalarProperty Name="PaymentProcessor" ColumnName="PaymentProcessor" />
+          <ScalarProperty Name="ProcessorUserId" ColumnName="ProcessorUserId" />
+          <ScalarProperty Name="ProcessorPassword" ColumnName="ProcessorPassword" />
+          <ScalarProperty Name="SiteLogHistory" ColumnName="SiteLogHistory" />
+          <ScalarProperty Name="DefaultLanguage" ColumnName="DefaultLanguage" />
+          <ScalarProperty Name="TimezoneOffset" ColumnName="TimezoneOffset" />
+          <ScalarProperty Name="HomeDirectory" ColumnName="HomeDirectory" />
+          <ScalarProperty Name="PageQuota" ColumnName="PageQuota" />
+          <ScalarProperty Name="UserQuota" ColumnName="UserQuota" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="PortalGroupID" ColumnName="PortalGroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PortalSettings">
+      <EntityTypeMapping TypeName="RPGFLModel.PortalSettings">
+        <MappingFragment StoreEntitySet="PortalSettings">
+          <ScalarProperty Name="PortalSettingID" ColumnName="PortalSettingID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="SettingName" ColumnName="SettingName" />
+          <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="CultureCode" ColumnName="CultureCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Profile">
+      <EntityTypeMapping TypeName="RPGFLModel.Profile">
+        <MappingFragment StoreEntitySet="Profile">
+          <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PortalId" ColumnName="PortalId" />
+          <ScalarProperty Name="ProfileData" ColumnName="ProfileData" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProfilePropertyDefinition">
+      <EntityTypeMapping TypeName="RPGFLModel.ProfilePropertyDefinition">
+        <MappingFragment StoreEntitySet="ProfilePropertyDefinition">
+          <ScalarProperty Name="PropertyDefinitionID" ColumnName="PropertyDefinitionID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="ModuleDefID" ColumnName="ModuleDefID" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="DataType" ColumnName="DataType" />
+          <ScalarProperty Name="DefaultValue" ColumnName="DefaultValue" />
+          <ScalarProperty Name="PropertyCategory" ColumnName="PropertyCategory" />
+          <ScalarProperty Name="PropertyName" ColumnName="PropertyName" />
+          <ScalarProperty Name="Length" ColumnName="Length" />
+          <ScalarProperty Name="Required" ColumnName="Required" />
+          <ScalarProperty Name="ValidationExpression" ColumnName="ValidationExpression" />
+          <ScalarProperty Name="ViewOrder" ColumnName="ViewOrder" />
+          <ScalarProperty Name="Visible" ColumnName="Visible" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="DefaultVisibility" ColumnName="DefaultVisibility" />
+          <ScalarProperty Name="ReadOnly" ColumnName="ReadOnly" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Relationships">
+      <EntityTypeMapping TypeName="RPGFLModel.Relationships">
+        <MappingFragment StoreEntitySet="Relationships">
+          <ScalarProperty Name="RelationshipID" ColumnName="RelationshipID" />
+          <ScalarProperty Name="RelationshipTypeID" ColumnName="RelationshipTypeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="DefaultResponse" ColumnName="DefaultResponse" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RelationshipTypes">
+      <EntityTypeMapping TypeName="RPGFLModel.RelationshipTypes">
+        <MappingFragment StoreEntitySet="RelationshipTypes">
+          <ScalarProperty Name="RelationshipTypeID" ColumnName="RelationshipTypeID" />
+          <ScalarProperty Name="Direction" ColumnName="Direction" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoleGroups">
+      <EntityTypeMapping TypeName="RPGFLModel.RoleGroups">
+        <MappingFragment StoreEntitySet="RoleGroups">
+          <ScalarProperty Name="RoleGroupID" ColumnName="RoleGroupID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="RoleGroupName" ColumnName="RoleGroupName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="RPGFLModel.Roles">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ServiceFee" ColumnName="ServiceFee" />
+          <ScalarProperty Name="BillingFrequency" ColumnName="BillingFrequency" />
+          <ScalarProperty Name="TrialPeriod" ColumnName="TrialPeriod" />
+          <ScalarProperty Name="TrialFrequency" ColumnName="TrialFrequency" />
+          <ScalarProperty Name="BillingPeriod" ColumnName="BillingPeriod" />
+          <ScalarProperty Name="TrialFee" ColumnName="TrialFee" />
+          <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+          <ScalarProperty Name="AutoAssignment" ColumnName="AutoAssignment" />
+          <ScalarProperty Name="RoleGroupID" ColumnName="RoleGroupID" />
+          <ScalarProperty Name="RSVPCode" ColumnName="RSVPCode" />
+          <ScalarProperty Name="IconFile" ColumnName="IconFile" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="SecurityMode" ColumnName="SecurityMode" />
+          <ScalarProperty Name="IsSystemRole" ColumnName="IsSystemRole" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoleSettings">
+      <EntityTypeMapping TypeName="RPGFLModel.RoleSettings">
+        <MappingFragment StoreEntitySet="RoleSettings">
+          <ScalarProperty Name="RoleSettingID" ColumnName="RoleSettingID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="SettingName" ColumnName="SettingName" />
+          <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schedule">
+      <EntityTypeMapping TypeName="RPGFLModel.Schedule">
+        <MappingFragment StoreEntitySet="Schedule">
+          <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+          <ScalarProperty Name="TypeFullName" ColumnName="TypeFullName" />
+          <ScalarProperty Name="TimeLapse" ColumnName="TimeLapse" />
+          <ScalarProperty Name="TimeLapseMeasurement" ColumnName="TimeLapseMeasurement" />
+          <ScalarProperty Name="RetryTimeLapse" ColumnName="RetryTimeLapse" />
+          <ScalarProperty Name="RetryTimeLapseMeasurement" ColumnName="RetryTimeLapseMeasurement" />
+          <ScalarProperty Name="RetainHistoryNum" ColumnName="RetainHistoryNum" />
+          <ScalarProperty Name="AttachToEvent" ColumnName="AttachToEvent" />
+          <ScalarProperty Name="CatchUpEnabled" ColumnName="CatchUpEnabled" />
+          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+          <ScalarProperty Name="ObjectDependencies" ColumnName="ObjectDependencies" />
+          <ScalarProperty Name="Servers" ColumnName="Servers" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="FriendlyName" ColumnName="FriendlyName" />
+          <ScalarProperty Name="ScheduleStartDate" ColumnName="ScheduleStartDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ScheduleHistory">
+      <EntityTypeMapping TypeName="RPGFLModel.ScheduleHistory">
+        <MappingFragment StoreEntitySet="ScheduleHistory">
+          <ScalarProperty Name="ScheduleHistoryID" ColumnName="ScheduleHistoryID" />
+          <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="Succeeded" ColumnName="Succeeded" />
+          <ScalarProperty Name="LogNotes" ColumnName="LogNotes" />
+          <ScalarProperty Name="NextStart" ColumnName="NextStart" />
+          <ScalarProperty Name="Server" ColumnName="Server" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ScheduleItemSettings">
+      <EntityTypeMapping TypeName="RPGFLModel.ScheduleItemSettings">
+        <MappingFragment StoreEntitySet="ScheduleItemSettings">
+          <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+          <ScalarProperty Name="SettingName" ColumnName="SettingName" />
+          <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SearchCommonWords">
+      <EntityTypeMapping TypeName="RPGFLModel.SearchCommonWords">
+        <MappingFragment StoreEntitySet="SearchCommonWords">
+          <ScalarProperty Name="CommonWordID" ColumnName="CommonWordID" />
+          <ScalarProperty Name="CommonWord" ColumnName="CommonWord" />
+          <ScalarProperty Name="Locale" ColumnName="Locale" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SearchDeletedItems">
+      <EntityTypeMapping TypeName="RPGFLModel.SearchDeletedItems">
+        <MappingFragment StoreEntitySet="SearchDeletedItems">
+          <ScalarProperty Name="SearchDeletedItemsID" ColumnName="SearchDeletedItemsID" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="Document" ColumnName="Document" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SearchIndexer">
+      <EntityTypeMapping TypeName="RPGFLModel.SearchIndexer">
+        <MappingFragment StoreEntitySet="SearchIndexer">
+          <ScalarProperty Name="SearchIndexerID" ColumnName="SearchIndexerID" />
+          <ScalarProperty Name="SearchIndexerAssemblyQualifiedName" ColumnName="SearchIndexerAssemblyQualifiedName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SearchStopWords">
+      <EntityTypeMapping TypeName="RPGFLModel.SearchStopWords">
+        <MappingFragment StoreEntitySet="SearchStopWords">
+          <ScalarProperty Name="StopWordsID" ColumnName="StopWordsID" />
+          <ScalarProperty Name="StopWords" ColumnName="StopWords" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="CultureCode" ColumnName="CultureCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SearchTypes">
+      <EntityTypeMapping TypeName="RPGFLModel.SearchTypes">
+        <MappingFragment StoreEntitySet="SearchTypes">
+          <ScalarProperty Name="SearchTypeId" ColumnName="SearchTypeId" />
+          <ScalarProperty Name="SearchTypeName" ColumnName="SearchTypeName" />
+          <ScalarProperty Name="SearchResultClass" ColumnName="SearchResultClass" />
+          <ScalarProperty Name="IsPrivate" ColumnName="IsPrivate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Series">
+      <EntityTypeMapping TypeName="RPGFLModel.Series">
+        <MappingFragment StoreEntitySet="Series">
+          <ScalarProperty Name="Series_PK" ColumnName="Series_PK" />
+          <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+          <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+          <ScalarProperty Name="bIsLive" ColumnName="bIsLive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SiteLog">
+      <EntityTypeMapping TypeName="RPGFLModel.SiteLog">
+        <MappingFragment StoreEntitySet="SiteLog">
+          <ScalarProperty Name="SiteLogId" ColumnName="SiteLogId" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="PortalId" ColumnName="PortalId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Referrer" ColumnName="Referrer" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
+          <ScalarProperty Name="UserHostAddress" ColumnName="UserHostAddress" />
+          <ScalarProperty Name="UserHostName" ColumnName="UserHostName" />
+          <ScalarProperty Name="TabId" ColumnName="TabId" />
+          <ScalarProperty Name="AffiliateId" ColumnName="AffiliateId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Skills">
+      <EntityTypeMapping TypeName="RPGFLModel.Skills">
+        <MappingFragment StoreEntitySet="Skills">
+          <ScalarProperty Name="Skill_PK" ColumnName="Skill_PK" />
+          <ScalarProperty Name="Skill_Name" ColumnName="Skill_Name" />
+          <ScalarProperty Name="Skill_Description" ColumnName="Skill_Description" />
+          <ScalarProperty Name="Energy_Cost" ColumnName="Energy_Cost" />
+          <ScalarProperty Name="Attribute_FK" ColumnName="Attribute_FK" />
+          <ScalarProperty Name="bIsPassive" ColumnName="bIsPassive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SkinControls">
+      <EntityTypeMapping TypeName="RPGFLModel.SkinControls">
+        <MappingFragment StoreEntitySet="SkinControls">
+          <ScalarProperty Name="SkinControlID" ColumnName="SkinControlID" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="ControlKey" ColumnName="ControlKey" />
+          <ScalarProperty Name="ControlSrc" ColumnName="ControlSrc" />
+          <ScalarProperty Name="IconFile" ColumnName="IconFile" />
+          <ScalarProperty Name="HelpUrl" ColumnName="HelpUrl" />
+          <ScalarProperty Name="SupportsPartialRendering" ColumnName="SupportsPartialRendering" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SkinPackages">
+      <EntityTypeMapping TypeName="RPGFLModel.SkinPackages">
+        <MappingFragment StoreEntitySet="SkinPackages">
+          <ScalarProperty Name="SkinPackageID" ColumnName="SkinPackageID" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="SkinName" ColumnName="SkinName" />
+          <ScalarProperty Name="SkinType" ColumnName="SkinType" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Skins">
+      <EntityTypeMapping TypeName="RPGFLModel.Skins">
+        <MappingFragment StoreEntitySet="Skins">
+          <ScalarProperty Name="SkinID" ColumnName="SkinID" />
+          <ScalarProperty Name="SkinPackageID" ColumnName="SkinPackageID" />
+          <ScalarProperty Name="SkinSrc" ColumnName="SkinSrc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Skirmishes">
+      <EntityTypeMapping TypeName="RPGFLModel.Skirmishes">
+        <MappingFragment StoreEntitySet="Skirmishes">
+          <ScalarProperty Name="Skirmish_PK" ColumnName="Skirmish_PK" />
+          <ScalarProperty Name="Skirmish_Date" ColumnName="Skirmish_Date" />
+          <ScalarProperty Name="Campaign_FK" ColumnName="Campaign_FK" />
+          <ScalarProperty Name="Guild_1_FK" ColumnName="Guild_1_FK" />
+          <ScalarProperty Name="Guild_2_FK" ColumnName="Guild_2_FK" />
+          <ScalarProperty Name="Guild_1_Accolade_Points" ColumnName="Guild_1_Accolade_Points" />
+          <ScalarProperty Name="Guild_2_Accolade_Points" ColumnName="Guild_2_Accolade_Points" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SQLQueries">
+      <EntityTypeMapping TypeName="RPGFLModel.SQLQueries">
+        <MappingFragment StoreEntitySet="SQLQueries">
+          <ScalarProperty Name="QueryId" ColumnName="QueryId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Query" ColumnName="Query" />
+          <ScalarProperty Name="ConnectionStringName" ColumnName="ConnectionStringName" />
+          <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserId" ColumnName="LastModifiedByUserId" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SynonymsGroups">
+      <EntityTypeMapping TypeName="RPGFLModel.SynonymsGroups">
+        <MappingFragment StoreEntitySet="SynonymsGroups">
+          <ScalarProperty Name="SynonymsGroupID" ColumnName="SynonymsGroupID" />
+          <ScalarProperty Name="SynonymsTags" ColumnName="SynonymsTags" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="CultureCode" ColumnName="CultureCode" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SystemMessages">
+      <EntityTypeMapping TypeName="RPGFLModel.SystemMessages">
+        <MappingFragment StoreEntitySet="SystemMessages">
+          <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="MessageName" ColumnName="MessageName" />
+          <ScalarProperty Name="MessageValue" ColumnName="MessageValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TabAliasSkins">
+      <EntityTypeMapping TypeName="RPGFLModel.TabAliasSkins">
+        <MappingFragment StoreEntitySet="TabAliasSkins">
+          <ScalarProperty Name="TabAliasSkinId" ColumnName="TabAliasSkinId" />
+          <ScalarProperty Name="TabId" ColumnName="TabId" />
+          <ScalarProperty Name="PortalAliasId" ColumnName="PortalAliasId" />
+          <ScalarProperty Name="SkinSrc" ColumnName="SkinSrc" />
+          <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserId" ColumnName="LastModifiedByUserId" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TabModules">
+      <EntityTypeMapping TypeName="RPGFLModel.TabModules">
+        <MappingFragment StoreEntitySet="TabModules">
+          <ScalarProperty Name="TabModuleID" ColumnName="TabModuleID" />
+          <ScalarProperty Name="TabID" ColumnName="TabID" />
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="PaneName" ColumnName="PaneName" />
+          <ScalarProperty Name="ModuleOrder" ColumnName="ModuleOrder" />
+          <ScalarProperty Name="CacheTime" ColumnName="CacheTime" />
+          <ScalarProperty Name="Alignment" ColumnName="Alignment" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Border" ColumnName="Border" />
+          <ScalarProperty Name="IconFile" ColumnName="IconFile" />
+          <ScalarProperty Name="Visibility" ColumnName="Visibility" />
+          <ScalarProperty Name="ContainerSrc" ColumnName="ContainerSrc" />
+          <ScalarProperty Name="DisplayTitle" ColumnName="DisplayTitle" />
+          <ScalarProperty Name="DisplayPrint" ColumnName="DisplayPrint" />
+          <ScalarProperty Name="DisplaySyndicate" ColumnName="DisplaySyndicate" />
+          <ScalarProperty Name="IsWebSlice" ColumnName="IsWebSlice" />
+          <ScalarProperty Name="WebSliceTitle" ColumnName="WebSliceTitle" />
+          <ScalarProperty Name="WebSliceExpiryDate" ColumnName="WebSliceExpiryDate" />
+          <ScalarProperty Name="WebSliceTTL" ColumnName="WebSliceTTL" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CacheMethod" ColumnName="CacheMethod" />
+          <ScalarProperty Name="ModuleTitle" ColumnName="ModuleTitle" />
+          <ScalarProperty Name="Header" ColumnName="Header" />
+          <ScalarProperty Name="Footer" ColumnName="Footer" />
+          <ScalarProperty Name="CultureCode" ColumnName="CultureCode" />
+          <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
+          <ScalarProperty Name="VersionGuid" ColumnName="VersionGuid" />
+          <ScalarProperty Name="DefaultLanguageGuid" ColumnName="DefaultLanguageGuid" />
+          <ScalarProperty Name="LocalizedVersionGuid" ColumnName="LocalizedVersionGuid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TabModuleSettings">
+      <EntityTypeMapping TypeName="RPGFLModel.TabModuleSettings">
+        <MappingFragment StoreEntitySet="TabModuleSettings">
+          <ScalarProperty Name="TabModuleID" ColumnName="TabModuleID" />
+          <ScalarProperty Name="SettingName" ColumnName="SettingName" />
+          <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TabPermission">
+      <EntityTypeMapping TypeName="RPGFLModel.TabPermission">
+        <MappingFragment StoreEntitySet="TabPermission">
+          <ScalarProperty Name="TabPermissionID" ColumnName="TabPermissionID" />
+          <ScalarProperty Name="TabID" ColumnName="TabID" />
+          <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+          <ScalarProperty Name="AllowAccess" ColumnName="AllowAccess" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tabs">
+      <EntityTypeMapping TypeName="RPGFLModel.Tabs">
+        <MappingFragment StoreEntitySet="Tabs">
+          <ScalarProperty Name="TabID" ColumnName="TabID" />
+          <ScalarProperty Name="TabOrder" ColumnName="TabOrder" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="TabName" ColumnName="TabName" />
+          <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="IconFile" ColumnName="IconFile" />
+          <ScalarProperty Name="DisableLink" ColumnName="DisableLink" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="SkinSrc" ColumnName="SkinSrc" />
+          <ScalarProperty Name="ContainerSrc" ColumnName="ContainerSrc" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="RefreshInterval" ColumnName="RefreshInterval" />
+          <ScalarProperty Name="PageHeadText" ColumnName="PageHeadText" />
+          <ScalarProperty Name="IsSecure" ColumnName="IsSecure" />
+          <ScalarProperty Name="PermanentRedirect" ColumnName="PermanentRedirect" />
+          <ScalarProperty Name="SiteMapPriority" ColumnName="SiteMapPriority" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="IconFileLarge" ColumnName="IconFileLarge" />
+          <ScalarProperty Name="CultureCode" ColumnName="CultureCode" />
+          <ScalarProperty Name="ContentItemID" ColumnName="ContentItemID" />
+          <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
+          <ScalarProperty Name="VersionGuid" ColumnName="VersionGuid" />
+          <ScalarProperty Name="DefaultLanguageGuid" ColumnName="DefaultLanguageGuid" />
+          <ScalarProperty Name="LocalizedVersionGuid" ColumnName="LocalizedVersionGuid" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="TabPath" ColumnName="TabPath" />
+          <ScalarProperty Name="HasBeenPublished" ColumnName="HasBeenPublished" />
+          <ScalarProperty Name="IsSystem" ColumnName="IsSystem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TabSettings">
+      <EntityTypeMapping TypeName="RPGFLModel.TabSettings">
+        <MappingFragment StoreEntitySet="TabSettings">
+          <ScalarProperty Name="TabID" ColumnName="TabID" />
+          <ScalarProperty Name="SettingName" ColumnName="SettingName" />
+          <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TabUrls">
+      <EntityTypeMapping TypeName="RPGFLModel.TabUrls">
+        <MappingFragment StoreEntitySet="TabUrls">
+          <ScalarProperty Name="TabId" ColumnName="TabId" />
+          <ScalarProperty Name="SeqNum" ColumnName="SeqNum" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="QueryString" ColumnName="QueryString" />
+          <ScalarProperty Name="HttpStatus" ColumnName="HttpStatus" />
+          <ScalarProperty Name="CultureCode" ColumnName="CultureCode" />
+          <ScalarProperty Name="IsSystem" ColumnName="IsSystem" />
+          <ScalarProperty Name="PortalAliasId" ColumnName="PortalAliasId" />
+          <ScalarProperty Name="PortalAliasUsage" ColumnName="PortalAliasUsage" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TabVersionDetails">
+      <EntityTypeMapping TypeName="RPGFLModel.TabVersionDetails">
+        <MappingFragment StoreEntitySet="TabVersionDetails">
+          <ScalarProperty Name="TabVersionDetailId" ColumnName="TabVersionDetailId" />
+          <ScalarProperty Name="TabVersionId" ColumnName="TabVersionId" />
+          <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+          <ScalarProperty Name="ModuleVersion" ColumnName="ModuleVersion" />
+          <ScalarProperty Name="PaneName" ColumnName="PaneName" />
+          <ScalarProperty Name="ModuleOrder" ColumnName="ModuleOrder" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TabVersions">
+      <EntityTypeMapping TypeName="RPGFLModel.TabVersions">
+        <MappingFragment StoreEntitySet="TabVersions">
+          <ScalarProperty Name="TabVersionId" ColumnName="TabVersionId" />
+          <ScalarProperty Name="TabId" ColumnName="TabId" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Taxonomy_ScopeTypes">
+      <EntityTypeMapping TypeName="RPGFLModel.Taxonomy_ScopeTypes">
+        <MappingFragment StoreEntitySet="Taxonomy_ScopeTypes">
+          <ScalarProperty Name="ScopeTypeID" ColumnName="ScopeTypeID" />
+          <ScalarProperty Name="ScopeType" ColumnName="ScopeType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Taxonomy_Terms">
+      <EntityTypeMapping TypeName="RPGFLModel.Taxonomy_Terms">
+        <MappingFragment StoreEntitySet="Taxonomy_Terms">
+          <ScalarProperty Name="TermID" ColumnName="TermID" />
+          <ScalarProperty Name="VocabularyID" ColumnName="VocabularyID" />
+          <ScalarProperty Name="ParentTermID" ColumnName="ParentTermID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="TermLeft" ColumnName="TermLeft" />
+          <ScalarProperty Name="TermRight" ColumnName="TermRight" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Taxonomy_Vocabularies">
+      <EntityTypeMapping TypeName="RPGFLModel.Taxonomy_Vocabularies">
+        <MappingFragment StoreEntitySet="Taxonomy_Vocabularies">
+          <ScalarProperty Name="VocabularyID" ColumnName="VocabularyID" />
+          <ScalarProperty Name="VocabularyTypeID" ColumnName="VocabularyTypeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="ScopeID" ColumnName="ScopeID" />
+          <ScalarProperty Name="ScopeTypeID" ColumnName="ScopeTypeID" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="IsSystem" ColumnName="IsSystem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Taxonomy_VocabularyTypes">
+      <EntityTypeMapping TypeName="RPGFLModel.Taxonomy_VocabularyTypes">
+        <MappingFragment StoreEntitySet="Taxonomy_VocabularyTypes">
+          <ScalarProperty Name="VocabularyTypeID" ColumnName="VocabularyTypeID" />
+          <ScalarProperty Name="VocabularyType" ColumnName="VocabularyType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UrlLog">
+      <EntityTypeMapping TypeName="RPGFLModel.UrlLog">
+        <MappingFragment StoreEntitySet="UrlLog">
+          <ScalarProperty Name="UrlLogID" ColumnName="UrlLogID" />
+          <ScalarProperty Name="UrlTrackingID" ColumnName="UrlTrackingID" />
+          <ScalarProperty Name="ClickDate" ColumnName="ClickDate" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Urls">
+      <EntityTypeMapping TypeName="RPGFLModel.Urls">
+        <MappingFragment StoreEntitySet="Urls">
+          <ScalarProperty Name="UrlID" ColumnName="UrlID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UrlTracking">
+      <EntityTypeMapping TypeName="RPGFLModel.UrlTracking">
+        <MappingFragment StoreEntitySet="UrlTracking">
+          <ScalarProperty Name="UrlTrackingID" ColumnName="UrlTrackingID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="UrlType" ColumnName="UrlType" />
+          <ScalarProperty Name="Clicks" ColumnName="Clicks" />
+          <ScalarProperty Name="LastClick" ColumnName="LastClick" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="LogActivity" ColumnName="LogActivity" />
+          <ScalarProperty Name="TrackClicks" ColumnName="TrackClicks" />
+          <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+          <ScalarProperty Name="NewWindow" ColumnName="NewWindow" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserAuthentication">
+      <EntityTypeMapping TypeName="RPGFLModel.UserAuthentication">
+        <MappingFragment StoreEntitySet="UserAuthentication">
+          <ScalarProperty Name="UserAuthenticationID" ColumnName="UserAuthenticationID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="AuthenticationType" ColumnName="AuthenticationType" />
+          <ScalarProperty Name="AuthenticationToken" ColumnName="AuthenticationToken" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserPortals">
+      <EntityTypeMapping TypeName="RPGFLModel.UserPortals">
+        <MappingFragment StoreEntitySet="UserPortals">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PortalId" ColumnName="PortalId" />
+          <ScalarProperty Name="UserPortalId" ColumnName="UserPortalId" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Authorised" ColumnName="Authorised" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="RefreshRoles" ColumnName="RefreshRoles" />
+          <ScalarProperty Name="VanityUrl" ColumnName="VanityUrl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserProfile">
+      <EntityTypeMapping TypeName="RPGFLModel.UserProfile">
+        <MappingFragment StoreEntitySet="UserProfile">
+          <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="PropertyDefinitionID" ColumnName="PropertyDefinitionID" />
+          <ScalarProperty Name="PropertyValue" ColumnName="PropertyValue" />
+          <ScalarProperty Name="PropertyText" ColumnName="PropertyText" />
+          <ScalarProperty Name="Visibility" ColumnName="Visibility" />
+          <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+          <ScalarProperty Name="ExtendedVisibility" ColumnName="ExtendedVisibility" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRelationshipPreferences">
+      <EntityTypeMapping TypeName="RPGFLModel.UserRelationshipPreferences">
+        <MappingFragment StoreEntitySet="UserRelationshipPreferences">
+          <ScalarProperty Name="PreferenceID" ColumnName="PreferenceID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="RelationshipID" ColumnName="RelationshipID" />
+          <ScalarProperty Name="DefaultResponse" ColumnName="DefaultResponse" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRelationships">
+      <EntityTypeMapping TypeName="RPGFLModel.UserRelationships">
+        <MappingFragment StoreEntitySet="UserRelationships">
+          <ScalarProperty Name="UserRelationshipID" ColumnName="UserRelationshipID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="RelatedUserID" ColumnName="RelatedUserID" />
+          <ScalarProperty Name="RelationshipID" ColumnName="RelationshipID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="RPGFLModel.UserRoles">
+        <MappingFragment StoreEntitySet="UserRoles">
+          <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+          <ScalarProperty Name="IsTrialUsed" ColumnName="IsTrialUsed" />
+          <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="IsOwner" ColumnName="IsOwner" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="RPGFLModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="IsSuperUser" ColumnName="IsSuperUser" />
+          <ScalarProperty Name="AffiliateId" ColumnName="AffiliateId" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+          <ScalarProperty Name="UpdatePassword" ColumnName="UpdatePassword" />
+          <ScalarProperty Name="LastIPAddress" ColumnName="LastIPAddress" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="LastModifiedByUserID" ColumnName="LastModifiedByUserID" />
+          <ScalarProperty Name="LastModifiedOnDate" ColumnName="LastModifiedOnDate" />
+          <ScalarProperty Name="PasswordResetToken" ColumnName="PasswordResetToken" />
+          <ScalarProperty Name="PasswordResetExpiration" ColumnName="PasswordResetExpiration" />
+          <ScalarProperty Name="LowerEmail" ColumnName="LowerEmail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsersOnline">
+      <EntityTypeMapping TypeName="RPGFLModel.UsersOnline">
+        <MappingFragment StoreEntitySet="UsersOnline">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="TabID" ColumnName="TabID" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="LastActiveDate" ColumnName="LastActiveDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VendorClassification">
+      <EntityTypeMapping TypeName="RPGFLModel.VendorClassification">
+        <MappingFragment StoreEntitySet="VendorClassification">
+          <ScalarProperty Name="VendorClassificationId" ColumnName="VendorClassificationId" />
+          <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+          <ScalarProperty Name="ClassificationId" ColumnName="ClassificationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vendors">
+      <EntityTypeMapping TypeName="RPGFLModel.Vendors">
+        <MappingFragment StoreEntitySet="Vendors">
+          <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+          <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+          <ScalarProperty Name="Street" ColumnName="Street" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="PortalId" ColumnName="PortalId" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Website" ColumnName="Website" />
+          <ScalarProperty Name="ClickThroughs" ColumnName="ClickThroughs" />
+          <ScalarProperty Name="Views" ColumnName="Views" />
+          <ScalarProperty Name="CreatedByUser" ColumnName="CreatedByUser" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="LogoFile" ColumnName="LogoFile" />
+          <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Authorized" ColumnName="Authorized" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Cell" ColumnName="Cell" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Version">
+      <EntityTypeMapping TypeName="RPGFLModel.Version">
+        <MappingFragment StoreEntitySet="Version">
+          <ScalarProperty Name="VersionId" ColumnName="VersionId" />
+          <ScalarProperty Name="Major" ColumnName="Major" />
+          <ScalarProperty Name="Minor" ColumnName="Minor" />
+          <ScalarProperty Name="Build" ColumnName="Build" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Votes">
+      <EntityTypeMapping TypeName="RPGFLModel.Votes">
+        <MappingFragment StoreEntitySet="Votes">
+          <ScalarProperty Name="Vote_PK" ColumnName="Vote_PK" />
+          <ScalarProperty Name="Skill_FK" ColumnName="Skill_FK" />
+          <ScalarProperty Name="Character_FK" ColumnName="Character_FK" />
+          <ScalarProperty Name="Skirmish_FK" ColumnName="Skirmish_FK" />
+          <ScalarProperty Name="Vote_Count" ColumnName="Vote_Count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WebServers">
+      <EntityTypeMapping TypeName="RPGFLModel.WebServers">
+        <MappingFragment StoreEntitySet="WebServers">
+          <ScalarProperty Name="ServerID" ColumnName="ServerID" />
+          <ScalarProperty Name="ServerName" ColumnName="ServerName" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="IISAppName" ColumnName="IISAppName" />
+          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+          <ScalarProperty Name="ServerGroup" ColumnName="ServerGroup" />
+          <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
+          <ScalarProperty Name="PingFailureCount" ColumnName="PingFailureCount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Workflow">
+      <EntityTypeMapping TypeName="RPGFLModel.Workflow">
+        <MappingFragment StoreEntitySet="Workflow">
+          <ScalarProperty Name="WorkflowID" ColumnName="WorkflowID" />
+          <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+          <ScalarProperty Name="WorkflowName" ColumnName="WorkflowName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkflowStates">
+      <EntityTypeMapping TypeName="RPGFLModel.WorkflowStates">
+        <MappingFragment StoreEntitySet="WorkflowStates">
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+          <ScalarProperty Name="WorkflowID" ColumnName="WorkflowID" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Notify" ColumnName="Notify" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Combat_Logs">
+      <EntityTypeMapping TypeName="RPGFLModel.Combat_Logs">
+        <MappingFragment StoreEntitySet="Combat_Logs">
+          <ScalarProperty Name="CombatLog_PK" ColumnName="CombatLog_PK" />
+          <ScalarProperty Name="Assailant_Character_FK" ColumnName="Assailant_Character_FK" />
+          <ScalarProperty Name="Target_Character_FK" ColumnName="Target_Character_FK" />
+          <ScalarProperty Name="Skill_FK" ColumnName="Skill_FK" />
+          <ScalarProperty Name="Attack_Final_Result" ColumnName="Attack_Final_Result" />
+          <ScalarProperty Name="Attack_Values" ColumnName="Attack_Values" />
+          <ScalarProperty Name="Damage_Final_Result" ColumnName="Damage_Final_Result" />
+          <ScalarProperty Name="Damage_Values" ColumnName="Damage_Values" />
+          <ScalarProperty Name="Conditions" ColumnName="Conditions" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Accolades">
+      <EntityTypeMapping TypeName="RPGFLModel.Accolades">
+        <MappingFragment StoreEntitySet="Accolades">
+          <ScalarProperty Name="Accolade_Description" ColumnName="Accolade_Description" />
+          <ScalarProperty Name="Accolade_Point_Value" ColumnName="Accolade_Point_Value" />
+          <ScalarProperty Name="Accolade_PK" ColumnName="Accolade_PK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
