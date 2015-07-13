@@ -15,13 +15,11 @@
 	height: 600px;
 	width: 900px;
 	margin: auto;
-	border: 5px solid darkgray;
 }
 #home_news_body{
 	margin: 15px;
 }
 
 /** HELPERS */
-.opacity-high{
-	opacity: 0.8;
-}
+.opacity-high{ 	opacity: 0.8;   }
+.pic-border-light{  border: 5px solid darkgray;  }
