@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="897b12a1d36d434abc7afed42318263c" Name="Diagram1">
+        <EntityTypeShape EntityType="RPGFLModel.Affiliates" Width="1.5" PointX="5.25" PointY="145.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.AnonymousUsers" Width="1.5" PointX="3" PointY="46.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.aspnet_Applications" Width="1.5" PointX="17.75" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.aspnet_Membership" Width="1.5" PointX="22.25" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.aspnet_SchemaVersions" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.aspnet_Users" Width="1.5" PointX="20" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Assemblies" Width="1.5" PointX="3.75" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Authentication" Width="1.5" PointX="3.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Banners" Width="1.5" PointX="5.25" PointY="148.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Campaign_to_Character" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Campaigns" Width="1.5" PointX="6" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Character_to_Series" Width="1.5" PointX="6" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Character_to_Skill" Width="1.5" PointX="13.5" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Character_to_Skirmish" Width="1.5" PointX="13.5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Character_Track_Log" Width="1.5" PointX="6" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Characters" Width="1.5" PointX="11.25" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Classification" Width="1.5" PointX="6" PointY="141.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Conditions" Width="1.5" PointX="5.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ContentItems" Width="1.5" PointX="1.5" PointY="31.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ContentItems_MetaData" Width="1.5" PointX="3.75" PointY="31.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ContentItems_Tags" Width="1.5" PointX="15.5" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ContentTypes" Width="1.5" PointX="1.5" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ContentWorkflowActions" Width="1.5" PointX="3.75" PointY="139" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ContentWorkflowLogs" Width="1.5" PointX="8.25" PointY="44.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ContentWorkflows" Width="1.5" PointX="6" PointY="57" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ContentWorkflowSources" Width="1.5" PointX="8.25" PointY="59.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ContentWorkflowStatePermission" Width="1.5" PointX="18.5" PointY="67.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ContentWorkflowStates" Width="1.5" PointX="1.5" PointY="37.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.CoreMessaging_MessageAttachments" Width="1.5" PointX="8.25" PointY="154.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.CoreMessaging_MessageRecipients" Width="1.5" PointX="8.25" PointY="157.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.CoreMessaging_Messages" Width="1.5" PointX="6" PointY="155.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.CoreMessaging_NotificationTypeActions" Width="1.5" PointX="6" PointY="162.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.CoreMessaging_NotificationTypes" Width="1.5" PointX="3.75" PointY="158.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.CoreMessaging_Subscriptions" Width="1.5" PointX="6" PointY="75.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.CoreMessaging_SubscriptionTypes" Width="1.5" PointX="3.75" PointY="58.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.CoreMessaging_UserPreferences" Width="1.5" PointX="5.75" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Damage_Types" Width="1.5" PointX="15.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Dashboard_Controls" Width="1.5" PointX="3.75" PointY="27.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.DesktopModulePermission" Width="1.5" PointX="8.5" PointY="85" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.DesktopModules" Width="1.5" PointX="1.5" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Draft_Table" Width="1.5" PointX="11" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.EventLog" Width="1.5" PointX="8.25" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.EventLogConfig" Width="1.5" PointX="6" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.EventLogTypes" Width="1.5" PointX="3.75" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.EventQueue" Width="1.5" PointX="19.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ExceptionEvents" Width="1.5" PointX="10.5" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Exceptions" Width="1.5" PointX="20.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ExtensionUrlProviderConfiguration" Width="1.5" PointX="5.75" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ExtensionUrlProviders" Width="1.5" PointX="20.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ExtensionUrlProviderSetting" Width="1.5" PointX="12.75" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ExtensionUrlProviderTab" Width="1.5" PointX="21.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Files" Width="1.5" PointX="9" PointY="73.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.FileVersions" Width="1.5" PointX="11.25" PointY="84.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.FolderMappings" Width="1.5" PointX="3" PointY="61.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.FolderMappingsSettings" Width="1.5" PointX="5.25" PointY="61.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.FolderPermission" Width="1.5" PointX="14.5" PointY="76.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Folders" Width="1.5" PointX="8.25" PointY="67.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Guilds" Width="1.5" PointX="9" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.HostSettings" Width="1.5" PointX="22.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.HtmlText" Width="1.5" PointX="6" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.HtmlTextLog" Width="1.5" PointX="8.25" PointY="36.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.HtmlTextUsers" Width="1.5" PointX="8.25" PointY="39.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.IPFilter" Width="1.5" PointX="22.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.JavaScriptLibraries" Width="1.5" PointX="3.75" PointY="41.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Journal" Width="1.5" PointX="18" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Journal_Access" Width="1.5" PointX="22.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Journal_Comments" Width="1.5" PointX="20.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Journal_Data" Width="1.5" PointX="20.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Journal_Security" Width="1.5" PointX="21.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Journal_TypeFilters" Width="1.5" PointX="17.75" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Journal_Types" Width="1.5" PointX="15.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.LanguagePacks" Width="1.5" PointX="3.75" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Languages" Width="1.5" PointX="3.75" PointY="104.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.League_to_User" Width="1.5" PointX="11" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Leagues" Width="1.5" PointX="8.75" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Lists" Width="1.5" PointX="23.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Messaging_Messages" Width="1.5" PointX="24.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.MetaData" Width="1.5" PointX="1.5" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Mobile_PreviewProfiles" Width="1.5" PointX="3" PointY="65.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Mobile_RedirectionRules" Width="1.5" PointX="5.25" PointY="70.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Mobile_Redirections" Width="1.5" PointX="3" PointY="69.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ModuleControls" Width="1.5" PointX="3.75" PointY="51.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ModuleDefinitions" Width="1.5" PointX="1.5" PointY="51.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ModulePermission" Width="1.5" PointX="7.5" PointY="90" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Modules" Width="1.5" PointX="3.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ModuleSettings" Width="1.5" PointX="6" PointY="40.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.PackageDependencies" Width="1.5" PointX="3.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Packages" Width="1.5" PointX="1.5" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.PackageTypes" Width="1.5" PointX="1.5" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.PasswordHistory" Width="1.5" PointX="14.5" PointY="95.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Permission" Width="1.5" PointX="12.25" PointY="63" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.PortalAlias" Width="1.5" PointX="3" PointY="74.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.PortalDesktopModules" Width="1.5" PointX="3" PointY="78.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.PortalGroups" Width="1.5" PointX="24.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.PortalLanguages" Width="1.5" PointX="6" PointY="80.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.PortalLocalization" Width="1.5" PointX="3" PointY="85.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Portals" Width="1.5" PointX="0.75" PointY="71.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.PortalSettings" Width="1.5" PointX="3" PointY="91.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Profile" Width="1.5" PointX="9" PointY="81.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ProfilePropertyDefinition" Width="1.5" PointX="3" PointY="98.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Relationships" Width="1.5" PointX="11" PointY="68" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.RelationshipTypes" Width="1.5" PointX="8.75" PointY="62.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.RoleGroups" Width="1.5" PointX="3" PointY="109.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Roles" Width="1.5" PointX="5.25" PointY="88.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.RoleSettings" Width="1.5" PointX="13.75" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Schedule" Width="1.5" PointX="15.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ScheduleHistory" Width="1.5" PointX="18" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.ScheduleItemSettings" Width="1.5" PointX="18" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.SearchCommonWords" Width="1.5" PointX="23.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.SearchDeletedItems" Width="1.5" PointX="15.75" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.SearchIndexer" Width="1.5" PointX="24.75" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.SearchStopWords" Width="1.5" PointX="24.75" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.SearchTypes" Width="1.5" PointX="25.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Series" Width="1.5" PointX="3.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.SiteLog" Width="1.5" PointX="3" PointY="112.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Skills" Width="1.5" PointX="11.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.SkinControls" Width="1.5" PointX="3.75" PointY="120.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.SkinPackages" Width="1.5" PointX="3.75" PointY="124.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Skins" Width="1.5" PointX="6" PointY="124.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Skirmishes" Width="1.5" PointX="11.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.SQLQueries" Width="1.5" PointX="25.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.SynonymsGroups" Width="1.5" PointX="26.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.SystemMessages" Width="1.5" PointX="3" PointY="116.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.TabAliasSkins" Width="1.5" PointX="26.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.TabModules" Width="1.5" PointX="17.25" PointY="74.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.TabModuleSettings" Width="1.5" PointX="19.5" PointY="76.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.TabPermission" Width="1.5" PointX="17.25" PointY="83.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Tabs" Width="1.5" PointX="12" PointY="73.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.TabSettings" Width="1.5" PointX="14.25" PointY="81.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.TabUrls" Width="1.5" PointX="14.25" PointY="84.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.TabVersionDetails" Width="1.5" PointX="16.5" PointY="89" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.TabVersions" Width="1.5" PointX="14.25" PointY="89.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Taxonomy_ScopeTypes" Width="1.5" PointX="8.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Taxonomy_Terms" Width="1.5" PointX="13.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Taxonomy_Vocabularies" Width="1.5" PointX="11" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Taxonomy_VocabularyTypes" Width="1.5" PointX="8.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.UrlLog" Width="1.5" PointX="5.25" PointY="134.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Urls" Width="1.5" PointX="3" PointY="131.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.UrlTracking" Width="1.5" PointX="3" PointY="134" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.UserAuthentication" Width="1.5" PointX="14.5" PointY="98.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.UserPortals" Width="1.5" PointX="6" PointY="66.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.UserProfile" Width="1.5" PointX="5.25" PointY="99.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.UserRelationshipPreferences" Width="1.5" PointX="13.25" PointY="68.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.UserRelationships" Width="1.5" PointX="16.25" PointY="68.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.UserRoles" Width="1.5" PointX="10.5" PointY="90.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Users" Width="1.5" PointX="12.25" PointY="94.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.UsersOnline" Width="1.5" PointX="6" PointY="84.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.VendorClassification" Width="1.5" PointX="8.25" PointY="148.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Vendors" Width="1.5" PointX="3" PointY="146.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Version" Width="1.5" PointX="25.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Votes" Width="1.5" PointX="13.5" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.WebServers" Width="1.5" PointX="26.75" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Workflow" Width="1.5" PointX="1.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.WorkflowStates" Width="1.5" PointX="3.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPGFLModel.Combat_Logs" Width="1.5" PointX="13.5" PointY="17.25" IsExpanded="true" />
+        <AssociationConnector Association="RPGFLModel.FK_Affiliates_Vendors" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_AnonymousUsers_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK__aspnet_Me__Appli__1CFC3D38" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK__aspnet_Us__Appli__0CC5D56F" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK__aspnet_Me__UserI__1DF06171" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_PackageAssemblies_PackageAssemblies" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Authentication_Packages" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Banner_Vendor" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Campaign_to_Character_Campaigns" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Campaigns_Series" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Skirmishes_Campaigns" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Character_to_Series_Series" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Character_to_Skill_Skills" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Character_to_Skirmish_Skirmishes" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Character_Track_Log_Characters" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Characters_Guilds" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Classification_Classification" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_VendorClassification_Classification" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ContentItems_ContentTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ContentItems_ContentWorkflowStates" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ContentItems_MetaData_ContentItems" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ContentItems_Tags_ContentItems" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ContentWorkflowLogs_ContentItems" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Files_ContentItems" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Modules_ContentItems" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Tabs_ContentItems" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ContentItems_MetaDataMetaData" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ContentItems_Tags_Taxonomy_Terms" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ContentWorkflowActions_ContentTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ContentWorkflowLogs_ContentWorkflows" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ContentWorkflowSources_ContentWorkflows" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ContentWorkflowStates_ContentWorkflows" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Folders_ContentWorkflows" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ContentWorkflowStatePermission_ContentWorkflowStates" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ContentWorkflowStatePermission_Permission" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ContentWorkflowStatePermission_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_CoreMessaging_MessageAttachments_CoreMessaging_Messages" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_CoreMessaging_MessageRecipients_CoreMessaging_Messages" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_CoreMessaging_Messages_CoreMessaging_NotificationTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_CoreMessaging_NotificationTypeActions_CoreMessaging_NotificationTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_CoreMessaging_NotificationTypes_DesktopModules" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_CoreMessaging_Subscriptions_Modules" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_CoreMessaging_Subscriptions_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_CoreMessaging_Subscriptions_Subscriptions_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_CoreMessaging_Subscriptions_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Dashboard_Controls_Packages" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_DesktopModulePermission_Permission" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_DesktopModulePermission_PortalDesktopModules" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_DesktopModulePermission_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_DesktopModulePermission_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_DesktopModules_Packages" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ModuleDefinitions_DesktopModules" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_PortalDesktopModules_DesktopModules" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Draft_Table_Leagues" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_EventLog_EventLogConfig" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_EventLog_EventLogTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ExceptionEvents_LogEventId" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_EventLogConfig_EventLogTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Files_Folders" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Files_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_FileVersions_Files" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_FolderMappings_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_FolderMappingsSettings_FolderMappings" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Folders_FolderMappings" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_FolderPermission_Folders" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_FolderPermission_Permission" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_FolderPermission_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_FolderPermission_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Folders_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Skirmishes_Guilds" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Skirmishes_Guilds1" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_HtmlText_Modules" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_HtmlText_WorkflowStates" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_HtmlTextLog_HtmlText" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_HtmlTextUsers_HtmlText" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_HtmlTextLog_WorkflowStates" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_JavaScriptLibrariesPackages" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Journal_Data_Journal" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Journal_JournalTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_JournalComments_Journal" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_LanguagePacks_Packages" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_PortalLanguages_PortalLanguages" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_League_to_User_Leagues" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Mobile_PreviewProfiles_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Mobile_RedirectionRules_Mobile_Redirections" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Mobile_Redirections_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ModuleControls_ModuleDefinitions" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Modules_ModuleDefinitions" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ModulePermission_Modules" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ModulePermission_Permission" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ModulePermission_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ModulePermission_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ModuleSettings_Modules" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_TabModules_Modules" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_PackageDependencies_Packages" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Packages_PackageTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_SkinControls_Packages" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_SkinPackages_Packages" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_PasswordHistory_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_TabPermission_Permission" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_PortalAlias_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_PortalDesktopModules_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_PortalLanguages_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_PortalLocalization_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_PortalSettings_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Profile_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ProfilePropertyDefinition_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Relationships_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_RoleGroups_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Roles_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_SiteLog_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_SystemMessages_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Tabs_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Urls_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_UrlTracking_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_UserPortals_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_UsersOnline_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Vendor_Portals" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Profile_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_UserProfile_ProfilePropertyDefinition" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Relationships_RelationshipTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Relationships_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_UserRelationshipPreferences_Relationships" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_UserRelationships_Relationships" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Roles_RoleGroups" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_TabPermission_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_UserRoles_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ScheduleHistory_Schedule" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_ScheduleItemSettings_Schedule" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Combat_Logs_Skills" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Votes_Skills" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Skins_SkinPackages" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Votes_Skirmishes" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_TabModules_Tabs" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_TabModuleSettings_TabModules" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_TabPermission_Tabs" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_TabPermission_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Tabs_Tabs" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_TabSettings_Tabs" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_TabUrls_Tabs" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_TabVersions_TabId" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_TabVersionDetails_TabVersionId" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Taxonomy_Vocabularies_Taxonomy_ScopeTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Taxonomy_Terms_Taxonomy_Terms" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Taxonomy_Terms_Taxonomy_Vocabularies" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_Taxonomy_Vocabularies_Taxonomy_VocabularyTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_UrlLog_UrlTracking" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_UserAuthentication_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_UserPortals_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_UserProfile_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_UserRelationshipPreferences_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_UserRelationships_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_UserRelationships_Users_OnRelatedUser" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_UserRoles_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_UsersOnline_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_VendorClassification_Vendors" ManuallyRouted="false" />
+        <AssociationConnector Association="RPGFLModel.FK_WorkflowStates_Workflow" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
