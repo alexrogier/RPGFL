@@ -44,5 +44,14 @@ namespace RPGFL_WebServices.Controllers
                           select skirmish;
             return Json(skirmishs);
         }
+
+        public void UpdateAccolades()
+        {
+            var acolades = (from a in ctx.Accolades
+                           select a).FirstOrDefault();
+            acolades.Accolade_Point_Value++;
+
+            ctx.SaveChanges();
+        }
     }
 }

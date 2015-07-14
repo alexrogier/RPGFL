@@ -24,4 +24,10 @@ namespace RPGFL_WebServices
         public int Initiative { get; set; }
         public int Max_Energy { get; set; }
     }
+    public class RPGFLAccolade
+    {
+        public int Accolade_PK;
+        public int Accolade_Point_Value;
+        public string Accolade_Description;
+    }
 }
