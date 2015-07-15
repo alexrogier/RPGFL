@@ -38,7 +38,6 @@
 		<div class="row">
 			<div id="global_news" class="col-xs-12 col-md-12">
 				<div class="alert alert-warning" role="alert">
-                    <span id="global_news_remove" style="float:right;" class="glyphicon glyphicon-remove"></span>
 					<span ><strong>ALERT</strong> This is an alert message for global news!</span>
 				</div>
 			</div>
