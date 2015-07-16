@@ -89,7 +89,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					  </button>
-					  <a class="navbar-brand" href="#">Forum</a>
+					  <a class="navbar-brand" href="http://rpgfl.freeforums.net/">Forum</a>
 					</div>
 					<div class="navbar-header col-sm-2 col-md-2">
 					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
