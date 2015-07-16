@@ -30,3 +30,9 @@
     width: 50%;
     margin: 0px;
 }
+.vertical-line {
+    width: 1px;
+    background-color: #030303;
+    height: 45px;
+    float: left;
+}
