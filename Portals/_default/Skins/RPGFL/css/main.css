@@ -36,3 +36,36 @@
     height: 45px;
     float: left;
 }
+.smallpadding { padding:10px; }
+}
+.table-width-100 { width: 100%; }
+
+table.table-stacked td { padding:20px; }
+table.table-stacked tr {     
+    background-color: #fff;
+    border: 1px solid #030303;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    border-color: #030303; } 
+
+#center-buttons{
+    margin: 0 auto; 
+    width: 35%; 
+    text-align: center;
+}
+
+#center-buttons-standings{
+    margin: 0 auto; 
+    width: 26%; 
+    text-align: center;
+}
+    
+
+.75-width{
+    width: 75px;
+}
+
+.center-div-text{
+    text-align: center;
+    vertical-align: middle;
+}
