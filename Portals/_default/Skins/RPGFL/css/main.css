@@ -10,6 +10,21 @@
 #header_title{ color: white; }
 #header_subtitle{ color: lightgray; }
 
+/** LOGIN STRIP */
+.login-strip{
+    text-align: center;
+    width: 20%;
+    float: right;
+    margin-bottom: 0px;
+    margin-right: 15px;
+    border: none;
+    min-height: 20px;
+    padding: 5px;
+    background-color: #BDBDBD;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
 /** HOME PAGE */
 #home_carousel{
 	height: 600px;

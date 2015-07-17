@@ -5,6 +5,10 @@
 <%@ Register TagPrefix="dnn" TagName="Profile" Src="~/DesktopModules/Admin/Security/Profile.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Password" Src="~/DesktopModules/Admin/Security/Password.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="User" Src="~/DesktopModules/Admin/Security/User.ascx" %>
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-body">
+	  <h1>Account Login</h1>
 <div class="dnnForm dnnLogin dnnClear">
     <asp:panel id="pnlLogin" runat="server" Visible="false">
         <div class="loginContent">
@@ -78,3 +82,5 @@
         <dnn:profile id="ctlProfile" runat="server" />
     </asp:panel>
 </div>
+  </div></div></div>
+

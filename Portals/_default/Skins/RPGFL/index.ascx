@@ -12,6 +12,7 @@
 <%@ Register TagPrefix="dnn" TagName="META" Src="~/Admin/Skins/Meta.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="MENU" src="~/DesktopModules/DDRMenu/Menu.ascx" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.Client.ClientResourceManagement" Assembly="DotNetNuke.Web.Client" %>
+<%@ Register TagPrefix="dnn" TagName="Alert" Src="~/DesktopModules/AlertModule/View.ascx" %>
 <dnn:META ID="mobileScale" runat="server" Name="viewport" Content="width=device-width,initial-scale=1" />
 <dnn:DnnCssInclude ID="DnnCssInclude1" runat="server" FilePath="css/main.css" PathNameAlias="SkinPath" Priority="1" />
 <dnn:DnnCssInclude ID="DnnCssInclude2" runat="server" FilePath="css/bootstrap.css" PathNameAlias="SkinPath" Priority="13" />
@@ -36,12 +37,14 @@
 		</div>
 		<!-- GLOBAL NEWS -->
 		<div class="row">
-			<div id="global_news" class="col-xs-12 col-md-12">
-				<div class="alert alert-warning" role="alert">
-					<span ><strong>ALERT</strong> This is an alert message for global news!</span>
-				</div>
-			</div>
+            <dnn:Alert runat="server" id="test" />
 		</div>
+        <!-- LOGIN PANEL -->
+        <div class="row">
+            <div class="login-strip">
+                <%=UserController.Instance.GetCurrentUserInfo.DisplayName%> <dnn:Login runat="server" id="dnnLogin" />
+            </div>
+        </div>
 		<!-- SITE NAV -->
 		<div class="row">
 				<nav class="navbar navbar-default">
@@ -71,15 +74,6 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					  </button>
-					  <a class="navbar-brand" href="#">Login/Register</a>
-					</div>
-					<div class="navbar-header col-sm-2 col-md-2">
-					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					  </button>
 					  <a class="navbar-brand" href="/leagues">Leagues</a>
 					</div>
 					<div class="navbar-header col-sm-2 col-md-2">
@@ -99,6 +93,15 @@
 						<span class="icon-bar"></span>
 					  </button>
 					  <a class="navbar-brand" href="/standings">Standings</a>
+					</div>
+                      <div class="navbar-header col-sm-2 col-md-2">
+					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					  </button>
+					  <a class="navbar-brand" href="/donate">Donate</a>
 					</div>
 				  </div>
 				</nav>

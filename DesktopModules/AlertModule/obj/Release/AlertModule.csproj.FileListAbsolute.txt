@@ -1,0 +1,5 @@
+C:\Users\arogier\Source\Repos\RPGFL\bin\AlertModule.dll
+C:\Users\arogier\Source\Repos\RPGFL\bin\AlertModule.pdb
+C:\Users\arogier\Source\Repos\RPGFL\DesktopModules\AlertModule\obj\Release\AlertModule.dll
+C:\Users\arogier\Source\Repos\RPGFL\DesktopModules\AlertModule\obj\Release\AlertModule.pdb
+C:\Users\arogier\Source\Repos\RPGFL\DesktopModules\AlertModule\obj\Release\AlertModule.csprojResolveAssemblyReference.cache
