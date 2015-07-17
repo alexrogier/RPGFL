@@ -36,6 +36,11 @@
     height: 45px;
     float: left;
 }
+.vertical-line-right {
+    border-right-color: #030303;
+    border-right-width: 1px;
+    border-right-style: solid;
+}
 .smallpadding { padding:10px; }
 }
 .table-width-100 { width: 100%; }
@@ -56,16 +61,16 @@ table.table-stacked tr {
 
 #center-buttons-standings{
     margin: 0 auto; 
-    width: 26%; 
+    width: 27%; 
     text-align: center;
 }
-    
-
-.75-width{
-    width: 75px;
-}
+  
 
 .center-div-text{
     text-align: center;
     vertical-align: middle;
+}
+
+.pill-width-leagues{
+    width: 85px;
 }
