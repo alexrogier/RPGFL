@@ -101,3 +101,10 @@ table.table-stacked tr {
     border-color: #030303;
     color: #FFFFFF;
 }
+
+.primary-button{
+    background-color: #FF6A00;
+    border-color: #030303;
+    color: #FFFFFF;
+
+}
