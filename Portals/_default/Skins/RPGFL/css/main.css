@@ -37,10 +37,15 @@
 
 /** HELPERS */
 .opacity-high{ 	opacity: 0.8;   }
+
 .pic-border-light{  border: 5px solid darkgray;  }
+
 .text-center { text-align: center; }
+
 .scrollable { overflow: auto; }
+
 .offical-black-border{ border: 2px solid #030303; }
+
 .center-div{
     width: 50%;
     margin: 0px;
@@ -61,6 +66,7 @@
 .table-width-100 { width: 100%; }
 
 table.table-stacked td { padding:20px; }
+
 table.table-stacked tr {     
     background-color: #fff;
     border: 1px solid #030303;
@@ -88,4 +94,10 @@ table.table-stacked tr {
 
 .pill-width-leagues{
     width: 85px;
+}
+
+.secondary-button{
+    background-color: #686867;
+    border-color: #030303;
+    color: #FFFFFF;
 }
