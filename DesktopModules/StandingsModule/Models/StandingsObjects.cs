@@ -7,8 +7,9 @@ namespace Christoc.Modules.StandingsModule.Models
 {
     public class Standings
     {
-        public int User_PK { get; set; }
-        public List<DraftPick> DraftPicks { get; set; }
+        public int TotalValue { get; set; }
+        public int UserPK { get; set; }
+        public int LeaguePK { get; set; }
     }
 
     public class DraftPick
@@ -18,7 +19,6 @@ namespace Christoc.Modules.StandingsModule.Models
     }
 
     public class StandingsQueryFilter {
-        public int User_PK { get; set; }
         public string FILTER_accolade { get; set; }
         /* POOSIBLE <FILTER_accolade> VALUES
          * 'Overall'

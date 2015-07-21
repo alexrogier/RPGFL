@@ -24,11 +24,11 @@ namespace Christoc.Modules.StandingsModule.Models
 
         [AllowAnonymous]
         [HttpGet]
-        public HttpResponseMessage GetStandings(string FILTER_accolade, string FILTER_context, int User_PK, int FILTER_leaguefk = -1)
+        public HttpResponseMessage GetStandings(string FILTER_accolade, string FILTER_context, int FILTER_leaguefk = -1)
         {
             try
             {
-                return Request.CreateResponse(HttpStatusCode.OK, controller.GetStandings(FILTER_accolade, FILTER_context, User_PK, FILTER_leaguefk).ToJson());
+                return Request.CreateResponse(HttpStatusCode.OK, controller.GetStandings(FILTER_accolade, FILTER_context, FILTER_leaguefk).ToJson());
             }
             catch (Exception exc)
             {
