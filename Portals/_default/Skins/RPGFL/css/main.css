@@ -46,6 +46,11 @@
     width: 85px;
 }
 
+/**CREATE LEAGUE PAGE*/
+#create-emails-width{
+    width: 1100px;
+}
+
 /** HELPERS */
 .opacity-high{ 	opacity: 0.8;   }
 .pic-border-light{  border: 5px solid darkgray;  }
