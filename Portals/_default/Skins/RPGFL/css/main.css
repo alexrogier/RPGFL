@@ -35,13 +35,24 @@
 	margin: 15px;
 }
 
+/** STANDINGS PAGE**/
+#standings-button-center{ /* -- center-buttons-standings -- create a comment header similar to above for Home Page if this is specific to a page. Also rename to 'standings-button-center'. I would ask myself first, do we really need a specific class for this when another just like it is defined above? */
+    margin: 0 auto; 
+    width: 27%; 
+    text-align: center;
+}
+/** LEAGUES PAGE**/
+.leagues-pill-width{ /* -- pill-width-leagues -- similar to above, create a comment header like the Home Page if you're making page-specific styling. Same name style as above */
+    width: 85px;
+}
+
 /** HELPERS */
 .opacity-high{ 	opacity: 0.8;   }
 .pic-border-light{  border: 5px solid darkgray;  }
 .text-center { text-align: center; }
 .scrollable { overflow: auto; }
 .offical-black-border{ border: 2px solid #030303; }
-.center-div{ /* rename to 'div-center' */
+.div-center{ /* -- center-div -- rename to 'div-center' */
     width: 50%;
     margin: 0px;
 }
@@ -66,23 +77,17 @@ table.table-stacked tr {
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     border-color: #030303;
 } 
-#center-buttons{ /* not entirely sure what this is for. Maybe rename to 'button-center' */
+#button-center{ /* -- center-buttons -- not entirely sure what this is for. Maybe rename to 'button-center'*/
     margin: 0 auto; 
     width: 35%; 
     text-align: center;
 }
-#center-buttons-standings{ /* create a comment header similar to above for Home Page if this is specific to a page. Also rename to 'standings-button-center'. I would ask myself first, do we really need a specific class for this when another just like it is defined above? */
-    margin: 0 auto; 
-    width: 27%; 
-    text-align: center;
-}
-.center-div-text{ /* rename to div-center-text */
+
+.div-center-text{ /* -- center-div-text -- rename to div-center-text */
     text-align: center;
     vertical-align: middle;
 }
-.pill-width-leagues{ /* similar to above, create a comment header like the Home Page if you're making page-specific styling. Same name style as above */
-    width: 85px;
-}
+
 .secondary-button{
     background-color: #686867;
     border-color: #030303;
