@@ -24,13 +24,13 @@ namespace Christoc.Modules.StandingsModule.Models
 
         [AllowAnonymous]
         [HttpGet]
-        public HttpResponseMessage GetStandings(string FILTER_accolade, string FILTER_context, int FILTER_leaguefk = -1)
+        public HttpResponseMessage GetStandings(String FILTER_accolade = "OVERALL", String FILTER_context = "SHOWEVERYONE", Int32 FILTER_leaguefk = -1)
         {
             try
             {
                 return Request.CreateResponse(HttpStatusCode.OK, controller.GetStandings(FILTER_accolade, FILTER_context, FILTER_leaguefk).ToJson());
             }
-            catch (Exception exc)
+            catch (Exception exc) 
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }

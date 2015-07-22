@@ -119,6 +119,9 @@
     <Content Include="Documentation\Documentation.css" />
     <Content Include="Documentation\Documentation.html" />
     <Content Include="Edit.ascx" />
+    <Content Include="js\modulestandings.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="License.txt" />
     <Content Include="module.css" />
     <Content Include="ReleaseNotes.txt" />
@@ -159,7 +162,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>9806</DevelopmentServerPort>
           <DevelopmentServerVPath>
           </DevelopmentServerVPath>
           <IISUrl>http://dnndev.me/desktopmodules/StandingsModule</IISUrl>
