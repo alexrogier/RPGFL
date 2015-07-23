@@ -9,7 +9,7 @@ namespace Christoc.Modules.StandingsModule.Models
 {
     public class StandingsController
     {
-        public IList<Standings> GetStandings(String FILTER_accolade = "OVERALL", String FILTER_context = "SHOWEVERYONE", Int32 FILTER_leaguefk = -1)
+        public IList<Standings> GetStandings(string FILTER_accolade = "OVERALL", string FILTER_context = "SHOWEVERYONE", int FILTER_leaguefk = -1, int FILTER_userfk = -1)
         {
             /* @FILTER_accolade
              *      "Overall"
@@ -22,11 +22,14 @@ namespace Christoc.Modules.StandingsModule.Models
              *      "Afflictions_Inflicted"
              * @FILTER_context
              *      "SHOWLEAGUE"
+             *      "SHOWONLYME"
              * @FILTER_leaguefk
              *      <[RPGFL].[dbo].[Leagues].[League_PK]> (Only use with FILTER_context "SHOWLEAGUE")
+             * @FILTER_userfk
+             *      <[RPGFL].[dbo].[User].[UserID]> (Only use with FILTER_context "SHOWONLYME")
              */
 
-            IList<Standings> masterResults = CBO.FillCollection<Standings>(DataProvider.Instance().ExecuteReader("RPGFL_GetStandings", FILTER_accolade, FILTER_context, FILTER_leaguefk));
+            IList<Standings> masterResults = CBO.FillCollection<Standings>(DataProvider.Instance().ExecuteReader("RPGFL_GetStandings", FILTER_accolade, FILTER_context, FILTER_leaguefk, FILTER_userfk));
              
             // index rankings within returned results
             foreach (var result in masterResults) {
