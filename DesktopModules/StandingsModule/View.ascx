@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="Christoc.Modules.StandingsModule.View" %>
-
+<script type="text/javascript" src="/DesktopModules/StandingsModule/js/modulestandings.js"></script>
 <div class="container">
     <nav class="navbar navbar-default">
         <div class="container-fluid">

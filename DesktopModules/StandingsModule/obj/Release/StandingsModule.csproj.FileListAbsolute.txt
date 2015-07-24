@@ -3,3 +3,4 @@ C:\Users\arogier\Source\Repos\RPGFL\bin\StandingsModule.pdb
 C:\Users\arogier\Source\Repos\RPGFL\DesktopModules\StandingsModule\obj\Release\StandingsModule.csprojResolveAssemblyReference.cache
 C:\Users\arogier\Source\Repos\RPGFL\DesktopModules\StandingsModule\obj\Release\StandingsModule.dll
 C:\Users\arogier\Source\Repos\RPGFL\DesktopModules\StandingsModule\obj\Release\StandingsModule.pdb
+C:\Users\arogier\Source\Repos\RPGFL\bin\js\modulestandings.js
