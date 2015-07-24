@@ -9,9 +9,9 @@ namespace Christoc.Modules.SkirmishModule.Models
 {
     public class SkirmishController
     {
-        public IList<Skirmish> GetAllSkirmishes()
+        public IList<Skirmish> GetSkirmishes()
         {
-            return CBO.FillCollection<Skirmish>(DataProvider.Instance().ExecuteReader("RPGFL_GetAllSkirmishes"));
+            return CBO.FillCollection<Skirmish>(DataProvider.Instance().ExecuteReader("RPGFL_GetSkirmishes"));
         }
     }
 }

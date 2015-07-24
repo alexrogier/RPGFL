@@ -1,105 +1,58 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="Christoc.Modules.StandingsModule.View" %>
+<script type="text/javascript">
+    var userId = '<%= UserController.Instance.GetCurrentUserInfo().UserID %>';
+    var userName = '<%= UserController.Instance.GetCurrentUserInfo().Username %>';
+</script>
 <script type="text/javascript" src="/DesktopModules/StandingsModule/js/modulestandings.js"></script>
 <div class="container">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="row">
-                <div class="col-md-4 col-xs-4">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
+                <div class="col-md-12 col-xs-12">
+                    <h2 class="text-center">User Standings</h2>
                 </div>
-                <div class="col-md-6 col-xs-6">
-                    <h2>Global User Standings</h2>
-                </div>
-                <div class="col-md-2 col-xs-2"></div>
             </div>
         </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="row">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <div class="col-md-3 col-xs-3"></div>
-                <div class="center-div-text">
+                <div class="col-md-4 col-xs-4"></div>
+                <div class="div-center-text">
                     <div class="col-md-2 col-xs-2">
-                        <select class="form-control" style="width: 170px;">
-                            <option>Overall</option>
-                            <option>Damage Dealt</option>
-                            <option>Damage Taken</option>
-                            <option>Opponent Knockouts</option>
-                            <option>Critical Rolling</option>
-                            <option>Healing</option>
-                            <option>Enchanter / Hunter</option>
-                            <option>Afflictions</option>
-                            <option>Action Voting</option>
-                            <option>Target Voting</option>
+                        <select class="form-control" style="width: 170px;" id="dropdown_accolade">
+                            <option value="Overall">Overall</option>
+                            <option value="Damage_Dealt">Damage Dealt</option>
+                            <option value="Damage_Taken">Damage Taken</option>
+                            <option value="Opponent_Knockouts">Opponent Knockouts</option>
+                            <option value="Critical_Rolling">Critical Rolling</option>
+                            <option value="Healing">Healing</option>
+                            <option value="Enchanter_Hunter">Enchanter / Hunter</option>
+                            <option value="Afflictions">Afflictions</option>
+                            <option value="Action_Voting">Action Voting</option>
+                            <option value="Target_Voting">Target Voting</option>
                         </select>
                     </div>
                     <div class="col-md-2 col-xs-2">
-                        <select class="form-control" style="width: 170px;">
-                            <option>Show Global</option>
+                        <select class="form-control" style="width: 170px;" id="dropdown_context">
+                            <option>Show Everyone</option>
                             <option>Show Only Me</option>
                         </select>
                     </div>
-                    <div class="col-md-2 col-xs-2">
-                        <select class="form-control" style="width: 170px;">
-                            <option>No League Filter</option>
-                            <option>League 1</option>
-                            <option>League 1</option>
-                            <option>League 1</option>
-                        </select>
-                    </div>
+                    <div class="col-md-1 col-xs-1"></div>
                 </div>
             </div>
         </div>
-        <!--<ul class="nav navbar-nav nav-font-size">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Accolade Filter<span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Overall</a></li>
-                                        <li><a href="#">Damage Dealt</a></li>
-                                        <li><a href="#">Damage Taken</a></li>
-                                        <li><a href="#">Opponent Knockouts</a></li>
-                                        <li><a href="#">Critical Rolling</a></li>
-                                        <li><a href="#">Healing</a></li>
-                                        <li><a href="#">Enchanter / Hunter</a></li>
-                                        <li><a href="#">Afflictions</a></li>
-                                        <li><a href="#">Action Voting</a></li>
-                                        <li><a href="#">Target Voting</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Stats<span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Show Global</a></li>
-                                        <li><a href="#">Show Only Me</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">No League Filter<span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">No League Filter</a></li>
-                                        <li><a href="#">League 1</a></li>
-                                        <li><a href="#">League 2</a></li>
-                                        <li><a href="#">League 3</a></li>
-                                    </ul>
-                                </li>
-                            </ul>-->
-        <!-- /.navbar-collapse -->
-        <!-- /.container-fluid -->
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <br />
+            </div>
+        </div>
     </nav>
     <div class="panel panel-default" style="width: 1157px;">
         <div class="panel-body">
             <div class="scrollable" style="height: 800px;">
                 <table>
-                    <!-- Top 10 -->
-                    <tbody>
-                        <tr class="offical-black-border center-div">
+                    <tbody id="table_tbody_standingsdata">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">1.</p>
@@ -207,7 +160,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">2.</p>
@@ -315,7 +268,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">3.</p>
@@ -423,7 +376,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">4.</p>
@@ -531,7 +484,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">5.</p>
@@ -639,7 +592,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">6.</p>
@@ -747,7 +700,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">7.</p>
@@ -855,7 +808,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">8.</p>
@@ -963,7 +916,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">9.</p>
@@ -1071,7 +1024,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">10.</p>
@@ -1180,7 +1133,7 @@
                             </td>
                         </tr>
                         <!-- Top 20 -->
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">11.</p>
@@ -1288,7 +1241,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">12.</p>
@@ -1396,7 +1349,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">13.</p>
@@ -1504,7 +1457,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">14.</p>
@@ -1612,7 +1565,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">15.</p>
@@ -1720,7 +1673,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">16.</p>
@@ -1828,7 +1781,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">17.</p>
@@ -1936,7 +1889,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">18.</p>
@@ -2044,7 +1997,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">19.</p>
@@ -2152,7 +2105,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="offical-black-border center-div">
+                        <tr class="offical-black-border div-center">
                             <td>
                                 <div class="smallpadding">
                                     <p class="text-center">20.</p>
@@ -2266,7 +2219,7 @@
             </div>
         </div>
         <br />
-        <!--<nav id="center-buttons-standings">
+        <!--<nav id="standings-button-center">
                     <ul class="pagination">
                         <li>
                             <a href="#" aria-label="Previous">
@@ -2285,7 +2238,7 @@
                         </li>
                     </ul>
                 </nav>-->
-        <div class="btn-toolbar" id="center-buttons-standings" role="toolbar" aria-label="...">
+        <div class="btn-toolbar" id="standings-button-center" role="toolbar" aria-label="...">
             <div class="btn-group" role="group" aria-label="...">
                 <button type="button" class="secondary-button btn btn-sm">Previous</button>
             </div>

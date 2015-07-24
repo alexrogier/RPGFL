@@ -12,5 +12,7 @@ namespace Christoc.Modules.LeagueModule.Models
         public string League_Name { get; set; }
         public string League_Description { get; set; }
         public bool Trade_Day_Enabled { get; set; }
+        public bool System_Public { get; set; }
+        public bool Join_Allow_Anyone { get; set; }
     }
 }

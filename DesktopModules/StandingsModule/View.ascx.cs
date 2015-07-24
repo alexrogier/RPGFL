@@ -16,6 +16,7 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.Services.Localization;
+using DotNetNuke.Entities.Users;
 
 namespace Christoc.Modules.StandingsModule
 {
@@ -34,7 +35,7 @@ namespace Christoc.Modules.StandingsModule
     /// -----------------------------------------------------------------------------
     public partial class View : StandingsModuleModuleBase, IActionable
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e) 
         {
             try
             {

@@ -24,11 +24,11 @@ namespace Christoc.Modules.LeagueModule.Models
 
         [AllowAnonymous]
         [HttpGet]
-        public HttpResponseMessage GetAllLeagues()
+        public HttpResponseMessage GetLeagues(int? User_PK = null)
         {
             try
             {
-                return Request.CreateResponse(HttpStatusCode.OK, controller.GetAllLeagues().ToJson());
+                return Request.CreateResponse(HttpStatusCode.OK, controller.GetLeagues(User_PK).ToJson());
             }
             catch (Exception exc)
             {

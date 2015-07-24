@@ -24,11 +24,11 @@ namespace Christoc.Modules.SkirmishModule.Models
 
         [AllowAnonymous]
         [HttpGet]
-        public HttpResponseMessage GetAllSkirmishes()
+        public HttpResponseMessage GetSkirmishes()
         {
             try
             {
-                return Request.CreateResponse(HttpStatusCode.OK, controller.GetAllSkirmishes().ToJson());
+                return Request.CreateResponse(HttpStatusCode.OK, controller.GetSkirmishes().ToJson());
             }
             catch (Exception exc)
             {
