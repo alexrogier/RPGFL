@@ -41,16 +41,33 @@
     width: 27%; 
     text-align: center;
 }
-/** LEAGUES PAGE**/
+/** VIEW LEAGUES PAGE**/
 .leagues-pill-width{ /* -- pill-width-leagues -- similar to above, create a comment header like the Home Page if you're making page-specific styling. Same name style as above */
     width: 85px;
 }
 
 /**CREATE LEAGUE PAGE*/
 #create-emails-width{
-    width: 1100px;
+    width: 1000px;
 }
 
+/**CHARACTER VIEWER PAGE*/
+.viewer-buttons-width{
+    width:105px;
+}
+
+table.table-padding td{
+    padding: 10px
+}
+
+/**LEAGUE PAGE*/
+.league-main-panel-width{
+    width: 1206px;
+}
+
+.league-scrollable-height{
+    height: 1500px;
+}
 /** HELPERS */
 .opacity-high{ 	opacity: 0.8;   }
 .pic-border-light{  border: 5px solid darkgray;  }
