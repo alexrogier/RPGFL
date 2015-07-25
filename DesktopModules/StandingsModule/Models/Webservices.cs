@@ -35,5 +35,19 @@ namespace Christoc.Modules.StandingsModule.Models
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public HttpResponseMessage GetUserInfo(int User_PK)
+        {
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, controller.GetUserInfo(User_PK).ToJson());
+            }
+            catch (Exception exc)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+            }
+        }
     }
 }

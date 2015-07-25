@@ -38,5 +38,12 @@ namespace Christoc.Modules.StandingsModule.Models
 
             return masterResults;
         }
+
+        public IList<UserInfo> GetUserInfo(int User_PK)
+        {
+            IList<UserInfo> masterResults = CBO.FillCollection<UserInfo>(DataProvider.Instance().ExecuteReader("RPGFL_GetUserInfo", User_PK));
+
+            return masterResults;
+        }
     }
 }

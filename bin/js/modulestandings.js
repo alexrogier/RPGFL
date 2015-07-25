@@ -1,24 +1,126 @@
-﻿$(document).ready(function () {
-    //var test = '';
-    //$.when($.getJSON("/DesktopModules/StandingsModule/API/ModuleStandings/GetStandings",
-    //    function (result) {
-    //        var parsedTaskJSONObject = jQuery.parseJSON(result);
-    //        console.log(parsedTaskJSONObject);
-    //        test = parsedTaskJSONObject;
-    //    })).done(function(){
-    //        alert(JSON.stringify(test));
-    //    });
+﻿// External Script Variables
+// @userId - defined in View.ascx
+// @userName - defined in View.ascx
 
-    // @userId - defined in view.ascx
+var moduleStandingsSettings = {
+    _DROPDOWNCONTEXTPERMOPTIONS: 
+        '<option value="SHOWEVERYONE">Show Everyone</option>' +
+        '<option value="SHOWONLYME">Show Only Me</option>'
+}
 
-    var userLeagues = getUserLeagues(userId);
-    console.log(userLeagues);
+$(document).ready(function () {
+    // handle league data
+    var userLeagues = getUserLeagues();
+    populateContextFilter(userLeagues);
+
+    populateStandings();
+
+    // handlers
+    $("#dropdown_context").change(function () {
+        // write logic when context dropdown changes here
+    });
 });
 
-function getUserLeagues(userId){
-    $.getJSON("/DesktopModules/LeagueModule/API/ModuleLeague/GetLeagues", { User_PK: userId })
-        .done(function (result) {
-            var jsonResult = jQuery.parseJSON(result);
-            return jsonResult;
+function getUserLeagues() {
+    var jsonResult = null;
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/DesktopModules/LeagueModule/API/ModuleLeague/GetLeagues",
+        data: { User_PK: userId },
+        dataType: "json",
+        success: function (data) {
+            jsonResult = JSON.parse(data);
+        }
+    });
+    return jsonResult;
+}
+
+function populateContextFilter(leagues) {
+    if(leagues == null || leagues == 'undefined') return;
+
+    $("#dropdown_context").empty();
+
+    // append permanent dropdown context options
+    $("#dropdown_context").append(moduleStandingsSettings._DROPDOWNCONTEXTPERMOPTIONS);
+
+    // append user's leagues
+    for (var league = 0; league < leagues.length; league++) {
+        $("#dropdown_context").append('<option value="' + leagues[league].League_PK + '">' + leagues[league].League_Name + '</option>');
+    }
+}
+
+function populateStandings() {
+    var FILTER_accolade = $("#dropdown_accolade").val();
+    var FILTER_context = $("#dropdown_context").val();
+    
+    // check if a specific league has been selected
+    var leaguefk = null;
+    if ($("#dropdown_context").val != "SHOWONLYME" || $("#dropdown_context").val != "SHOWEVERYBODY") leaguefk = $("#dropdown_context").val();
+
+    var standingsData = null;
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/DesktopModules/StandingsModule/API/ModuleStandings/GetStandings",
+        data: {
+            FILTER_accolade: FILTER_accolade,
+            FILTER_context: FILTER_context,
+            FILTER_league: leaguefk,
+            FILTER_userfk: userId
+        },
+        dataType: "json",
+        success: function (data) {
+            standingsData = JSON.parse(data);
+        }
+    });
+
+    // populate standings table with data
+    if (standingsData == null) return;
+
+    var rowRankHTML_TEMPLATE = '';
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/DesktopModules/StandingsModule/htmltemplate/standingsdata_htmltemplate.html",
+        success: function (data) {
+            rowRankHTML_TEMPLATE = data;
+        }
+    });
+    console.log(standingsData);
+    $("#table_tbody_standingsdata").empty();
+    for (var rank = 0; rank < standingsData.length; rank++) {
+        var currRank = standingsData[rank];
+
+        // get user info
+        var userInfo = '';
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "/DesktopModules/StandingsModule/API/ModuleStandings/GetUserInfo",
+            data: {
+                User_PK: currRank.userId
+            },
+            dataType: "json",
+            success: function (data) {
+                userInfo = JSON.parse(data);
+            }
         });
+        if (userInfo == null || userInfo == 'undefined') return;
+        console.log(userInfo);
+
+        // append master standings row template for new table row
+        $("#table_tbody_standingsdata").append('<tr id="standings_data_user_' + currRank.UserPK + '_' + currRank.LeaguePK + '" class="offical-black-border div-center">' + rowRankHTML_TEMPLATE + '</tr>');
+        
+        // fill in template id's
+        //$("#table_tbody_standingsdata.tr.td > #userId_rank").attr('id') = userId + "_rank";
+        //$("#table_tbody_standingsdata.tr.td > #userId_totalvalue").attr('id') = userId + "_totalvalue";
+        //$("#table_tbody_standingsdata.tr.td > #userId_username").attr('id') = userId + "_username";
+
+        // insert user specific values
+        console.log(JSON.stringify(currRank));
+        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.user_rank").text(currRank.Rank);
+        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.user_totalValue").text(currRank.TotalValue);
+        //$("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + " > td > div > p.user_username").text(displayName);
+    }
 }

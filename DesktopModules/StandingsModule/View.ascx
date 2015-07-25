@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="Christoc.Modules.StandingsModule.View" %>
 <script type="text/javascript">
     var userId = '<%= UserController.Instance.GetCurrentUserInfo().UserID %>';
-    var userName = '<%= UserController.Instance.GetCurrentUserInfo().Username %>';
+    var displayName = '<%= UserController.Instance.GetCurrentUserInfo().DisplayName %>';
 </script>
 <script type="text/javascript" src="/DesktopModules/StandingsModule/js/modulestandings.js"></script>
 <div class="container">
@@ -22,13 +22,13 @@
                             <option value="Overall">Overall</option>
                             <option value="Damage_Dealt">Damage Dealt</option>
                             <option value="Damage_Taken">Damage Taken</option>
-                            <option value="Opponent_Knockouts">Opponent Knockouts</option>
-                            <option value="Critical_Rolling">Critical Rolling</option>
-                            <option value="Healing">Healing</option>
+                            <option value="Opponent_Knock_Outs">Opponent Knockouts</option>
+                            <option value="Critical_Successes">Critical Rolling</option>
+                            <option value="Health_Regained">Healing</option>
                             <option value="Enchanter_Hunter">Enchanter / Hunter</option>
-                            <option value="Afflictions">Afflictions</option>
-                            <option value="Action_Voting">Action Voting</option>
-                            <option value="Target_Voting">Target Voting</option>
+                            <option value="Afflictions_Inflicted">Afflictions</option>
+                            <option value="Accolade_Action_Vote">Action Voting</option>
+                            <option value="Accolade_Target_Vote">Target Voting</option>
                         </select>
                     </div>
                     <div class="col-md-2 col-xs-2">

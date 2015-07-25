@@ -18,4 +18,10 @@ namespace Christoc.Modules.StandingsModule.Models
         public int Character_PK { get; set; }
         public int League_FK { get; set; }
     }
+
+    public class UserInfo
+    {
+        public int UserID { get; set; }
+        public string DisplayName { get; set; }
+    }
 }
