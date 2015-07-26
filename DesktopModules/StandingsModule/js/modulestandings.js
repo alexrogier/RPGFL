@@ -8,6 +8,16 @@ var moduleStandingsSettings = {
         '<option value="SHOWONLYME">Show Only Me</option>'
 }
 
+/***************************************************************
+CURRENTLY NO FUNCTIONALITY
+// holds data for all user standings
+var standingsData = null;
+// how many rows of data to display in the table
+var standingsViewRange = 20;
+// the current page of data in the table
+var standingsCurrentViewPage = 1;
+****************************************************************/
+
 $(document).ready(function () {
     // handle league data
     var userLeagues = getUserLeagues();
@@ -59,7 +69,6 @@ function populateStandings() {
     var leaguefk = null;
     if ($("#dropdown_context").val != "SHOWONLYME" || $("#dropdown_context").val != "SHOWEVERYBODY") leaguefk = $("#dropdown_context").val();
 
-    var standingsData = null;
     $.ajax({
         async: false,
         type: "GET",
@@ -88,7 +97,7 @@ function populateStandings() {
             rowRankHTML_TEMPLATE = data;
         }
     });
-    console.log(standingsData);
+
     $("#table_tbody_standingsdata").empty();
     for (var rank = 0; rank < standingsData.length; rank++) {
         var currRank = standingsData[rank];
@@ -108,20 +117,45 @@ function populateStandings() {
             }
         });
         if (userInfo == null || userInfo == 'undefined') return;
-        console.log(userInfo[0]);
+
+        // get user's draft picks in specific league
+        var draftInfo = '';
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "/DesktopModules/StandingsModule/API/ModuleStandings/GetCharAccoladeByUserLeague",
+            data: {
+                FILTER_userfk: currRank.UserPK,
+                FILTER_leaguefk: currRank.LeaguePK,
+                FILTER_accolade: FILTER_accolade
+            },
+            dataType: "json",
+            success: function (data) {
+                draftInfo = JSON.parse(data);
+            }
+        });
+        if (draftInfo == null || draftInfo == 'undefined') return;
 
         // append master standings row template for new table row
         $("#table_tbody_standingsdata").append('<tr id="standings_data_user_' + currRank.UserPK + '_' + currRank.LeaguePK + '" class="offical-black-border div-center">' + rowRankHTML_TEMPLATE + '</tr>');
-        
-        // fill in template id's
-        //$("#table_tbody_standingsdata.tr.td > #userId_rank").attr('id') = userId + "_rank";
-        //$("#table_tbody_standingsdata.tr.td > #userId_totalvalue").attr('id') = userId + "_totalvalue";
-        //$("#table_tbody_standingsdata.tr.td > #userId_username").attr('id') = userId + "_username";
 
         // insert user specific values
-        console.log(JSON.stringify(currRank));
         $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.user_rank").text(currRank.Rank);
         $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.user_totalValue").text(currRank.TotalValue);
         $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.user_username").text(userInfo[0].DisplayName);
+
+        // populate user's draft picks
+        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_1_score").text(draftInfo[0].TotalValue);
+        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_2_score").text(draftInfo[1].TotalValue);
+        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_3_score").text(draftInfo[2].TotalValue);
+        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_4_score").text(draftInfo[3].TotalValue);
+        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_5_score").text(draftInfo[4].TotalValue);
+        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_6_score").text(draftInfo[5].TotalValue);
+        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_7_score").text(draftInfo[6].TotalValue);
+        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_8_score").text(draftInfo[7].TotalValue);
+        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_9_score").text(draftInfo[8].TotalValue);
+        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_10_score").text(draftInfo[9].TotalValue);
+        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_11_score").text(draftInfo[10].TotalValue);
+        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_12_score").text(draftInfo[11].TotalValue);
     }
 }

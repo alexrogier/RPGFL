@@ -39,6 +39,13 @@ namespace Christoc.Modules.StandingsModule.Models
             return masterResults;
         }
 
+        public IList<DraftPick> GetCharAccoladeByUserLeague(int FILTER_userfk, int FILTER_leaguefk, string FILTER_accolade = "OVERALL")
+        {
+            IList<DraftPick> masterResults = CBO.FillCollection<DraftPick>(DataProvider.Instance().ExecuteReader("RPGFL_GetCharAccoladeByUserLeague", FILTER_accolade, FILTER_leaguefk, FILTER_userfk));
+
+            return masterResults;
+        }
+
         public IList<UserInfo> GetUserInfo(int User_PK)
         {
             IList<UserInfo> masterResults = CBO.FillCollection<UserInfo>(DataProvider.Instance().ExecuteReader("RPGFL_GetUserInfo", User_PK));

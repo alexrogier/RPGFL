@@ -38,6 +38,20 @@ namespace Christoc.Modules.StandingsModule.Models
 
         [AllowAnonymous]
         [HttpGet]
+        public HttpResponseMessage GetCharAccoladeByUserLeague(int FILTER_userfk, int FILTER_leaguefk, string FILTER_accolade = "OVERALL")
+        {
+            try 
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, controller.GetCharAccoladeByUserLeague(FILTER_userfk, FILTER_leaguefk, FILTER_accolade).ToJson());
+            }
+            catch (Exception exc)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
         public HttpResponseMessage GetUserInfo(int User_PK)
         {
             try

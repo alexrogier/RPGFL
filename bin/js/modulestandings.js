@@ -16,8 +16,9 @@ $(document).ready(function () {
     populateStandings();
 
     // handlers
-    $("#dropdown_context").change(function () {
+    $("#dropdown_context, #dropdown_accolade").change(function () {
         // write logic when context dropdown changes here
+        populateStandings();
     });
 });
 
@@ -99,7 +100,7 @@ function populateStandings() {
             type: "GET",
             url: "/DesktopModules/StandingsModule/API/ModuleStandings/GetUserInfo",
             data: {
-                User_PK: currRank.userId
+                User_PK: currRank.UserPK
             },
             dataType: "json",
             success: function (data) {
@@ -107,20 +108,33 @@ function populateStandings() {
             }
         });
         if (userInfo == null || userInfo == 'undefined') return;
-        console.log(userInfo);
+
+        // get user's draft picks in specific league
+        var draftInfo = '';
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "/DesktopModules/StandingsModule/API/ModuleStandings/GetCharAccoladeByUserLeague",
+            data: {
+                FILTER_userfk: currRank.UserPK,
+                FILTER_leaguefk: currRank.LeaguePK,
+                FILTER_accolade: FILTER_accolade
+            },
+            dataType: "json",
+            success: function (data) {
+                draftInfo = JSON.parse(data);
+            }
+        });
+        if (draftInfo == null || draftInfo == 'undefined') return;
+        console.log(draftInfo);
 
         // append master standings row template for new table row
         $("#table_tbody_standingsdata").append('<tr id="standings_data_user_' + currRank.UserPK + '_' + currRank.LeaguePK + '" class="offical-black-border div-center">' + rowRankHTML_TEMPLATE + '</tr>');
-        
-        // fill in template id's
-        //$("#table_tbody_standingsdata.tr.td > #userId_rank").attr('id') = userId + "_rank";
-        //$("#table_tbody_standingsdata.tr.td > #userId_totalvalue").attr('id') = userId + "_totalvalue";
-        //$("#table_tbody_standingsdata.tr.td > #userId_username").attr('id') = userId + "_username";
 
         // insert user specific values
         console.log(JSON.stringify(currRank));
         $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.user_rank").text(currRank.Rank);
         $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.user_totalValue").text(currRank.TotalValue);
-        //$("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + " > td > div > p.user_username").text(displayName);
+        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.user_username").text(userInfo[0].DisplayName);
     }
 }
