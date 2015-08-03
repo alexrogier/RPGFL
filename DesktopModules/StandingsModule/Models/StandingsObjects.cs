@@ -16,6 +16,8 @@ namespace Christoc.Modules.StandingsModule.Models
     public class DraftPick
     {
         public int CharacterPK { get; set; }
+        public string CharacterName { get; set; }
+        public string Archetype { get; set; }
         public int LeaguePK { get; set; }
         public int UserPK { get; set; }
         public int TotalValue { get; set; }

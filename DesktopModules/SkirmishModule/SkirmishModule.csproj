@@ -119,6 +119,8 @@
     <Content Include="Documentation\Documentation.css" />
     <Content Include="Documentation\Documentation.html" />
     <Content Include="Edit.ascx" />
+    <Content Include="htmltemplate\skirmishdata_htmltemplate.html" />
+    <Content Include="js\moduleskirmishes.js" />
     <Content Include="License.txt" />
     <Content Include="module.css" />
     <Content Include="ReleaseNotes.txt" />

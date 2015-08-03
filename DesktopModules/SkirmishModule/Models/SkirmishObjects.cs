@@ -14,5 +14,8 @@ namespace Christoc.Modules.SkirmishModule.Models
         public int Guild_2_FK { get; set; }
         public int Guild_1_Accolade_Points { get; set; }
         public int Guild_2_Accolade_Points { get; set; }
+        public int Skirmish_Victor_FK { get; set; }
+        public string Guild_1_Name { get; set; }
+        public string Guild_2_Name { get; set; }
     }
 }

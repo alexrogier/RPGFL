@@ -8,6 +8,16 @@ var moduleStandingsSettings = {
         '<option value="SHOWONLYME">Show Only Me</option>'
 }
 
+/***************************************************************
+CURRENTLY NO FUNCTIONALITY
+// holds data for all user standings
+var standingsData = null;
+// how many rows of data to display in the table
+var standingsViewRange = 20;
+// the current page of data in the table
+var standingsCurrentViewPage = 1;
+****************************************************************/
+
 $(document).ready(function () {
     // handle league data
     var userLeagues = getUserLeagues();
@@ -59,7 +69,6 @@ function populateStandings() {
     var leaguefk = null;
     if ($("#dropdown_context").val != "SHOWONLYME" || $("#dropdown_context").val != "SHOWEVERYBODY") leaguefk = $("#dropdown_context").val();
 
-    var standingsData = null;
     $.ajax({
         async: false,
         type: "GET",
@@ -88,7 +97,7 @@ function populateStandings() {
             rowRankHTML_TEMPLATE = data;
         }
     });
-    console.log(standingsData);
+
     $("#table_tbody_standingsdata").empty();
     for (var rank = 0; rank < standingsData.length; rank++) {
         var currRank = standingsData[rank];
@@ -126,15 +135,33 @@ function populateStandings() {
             }
         });
         if (draftInfo == null || draftInfo == 'undefined') return;
-        console.log(draftInfo);
 
         // append master standings row template for new table row
         $("#table_tbody_standingsdata").append('<tr id="standings_data_user_' + currRank.UserPK + '_' + currRank.LeaguePK + '" class="offical-black-border div-center">' + rowRankHTML_TEMPLATE + '</tr>');
 
         // insert user specific values
-        console.log(JSON.stringify(currRank));
         $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.user_rank").text(currRank.Rank);
         $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.user_totalValue").text(currRank.TotalValue);
         $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.user_username").text(userInfo[0].DisplayName);
+
+        // populate user icon
+        //
+
+        for (var i = 1; i <= 12; i++) {
+            // populate user's draft picks
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_" + i + "_score").text(draftInfo[i - 1].TotalValue);
+
+            // populate character icons
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > img.char_" + i + "_img").attr("src", _GETCHARACTERICON(draftInfo[i - 1].CharacterName));
+
+            // rig character images for character viewer
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("data-content", "<strong>" + draftInfo[i - 1].CharacterName + "</strong><br/><p>" + draftInfo[i - 1].Archetype + "</p>");
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("rel", "popover");
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("data-trigger", "hover");
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("data-placement", "top");
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("data-html", "true");
+        }
+
+        $(".char_img").popover();
     }
 }

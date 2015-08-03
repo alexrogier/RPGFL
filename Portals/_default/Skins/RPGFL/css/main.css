@@ -10,6 +10,11 @@
 #header_title{ color: white; }
 #header_subtitle{ color: lightgray; }
 
+.char_img{
+    width: 64px;
+    height: 64px;
+}
+
 /** LOGIN STRIP */
 .login-strip{
     text-align: center;

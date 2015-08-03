@@ -9,9 +9,9 @@ namespace Christoc.Modules.SkirmishModule.Models
 {
     public class SkirmishController
     {
-        public IList<Skirmish> GetSkirmishes()
+        public IList<Skirmish> GetSkirmishes(string FILTER_context = "SHOWCURRENT")
         {
-            return CBO.FillCollection<Skirmish>(DataProvider.Instance().ExecuteReader("RPGFL_GetSkirmishes"));
+            return CBO.FillCollection<Skirmish>(DataProvider.Instance().ExecuteReader("RPGFL_GetSkirmishes", FILTER_context));
         }
     }
 }

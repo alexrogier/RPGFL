@@ -144,18 +144,28 @@ function populateStandings() {
         $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.user_totalValue").text(currRank.TotalValue);
         $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.user_username").text(userInfo[0].DisplayName);
 
-        // populate user's draft picks
-        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_1_score").text(draftInfo[0].TotalValue);
-        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_2_score").text(draftInfo[1].TotalValue);
-        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_3_score").text(draftInfo[2].TotalValue);
-        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_4_score").text(draftInfo[3].TotalValue);
-        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_5_score").text(draftInfo[4].TotalValue);
-        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_6_score").text(draftInfo[5].TotalValue);
-        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_7_score").text(draftInfo[6].TotalValue);
-        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_8_score").text(draftInfo[7].TotalValue);
-        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_9_score").text(draftInfo[8].TotalValue);
-        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_10_score").text(draftInfo[9].TotalValue);
-        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_11_score").text(draftInfo[10].TotalValue);
-        $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_12_score").text(draftInfo[11].TotalValue);
+        // populate user icon
+        //
+
+        for (var i = 1; i <= 12; i++) {
+            // populate user's draft picks
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > p.char_" + i + "_score").text(draftInfo[i - 1].TotalValue);
+
+            // populate character icons
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > img.char_" + i + "_img").attr("src", _GETCHARACTERICON(draftInfo[i - 1].CharacterName));
+
+            // rig character images for character viewer
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("rel", "popover");
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("data-content", "<strong>" + draftInfo[i - 1].CharacterName + "</strong><br/><em>" + draftInfo[i - 1].Archetype + "</em>");
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").data("data-charid", { charpk: draftInfo[i - 1].CharacterPk });
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("data-trigger", "hover");
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("data-placement", "top");
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("data-html", "true");
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("data-toggle", "modal");
+            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("data-target", "#characterPreviewModal");
+        }
+
+        // initialize character image tooltip
+        $(".char_img").popover();
     }
 }
