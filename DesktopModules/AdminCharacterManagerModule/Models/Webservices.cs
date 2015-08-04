@@ -13,7 +13,7 @@ namespace Christoc.Modules.AdminCharacterManagerModule.Models
 {
     public class ModuleAdmChaManController : DnnApiController
     {
-        LeagueController controller = new LeagueController();
+        AdminCharacterController controller = new AdminCharacterController();
 
         [AllowAnonymous]
         [HttpGet]
@@ -29,6 +29,18 @@ namespace Christoc.Modules.AdminCharacterManagerModule.Models
             try
             {
                 return Request.CreateResponse(HttpStatusCode.OK, controller.GetAllCharacters().ToJson());
+            }
+            catch (Exception exc)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+            }
+        }
+
+        public HttpResponseMessage GetCharacterData(int Character_PK)
+        {
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, controller.GetCharacterData(Character_PK).ToJson());
             }
             catch (Exception exc)
             {

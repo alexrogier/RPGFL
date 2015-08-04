@@ -131,7 +131,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">CHARACTER NAME</h4>
+                    <h4 id="charactermodal_title" class="modal-title">CHARACTER NAME</h4>
                 </div>
                 <div class="modal-body">
                     <p>PORTRAIT IMAGE</p>
@@ -143,10 +143,5 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        $("#characterPreviewModal").on('show.bs.modal', function () {
-            // modal is about to be displayed. fetch character data
-        });
-    </script>
 </div>
 

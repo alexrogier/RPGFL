@@ -38,3 +38,26 @@ function _GETCHARACTERICON(characterName) {
     var searchName = characterName.split(" ").join("_").toLowerCase();
     return "/portals/0/RPGFL/characters/icons/" + searchName + ".jpg";
 }
+
+function _GETCHARACTERDATA(id) {
+    // reset modal data
+    
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/DesktopModules/AdminCharacterManagerModule/API/ModuleAdmChaMan/GetCharacterData",
+        data: {
+            FILTER_charpk: id
+        },
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            // set modal data
+            $("#charactermodal_title").text(data.Character_Name);
+            // portrait image
+            // stats
+            // guild
+            // skills
+        }
+    });
+}

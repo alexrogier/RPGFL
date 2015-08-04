@@ -52,14 +52,20 @@ function populateSkirmishes() {
         // append master standings row template for new table row
         $("#table_tbody_skirmishdata").append('<tr id="skirmish_data_' + currSkirmish.Skirmish_PK + '" class="offical-black-border div-center">' + rowSkirmishHTML_TEMPLATE + '</tr>');
 
-        var guildStatusText = {
-            guild1status: '',
-            guild2status: ''
-        }
-
         if (currSkirmish.Skirmish_Victor_FK != -1) {
-            if (currSkirmish.Guild_1_FK == Skirmish_Victor_FK) { guildStatusText.guild1status = 'VICTORY'; guildStatusText.guild2status = 'LOSS'; }
-            if (currSkirmish.Guild_2_FK == Skirmish_Victor_FK) { guildStatusText.guild1status = 'LOSS'; guildStatusText.guild2status = 'VICTORY'; }
+            if (currSkirmish.Guild_1_FK == currSkirmish.Skirmish_Victor_FK) {
+
+                $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_1_winlose").text("VICTORY"); // guild 1 win/lose
+                $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_2_winlose").text("LOSS"); // guild 2 win/lose
+                $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_1_winlose").addClass("text_skirmish_win")
+                $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_2_winlose").addClass("text_skirmish_lose")
+            }
+            if (currSkirmish.Guild_2_FK == currSkirmish.Skirmish_Victor_FK) {
+                $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_1_winlose").text("LOSS"); // guild 1 win/lose
+                $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_2_winlose").text("VICTORY"); // guild 2 win/lose
+                $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_1_winlose").addClass("text_skirmish_lose")
+                $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_2_winlose").addClass("text_skirmish_win")
+            }
         }
 
         // insert guild specific values
@@ -69,8 +75,6 @@ function populateSkirmishes() {
         $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_2_name").text(currSkirmish.Guild_2_Name + ":"); // guild 2 name
         $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_1_score").text(currSkirmish.Guild_1_Accolade_Points); // guild 1 score
         $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_2_score").text(currSkirmish.Guild_2_Accolade_Points); // guild 2 score
-        $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_1_winlose").text(guildStatusText.guild1status); // guild 1 win/lose
-        $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_2_winlose").text(guildStatusText.guild2status); // guild 2 win/lose
         // modify replay button here. CODE LATER
     }
 }

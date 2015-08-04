@@ -40,6 +40,16 @@
 	margin: 15px;
 }
 
+/** SKIRMISH PAGE **/
+.text_skirmish_win{
+    color: #088A08;
+    font-weight: bold;
+}
+.text_skirmish_lose{
+    color: #8A0808;
+    font-weight: bold;
+}
+
 /** STANDINGS PAGE**/
 #standings-button-center{ /* -- center-buttons-standings -- create a comment header similar to above for Home Page if this is specific to a page. Also rename to 'standings-button-center'. I would ask myself first, do we really need a specific class for this when another just like it is defined above? */
     margin: 0 auto; 
