@@ -21,6 +21,7 @@ namespace Christoc.Modules.AdminCharacterManagerModule.Models
         public string Vulnerabilities { get; set; }
         public string Resistances { get; set; }
         public int Guild_FK { get; set; }
+        public string Guild_Name { get; set; }
         public int Initiative { get; set; }
         public int Max_Energy { get; set; }
     }

@@ -47,16 +47,27 @@ function _GETCHARACTERDATA(id) {
         type: "GET",
         url: "/DesktopModules/AdminCharacterManagerModule/API/ModuleAdmChaMan/GetCharacterData",
         data: {
-            FILTER_charpk: id
+            Character_PK: id
         },
         dataType: "json",
         success: function (data) {
-            console.log(data);
+            data = JSON.parse(data);
             // set modal data
-            $("#charactermodal_title").text(data.Character_Name);
-            // portrait image
-            // stats
-            // guild
+            $("#charactermodal_title").text(data[0].Character_Name);
+            $("#charactermodal_portrait").attr("src", _GETCHARACTERPORTRAIT(data[0].Character_Name));
+            $("#charactermodal_stats_health").text(data[0].Health);
+            $("#charactermodal_stats_dodge").text(data[0].Dodge);
+            $("#charactermodal_stats_archetype").text(data[0].Archetype);
+            $("#charactermodal_stats_maxenergy").text(data[0].Max_Energy);
+            $("#charactermodal_stats_initiative").text(data[0].Initiative);
+            $("#charactermodal_stats_guild").text(data[0].Guild_Name);
+            $("#charactermodal_stats_finesse").text(data[0].Finesse);
+            $("#charactermodal_stats_agility").text(data[0].Agility);
+            $("#charactermodal_stats_senses").text(data[0].Senses);
+            $("#charactermodal_stats_mana").text(data[0].Mana);
+            $("#charactermodal_stats_immunities").text(data[0].Immunities || "None");
+            $("#charactermodal_stats_vulnerabilities").text(data[0].Vulnerabilities || "None");
+            $("#charactermodal_stats_resistances").text(data[0].Resistances || "None");
             // skills
         }
     });

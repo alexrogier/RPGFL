@@ -36,12 +36,14 @@ namespace Christoc.Modules.AdminCharacterManagerModule.Models
             }
         }
 
+        [AllowAnonymous]
+        [HttpGet]
         public HttpResponseMessage GetCharacterData(int Character_PK)
         {
             try
             {
                 return Request.CreateResponse(HttpStatusCode.OK, controller.GetCharacterData(Character_PK).ToJson());
-            }
+            } 
             catch (Exception exc)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);

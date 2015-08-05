@@ -16,7 +16,7 @@ namespace Christoc.Modules.AdminCharacterManagerModule.Models
 
         public IList<Character> GetCharacterData(int Character_PK)
         {
-            return CBO.FillCollection<Character>(DataProvider.Instance().ExecuteReader("RPGFL_GetCharacterData"));
+            return CBO.FillCollection<Character>(DataProvider.Instance().ExecuteReader("RPGFL_GetCharacterData", Character_PK));
         }
     }
 }

@@ -134,14 +134,71 @@
                     <h4 id="charactermodal_title" class="modal-title">CHARACTER NAME</h4>
                 </div>
                 <div class="modal-body">
-                    <p>PORTRAIT IMAGE</p>
-                    <p>STATS</p>
-                    <p>SKILLS</p>
+                    <div class="row">
+                        <center><img style="width: 40%;" id="charactermodal_portrait" alt="" src="" /></center>
+                    </div>
+                    <div class="row">
+                        <h4 class="smallpadding">STATS</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="row"><label class="col-sm-5 col-md-5"><strong>Health:</strong></label><p class="borderless col-sm-7 col-md-7" id="charactermodal_stats_health" /></div>
+                            <div class="row"><label class="col-sm-5 col-md-5"><strong>Dodge:</strong></label><p class="borderless col-sm-7 col-md-7" id="charactermodal_stats_dodge" /></div>
+                            <div class="row"><label class="col-sm-5 col-md-5"><strong>Archetype:</strong></label><p class="borderless col-sm-7 col-md-7" id="charactermodal_stats_archetype" /></div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="row"><label class="col-sm-5 col-md-5"><strong>Max Energy:</strong></label><p class="borderless col-sm-7 col-md-7" id="charactermodal_stats_maxenergy" /></div>
+                            <div class="row"><label class="col-sm-5 col-md-5"><strong>Intiative:</strong></label><p class="borderless col-sm-7 col-md-7" id="charactermodal_stats_initiative" /></div>
+                            <div class="row"><label class="col-sm-5 col-md-5"><strong>Guild:</strong></label><p class="borderless col-sm-7 col-md-7" id="charactermodal_stats_guild" /></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row text-center">
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2"></div>
+                            <div class="col-sm-2 col-md-2"><label><strong>Finesse</strong></label></div>
+                            <div class="col-sm-2 col-md-2"><label><strong>Agility</strong></label></div>
+                            <div class="col-sm-2 col-md-2"><label><strong>Senses</strong></label></div>
+                            <div class="col-sm-2 col-md-2"><label><strong>Mana</strong></label></div>
+                            <div class="col-sm-2 col-md-2"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2"></div>
+                            <div class="col-sm-2 col-md-2"><p id="charactermodal_stats_finesse"></p></div>
+                            <div class="col-sm-2 col-md-2"><p id="charactermodal_stats_agility"></p></div>
+                            <div class="col-sm-2 col-md-2"><p id="charactermodal_stats_senses"></p></div>
+                            <div class="col-sm-2 col-md-2"><p id="charactermodal_stats_mana"></p></div>
+                            <div class="col-sm-2 col-md-2"></div>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1"></div>
+                            <div class="col-sm-3 col-md-3"><label><strong>Immunities</strong></label></div>
+                            <div class="col-sm-3 col-md-3"><label><strong>Vulnerabilities</strong></label></div>
+                            <div class="col-sm-3 col-md-3"><label><strong>Resistances</strong></label></div>
+                            <div class="col-sm-1 col-md-1"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1 col-md-1"></div>
+                            <div class="col-sm-3 col-md-3"><p id="charactermodal_stats_immunities"></p></div>
+                            <div class="col-sm-3 col-md-3"><p id="charactermodal_stats_vulnerabilities"></p></div>
+                            <div class="col-sm-3 col-md-3"><p id="charactermodal_stats_resistances"></p></div>
+                            <div class="col-sm-1 col-md-1"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h4 class="smallpadding">SKILLS</h4>
+                    </div>
+                    <div id="charactermodal_skills" class="row">
+
+                    </div>
                 </div>
                 <div class="modal-footer">
                 </div>
             </div>
         </div>
     </div>
+    <!-- END CHARACTER PREVIEW MODAL -->
 </div>
 

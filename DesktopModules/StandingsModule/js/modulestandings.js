@@ -156,26 +156,21 @@ function populateStandings() {
 
             // rig character images for character viewer
             var img = $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img");
-            img.attr("data-id", "char_" + draftInfo[i - 1].CharacterPK);
-            img.attr("id", "char_" + draftInfo[i - 1].CharacterPK);
+            img.attr("id", "char_" + currRank.UserPK + "_" + currRank.LeaguePK + "_" + draftInfo[i - 1].CharacterPK);
+            document.getElementById($(img).attr("id")).setAttribute("data-charpk", draftInfo[i - 1].CharacterPK);
             img.attr("rel", "popover");
             img.attr("data-content", "<strong>" + draftInfo[i - 1].CharacterName + "</strong><br/><em>" + draftInfo[i - 1].Archetype + "</em>");
-            jQuery.data(img, "chardata", { charpk: draftInfo[i - 1].CharacterPK });
             img.attr("data-trigger", "hover");
             img.attr("data-placement", "top");
             img.attr("data-html", "true");
             img.attr("data-toggle", "modal");
             img.attr("data-target", "#characterPreviewModal");
-
-            console.log(document.getElementById("char_" + draftInfo[i - 1].CharacterPK));
-            console.log(jQuery.data(img, "chardata").charpk);
-
-            // character modal handler
-            $(".char_img").click(function () {
-                _GETCHARACTERDATA(jQuery.data(img, "chardata").charpk);
-            });
-
         }
+
+        // character modal handler
+        $(".char_img").click(function () {
+            _GETCHARACTERDATA(this.getAttribute("data-charpk"));
+        });
 
         // initialize character image tooltip
         $(".char_img").popover();

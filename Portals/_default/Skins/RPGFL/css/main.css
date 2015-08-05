@@ -85,6 +85,7 @@ table.table-padding td{
 }
 /** HELPERS */
 .opacity-high{ 	opacity: 0.8;   }
+.borderless { border: none; }
 .pic-border-light{  border: 5px solid darkgray;  }
 .text-center { text-align: center; }
 .scrollable { overflow: auto; }
