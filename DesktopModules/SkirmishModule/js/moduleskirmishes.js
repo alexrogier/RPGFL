@@ -71,8 +71,8 @@ function populateSkirmishes() {
         // insert guild specific values
         $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > img.guild_1_logo").attr("src", _GETGUILDLOGO(currSkirmish.Guild_1_FK)); // guild 1 logo
         $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > img.guild_2_logo").attr("src", _GETGUILDLOGO(currSkirmish.Guild_2_FK)); // guild 2 logo
-        $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_1_name").text(currSkirmish.Guild_1_Name + ":"); // guild 1 name
-        $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_2_name").text(currSkirmish.Guild_2_Name + ":"); // guild 2 name
+        $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_1_name").text(currSkirmish.Guild_1_Name); // guild 1 name
+        $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_2_name").text(currSkirmish.Guild_2_Name); // guild 2 name
         $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_1_score").text(currSkirmish.Guild_1_Accolade_Points); // guild 1 score
         $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_2_score").text(currSkirmish.Guild_2_Accolade_Points); // guild 2 score
         // modify replay button here. CODE LATER
