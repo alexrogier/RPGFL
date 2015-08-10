@@ -9,9 +9,9 @@ namespace Christoc.Modules.LeagueModule.Models
 {
     public class LeagueController
     {
-        public IList<League> GetLeagues(int? User_PK = null)
+        public IList<League> GetLeagues(int? FILTER_userfk = null, string FILTER_context = "SHOWUSERLEAGUES", string FILTER_search = "")
         {
-            return CBO.FillCollection<League>(DataProvider.Instance().ExecuteReader("RPGFL_GetLeagues", User_PK));
+            return CBO.FillCollection<League>(DataProvider.Instance().ExecuteReader("RPGFL_GetLeagues", FILTER_userfk, FILTER_context, FILTER_search));
         }
     }
 }
