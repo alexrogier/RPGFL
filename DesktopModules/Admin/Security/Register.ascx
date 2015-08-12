@@ -2,41 +2,41 @@
 <%@ Register TagPrefix="dnn" Assembly="DotNetNuke.Web" Namespace="DotNetNuke.Web.UI.WebControls" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn" Assembly="DotNetNuke" Namespace="DotNetNuke.UI.WebControls" %>
-<div class="container">
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h1>Account Registration</h1>
-            <div class="dnnForm dnnRegistrationForm" id="RegistrationForm" runat="server">
-                <div class="dnnFormItem">
-                    <div class="dnnFormMessage dnnFormInfo">
-                        <asp:Label ID="userHelpLabel" runat="server" ViewStateMode="Disabled" /></div>
-                </div>
-                <br />
-                <div class="dnnFormItem dnnClear">
-                    <dnn:dnnformeditor id="userForm" runat="Server" formmode="Short" encryptids="True" />
-                    <div class="dnnSocialRegistration">
-                        <div id="mainContainer">
-                            <ul class="buttonList">
-                                <asp:PlaceHolder ID="socialLoginControls" runat="server" />
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div id="captchaRow" runat="server" visible="false" class="dnnFormItem dnnCaptcha">
-                    <dnn:label id="captchaLabel" controlname="ctlCaptcha" runat="server" />
-                    <dnn:captchacontrol id="ctlCaptcha" captchawidth="130" captchaheight="40" errorstyle-cssclass="dnnFormMessage dnnFormError dnnCaptcha" runat="server" />
-                </div>
-                <input runat="server" id="gotcha" type="text" name="gotcha" style="display: none;" autocomplete="off" />
-                <br /><br /><br /><br /><br />
-                <ul id="actionsRow" runat="server" class="dnnActions dnnClear">
-                    <li>
-                        <asp:LinkButton ID="registerButton" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdRegister" /></li>
-                    <li>
-                        <asp:LinkButton ID="cancelButton" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" CausesValidation="false" /></li>
+
+<h1>Account Registration</h1>
+<div class="dnnForm dnnRegistrationForm" id="RegistrationForm" runat="server">
+    <div class="dnnFormItem">
+        <div class="dnnFormMessage dnnFormInfo">
+            <asp:Label ID="userHelpLabel" runat="server" ViewStateMode="Disabled" />
+        </div>
+    </div>
+    <br />
+    <div class="dnnFormItem dnnClear">
+        <dnn:dnnformeditor id="userForm" runat="Server" formmode="Short" encryptids="True" />
+        <div class="dnnSocialRegistration">
+            <div id="mainContainer">
+                <ul class="buttonList">
+                    <asp:PlaceHolder ID="socialLoginControls" runat="server" />
                 </ul>
             </div>
         </div>
     </div>
+    <div id="captchaRow" runat="server" visible="false" class="dnnFormItem dnnCaptcha">
+        <dnn:label id="captchaLabel" controlname="ctlCaptcha" runat="server" />
+        <dnn:captchacontrol id="ctlCaptcha" captchawidth="130" captchaheight="40" errorstyle-cssclass="dnnFormMessage dnnFormError dnnCaptcha" runat="server" />
+    </div>
+    <input runat="server" id="gotcha" type="text" name="gotcha" style="display: none;" autocomplete="off" />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <ul id="actionsRow" runat="server" class="dnnActions dnnClear">
+        <li>
+            <asp:LinkButton ID="registerButton" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdRegister" /></li>
+        <li>
+            <asp:LinkButton ID="cancelButton" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" CausesValidation="false" /></li>
+    </ul>
 </div>
 <script type="text/javascript">
     $(function () {
