@@ -72,3 +72,36 @@ function _GETCHARACTERDATA(id) {
         }
     });
 }
+
+function _GETLEAGUESETTINGTEXT(setting, val) {
+    var returnText = null;
+
+    if (val == 1) {
+        returnText = "Enabled";
+    } else {
+        returnText = "Disabled";
+    }
+
+    // handle unique expressions
+    switch (setting) {
+        case "GAME_MODE":
+            switch (val) {
+                case 1: returnText = "Normal"; break;
+                case 2: returnText = "Damage Dealt"; break;
+                case 3: returnText = "Damage Taken"; break;
+                case 4: returnText = "Voting"; break;
+                case 5: returnText = "Survival"; break;
+            }
+            break;
+        case "LEAGUE_DURATION":
+            switch (val) {
+                case 1: returnText = "1 Campaign"; break;
+                case 2: returnText = "2 Campaigns"; break;
+                case 3: returnText = "3 Campaigns"; break;
+                case 4: returnText = "Series Long"; break;
+            }
+            break;
+    }
+
+    return returnText;
+}

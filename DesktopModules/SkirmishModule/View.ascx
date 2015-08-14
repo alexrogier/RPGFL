@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="Christoc.Modules.SkirmishModule.View" %>
 <script type="text/javascript" src="/DesktopModules/SkirmishModule/js/moduleskirmishes.js"></script>
 <div class="content">
+    <h1>Skirmishes</h1>
     <div class="row">
         <div class="col-md-10 col-xs-10">
             <div class="scrollable offical-black-border" style="height: 791px;">

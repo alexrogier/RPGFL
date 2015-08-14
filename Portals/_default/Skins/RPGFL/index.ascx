@@ -101,7 +101,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					  </button>
-					  <a class="navbar-brand" href="/donate">Donate</a>
+					  <a class="navbar-brand" href="/characterviewer">Characters</a>
 					</div>
 				  </div>
 				</nav>

@@ -22,7 +22,6 @@ $(document).ready(function () {
     });
 });
 
-
 function populateLeagues() {
     var leagueData = null;
 
@@ -65,11 +64,17 @@ function populateLeagues() {
         // append master standings row template for new table row
         $("#table_tbody_leaguedata").append('<tr id="league_data_league_' + currLeague.League_PK + '" class="offical-black-border div-center">' + rowRankHTML_TEMPLATE + '</tr>');
 
-        // insert user specific values
-        $("#table_tbody_leaguedata > tr#league_data_league_" + currLeague.League_PK + " > td > div > p.leaguename").text(currLeague.League_Name);
+        // insert league specific values
+        $("#table_tbody_leaguedata > tr#league_data_league_" + currLeague.League_PK + " > td > div > strong > p.leaguename").text(currLeague.League_Name);
         $("#table_tbody_leaguedata > tr#league_data_league_" + currLeague.League_PK + " > td > div > div > div > p > span.slotsfilled").text(currLeague.Slots_Filled);
+        $("#table_tbody_leaguedata > tr#league_data_league_" + currLeague.League_PK + " > td > div > div > div > div > p.league_gamemode").text(_GETLEAGUESETTINGTEXT("GAME_MODE", currLeague.Game_Mode));
+        $("#table_tbody_leaguedata > tr#league_data_league_" + currLeague.League_PK + " > td > div > div > div > div > p.league_duration").text(_GETLEAGUESETTINGTEXT("LEAGUE_DURATION", currLeague.League_Duration));
+        $("#table_tbody_leaguedata > tr#league_data_league_" + currLeague.League_PK + " > td > div > div > div > div > p.league_renew").text(_GETLEAGUESETTINGTEXT("RENEW_DURATION", currLeague.Renew_Duration));
+        $("#table_tbody_leaguedata > tr#league_data_league_" + currLeague.League_PK + " > td > div > div > div > div > p.league_tradeday").text(_GETLEAGUESETTINGTEXT("TRADE_DAY_ENABLED", currLeague.Trade_Day_Enabled));
+        $("#table_tbody_leaguedata > tr#league_data_league_" + currLeague.League_PK + " > td > div > div > div > div > p.league_randomize").text(_GETLEAGUESETTINGTEXT("RANDOMIZE_ENABLED", currLeague.Randomize_Enabled));
+        $("#table_tbody_leaguedata > tr#league_data_league_" + currLeague.League_PK + " > td > div > div > div > div > p.league_invite").text(_GETLEAGUESETTINGTEXT("JOIN_ALLOW_ANYONE", currLeague.Join_Allow_Anyone));
 
         // populate league icon
-        //
+        $("#table_tbody_leaguedata > tr#league_data_league_" + currLeague.League_PK + " > td > div > div > img.league_icon").attr("src", currLeague.League_Icon);
     }
 }
