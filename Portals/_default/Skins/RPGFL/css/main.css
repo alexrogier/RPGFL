@@ -63,7 +63,7 @@
 
 /**CREATE LEAGUE PAGE*/
 #create-emails-width{
-    width: 1000px;
+    width: 400px;
 }
 
 /**CHARACTER VIEWER PAGE*/
@@ -125,15 +125,20 @@ table.table-stacked tr {
     text-align: center;
     vertical-align: middle;
 }
-
+ 
 .secondary-button{
     background-color: #686867;
     border-color: #030303;
     color: #FFFFFF;
 }
-.primary-button{
+.primary-button {
     background-color: #FF6A00;
     border-color: #030303;
     color: #FFFFFF;
+}
 
+.center-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
