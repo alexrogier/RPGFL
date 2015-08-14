@@ -76,5 +76,8 @@ function populateSkirmishes() {
         $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_1_score").text(currSkirmish.Guild_1_Accolade_Points); // guild 1 score
         $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_2_score").text(currSkirmish.Guild_2_Accolade_Points); // guild 2 score
         // modify replay button here. CODE LATER
+
+        // hide replay button in 'Future Skirmishes' context
+        if ($("#dropdown_context").val() == 'SHOWFUTURE') $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p > button.btn").hide();
     }
 }

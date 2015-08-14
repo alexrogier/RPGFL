@@ -1,13 +1,15 @@
 <%@ Control language="C#" CodeFile="ViewProfile.ascx.cs" AutoEventWireup="false" Explicit="True" Inherits="DotNetNuke.Modules.Admin.Users.ViewProfile" %>
 <%@ Import Namespace="System.Globalization" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.Client.ClientResourceManagement" Assembly="DotNetNuke.Web.Client" %>
-
-<div id="profileOutput" runat="server" style="display:none" data-bind="visible: Visible" ViewStateMode="Disabled"></div>
-<asp:Label id="noPropertiesLabel" runat="server" resourcekey="NoProperties" Visible="false" />
-<div id="buttonPanel" runat="server" ViewStateMode="Disabled">
-    <ul class="dnnActions dnnClear">
-        <li><asp:HyperLink id="editLink" runat="server" resourcekey="Edit" CssClass="dnnPrimaryAction" /></li>
-    </ul>
+<div class="text-center">
+    <h1>View Profile</h1>
+    <div id="profileOutput" runat="server" style="display:none" data-bind="visible: Visible" ViewStateMode="Disabled"></div>
+    <asp:Label id="noPropertiesLabel" runat="server" resourcekey="NoProperties" Visible="false" />
+    <div id="buttonPanel" runat="server" ViewStateMode="Disabled">
+        <ul class="dnnActions dnnClear">
+            <li><asp:HyperLink id="editLink" runat="server" resourcekey="Edit" CssClass="dnnPrimaryAction" /></li>
+        </ul>
+    </div>
 </div>
 <script language="javascript" type="text/javascript">
 

@@ -42,7 +42,7 @@
         <!-- LOGIN PANEL -->
         <div class="row">
             <div class="login-strip">
-                <%=UserController.Instance.GetCurrentUserInfo.DisplayName%> <dnn:Login runat="server" id="dnnLogin" />
+               <a href="/RPGLFHome/View-Profile"><%=UserController.Instance.GetCurrentUserInfo.DisplayName%> <dnn:Login runat="server" id="dnnLogin" /></a>
             </div>
         </div>
 		<!-- SITE NAV -->
@@ -108,9 +108,21 @@
 		</div>
 	</div>
 	<!-- BODY CONTENT -->
-    <div id="content">
-        <div id="ContentPane" runat="server" >
-		</div>
+    <div id="content-header" class="ContentPane">
+        <!-- NO CONTAINER -->
+        <div id="ContentPane_Header" runat="server" >
+	    </div>
+    </div>
+    <br />
+    <div id="content" class="ContentPane">
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="ContentPane" runat="server" >
+		            </div>
+                </div>
+            </div>
+        </div>
     </div>
 	<!-- FOOTER -->
     <div id="footer" class="opacity-high">
