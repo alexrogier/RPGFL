@@ -24,11 +24,25 @@ namespace Christoc.Modules.ModuleCharacterViewer.Models
 
         [AllowAnonymous]
         [HttpGet]
-        public HttpResponseMessage GetAllCharacters()
+        public HttpResponseMessage GetAllCharacters(int FILTER_guildfk)
         {
             try
             {
-                return Request.CreateResponse(HttpStatusCode.OK, controller.GetAllCharacters().ToJson());
+                return Request.CreateResponse(HttpStatusCode.OK, controller.GetAllCharacters(FILTER_guildfk).ToJson());
+            }
+            catch (Exception exc)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public HttpResponseMessage GetAllGuilds()
+        {
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, controller.GetAllGuilds().ToJson());
             }
             catch (Exception exc)
             {

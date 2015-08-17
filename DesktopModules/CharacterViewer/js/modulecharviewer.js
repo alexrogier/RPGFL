@@ -6,6 +6,8 @@ var bPriorityEditting = false;
 $(document).ready(function () {
     if (userId == -1) $("#btn_editpriority").hide();
     
+    populateGuildFilter();
+
     populateCharacters();
 
     // handlers
@@ -36,6 +38,31 @@ $(document).ready(function () {
     //    $("ul, li").disableSelection();
     //});
 });
+
+function populateGuildFilter(){
+    $("#dropdown_guilds").empty();
+    $("#dropdown_guilds").append('<option value="-1" selected>All Guilds</option>');
+
+    var guildInfo = null;
+    // get all guilds
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/DesktopModules/CharacterViewer/API/ModuleCharacterViewer/GetAllGuilds",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+            guildInfo = JSON.parse(data);
+        }
+    });
+    if (guildInfo == null) return;
+
+    // populate guild's dropdown
+    for (var guild in guildInfo) {
+        $("#dropdown_guilds").append("<option value=" + guild.Guild_PK + ">" + Guilde_Name + "</option>");
+    }
+}
+
 function getDraftPriority() {
     // ignore filters in ajax
     // reset & disable filters
@@ -81,7 +108,7 @@ function populateCharacters() {
         type: "GET",
         url: "/DesktopModules/CharacterViewer/API/ModuleCharacterViewer/GetAllCharacters",
         data: {
-
+            FILTER_guildfk: $("#dropdown_guild").val(),
         },
         dataType: "json",
         success: function (data) {

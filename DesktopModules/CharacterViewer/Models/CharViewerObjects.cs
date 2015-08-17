@@ -11,4 +11,10 @@ namespace Christoc.Modules.ModuleCharacterViewer.Models
         public string Character_Name { get; set; }
         public string Archetype { get; set; }
     }
+
+    public class Guild
+    {
+        public int Guild_PK { get; set; }
+        public string Guild_Name { get; set; }
+    }
 }

@@ -9,15 +9,7 @@
             <div class="panel-body">
                 <div class="col-md-4 col-xs-4">
                     <select class="form-control" id="dropdown_guilds">
-                        <option>All Guilds</option>
-                        <option>Defenders of Light</option>
-                        <option>The Netherling</option>
-                        <option>Seed of the Grove</option>
-                        <option>Artificer Guild</option>
-                        <option>The Underdark Menace</option>
-                        <option>Thieves Guild</option>
-                        <option>Flame Guild(?)</option>
-                        <option>Guild Slot(?)</option>
+                        <option value="-1" selected>All Guilds</option>
                     </select>
                 </div>
                 <div class="col-md-2 col-xs-2">
