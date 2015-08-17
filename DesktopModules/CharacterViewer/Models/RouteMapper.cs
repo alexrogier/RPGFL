@@ -4,13 +4,13 @@ using System.Linq;
 using System.Web;
 using DotNetNuke.Web.Api;
 
-namespace Christoc.Modules.CharacterViewerModule.Models
+namespace Christoc.Modules.ModuleCharacterViewer.Models
 {
     public class RouteMapper : IServiceRouteMapper
     {
         public void RegisterRoutes(IMapRoute mapRouteManager)
         {
-            mapRouteManager.MapHttpRoute("CharacterViewModule", "default", "{controller}/{action}", new[] { "Christoc.Modules.CharacterViewerModule.Models" });
+            mapRouteManager.MapHttpRoute("CharacterViewer", "default", "{controller}/{action}", new[] { "Christoc.Modules.ModuleCharacterViewer.Models" });
         }
     }
 }

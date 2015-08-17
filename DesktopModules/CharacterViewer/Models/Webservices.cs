@@ -9,7 +9,7 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Web.Api;
 
-namespace Christoc.Modules.CharacterViewerModule.Models
+namespace Christoc.Modules.ModuleCharacterViewer.Models
 {
     public class ModuleCharacterViewerController : DnnApiController
     {
@@ -20,6 +20,20 @@ namespace Christoc.Modules.CharacterViewerModule.Models
         public HttpResponseMessage HelloWorld()
         {
             return Request.CreateResponse(HttpStatusCode.OK, "Hello World!");
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public HttpResponseMessage GetAllCharacters()
+        {
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, controller.GetAllCharacters().ToJson());
+            }
+            catch (Exception exc)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+            }
         }
     }
 }
