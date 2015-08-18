@@ -11,7 +11,7 @@ namespace Christoc.Modules.ModuleCharacterViewer.Models
     {
         public IList<Character> GetAllCharacters(int FILTER_guildfk)
         {
-            IList<Character> masterResults = CBO.FillCollection<Character>(DataProvider.Instance().ExecuteReader("RPGFL_GetAllCharacters"));
+            IList<Character> masterResults = CBO.FillCollection<Character>(DataProvider.Instance().ExecuteReader("RPGFL_GetAllCharacters", FILTER_guildfk));
 
             return masterResults;
         }

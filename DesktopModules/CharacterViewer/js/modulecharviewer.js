@@ -58,8 +58,9 @@ function populateGuildFilter(){
     if (guildInfo == null) return;
 
     // populate guild's dropdown
-    for (var guild in guildInfo) {
-        $("#dropdown_guilds").append("<option value=" + guild.Guild_PK + ">" + Guilde_Name + "</option>");
+    console.log(guildInfo);
+    for (var guild = 0; guild < guildInfo.length; guild++) {
+        $("#dropdown_guilds").append("<option value=" + guildInfo[guild].Guild_PK + ">" + guildInfo[guild].Guild_Name + "</option>");
     }
 }
 
@@ -81,7 +82,7 @@ function getDraftPriority() {
         type: "GET",
         url: "/DesktopModules/CharacterViewer/API/ModuleCharacterViewer/GetAllCharacters",
         data: {
-            FILTER_userfk: userId
+            FILTER_guildfk: $("#dropdown_guilds").val()
         },
         dataType: "json",
         success: function (data) {
@@ -108,7 +109,7 @@ function populateCharacters() {
         type: "GET",
         url: "/DesktopModules/CharacterViewer/API/ModuleCharacterViewer/GetAllCharacters",
         data: {
-            FILTER_guildfk: $("#dropdown_guild").val(),
+            FILTER_guildfk: $("#dropdown_guilds").val(),
         },
         dataType: "json",
         success: function (data) {
@@ -117,6 +118,7 @@ function populateCharacters() {
     });
 
     if (charData == null) return;
+    console.log(charData);
 
     var rowRankHTML_TEMPLATE = '';
     $.ajax({
