@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "RPGFL(1)", "http://localhost:20837", "{6940BEF3-8CEF-44AA-86FB-6390B6356969}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "RPGFL(2)", "http://localhost:20837", "{EF75BCA0-7E20-49D4-911E-CBF4FF5306C8}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
@@ -29,8 +29,8 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6940BEF3-8CEF-44AA-86FB-6390B6356969}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6940BEF3-8CEF-44AA-86FB-6390B6356969}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF75BCA0-7E20-49D4-911E-CBF4FF5306C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF75BCA0-7E20-49D4-911E-CBF4FF5306C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

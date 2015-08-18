@@ -24,11 +24,28 @@ namespace Christoc.Modules.ModuleCharacterViewer.Models
 
         [AllowAnonymous]
         [HttpGet]
-        public HttpResponseMessage GetAllCharacters(int FILTER_guildfk)
+        public HttpResponseMessage GetAllCharacters(int FILTER_guildfk, bool FILTER_allclasses, bool FILTER_healer, bool FILTER_assassin,
+                                                    bool FILTER_hunter, bool FILTER_bruiser, bool FILTER_sorcerer, bool FILTER_enchanter,
+                                                    bool FILTER_tank)
         {
             try
             {
-                return Request.CreateResponse(HttpStatusCode.OK, controller.GetAllCharacters(FILTER_guildfk).ToJson());
+                return Request.CreateResponse(HttpStatusCode.OK, controller.GetAllCharacters(FILTER_guildfk, FILTER_allclasses, FILTER_healer, FILTER_assassin,
+                                                                                            FILTER_hunter, FILTER_bruiser, FILTER_sorcerer, FILTER_enchanter, FILTER_tank).ToJson());
+            }
+            catch (Exception exc)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public HttpResponseMessage GetUserDraftPriority(int FILTER_userfk)
+        {
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, controller.GetUserDraftPriority(FILTER_userfk).ToJson());
             }
             catch (Exception exc)
             {

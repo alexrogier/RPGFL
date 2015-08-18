@@ -8,11 +8,32 @@ $(document).ready(function () {
     
     populateGuildFilter();
 
-    populateCharacters();
+    getCharacterData();
 
     // handlers
-    $("#dropdown_guilds, input[name='filter_classes'").change(function () {
-        populateCharacters();
+    $("#dropdown_guilds, input[name='filter_classes']").change(function () {
+        if ($(this).attr("id") == "filter_allclasses") {
+            // when all_classes filter is selected
+
+            // don't perform operations if all classes is already checked
+            if (!$(this).prop("checked")) {
+                $(this).prop("checked", true);
+                return;
+            }
+
+            // disable all filters
+            $("input[name='filter_classes']").each(function () {
+                $(this).prop("checked", false);
+            });
+
+            // check all_classes filter
+            $(this).prop("checked", true);
+        } else {
+            // if any other filter is selected, unselect all_classes
+            $("#filter_allclasses").prop("checked", false);
+        }
+
+        getCharacterData();
     });
 
     $("#btn_editpriority").click(function () {
@@ -26,6 +47,7 @@ $(document).ready(function () {
         bPriorityEditting = !bPriorityEditting;
     });
 
+    // DUSTINS DRAG CODE?
     //$(function () {
     //    $(".sortable").sortable({
     //        revert: true
@@ -58,7 +80,6 @@ function populateGuildFilter(){
     if (guildInfo == null) return;
 
     // populate guild's dropdown
-    console.log(guildInfo);
     for (var guild = 0; guild < guildInfo.length; guild++) {
         $("#dropdown_guilds").append("<option value=" + guildInfo[guild].Guild_PK + ">" + guildInfo[guild].Guild_Name + "</option>");
     }
@@ -67,7 +88,7 @@ function populateGuildFilter(){
 function getDraftPriority() {
     // ignore filters in ajax
     // reset & disable filters
-    $("input[name='filter_classes").each(function () {
+    $("input[name='filter_classes']").each(function () {
         $(this).prop("disabled", true);
         $(this).prop("checked", false);
     });
@@ -80,9 +101,9 @@ function getDraftPriority() {
     $.ajax({
         async: false,
         type: "GET",
-        url: "/DesktopModules/CharacterViewer/API/ModuleCharacterViewer/GetAllCharacters",
+        url: "/DesktopModules/CharacterViewer/API/ModuleCharacterViewer/GetUserDraftPriority",
         data: {
-            FILTER_guildfk: $("#dropdown_guilds").val()
+            FILTER_userfk: userId
         },
         dataType: "json",
         success: function (data) {
@@ -92,17 +113,19 @@ function getDraftPriority() {
     if (userDraftInfo == null) return;
 
     // populate characters (already in priority order)
+    populateCharacters(userDraftInfo);
 }
 
 function postDraftPriority() {
     // reenable filters
-    $("input[name='filter_classes").each(function () {
+    $("input[name='filter_classes']").each(function () {
         $(this).prop("disabled", false);
     });
     $("#dropdown_guilds").prop("disabled", false);
+    getCharacterData();
 }
 
-function populateCharacters() {
+function getCharacterData() {
     var charData = null;
     $.ajax({
         async: false,
@@ -110,6 +133,14 @@ function populateCharacters() {
         url: "/DesktopModules/CharacterViewer/API/ModuleCharacterViewer/GetAllCharacters",
         data: {
             FILTER_guildfk: $("#dropdown_guilds").val(),
+            FILTER_allclasses: $("#filter_allclasses").prop("checked"),
+            FILTER_healer: $("#filter_healer").prop("checked"),
+            FILTER_assassin: $("#filter_assassin").prop("checked"),
+            FILTER_hunter: $("#filter_hunter").prop("checked"),
+            FILTER_bruiser: $("#filter_bruiser").prop("checked"),
+            FILTER_sorcerer: $("#filter_sorcerer").prop("checked"),
+            FILTER_enchanter: $("#filter_enchanter").prop("checked"),
+            FILTER_tank: $("#filter_tank").prop("checked")
         },
         dataType: "json",
         success: function (data) {
@@ -118,8 +149,10 @@ function populateCharacters() {
     });
 
     if (charData == null) return;
-    console.log(charData);
+    populateCharacters(charData);
+}
 
+function populateCharacters(charData){
     var rowRankHTML_TEMPLATE = '';
     $.ajax({
         async: false,

@@ -19,37 +19,37 @@
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="filter_classes" />Healer</label>
+                            <input type="checkbox" name="filter_classes" id="filter_healer" />Healer</label>
                     </div>
                 </div>
                 <div class="col-md-2 col-xs-2">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="filter_classes" />Assassin</label>
+                            <input type="checkbox" name="filter_classes" id="filter_assassin" />Assassin</label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="filter_classes" />Hunter</label>
-                    </div>
-                </div>
-                <div class="col-md-2 col-xs-2">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="filter_classes" />Bruiser</label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="filter_classes" />Sorcerer</label>
+                            <input type="checkbox" name="filter_classes" id="filter_hunter" />Hunter</label>
                     </div>
                 </div>
                 <div class="col-md-2 col-xs-2">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="filter_classes" />Enchanter</label>
+                            <input type="checkbox" name="filter_classes" id="filter_bruiser" />Bruiser</label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="filter_classes" />Tank</label>
+                            <input type="checkbox" name="filter_classes" id="filter_sorcerer" />Sorcerer</label>
+                    </div>
+                </div>
+                <div class="col-md-2 col-xs-2">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="filter_classes" id="filter_enchanter" />Enchanter</label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="filter_classes" id="filter_tank" />Tank</label>
                     </div>
                 </div>
             </div>

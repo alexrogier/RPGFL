@@ -19,6 +19,7 @@
 <dnn:DnnJsInclude ID="DnnJsInclude3" runat="server" FilePath="js/rpgflconfig.js" PathNameAlias="SkinPath" Priority="1010" ForceProvider="DnnFormBottomProvider" />
 <dnn:DnnJsInclude ID="DnnJsInclude1" runat="server" FilePath="js/main.js" PathNameAlias="SkinPath" Priority="1010" ForceProvider="DnnFormBottomProvider" />
 <dnn:DnnJsInclude ID="DnnJsInclude2" runat="server" FilePath="js/bootstrap.min.js" PathNameAlias="SkinPath" Priority="1011" ForceProvider="DnnFormBottomProvider" />
+<dnn:DnnJsInclude ID="DnnJsInclude4" runat="server" FilePath="js/bootbox.min.js" PathNameAlias="SkinPath" Priority="1012" ForceProvider="DnnFormBottomProvider" />
 
 <div id="wrapper">
 	<!-- HEADER -->
