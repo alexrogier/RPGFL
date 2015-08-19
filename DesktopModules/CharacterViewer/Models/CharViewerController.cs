@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
+using System.Web.Script.Serialization;
+
 
 namespace Christoc.Modules.ModuleCharacterViewer.Models
 {
@@ -24,6 +26,24 @@ namespace Christoc.Modules.ModuleCharacterViewer.Models
             IList<Character> masterResults = CBO.FillCollection<Character>(DataProvider.Instance().ExecuteReader("RPGFL_GetUserDraftPriority", FILTER_userfk));
 
             return masterResults;
+        }
+
+        public void UpdateUserDraftPriority(HttpPostDraftData DraftPriorities)
+        {
+            JavaScriptSerializer ser = new JavaScriptSerializer();
+
+            IList<PriorityData> newData = ser.Deserialize<IList<PriorityData>>(DraftPriorities.DraftPriorities);
+
+            // logger
+            //var sw = new System.IO.StreamWriter("C:\\Users\\arogier\\Desktop\\log.txt", true);
+            //sw.WriteLine("CONTROLLER:"); 
+            //sw.WriteLine(newData.ToString());
+            //sw.Close(); 
+
+            foreach (var priority in newData)
+            {
+                DataProvider.Instance().ExecuteReader("RPGFL_UpdateUserDraftPriority", priority.Character_PK, DraftPriorities.UserFK, priority.Priority);
+            }
         }
 
         public IList<Guild> GetAllGuilds()

@@ -1,5 +1,5 @@
 ﻿var leagueId;
-var bIsInLeague, bDisableLeagueJoin;
+var bIsInLeague, bDisableLeagueJoin, bIsLeagueOwner;
 
 $(document).ready(function () {
     leagueId = getUrlParameter("leagueid");
@@ -7,6 +7,7 @@ $(document).ready(function () {
     //if (leagueId <= 0 || isNaN(leagueId))) return; DOESN'T FUNCTION RIGHT
 
     $("#404_league_not_found").hide();
+    $("#league_permissions").hide();
     getLeagueData();
     $("#league_data").show();
 
@@ -64,7 +65,10 @@ function getLeagueData() {
         }
 
         if (!bIsAllowedAccess) {
-            // user should not be able to view this league
+            // user is not allowed to view this league
+            $("#leage_data").hide();
+            $("#league_permissions").show();
+            return;
         }
     }
 
@@ -80,6 +84,7 @@ function getLeagueData() {
     // check if user is league owner
     if (leagueData.Creator_User_Fk == userId) {
         // enable editting controls ONLY IF league has not been activated by the system yet
+        bIsLeagueOwner = true;
     }
 
     // loop through league users
@@ -121,6 +126,48 @@ function getLeagueData() {
             bDisableLeagueJoin = true;
         }
     }
+
+    // get user's drafted characters in this league - already sorted by accolade points
+    var charDraftInfo = null;
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/DesktopModules/SingleLeagueModule/API/ModuleSingleLeague/GetCharacterDraftByLeague",
+        data: {
+            FILTER_userfk: userId,
+            FILTER_leaguefk: leagueId
+        },
+        dataType: "json",
+        success: function (data) {
+            charDraftInfo = data;
+        }
+    });
+    if (charDraftInfo == null) return;
+    
+    for (var i = 0; i < charDraftInfo.length; i++) {
+        var char = charDraftInfo[i];
+        $("#char_" + (i + 1) + "_score").text(char.Accolade_Points);
+        $("#char_" + (i + 1) + "_img").attr("src", _GETCHARACTERICON(char.Character_Name));
+
+        // rig character images for character viewer
+        var img = $("#char_" + (i + 1) + "_img");
+        document.getElementById($(img).attr("id")).setAttribute("data-charpk", char.Character_PK);
+        img.attr("rel", "popover");
+        img.attr("data-content", "<strong>" + char.Character_Name + "</strong><br/><em>" + char.Archetype + "</em>");
+        img.attr("data-trigger", "hover");
+        img.attr("data-placement", "top");
+        img.attr("data-html", "true");
+        img.attr("data-toggle", "modal");
+        img.attr("data-target", "#characterPreviewModal");
+    }
+
+    // character modal handler
+    $(".char_img").click(function () {
+        _GETCHARACTERDATA(this.getAttribute("data-charpk"));
+    });
+
+    // initialize character image tooltip
+    $(".char_img").popover();
 }
 
 function leaveLeague() {
@@ -137,7 +184,8 @@ function leaveLeague() {
                     url: "/DesktopModules/SingleLeagueModule/API/ModuleSingleLeague/DeleteUserFromLeague",
                     data: {
                         FILTER_leaguefk: leagueId,
-                        FILTER_userfk: userId
+                        FILTER_userfk: userId,
+                        bLeagueOwner: bIsLeagueOwner
                     },
                     dataType: "json",
                     success: function (data) {

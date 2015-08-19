@@ -9,7 +9,7 @@ $(document).ready(function () {
     populateGuildFilter();
 
     getCharacterData();
-
+    
     // handlers
     $("#dropdown_guilds, input[name='filter_classes']").change(function () {
         if ($(this).attr("id") == "filter_allclasses") {
@@ -42,23 +42,10 @@ $(document).ready(function () {
             $("#btn_editpriority").text("Edit Character Draft Priorities");
         } else {
             getDraftPriority();
-            $("#btn_editpriority").text("Close Character Draft Priorities");
+            $("#btn_editpriority").text("Save Character Draft Priorities");
         }
         bPriorityEditting = !bPriorityEditting;
     });
-
-    // DUSTINS DRAG CODE?
-    //$(function () {
-    //    $(".sortable").sortable({
-    //        revert: true
-    //    });
-    //    $(".draggable").draggable({
-    //        connectToSortable: "#sortable",
-    //        helper: "clone",
-    //        revert: "invalid"
-    //    });
-    //    $("ul, li").disableSelection();
-    //});
 });
 
 function populateGuildFilter(){
@@ -114,15 +101,52 @@ function getDraftPriority() {
 
     // populate characters (already in priority order)
     populateCharacters(userDraftInfo);
+
+    // sortable / draggable jQuery code
+    $("#characterviewer_table_data").sortable();
+    $(".draggable").draggable({
+        connectToSortable: '#characterviewer_table_data',
+        helper: 'clone',
+        revert: 'invalid'
+    });
+    $("ul, li").disableSelection();
 }
 
 function postDraftPriority() {
+    var postDraftArray = [];
+    // record priority list
+    $(".char_img").each(function (index, value) {
+        var arrayItem = {
+            Character_PK: $(this).attr("data-charpk"),
+            Priority: (index + 1)
+        }
+        postDraftArray.push(arrayItem);
+    });
+
+    console.log(postDraftArray);
+
+    // post new draft priorities to server
+    $.ajax({
+        async: false,
+        type: "POST",
+        url: "/DesktopModules/CharacterViewer/API/ModuleCharacterViewer/UpdateUserDraftPriority",
+        data: {
+            DraftPriorities: JSON.stringify(postDraftArray),
+            UserFK: userId
+        },
+        dataType: "json"
+    });
+
     // reenable filters
     $("input[name='filter_classes']").each(function () {
         $(this).prop("disabled", false);
     });
     $("#dropdown_guilds").prop("disabled", false);
     getCharacterData();
+
+    // sortable / draggable jQuery code
+    $("#characterviewer_table_data").sortable("destroy");
+    $(".draggable").draggable("destroy");
 }
 
 function getCharacterData() {
@@ -164,19 +188,19 @@ function populateCharacters(charData){
     });
 
     $("#characterviewer_table_data").empty();
-    var row = 1;
-    var maxColumnsPerRow = 13;
-    var column = 13;
+    //var row = 1;
+    //var maxColumnsPerRow = 13;
+    //var column = 13;
     for (var char = 0; char < charData.length; char++) {
         // append master standings row template for new table row
-        column++;
-        if (column > maxColumnsPerRow) {
-            row++;
-            $("#characterviewer_table_data").append('<tr id="row_' + row + '"></tr>');
-            column = 1;
-        }
-        $("#row_" + row).append(rowRankHTML_TEMPLATE);
-        var img = $("#characterviewer_table_data > tr#row_" + row + " > td > img.new_char");
+        //column++;
+        //if (column > maxColumnsPerRow) {
+        //    row++;
+        //    $("#characterviewer_table_data").append('<tr id="row_' + row + '"></tr>');
+        //    column = 1;
+        //}
+        $("#characterviewer_table_data").append(rowRankHTML_TEMPLATE);
+        var img = $("#characterviewer_table_data > li > img.new_char");
         $(img).removeClass("new_char");
         img.attr("src", _GETCHARACTERICON(charData[char].Character_Name));
         img.attr("id", "char_" + charData[char].Character_PK);

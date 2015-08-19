@@ -23,6 +23,21 @@ namespace Christoc.Modules.SingleLeagueModule.Models
 
         [AllowAnonymous]
         [HttpGet]
+        public HttpResponseMessage DeleteUserFromLeague(int FILTER_leaguefk, int FILTER_userfk, bool bLeagueOwner)
+        {
+            try
+            {
+                controller.DeleteUserFromLeague(FILTER_leaguefk, FILTER_userfk, bLeagueOwner);
+                return Request.CreateResponse(HttpStatusCode.OK, "SUCCESS");
+            }
+            catch (Exception exc)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
         public HttpResponseMessage GetSingleLeagueData(int FILTER_leaguefk)
         {
             try
@@ -39,12 +54,11 @@ namespace Christoc.Modules.SingleLeagueModule.Models
 
         [AllowAnonymous]
         [HttpGet]
-        public HttpResponseMessage DeleteUserFromLeague(int FILTER_leaguefk, int FILTER_userfk)
+        public HttpResponseMessage GetLeagueCountByUser(int FILTER_userfk)
         {
             try
             {
-                controller.DeleteUserFromLeague(FILTER_leaguefk, FILTER_userfk);
-                return Request.CreateResponse(HttpStatusCode.OK, "SUCCESS");
+                return Request.CreateResponse(HttpStatusCode.OK, controller.GetLeagueCountByUser(FILTER_userfk));
             }
             catch (Exception exc)
             {
@@ -54,11 +68,11 @@ namespace Christoc.Modules.SingleLeagueModule.Models
 
         [AllowAnonymous]
         [HttpGet]
-        public HttpResponseMessage GetLeagueCountByUser(int FILTER_userfk)
+        public HttpResponseMessage GetCharacterDraftByLeague(int FILTER_userfk, int FILTER_leaguefk)
         {
             try
             {
-                return Request.CreateResponse(HttpStatusCode.OK, controller.GetLeagueCountByUser(FILTER_userfk));
+                return Request.CreateResponse(HttpStatusCode.OK, controller.GetCharacterDraftByLeague(FILTER_userfk, FILTER_leaguefk));
             }
             catch (Exception exc)
             {

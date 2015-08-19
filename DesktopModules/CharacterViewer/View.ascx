@@ -2,6 +2,7 @@
 <script type="text/javascript">
     var userId = '<%= UserController.Instance.GetCurrentUserInfo().UserID %>';
 </script><script type="text/javascript" src="/DesktopModules/CharacterViewer/js/modulecharviewer.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <h1>Character Viewer</h1>
 <div class="row">
     <div class="col-md-12 col-xs-12">
@@ -61,9 +62,10 @@
 <div class="row">
     <div class="panel panel-default">
         <div class="panel-body">
-            <table class="table-padding">
+            <!--<table class="table-padding">
                 <tbody id="characterviewer_table_data"></tbody>
-            </table>
+            </table>!-->
+            <ul id="characterviewer_table_data" style="list-style-type: none;"></ul>
         </div>
     </div>
 </div>

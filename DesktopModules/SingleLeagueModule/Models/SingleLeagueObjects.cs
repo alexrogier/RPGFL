@@ -30,4 +30,12 @@ namespace Christoc.Modules.SingleLeagueModule.Models
         public int Accolade_Points { get; set; }
         // will need user icon as well
     }
+
+    public class Character
+    {
+        public int Character_PK { get; set; }
+        public string Character_Name { get; set; }
+        public string Archetype { get; set; }
+        public int Accolade_Points { get; set; }
+    }
 }

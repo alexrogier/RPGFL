@@ -68,6 +68,7 @@ function _GETCHARACTERDATA(id) {
             $("#charactermodal_stats_immunities").text(data[0].Immunities || "None");
             $("#charactermodal_stats_vulnerabilities").text(data[0].Vulnerabilities || "None");
             $("#charactermodal_stats_resistances").text(data[0].Resistances || "None");
+            $("#charactermodal_stats_resistances").text(data[0].Resistances || "None");
             // skills
         }
     });

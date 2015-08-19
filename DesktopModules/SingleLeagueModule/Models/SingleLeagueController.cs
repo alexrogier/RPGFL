@@ -24,12 +24,17 @@ namespace Christoc.Modules.SingleLeagueModule.Models
         {
             return CBO.FillCollection<int>(DataProvider.Instance().ExecuteReader("RPGFL_GetLeagueCountByUser", FILTER_userfk))[0];
         }
+
+        public IList<Character> GetCharacterDraftByLeague(int FILTER_userfk, int FILTER_leaguefk)
+        {
+            return CBO.FillCollection<Character>(DataProvider.Instance().ExecuteReader("RPGFL_GetCharacterDraftByLeague", FILTER_userfk, FILTER_leaguefk));
+        }
         #endregion
 
         #region Delete Operations
-        public void DeleteUserFromLeague(int FILTER_leaguefk, int FILTER_userfk)
+        public void DeleteUserFromLeague(int FILTER_leaguefk, int FILTER_userfk, bool bLeagueOwner)
         {
-            DataProvider.Instance().ExecuteReader("RPGFL_DeleteUserFromLeague", FILTER_leaguefk, FILTER_userfk);
+            DataProvider.Instance().ExecuteReader("RPGFL_DeleteUserFromLeague", FILTER_leaguefk, FILTER_userfk, bLeagueOwner);
         }
         #endregion
 

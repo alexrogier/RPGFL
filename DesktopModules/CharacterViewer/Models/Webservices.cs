@@ -54,6 +54,30 @@ namespace Christoc.Modules.ModuleCharacterViewer.Models
         }
 
         [AllowAnonymous]
+        [HttpPost]
+        public HttpResponseMessage UpdateUserDraftPriority(HttpPostDraftData DraftPriorities)
+        {
+            try
+            {
+                // logger
+                //var sw = new System.IO.StreamWriter("C:\\Users\\arogier\\Desktop\\log.txt", true);
+                //sw.WriteLine("WEBSERVICES:");
+                //sw.WriteLine(DraftPriorities);
+                //sw.WriteLine(" ");
+                //sw.WriteLine(DraftPriorities.DraftPriorities);
+                //sw.WriteLine(DraftPriorities.UserFK);
+                //sw.Close();
+                
+                controller.UpdateUserDraftPriority(DraftPriorities);
+                return Request.CreateResponse(HttpStatusCode.OK, "SUCCESS");
+            }
+            catch (Exception exc)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+            }
+        }
+
+        [AllowAnonymous]
         [HttpGet]
         public HttpResponseMessage GetAllGuilds()
         {

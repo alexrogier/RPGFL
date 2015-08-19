@@ -75,6 +75,9 @@ function populateLeagues() {
         $("#table_tbody_leaguedata > tr#league_data_league_" + currLeague.League_PK + " > td > div > div > div > div > p.league_invite").text(_GETLEAGUESETTINGTEXT("JOIN_ALLOW_ANYONE", currLeague.Join_Allow_Anyone));
 
         // populate league icon
-        $("#table_tbody_leaguedata > tr#league_data_league_" + currLeague.League_PK + " > td > div > div > img.league_icon").attr("src", currLeague.League_Icon);
+        $("#table_tbody_leaguedata > tr#league_data_league_" + currLeague.League_PK + " > td > div > div > a >img.league_icon").attr("src", currLeague.League_Icon);
+        $("#table_tbody_leaguedata > tr#league_data_league_" + currLeague.League_PK + " > td > div > div > a.league_navigation").attr("href", "/viewleague?leagueid=" + currLeague.League_PK);
+
+        // navigation 
     }
 }
