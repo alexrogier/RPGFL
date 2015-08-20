@@ -65,7 +65,7 @@
             <!--<table class="table-padding">
                 <tbody id="characterviewer_table_data"></tbody>
             </table>!-->
-            <ul id="characterviewer_table_data" style="list-style-type: none;"></ul>
+            <ul id="characterviewer_table_data" class="mobile-ul-ui"></ul>
         </div>
     </div>
 </div>

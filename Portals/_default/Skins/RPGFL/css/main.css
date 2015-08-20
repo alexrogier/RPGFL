@@ -30,6 +30,12 @@
     border-top-left-radius: 10px;
 }
 
+/** EDIT PROFILE */
+/** hide various profile settings that RPGFL doesn't need to show/use */
+#ui-id-3, #ui-id-4, #dnn_ctr_EditUser_Membership_membershipForm, #h2{
+    display: none;
+}
+
 /** HOME PAGE */
 #home_carousel{
 	height: 600px;
@@ -141,4 +147,13 @@ table.table-stacked tr {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+.mobile-li-ui{
+	display: inline-block;
+	margin: 10px;
+}
+.mobile-ul-ui{
+	list-style-type: none;
+	text-align: center;
+	margin-left: 0px;
 }

@@ -102,6 +102,13 @@ function _GETLEAGUESETTINGTEXT(setting, val) {
                 case 4: returnText = "Series Long"; break;
             }
             break;
+        case "JOIN_ALLOW_ANYONE":
+            // inverse expressions
+            switch (val) {
+                case false: returnText = "Enabled"; break;
+                case true: returnText = "Disabled"; break;
+            }
+            break;
     }
 
     return returnText;

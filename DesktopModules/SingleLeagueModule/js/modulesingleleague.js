@@ -1,5 +1,6 @@
 ﻿var leagueId;
-var bIsInLeague, bDisableLeagueJoin, bIsLeagueOwner;
+var bIsInLeague, bDisableLeagueJoin;
+var bIsLeagueOwner = false;
 
 $(document).ready(function () {
     leagueId = getUrlParameter("leagueid");
@@ -13,7 +14,7 @@ $(document).ready(function () {
 
     // handlers
     $("#btn_cancel").click(function () {
-
+        window.location = "/leagues";
     });
     $("#btn_joinleague").click(function () {
         joinLeague();
@@ -53,10 +54,9 @@ function getLeagueData() {
         }
     });
     if (leagueData == null) return;
-    console.log(leagueData);
 
     // check if league is private and if user should be able to view it
-    if (!leagueData.System_Public) {
+    if (!leagueData.Join_Allow_Anyone) {
         // league is private
         var bIsAllowedAccess = false;
         for (var user = 0; user < leagueData.League_Users.length; user++) {
@@ -81,84 +81,92 @@ function getLeagueData() {
     $("#league_randomize").text(_GETLEAGUESETTINGTEXT("RANDOMIZE_ENABLED", leagueData.Randomize_Enabled));
     $("#league_invite").text(_GETLEAGUESETTINGTEXT("JOIN_ALLOW_ANYONE", leagueData.Join_Allow_Anyone));
 
-    // check if user is league owner
-    if (leagueData.Creator_User_Fk == userId) {
-        // enable editting controls ONLY IF league has not been activated by the system yet
-        bIsLeagueOwner = true;
-    }
-
-    // loop through league users
-    for (var user = 0; user < leagueData.League_Users.length; user++) {
-        var userData = leagueData.League_Users[user];
-        // check if user is in the league
-        if (userId == userData.User_FK) {
-            $("#btn_joinleague").hide();
-            $("#btn_cancel").hide();
-            $("#btn_leaveleague").show();
-            bIsInLeague = true;
+    if (userId != -1) {
+        $("#label_loggedout").remove();
+        // check if user is league owner
+        if (leagueData.Creator_User_Fk == userId) {
+            // enable editting controls ONLY IF league has not been activated by the system yet
+            bIsLeagueOwner = true;
         }
 
-        // populate league user data
-        $("#user_" + (user + 1) + "_score").text(userData.Accolade_Points);
-        // populate user icon here
-    }
+        // loop through league users
+        for (var user = 0; user < leagueData.League_Users.length; user++) {
+            var userData = leagueData.League_Users[user];
+            // check if user is in the league
+            if (userId == userData.User_FK) {
+                $("#btn_joinleague").remove();
+                $("#btn_cancel").remove();
+                $("#btn_leaveleague").show();
+                bIsInLeague = true;
+            }
 
-    if (!bIsInLeague) {
-        // check how many leagues the user is in
-        var leagueCount = null;
+            // populate league user data
+            $("#user_" + (user + 1) + "_score").text(userData.Accolade_Points);
+            // populate user icon here
+        }
+
+        if (!bIsInLeague) {
+            // check how many leagues the user is in
+            var leagueCount = null;
+            $.ajax({
+                async: false,
+                type: "GET",
+                url: "/DesktopModules/SingleLeagueModule/API/ModuleSingleLeague/GetLeagueCountByUser",
+                data: {
+                    FILTER_userfk: userId
+                },
+                dataType: "json",
+                success: function (data) {
+                    leagueCount = parseInt(data);
+                }
+            });
+            if (leagueCount == null) return;
+
+            // disable joining any league if user is already in 3 leagues
+            if (leagueCount >= 3) {
+                $("#btn_joinleague").remove();
+                bDisableLeagueJoin = true;
+            }
+        }
+
+        // get user's drafted characters in this league - already sorted by accolade points
+        var charDraftInfo = null;
         $.ajax({
             async: false,
             type: "GET",
-            url: "/DesktopModules/SingleLeagueModule/API/ModuleSingleLeague/GetLeagueCountByUser",
+            url: "/DesktopModules/SingleLeagueModule/API/ModuleSingleLeague/GetCharacterDraftByLeague",
             data: {
-                FILTER_userfk: userId
+                FILTER_userfk: userId,
+                FILTER_leaguefk: leagueId
             },
             dataType: "json",
             success: function (data) {
-                leagueCount = parseInt(data);
+                charDraftInfo = data;
             }
         });
-        if (leagueCount == null) return;
+        if (charDraftInfo == null) return;
 
-        // disable joining any league if user is already in 3 leagues
-        if (leagueCount >= 3) {
-            $("#btn_joinleague").hide();
-            bDisableLeagueJoin = true;
+        for (var i = 0; i < charDraftInfo.length; i++) {
+            var char = charDraftInfo[i];
+            $("#char_" + (i + 1) + "_score").text(char.Accolade_Points);
+            $("#char_" + (i + 1) + "_img").attr("src", _GETCHARACTERICON(char.Character_Name));
+
+            // rig character images for character viewer
+            var img = $("#char_" + (i + 1) + "_img");
+            document.getElementById($(img).attr("id")).setAttribute("data-charpk", char.Character_PK);
+            img.attr("rel", "popover");
+            img.attr("data-content", "<strong>" + char.Character_Name + "</strong><br/><em>" + char.Archetype + "</em>");
+            img.attr("data-trigger", "hover");
+            img.attr("data-placement", "top");
+            img.attr("data-html", "true");
+            img.attr("data-toggle", "modal");
+            img.attr("data-target", "#characterPreviewModal");
         }
-    }
-
-    // get user's drafted characters in this league - already sorted by accolade points
-    var charDraftInfo = null;
-    $.ajax({
-        async: false,
-        type: "GET",
-        url: "/DesktopModules/SingleLeagueModule/API/ModuleSingleLeague/GetCharacterDraftByLeague",
-        data: {
-            FILTER_userfk: userId,
-            FILTER_leaguefk: leagueId
-        },
-        dataType: "json",
-        success: function (data) {
-            charDraftInfo = data;
-        }
-    });
-    if (charDraftInfo == null) return;
-    
-    for (var i = 0; i < charDraftInfo.length; i++) {
-        var char = charDraftInfo[i];
-        $("#char_" + (i + 1) + "_score").text(char.Accolade_Points);
-        $("#char_" + (i + 1) + "_img").attr("src", _GETCHARACTERICON(char.Character_Name));
-
-        // rig character images for character viewer
-        var img = $("#char_" + (i + 1) + "_img");
-        document.getElementById($(img).attr("id")).setAttribute("data-charpk", char.Character_PK);
-        img.attr("rel", "popover");
-        img.attr("data-content", "<strong>" + char.Character_Name + "</strong><br/><em>" + char.Archetype + "</em>");
-        img.attr("data-trigger", "hover");
-        img.attr("data-placement", "top");
-        img.attr("data-html", "true");
-        img.attr("data-toggle", "modal");
-        img.attr("data-target", "#characterPreviewModal");
+    } else {
+        $("#btn_joinleague").remove();
+        $("#league_characterlineup").remove();
+        $("#btn_leaveleague").remove();
+        $("#label_loggedout").show();
     }
 
     // character modal handler
@@ -202,7 +210,6 @@ function joinLeague() {
         $("#btn_leaveleague").prop("disabled", true);
         $("#btn_cancel").prop("disabled", true);
         // add user to league
-        console.log(leagueId + " " + userId);
         $.ajax({
             async: false,
             type: "GET",

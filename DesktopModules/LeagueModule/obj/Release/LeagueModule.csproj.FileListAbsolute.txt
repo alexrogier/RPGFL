@@ -3,3 +3,8 @@ C:\Users\arogier\Source\Repos\RPGFL\bin\LeagueModule.pdb
 C:\Users\arogier\Source\Repos\RPGFL\DesktopModules\LeagueModule\obj\Release\LeagueModule.dll
 C:\Users\arogier\Source\Repos\RPGFL\DesktopModules\LeagueModule\obj\Release\LeagueModule.pdb
 C:\Users\arogier\Source\Repos\RPGFL\DesktopModules\LeagueModule\obj\Release\LeagueModule.csprojResolveAssemblyReference.cache
+C:\Users\Alex\Source\Repos\RPGFL\bin\LeagueModule.dll
+C:\Users\Alex\Source\Repos\RPGFL\bin\LeagueModule.pdb
+C:\Users\Alex\Source\Repos\RPGFL\DesktopModules\LeagueModule\obj\Release\LeagueModule.csprojResolveAssemblyReference.cache
+C:\Users\Alex\Source\Repos\RPGFL\DesktopModules\LeagueModule\obj\Release\LeagueModule.dll
+C:\Users\Alex\Source\Repos\RPGFL\DesktopModules\LeagueModule\obj\Release\LeagueModule.pdb

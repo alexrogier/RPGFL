@@ -2,6 +2,11 @@
 // @userId - defined in View.ascx
 
 $(document).ready(function () {
+    // remove "Show My Leagues" if user isn't logged in
+    if (userId == -1) {
+        $("#dropdown_context option[value='SHOWUSERLEAGUES']").remove();
+    }
+
     populateLeagues();
 
     // handlers
@@ -53,13 +58,18 @@ function populateLeagues() {
             rowRankHTML_TEMPLATE = data;
         }
     });
-    console.log(leagueData);
+
     $("#table_tbody_leaguedata").empty();
     for (var league = 0; league < leagueData.length; league++) {
         var currLeague = leagueData[league];
 
         // hide full leagues
         if (currLeague.Slots_Filled >= 8) continue;
+
+        // hide invite-only leagues
+        if ($("#dropdown_context").val() != "SHOWUSERLEAGUES") {
+            if (!currLeague.Join_Allow_Anyone) continue;
+        }
 
         // append master standings row template for new table row
         $("#table_tbody_leaguedata").append('<tr id="league_data_league_' + currLeague.League_PK + '" class="offical-black-border div-center">' + rowRankHTML_TEMPLATE + '</tr>');
