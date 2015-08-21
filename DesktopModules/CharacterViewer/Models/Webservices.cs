@@ -22,6 +22,14 @@ namespace Christoc.Modules.ModuleCharacterViewer.Models
             return Request.CreateResponse(HttpStatusCode.OK, "Hello World!");
         }
 
+        //[AllowAnonymous]
+        //[HttpGet]
+        //public HttpResponseMessage TESTCharPriority()
+        //{
+        //    controller.TESTCharPriority();
+        //    return Request.CreateResponse(HttpStatusCode.OK, "SUCCESS");
+        //}
+
         [AllowAnonymous]
         [HttpGet]
         public HttpResponseMessage GetAllCharacters(int FILTER_guildfk, bool FILTER_allclasses, bool FILTER_healer, bool FILTER_assassin,
