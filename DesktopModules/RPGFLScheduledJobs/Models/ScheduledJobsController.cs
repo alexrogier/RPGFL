@@ -17,7 +17,13 @@ namespace Christoc.Modules.RPGFLScheduledJobs.Models
         public Series CreateNewSeries(int CurrentSeriesPK)
         {
             // create new Series and return newly created Series data
-            return CBO.FillCollection<Series>(DataProvider.Instance().ExecuteReader("RPGFL_CreateNewSeries"))[0];
+            return CBO.FillCollection<Series>(DataProvider.Instance().ExecuteReader("RPGFL_CreateNewSeries", CurrentSeriesPK))[0];
+        }
+
+        public bool CreateSeriesSkirmishSchedule()
+        {
+         DataProvider.Instance().ExecuteReader("RPGFL_CreateSeriesSkirmishSchedule");
+         return true;
         }
 
         public bool CreateSeriesCharacterDraft()
