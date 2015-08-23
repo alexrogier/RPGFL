@@ -37,13 +37,28 @@ namespace Christoc.Modules.RPGFLScheduledJobs.Models
 
                 #region Series Management
                 // check for new series
+                this.ScheduleHistoryItem.AddLogNote("DoWork: Series Management");
                 Series activeSeries = controller.GetActiveSeries();
                 this.ScheduleHistoryItem.AddLogNote("DoWork: activeSeries.Series_PK [" + activeSeries.Series_PK + "]");
 
                 if (activeSeries.End_Date < DateTime.Today)
                 {
+                    // old series has ended, make a new one
                     this.ScheduleHistoryItem.AddLogNote("DoWork: Old series has ended, create new series ...");
                     CreateNewSeries(activeSeries);
+                }
+                #endregion
+
+                #region Campaign Management
+                this.ScheduleHistoryItem.AddLogNote("DoWork: Campaign Management");
+                var activeCampaign = controller.GetActiveCampaign();
+                this.ScheduleHistoryItem.AddLogNote("DoWork: activeCampaign.Campaign_PK [" + activeCampaign.Campaign_PK + "]");
+
+                if (activeCampaign.Campaign_Start_Date == DateTime.Today)
+                {
+                    // old campaign has ended, create character data for new one
+                    this.ScheduleHistoryItem.AddLogNote("DoWork: setup character energy for newly active campaign");
+                    controller.CreateNewCampaignDataForCharacters();
                 }
                 #endregion
 

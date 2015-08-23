@@ -10,7 +10,6 @@
 };
 
 function _GETGUILDLOGO(guildPk){
-	console.log(guildPk);
     switch (guildPk) {
         case 1:
             return _GLOBALsettings._ICONS.guildpk_1;

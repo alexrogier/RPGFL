@@ -24,4 +24,12 @@ namespace Christoc.Modules.RPGFLScheduledJobs.Models
         public int Guild_2_Accolade_Points { get; set; }
         public int Skirmish_Victor_FK { get; set; }
     }
+
+    public class Campaign
+    {
+        public int Campaign_PK { get; set; }
+        public DateTime Campaign_Start_Date { get; set; }
+        public DateTime Campaign_End_Date { get; set; }
+        public int Series_FK { get; set; }
+    }
 }

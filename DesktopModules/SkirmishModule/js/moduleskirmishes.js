@@ -23,7 +23,6 @@ function getSkirmishes() {
             jsonResult = JSON.parse(data);
         }
     });
-    console.log(jsonResult);
     return jsonResult;
 }
 
@@ -75,6 +74,11 @@ function populateSkirmishes() {
         $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_2_name").text(currSkirmish.Guild_2_Name); // guild 2 name
         $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_1_score").text(currSkirmish.Guild_1_Accolade_Points); // guild 1 score
         $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_2_score").text(currSkirmish.Guild_2_Accolade_Points); // guild 2 score
+        //var skirmish_date = new Date(parseInt(currSkirmish.Skirmish_Date.replace(/\/Date\((-?\d+)\)\//, '$1')));
+        var skirmish_date = new Date();
+        skirmish_date.setTime(parseInt(currSkirmish.Skirmish_Date.substr(6)));
+        // Date.getMonth() returns 1 month short??
+        $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.skirmish_date").text(skirmish_date.getMonth() + 1 + "/" + skirmish_date.getDate() + "/" + skirmish_date.getFullYear()); // skirmish date
         // modify replay button here. CODE LATER
 
         // hide replay button in 'Future Skirmishes' context

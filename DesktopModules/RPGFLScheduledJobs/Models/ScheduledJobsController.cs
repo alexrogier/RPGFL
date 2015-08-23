@@ -14,6 +14,12 @@ namespace Christoc.Modules.RPGFLScheduledJobs.Models
             return CBO.FillCollection<Series>(DataProvider.Instance().ExecuteReader("RPGFL_GetActiveSeries"))[0];
         }
 
+        public Campaign GetActiveCampaign()
+        {
+            return CBO.FillCollection<Campaign>(DataProvider.Instance().ExecuteReader("RPGFL_GetActiveCampaign"))[0];
+
+        }
+
         public Series CreateNewSeries(int CurrentSeriesPK)
         {
             // create new Series and return newly created Series data
@@ -30,6 +36,12 @@ namespace Christoc.Modules.RPGFLScheduledJobs.Models
         {
             // create new draft list for current series
             DataProvider.Instance().ExecuteReader("RPGFL_CreateSeriesCharacterDraft");
+            return true;
+        }
+
+        public bool CreateNewCampaignDataForCharacters()
+        {
+            DataProvider.Instance().ExecuteReader("RPGFL_CreateNewCampaignDataForCharacters");
             return true;
         }
 
