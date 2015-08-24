@@ -20,8 +20,6 @@ namespace Christoc.Modules.RPGFLScheduledJobs.Models
         ScheduledJobsController controller = new ScheduledJobsController();
         public int SkirmishDeletionInterval = 2; // DEFAULT: 2 | DESC: amount of months from current month to delete old skirmish data from site
 
-        //StreamWriter logger = new StreamWriter("Logs/TEST.txt");
-         
         public override void DoWork()
         {
             try
