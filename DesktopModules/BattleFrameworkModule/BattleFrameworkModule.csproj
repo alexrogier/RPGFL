@@ -96,6 +96,7 @@
     </Compile>
     <Compile Include="Models\BattleFrameworkController.cs" />
     <Compile Include="Models\BattleFrameworkObjects.cs" />
+    <Compile Include="Models\BattleFramework_SkirmishManagement.cs" />
     <Compile Include="Models\RouteMapper.cs" />
     <Compile Include="Models\Webservices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,6 +120,7 @@
     <Content Include="Documentation\Documentation.css" />
     <Content Include="Documentation\Documentation.html" />
     <Content Include="Edit.ascx" />
+    <Content Include="js\moduleBFmain.js" />
     <Content Include="License.txt" />
     <Content Include="module.css" />
     <Content Include="ReleaseNotes.txt" />
@@ -146,9 +148,7 @@
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="js\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
