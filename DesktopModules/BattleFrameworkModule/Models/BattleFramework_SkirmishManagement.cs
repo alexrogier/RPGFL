@@ -67,7 +67,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
                 Skirmish currentSkirmish = controller.GetCurrentSkirmish();
                 // roll iniative for each character in upcoming skirmish
-                controller.InsertInitativeForSkirmishCharacters(currentSkirmish.Skirmish_PK);
+                controller.CreateSkirmishCharacterDraft(currentSkirmish.Skirmish_PK);
 
                 //Show success
                 this.ScheduleHistoryItem.Succeeded = true;

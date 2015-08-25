@@ -28,9 +28,9 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
             return CBO.FillCollection<Combat_Log>(DataProvider.Instance().ExecuteReader("RPGFL_GetCombatLogData", Skirmish_PK));
         }
 
-        public bool InsertInitativeForSkirmishCharacters(int Skirmish_PK)
+        public bool CreateSkirmishCharacterDraft(int Skirmish_PK)
         {
-            DataProvider.Instance().ExecuteReader("RPGFL_InsertInitativeForSkirmishCharacters", Skirmish_PK);
+            DataProvider.Instance().ExecuteReader("RPGFL_CreateSkirmishCharacterDraft", Skirmish_PK);
             return true;
         }
     }
