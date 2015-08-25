@@ -9,9 +9,9 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 {
     public class BattleFrameworkController
     {
-        public Skirmish GetCurrentSkirmish()
+        public IList<Skirmish> GetCurrentSkirmishes()
         {
-            return CBO.FillCollection<Skirmish>(DataProvider.Instance().ExecuteReader("RPGFL_GetCurrentSkirmish"))[0]; 
+            return CBO.FillCollection<Skirmish>(DataProvider.Instance().ExecuteReader("RPGFL_GetCurrentSkirmishes")); 
         }
         public IList<Skirmish> GetSkirmishData(int Skirmish_PK)
         {

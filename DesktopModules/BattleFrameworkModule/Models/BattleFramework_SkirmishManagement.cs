@@ -28,7 +28,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                 //To log note
                 this.ScheduleHistoryItem.AddLogNote("STARTING JOB");
 
-                // create a log file and write all events
+                // WRITE BATTLE CALCULATION CODE HERE
 
                 //Show success
                 this.ScheduleHistoryItem.Succeeded = true;
@@ -65,9 +65,13 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                 //To log note
                 this.ScheduleHistoryItem.AddLogNote("STARTING JOB");
 
-                Skirmish currentSkirmish = controller.GetCurrentSkirmish();
-                // roll iniative for each character in upcoming skirmish
-                controller.CreateSkirmishCharacterDraft(currentSkirmish.Skirmish_PK);
+                IList<Skirmish> currentSkirmishes = controller.GetCurrentSkirmishes();
+                // determine iniative & act order for each character in upcoming skirmish
+                foreach (var skirmish in currentSkirmishes)
+                {
+                    this.ScheduleHistoryItem.AddLogNote("DoWork: Create skirmish character draft and initiatives for [" + skirmish.Skirmish_PK + "]");
+                    controller.CreateSkirmishCharacterDraft(skirmish.Skirmish_PK);
+                }
 
                 //Show success
                 this.ScheduleHistoryItem.Succeeded = true;
