@@ -9,9 +9,9 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 {
     public class BattleFrameworkController
     {
-        public Skirmish GetCurrentSkirmish()
+        public IList<Skirmish> GetCurrentSkirmishes()
         {
-            return CBO.FillCollection<Skirmish>(DataProvider.Instance().ExecuteReader("RPGFL_GetCurrentSkirmish"))[0]; 
+            return CBO.FillCollection<Skirmish>(DataProvider.Instance().ExecuteReader("RPGFL_GetCurrentSkirmishes")); 
         }
         public IList<Skirmish> GetSkirmishData(int Skirmish_PK)
         {
@@ -28,9 +28,9 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
             return CBO.FillCollection<Combat_Log>(DataProvider.Instance().ExecuteReader("RPGFL_GetCombatLogData", Skirmish_PK));
         }
 
-        public bool InsertInitativeForSkirmishCharacters(int Skirmish_PK)
+        public bool CreateSkirmishCharacterDraft(int Skirmish_PK)
         {
-            DataProvider.Instance().ExecuteReader("RPGFL_InsertInitativeForSkirmishCharacters", Skirmish_PK);
+            DataProvider.Instance().ExecuteReader("RPGFL_CreateSkirmishCharacterDraft", Skirmish_PK);
             return true;
         }
     }
