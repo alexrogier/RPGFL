@@ -46,6 +46,16 @@
 	margin: 15px;
 }
 
+/** BATTLE PAGE*/
+.voffset { margin-top: 350px;}
+.backgroundcolorgray {background-color: #F2F2F2;}
+.paddingleft {
+    padding-left: 20px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
 /** SKIRMISH PAGE **/
 .text_skirmish_win{
     color: #088A08;
@@ -85,7 +95,7 @@ table.table-padding td{
 .league-main-panel-width{
     width: 1206px;
 }
- 
+
 .league-scrollable-height{
     height: 1500px;
 }
