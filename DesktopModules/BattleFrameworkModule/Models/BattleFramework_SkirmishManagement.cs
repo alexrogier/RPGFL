@@ -69,6 +69,46 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                         // inflict damage/afflictions/buffs
                         // record resolution in combat log
                         // record accolades (both character and user based)
+
+
+                        /**
+                         * 
+                         * BATTLE CHECK STEPS
+                         * 1) Begin Turn
+                         *      - set active character to this character
+                         *      - is stunned?
+                         *      - if stunned, skip to step 7
+                         *      - special character skills
+                         * 2) Confirm Targets
+                         *      - on-target effects from target?
+                         *      - on-target effects from this character?
+                         * 3) Preliminary Skill Execution
+                         *      - target legibility (Invisiblity, Knocked Out, ect)
+                         *      - special character skills
+                         * 4) Perform Attack Roll
+                         *      - attack has advantage?
+                         *      - attack has disadvantage?
+                         *      - roll attack dice for attack and add base modifier
+                         *      - compare result with target's dodge
+                         *      - determine if successful or not
+                         *      - if attack fails, skip step 5
+                         *      - special character skills 
+                         * 5) Perform Damage Roll
+                         *      - roll all damage dice for attack
+                         *      - compare damage type to target's resistances/vulnerabilities/immunities
+                         *      - special character skills (pre-damage)
+                         *      - inflict damage on target
+                         *      - special character skills (post-damage)
+                         * 6) Target Conditions
+                         *      - check if target's HP has reached 0
+                         *      - if target is at 0 HP, classify them as "Knocked Out"
+                         *      - special character skills
+                         *      - determine if target receives any afflictions 
+                         *      - special character skills
+                         *      - determine if target receives any blessings
+                         * 7) End Turn
+                         * 
+                         * */
                     }
 
 
