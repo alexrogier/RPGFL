@@ -58,6 +58,14 @@
 .pillbackgroundcolor { background-color: #d9534f;}
 .progress-bar-danger { background-color: #B20000;}
 
+/** color codes for guilds*/
+.defenders-of-light {color:#D7DF01;}
+.the-netherling {color:#585858;}
+.seed-of-the-grove{color:#04B404;}
+.combat-log-color {color:#848484;}
+.name-container-color{background-color:#1C1C1C;}
+
+
 /** SKIRMISH PAGE **/
 .text_skirmish_win{
     color: #088A08;
@@ -112,6 +120,7 @@ table.table-padding td{
 .offical-black-border{ border: 2px solid #030303;}
 .pill {width: 64px;}
 .inline-block{display:inline-block;}
+.toppadding{padding-top: 10px;}
 .div-center{ /* -- center-div -- rename to 'div-center' */
     width: 50%;
     margin: 0px;
