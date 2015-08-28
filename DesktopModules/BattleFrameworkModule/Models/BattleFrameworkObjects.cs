@@ -80,4 +80,18 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Guild_Win_Bonus { get; set; }
         public int Series_FK { get; set; }
     }
+    public class Initiative_Track
+    {
+        public int Character_FK { get; set; }
+        public int Initiative { get; set; }
+        public int Act_Order { get; set; }
+    }
+    public class Votes {
+        public int Vote_PK { get; set; }
+        public int Skill_FK { get; set; }
+        public int Character_FK { get; set; }
+        public int Skirmish_FK { get; set; }
+        public int Vote_Count { get; set; }
+        public string Targets { get; set; }
+    }
 }
