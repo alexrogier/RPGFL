@@ -25,7 +25,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Target_Character_FK { get; set; }
         public int Skill_FK { get; set; }
         public int Action_Order { get; set; }
-        public int Attack_Final_Reselt { get; set; }
+        public int Attack_Final_Result { get; set; }
         public string Attack_Values { get; set; }
         public int Damage_Final_Result { get; set; }
         public string Damage_Values { get; set; }
@@ -37,8 +37,15 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public string Skill_Name { get; set; }
         public string Skill_Description { get; set; }
         public int Energy_Cost { get; set; }
-        public int Attribute_FK { get; set; }
+        public string Attribute_FK { get; set; }
         public bool bIsPassive { get; set; }
+        public string Damage_Roll { get; set; }
+        public string Damage_Types { get; set; }
+        public string Skill_Type { get; set; }
+        public int Max_Targets { get; set; }
+        public bool bAutoSuccess { get; set; }
+        public int Special_Min_Roll { get; set; }
+        public int Exec_Track_Step { get; set; }
     }
     public class Character
     {
@@ -46,6 +53,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public string Character_Name { get; set; }
         public string Title_Desc { get; set; }
         public int Health { get; set; }
+        public int Max_Health { get; set; }
         public int Dodge { get; set; }
         public string Archetype { get; set; }
         public int Finesse { get; set; }
@@ -58,6 +66,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Guild_FK { get; set; }
         public int Initiative { get; set; }
         public int Max_Energy { get; set; }
+        public Conditions Conditions { get; set; }
     }
     public class Character_Track_Log
     {
@@ -93,5 +102,21 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Skirmish_FK { get; set; }
         public int Vote_Count { get; set; }
         public string Targets { get; set; }
+    }
+
+    public class Conditions
+    {
+        public bool bStunned { get; set; }
+        public bool bBlinded { get; set; }
+        public bool bKnockedOut { get; set; }
+        public bool bAffliction { get; set; }
+        public bool bBlessing { get; set; }
+        public bool bCharmed { get; set; }
+        public int Charm_Character_PK { get; set; }
+        public bool bInvisible { get; set; }
+        public bool bTaunted { get; set; }
+        public int Taunted_Character_PK { get; set; }
+        public bool bAttackAdvantage { get; set; }
+        public bool bAttackDisadvantage { get; set; }
     }
 }
