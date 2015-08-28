@@ -55,6 +55,8 @@
     padding-right: 10px;
     padding-top: 10px;
 }
+.pillbackgroundcolor { background-color: #d9534f;}
+.progress-bar-danger { background-color: #B20000;}
 
 /** SKIRMISH PAGE **/
 .text_skirmish_win{
@@ -104,8 +106,12 @@ table.table-padding td{
 .borderless { border: none; }
 .pic-border-light{  border: 5px solid black;  }
 .text-center { text-align: center; }
+.text-right {text-align:right; }
+.text-left {text-align:left;}
 .scrollable { overflow: auto; }
-.offical-black-border{ border: 2px solid #030303; }
+.offical-black-border{ border: 2px solid #030303;}
+.pill {width: 64px;}
+.inline-block{display:inline-block;}
 .div-center{ /* -- center-div -- rename to 'div-center' */
     width: 50%;
     margin: 0px;
