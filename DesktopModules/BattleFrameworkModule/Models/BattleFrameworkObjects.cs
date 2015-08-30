@@ -28,8 +28,11 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Attack_Final_Result { get; set; }
         public string Attack_Values { get; set; }
         public int Damage_Final_Result { get; set; }
+        public List<int> tmpDamage_Final_Result { get; set; }
         public string Damage_Values { get; set; }
+        public string Damage_Types { get; set; }
         public int Conditions { get; set; }
+        public bool bAttackSuccessful { get; set; }
     }
     public class Skill
     {
@@ -45,6 +48,12 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Max_Targets { get; set; }
         public bool bAutoSuccess { get; set; }
         public int Special_Min_Roll { get; set; }
+        public int Exec_Track_Step { get; set; }
+    }
+    public class Prepared_Skills
+    {
+        public int Skill_PK { get; set; }
+        public int Preparer_Character_FK { get; set; }
         public int Exec_Track_Step { get; set; }
     }
     public class Character
@@ -67,6 +76,19 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Initiative { get; set; }
         public int Max_Energy { get; set; }
         public Conditions Conditions { get; set; }
+
+        // character methods
+        public void TakeDamage(int dmgAmt)
+        {
+            this.Health -= dmgAmt;
+
+            // check if knocked out
+            if (this.Health <= 0)
+            {
+                this.Health = 0;
+                this.Conditions.bKnockedOut = true;
+            }
+        }
     }
     public class Character_Track_Log
     {
