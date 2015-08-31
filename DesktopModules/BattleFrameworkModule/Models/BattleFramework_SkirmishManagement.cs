@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using DotNetNuke.Services.Scheduling;
 using System.IO;
+using DotNetNuke.Common.Utilities;
 
 namespace Christoc.Modules.BattleFrameworkModule.Models
 {
@@ -19,14 +20,13 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         BattleFrameworkController controller = new BattleFrameworkController();
         IList<Skirmish> globalSkirmishes = new List<Skirmish>();
         IList<Character> globalCharacters = new List<Character>();
+        IList<Character_Track_Log> globalCharacterTrackLog = new List<Character_Track_Log>();
         IList<Skill> globalSkills = new List<Skill>();
         IList<Initiative_Track> globalInitTrack = new List<Initiative_Track>();
         IList<Votes> globalVotes = new List<Votes>();
         IList<Combat_Log> globalCombatLog = new List<Combat_Log>();
+        IList<Accolades> globalAccolades = new List<Accolades>();
         StreamWriter logger;
-        
-        // skirmish interface
-        Int32 activeCharacterPk = -1;
 
         public override void DoWork()
         {
@@ -42,10 +42,16 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                 // get today's skirmishes
                 globalSkirmishes = controller.GetCurrentSkirmishes();
 
+                // get accolades
+                globalAccolades = controller.GetAccolades();
+
                 foreach (Skirmish skirmish in globalSkirmishes)
                 {
                     // create log file for skirmish
                     logger = File.CreateText(AppDomain.CurrentDomain.BaseDirectory + "/DesktopModules/BattleFrameworkModule/logs/" + skirmish.Skirmish_PK + "_" + skirmish.SkirmishDate + ".txt");
+
+                    // skirmish interface
+                    Int32 activeCharacterPk = -1;
 
                     // get all data for data warehouse object arrays
                     globalCharacters = controller.GetSkirmishCharacters(skirmish.Skirmish_PK);
@@ -60,14 +66,17 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     List<Prepared_Skills> skirmishPreparedSkills = new List<Prepared_Skills>();
 
                     logger.WriteLine("");
-                    logger.WriteLine(DateTime.Now + "BEGIN CHARACTER EDITTING");
+                    logger.WriteLine(DateTime.Now + "BEGIN CHARACTER INITIALIZATION");
                     // initialize characters
                     foreach(var character in globalCharacters)
                     {
                         logger.WriteLine(DateTime.Now + "SETTING [" + character.Character_Name + "] Max_Health to " + character.Health);
                         character.Max_Health = character.Health;
+
+                        logger.WriteLine(DateTime.Now + "SYSTEM Creating character track log for character ...");
+                        globalCharacterTrackLog.Add(new Character_Track_Log(){ Character_FK = character.Character_PK });
                     }
-                    logger.WriteLine(DateTime.Now + "END CHARACTER EDITTING");
+                    logger.WriteLine(DateTime.Now + "END CHARACTER INITIALIZATION");
 
                     // perform skills following initiatve track (should already be sorted from SQL)
                     logger.WriteLine("");
@@ -283,7 +292,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                     break;
                                 case 7:
                                     // 7 - special character skills
-                                    if (FavoredSkill.Skill_Type == "Special")
+                                    if (FavoredSkill.Skill_Type == "Special,Prepare")
                                     {
                                         // prepare special skill
                                         logger.WriteLine(DateTime.Now + "SYSTEM favoredskill is special type, prepare it");
@@ -380,6 +389,18 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                         }
 
                                         logger.WriteLine(DateTime.Now + "SYSTEM roll(s) achieved | Attack_Values:" + newCombatLogEntry.Attack_Values);
+
+                                        // record accolades
+                                        if (rollDiceRoll == 1)
+                                        {
+                                            // critical failure achieved
+                                            UpdateCharacterTrackLog(currChar.Character_PK, "Critical_Fails", 1);
+                                        }
+                                        else if (rollDiceRoll == 20)
+                                        {
+                                            // critical success achieved
+                                            UpdateCharacterTrackLog(currChar.Character_PK, "Critical_Fails", 1);
+                                        }
 
                                         // add base modifiers
                                         switch (FavoredSkill.Attribute_FK)
@@ -482,8 +503,10 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                     foreach (var log in relativeDamageCombatLogs)
                                     {
                                         List<int> tmpDamageResults = log.tmpDamage_Final_Result;
+                                        List<int> tmpDamageValues = new List<int>();
                                         List<string> tmpDamageTypes = log.Damage_Types.Split(',').ToList();
                                         Character target = GetCharacter(log.Target_Character_FK);
+                                        Int32 overallDamageResult = 0;
 
                                         foreach (var dmgRoll in tmpDamageResults)
                                         {
@@ -524,7 +547,15 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                             // inflict damage on target
                                             logger.WriteLine(DateTime.Now + "SYSTEM [" + target.Character_Name + "] taking (" + finalDamageResult + ") damage");
                                             target.TakeDamage(finalDamageResult);
+
+                                            // accumulate overall damage for combat log
+                                            overallDamageResult += finalDamageResult;
+                                            tmpDamageValues.Add(finalDamageResult);
                                         }
+
+                                        // record overall damage
+                                        log.Damage_Final_Result = overallDamageResult;
+                                        log.Damage_Values = tmpDamageValues.ToJson();
                                     }
                                     break;
                                 case 14:
@@ -568,12 +599,15 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                     {
                                                         case "Stunned":
                                                             targetChar.Conditions.bStunned = true;
+                                                            log.Conditions = 1;
                                                             break;
                                                         case "Blinded":
                                                             targetChar.Conditions.bBlinded = true;
+                                                            log.Conditions = 2;
                                                             break;
                                                         case "Charmed":
                                                             targetChar.Conditions.bCharmed = true;
+                                                            log.Conditions = 6;
                                                             targetChar.Conditions.Charm_Character_PK = currChar.Character_PK;
                                                             break;
                                                     }
@@ -585,6 +619,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                     logger.WriteLine(DateTime.Now + "SYSTEM inflict Taunt on target");
                                                     targetChar.Conditions.bTaunted = true;
                                                     targetChar.Conditions.Taunted_Character_PK = currChar.Character_PK;
+                                                    log.Conditions = 8;
                                                 }
                                             }
                                         }
@@ -600,11 +635,94 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                             logger.WriteLine(DateTime.Now + "END TRACK STEP [" + currTrackStep + "] for [" + currChar.Character_Name + "]");
                         }
                         #endregion
-                        #region ACCOLADE RECORDING
-                            // loop through combat log and record all accolades obtained for Users, Characters, and Guilds
+                        #region COMBAT LOG MANAGEMENT
+                        // push combat log to server
+                        #endregion
+                        #region ACCOLADE MANAGEMENT
+                        logger.WriteLine(DateTime.Now + "SYSTEM Recording character accolades ...");
+                        foreach (var log in globalCombatLog)
+                        {
+                            Skill performedSkill = globalSkills.FirstOrDefault(x => x.Skill_PK == log.Skill_FK);
+                            Character assailantCharacter = globalCharacters.FirstOrDefault(x => x.Character_PK == log.Assasilant_Character_FK);
+                            Character targetCharacter = globalCharacters.FirstOrDefault(x => x.Character_PK == log.Target_Character_FK);
+                            
+                            switch (performedSkill.Skill_Type)
+                            {
+                                // special skills need to track accolades in their own way
+                                case "Taunt":
+                                case "Affliction,Disadvantage":
+                                case "Affliction,Advantage":
+                                case "Affliction,Blinded":
+                                case "Affliction,Charmed":
+                                case "Affliction,Stunned":
+                                case "Attack":
+                                    if (log.bAttackSuccessful)
+                                    {
+                                        UpdateCharacterTrackLog(assailantCharacter.Character_PK, "Damage_Dealt",
+                                            log.Damage_Final_Result);
+
+                                        if (targetCharacter.Archetype.Contains("Tank") ||
+                                            targetCharacter.Archetype.Contains("Bruiser"))
+                                            UpdateCharacterTrackLog(targetCharacter.Character_PK, "Damage_Taken",
+                                                log.Damage_Final_Result);
+
+                                        var characterHealth = targetCharacter.Max_Health;
+                                        List<int> assistedKnockOuts = new List<int>();
+                                        foreach (var i in globalCombatLog)
+                                        {
+                                            // iterate through logs to determine if this combat log knocked the target character out
+                                            if (i.Target_Character_FK == targetCharacter.Character_PK)
+                                            {
+                                                characterHealth -= i.Damage_Final_Result;
+                                                if (i.Assasilant_Character_FK != assailantCharacter.Character_PK) assistedKnockOuts.Add(i.Assasilant_Character_FK);
+                                            }
+
+                                            if (i == log) break;
+                                        }
+                                        if (characterHealth <= 0)
+                                        {
+                                            // this combat log knocked the target character out
+                                            UpdateCharacterTrackLog(assailantCharacter.Character_PK,
+                                                "Opponent_Knock_Outs", 1);
+                                            foreach (var assistant in assistedKnockOuts)
+                                                UpdateCharacterTrackLog(assistant, "Assist_Knock_Outs", 1);
+                                            UpdateCharacterTrackLog(targetCharacter.Character_PK, "Self_Knock_Outs", 1);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // target dodged attack
+                                        UpdateCharacterTrackLog(targetCharacter.Character_PK, "Attacks_Dodged", 1);
+                                    }
+                                    break;
+                                case "Heal":
+                                    UpdateCharacterTrackLog(assailantCharacter.Character_PK, "Health_Regained", log.Damage_Final_Result);
+                                    break;
+
+                            }
+                        }
+
+                        // check for all who survived
+                        foreach (var character in globalCharacters)
+                        {
+                            if (character.Health > 0) UpdateCharacterTrackLog(character.Character_PK, "Skirmishes_Survived", 1);
+                        }
+
+                        // accolade for character that acted first
+                        UpdateCharacterTrackLog(
+                            globalInitTrack.OrderBy(x => x.Act_Order).FirstOrDefault().Character_FK,
+                            "Initiative_Acted_First", 1);
+
+                        // push character track log to server
+                        // server needs to record User, Character, and Guild accolades
                         #endregion
                         #region CHARACTER MANAGEMENT
-                            // update character energy for each character that performed a skill in the skirmish
+                        // update character energy for each character that performed a skill in the skirmish
+                        logger.WriteLine(DateTime.Now + " SYSTEM Updating all character energy ...");
+                        List<Energy_Consumption> newEnergyValues = globalCombatLog.Select(log => new Energy_Consumption {Character_FK = log.Assasilant_Character_FK, 
+                                                                                                                         Campaign_FK = skirmish.Campaign_FK, 
+                                                                                                                         Consume_Energy = globalSkills.FirstOrDefault(x => x.Skill_PK == log.Skill_FK).Energy_Cost}).ToList();
+                        controller.UpdateCharacterEnergy(newEnergyValues);
                         #endregion
                     }
                     logger.WriteLine("");
@@ -643,6 +761,56 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public void ExecuteSkill(Skill currSkill, Character currChar)
         {
 
+        }
+
+        public void UpdateCharacterTrackLog(int Character_PK, string AccoladeType, int inVal)
+        {
+            Character_Track_Log updateLog = globalCharacterTrackLog.FirstOrDefault(x => x.Character_FK == Character_PK);
+            int accoladePointWorth = globalAccolades.FirstOrDefault(x => x.Accolade_Identifier == AccoladeType).Accolade_Point_Value;
+
+            switch (AccoladeType)
+            {
+                
+                case "Damage_Dealt":
+                    updateLog.Damage_Dealt += inVal * accoladePointWorth;
+                    break;
+                case "Damage_Taken":
+                    updateLog.Damage_Taken += inVal * accoladePointWorth;
+                    break;
+                case "Opponent_Knock_Outs":
+                    updateLog.Opponent_Knock_Outs += inVal * accoladePointWorth;
+                    break;
+                case "Self_Knock_Outs":
+                    updateLog.Self_Knock_Outs += inVal * accoladePointWorth;
+                    break;
+                case "Assist_Knock_Outs":
+                    updateLog.Assist_Knock_Outs += inVal * accoladePointWorth;
+                    break;
+                case "Attacks_Dodged":
+                    updateLog.Attacks_Dodged += inVal * accoladePointWorth;
+                    break;
+                case "Critical_Successes":
+                    updateLog.Critical_Successes += inVal * accoladePointWorth;
+                    break;
+                case "Critical_Fails":
+                    updateLog.Critical_Fails += inVal * accoladePointWorth;
+                    break;
+                case "Health_Regained":
+                    updateLog.Health_Regained += inVal * accoladePointWorth;
+                    break;
+                case "Ally_Bonus_Damage":
+                    updateLog.Ally_Bonus_Damage += inVal * accoladePointWorth;
+                    break;
+                case "Enemy_Less_Damage":
+                    updateLog.Enemy_Less_Damage += inVal * accoladePointWorth;
+                    break;
+                case "Afflictions_Inflicted":
+                    updateLog.Afflictions_Inflicted += inVal * accoladePointWorth;
+                    break;
+                case "Initiative_Acted_First":
+                    updateLog.Initiative_Acted_First += inVal * accoladePointWorth;
+                    break;
+            }
         }
     }
 }

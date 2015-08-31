@@ -113,10 +113,12 @@ function combatlog(logData) {
     this.Assassilant_Character_FK = logData.Assassilant_Character_FK;
     this.Target_Character_FK = logData.Target_Character_FK;
     this.Skill_FK = logData.Skill_FK;
+    this.Action_Order = logData.Action_Order;
     this.Attack_Final_Result = logData.Attack_Final_Result;
     this.Attack_Values = logData.Attack_Values;
     this.Damage_Final_Result = logData.Damage_Final_Result;
     this.Damage_Values = logData.Damage_Values;
+    this.Damage_Types = logData.Damage_Types;
     this.Conditions = logData.Conditions;
 }
 var globalCombatLog = []; // combatlog warehouse that contains all the actions to display during the skirmish

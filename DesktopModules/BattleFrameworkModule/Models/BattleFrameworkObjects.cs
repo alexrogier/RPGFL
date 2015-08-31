@@ -125,7 +125,6 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Vote_Count { get; set; }
         public string Targets { get; set; }
     }
-
     public class Conditions
     {
         public bool bStunned { get; set; }
@@ -140,5 +139,18 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Taunted_Character_PK { get; set; }
         public bool bAttackAdvantage { get; set; }
         public bool bAttackDisadvantage { get; set; }
+    }
+    public class Accolades
+    {
+        public int Accolade_PK { get; set; }
+        public int Accolade_Point_Value { get; set; }
+        public string Accolade_Description { get; set; }
+        public string Accolade_Identifier { get; set; }
+    }
+    public class Energy_Consumption
+    {
+        public int Campaign_FK { get; set; }
+        public int Character_FK { get; set; }
+        public int Consume_Energy { get; set; }
     }
 }
