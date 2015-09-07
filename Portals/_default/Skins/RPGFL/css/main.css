@@ -30,6 +30,20 @@
     border-top-left-radius: 10px;
 }
 
+/** NAVIGATION BAR */
+.nav-bar-item{
+    float: none;
+    display: block;
+    vertical-align: top;
+    text-align: center;
+    /* width will depend on number of items in nav */
+    width: 14%;
+    margin: auto;
+}
+.collapsed{
+    display: none;
+}
+
 /** EDIT PROFILE */
 /** hide various profile settings that RPGFL doesn't need to show/use */
 #ui-id-3, #ui-id-4, #dnn_ctr_EditUser_Membership_membershipForm, #h2{

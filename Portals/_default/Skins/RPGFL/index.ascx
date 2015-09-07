@@ -47,10 +47,10 @@
             </div>
         </div>
 		<!-- SITE NAV -->
-		<div class="row">
+		<div class="row text-center">
 				<nav class="navbar navbar-default">
 				  <div class="container-fluid">
-					<div class="navbar-header col-sm-2 col-md-2">
+					<div class="navbar-header nav-bar-item">
 					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
@@ -59,7 +59,16 @@
 					  </button>
 					  <a class="navbar-brand" href="/">Home</a>
 					</div>
-					<div class="navbar-header col-sm-2 col-md-2">
+                      <div class="navbar-header nav-bar-item">
+					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					  </button>
+					  <a class="navbar-brand" href="/about">About</a>
+					</div>
+					<div class="navbar-header nav-bar-item">
 					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
@@ -68,7 +77,7 @@
 					  </button>
 					  <a class="navbar-brand" href="/skirmishes">Skirmishes</a>
 					</div>
-					<div class="navbar-header col-sm-2 col-md-2">
+					<div class="navbar-header nav-bar-item">
 					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
@@ -77,7 +86,7 @@
 					  </button>
 					  <a class="navbar-brand" href="/leagues">Leagues</a>
 					</div>
-					<div class="navbar-header col-sm-2 col-md-2">
+					<div class="navbar-header nav-bar-item">
 					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
@@ -86,7 +95,7 @@
 					  </button>
 					  <a class="navbar-brand" href="http://rpgfl.freeforums.net/">Forum</a>
 					</div>
-					<div class="navbar-header col-sm-2 col-md-2">
+					<div class="navbar-header nav-bar-item">
 					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
@@ -95,7 +104,7 @@
 					  </button>
 					  <a class="navbar-brand" href="/standings">Standings</a>
 					</div>
-                      <div class="navbar-header col-sm-2 col-md-2">
+                      <div class="navbar-header nav-bar-item">
 					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
