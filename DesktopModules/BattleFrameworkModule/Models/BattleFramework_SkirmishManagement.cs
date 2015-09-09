@@ -27,6 +27,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         IList<Combat_Log> globalCombatLog = new List<Combat_Log>();
         IList<Accolades> globalAccolades = new List<Accolades>();
         StreamWriter logger;
+        Random rand = new Random();
 
         public override void DoWork()
         {
@@ -48,39 +49,41 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                 foreach (Skirmish skirmish in globalSkirmishes)
                 {
                     // create log file for skirmish
-                    logger = File.CreateText(AppDomain.CurrentDomain.BaseDirectory + "/DesktopModules/BattleFrameworkModule/logs/" + skirmish.Skirmish_PK + "_" + skirmish.SkirmishDate + ".txt");
-
+                    this.ScheduleHistoryItem.AddLogNote("CREATE LOG FILE");
+                    logger = File.CreateText(HttpRuntime.AppDomainAppPath + "/DesktopModules/BattleFrameworkModule/logs/" + skirmish.Skirmish_PK + ".txt");
+                    
                     // skirmish interface
                     Int32 activeCharacterPk = -1;
 
                     // get all data for data warehouse object arrays
                     globalCharacters = controller.GetSkirmishCharacters(skirmish.Skirmish_PK);
-                    logger.WriteLine(DateTime.Now + "DATA globalCharacters: " + string.Join(",", globalCharacters));
+                    logger.WriteLine(DateTime.Now + " DATA globalCharacters: " + Json.Serialize(globalCharacters));
                     globalSkills = controller.GetSkillDataFromSkirmishCharacters(skirmish.Skirmish_PK);
-                    logger.WriteLine(DateTime.Now + "DATA globalSkills: " + string.Join(",", globalSkills));
+                    logger.WriteLine(DateTime.Now + " DATA globalSkills: " + Json.Serialize(globalSkills));
                     globalInitTrack = controller.GetInitiativeTrackFromSkirmish(skirmish.Skirmish_PK);
-                    logger.WriteLine(DateTime.Now + "DATA globalInitTrack: " + string.Join(",", globalInitTrack));
+                    logger.WriteLine(DateTime.Now + " DATA globalInitTrack: " + Json.Serialize(globalInitTrack));
                     globalVotes = controller.GetVoteDataFromSkirmish(skirmish.Skirmish_PK);
-                    logger.WriteLine(DateTime.Now + "DATA globalVotes: " + string.Join(",", globalVotes));
+                    logger.WriteLine(DateTime.Now + " DATA globalVotes: " + Json.Serialize(globalVotes));
                     // object array that holds all pending skills triggered by a specific event
                     List<Prepared_Skills> skirmishPreparedSkills = new List<Prepared_Skills>();
 
                     logger.WriteLine("");
-                    logger.WriteLine(DateTime.Now + "BEGIN CHARACTER INITIALIZATION");
+                    logger.WriteLine(DateTime.Now + " BEGIN CHARACTER INITIALIZATION");
                     // initialize characters
                     foreach(var character in globalCharacters)
                     {
-                        logger.WriteLine(DateTime.Now + "SETTING [" + character.Character_Name + "] Max_Health to " + character.Health);
+                        logger.WriteLine(DateTime.Now + " SETTING [" + character.Character_Name + "] Max_Health to " + character.Health);
                         character.Max_Health = character.Health;
+                        character.Conditions = new Conditions();
 
-                        logger.WriteLine(DateTime.Now + "SYSTEM Creating character track log for character ...");
+                        logger.WriteLine(DateTime.Now + " SYSTEM Creating character track log for character ...");
                         globalCharacterTrackLog.Add(new Character_Track_Log(){ Character_FK = character.Character_PK });
                     }
-                    logger.WriteLine(DateTime.Now + "END CHARACTER INITIALIZATION");
+                    logger.WriteLine(DateTime.Now + " END CHARACTER INITIALIZATION");
 
                     // perform skills following initiatve track (should already be sorted from SQL)
                     logger.WriteLine("");
-                    logger.WriteLine(DateTime.Now + "BEGIN SKIRMISH");
+                    logger.WriteLine(DateTime.Now + " BEGIN SKIRMISH");
                     foreach (var currAct in globalInitTrack)
                     {
                         // setup turn track
@@ -125,7 +128,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                         for (var currTrackStep = 1; currTrackStep <= lastTrackStep; currTrackStep++)
                         {
                             var currChar = GetCharacter(currAct.Character_FK);
-                            logger.WriteLine(DateTime.Now + "BEGIN TRACK STEP [" + currTrackStep + "] for [" + currChar.Character_Name + "]");
+                            logger.WriteLine(DateTime.Now + " BEGIN TRACK STEP [" + currTrackStep + "] for [" + currChar.Character_Name + "]");
 
                             switch (currTrackStep)
                             {
@@ -150,28 +153,38 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                 #region DETERMINE SKILL
                                 case 4:
                                     // 4 - find favored skill
-                                    logger.WriteLine(DateTime.Now + "SYSTEM Finding favored skill for character to perform ...");
+                                    logger.WriteLine(DateTime.Now + " SYSTEM Finding favored skill for character to perform ...");
                                     FavoredSkill = GetSkill(globalVotes.OrderByDescending(x => x.Vote_Count).FirstOrDefault(x => x.Character_FK == currChar.Character_PK).Skill_FK);
-                                    logger.WriteLine(DateTime.Now + "SYSTEM Found favored skill. Skill_Name: [" + FavoredSkill.Skill_Name + "](pk=" + FavoredSkill.Skill_PK + ")");
+                                    logger.WriteLine(DateTime.Now + " SYSTEM Found favored skill. Skill_Name: [" + FavoredSkill.Skill_Name + "](pk=" + FavoredSkill.Skill_PK + ")");
                                     break;
                                 case 5:
                                     // 5 - find favored targets for skill
                                     // targets are separated by commas
-                                    logger.WriteLine(DateTime.Now + "SYSTEM Finding favored targets for skill ...");
-                                    var tmpTargets = Array.ConvertAll( globalVotes.FirstOrDefault(x =>
+                                    logger.WriteLine(DateTime.Now + " SYSTEM Finding favored targets for skill ...");
+                                    logger.WriteLine(globalVotes.FirstOrDefault(x => x.Skill_FK == FavoredSkill.Skill_PK && x.Character_FK == currChar.Character_PK).Targets == "");
+                                    if(globalVotes.FirstOrDefault(x => x.Skill_FK == FavoredSkill.Skill_PK && x.Character_FK == currChar.Character_PK).Targets == "")
+                                    {
+                                        logger.WriteLine(DateTime.Now + " SYSTEM No targets for this skill");
+                                    }
+                                    else
+                                    {
+                                        var tmpTargets = Array.ConvertAll(globalVotes.FirstOrDefault(x =>
                                                     x.Skill_FK == FavoredSkill.Skill_PK &&
                                                     x.Character_FK == currChar.Character_PK).Targets.Split(','), int.Parse);
-                                    FavoredSkillFavoredTargets.AddRange(tmpTargets.Select(target => GetCharacter(target)));
-                                    logger.WriteLine(DateTime.Now + "SYSTEM Found favored targets [" + string.Join(",", FavoredSkillFavoredTargets) + "]");
+                                        FavoredSkillFavoredTargets.AddRange(
+                                            tmpTargets.Select(target => GetCharacter(target)));
+                                        logger.WriteLine(DateTime.Now + " SYSTEM Found favored targets [" +
+                                                         string.Join(",", FavoredSkillFavoredTargets) + "]");
+                                    }
                                     break;
                                 #endregion
                                 #region PRELIMINARY SKILL EXECUTION
                                 case 6:
-                                    logger.WriteLine(DateTime.Now + "SYSTEM Determine target legibility");
+                                    logger.WriteLine(DateTime.Now + " SYSTEM Determine target legibility");
                                     // 6 - target legibility (Invisiblity, Knocked Out, Charmed, ect)
-                                    foreach (var target in FavoredSkillFavoredTargets)
+                                    foreach (var target in FavoredSkillFavoredTargets.ToList())
                                     {
-                                        logger.WriteLine(DateTime.Now + "SYSTEM target=[" + target.Character_Name + "] | " +
+                                        logger.WriteLine(DateTime.Now + " SYSTEM target=[" + target.Character_Name + "] | " +
                                                                         "bInvisible:" + target.Conditions.bInvisible + " | bKnockedOut:" + target.Conditions.bKnockedOut + 
                                                                         "bCharmed:" + target.Conditions.bCharmed + " | bTaunted:" + target.Conditions.bTaunted + 
                                                                         "bBlinded:" + target.Conditions.bBlinded);
@@ -183,7 +196,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                         if (target.Conditions.bInvisible || target.Conditions.bKnockedOut)
                                         {
                                             // remove old target from target list
-                                            logger.WriteLine(DateTime.Now + "SYSTEM target is invisible or knocked out, remove target from favored target list and assign a new target | Skill_Type:"+ FavoredSkill.Skill_Type);
+                                            logger.WriteLine(DateTime.Now + " SYSTEM target is invisible or knocked out, remove target from favored target list and assign a new target | Skill_Type:"+ FavoredSkill.Skill_Type);
                                             FavoredSkillFavoredTargets.Remove(target);
                                             Character newTarget = new Character();
                                             switch (FavoredSkill.Skill_Type)
@@ -196,20 +209,20 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                 case "Affliction,Advantage":
                                                     // find new target not on this character's team
                                                     newTarget = globalCharacters.OrderBy(x => Guid.NewGuid()).FirstOrDefault(x => x.Guild_FK != currChar.Guild_FK && !FavoredSkillFavoredTargets.Exists(y => y.Character_PK == x.Character_PK && x.Conditions.bInvisible && x.Conditions.bKnockedOut));
-                                                    logger.WriteLine(DateTime.Now + "SYSTEM New target found | {" + newTarget.ToString() + "}");
+                                                    logger.WriteLine(DateTime.Now + " SYSTEM New target found | {" + newTarget.ToString() + "}");
                                                     break;
                                                 case "Heal":
                                                     // find new target that is on this character's team
                                                     // case "Blessing"? Don't know what blessing types there would be
                                                     newTarget = globalCharacters.OrderBy(x => Guid.NewGuid()).FirstOrDefault(x => x.Guild_FK == currChar.Guild_FK && x.Health < x.Max_Health && !FavoredSkillFavoredTargets.Exists(y => y.Character_PK == x.Character_PK && x.Conditions.bInvisible && x.Conditions.bKnockedOut));
-                                                    logger.WriteLine(DateTime.Now + "SYSTEM New target found | {" + newTarget.ToString() + "}");
+                                                    logger.WriteLine(DateTime.Now + " SYSTEM New target found | {" + newTarget.ToString() + "}");
                                                     break;
                                             }
                                             
                                             // ensure a target was found, then add it
                                             if (newTarget != null)
                                             {
-                                                logger.WriteLine(DateTime.Now + "SYSTEM adding new target to favored targets");
+                                                logger.WriteLine(DateTime.Now + " SYSTEM adding new target to favored targets");
                                                 FavoredSkillFavoredTargets.Add(newTarget);
                                             }
                                         }
@@ -217,7 +230,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                         // if character is Charmed
                                         if (currChar.Conditions.bCharmed)
                                         {
-                                            logger.WriteLine(DateTime.Now + "SYSTEM target is charmed, reassign target to random ally");
+                                            logger.WriteLine(DateTime.Now + " SYSTEM target is charmed, reassign target to random ally");
 
                                             // remove old target from target list
                                             FavoredSkillFavoredTargets.Remove(target);
@@ -229,7 +242,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                             // ensure a target was found, then add it
                                             if (newTarget != null)
                                             {
-                                                logger.WriteLine(DateTime.Now + "SYSTEM target acquired, add to favored targets | newTarget:{" + newTarget.ToString() + "}");
+                                                logger.WriteLine(DateTime.Now + " SYSTEM target acquired, add to favored targets | newTarget:{" + newTarget.Character_Name + "}");
                                                 FavoredSkillFavoredTargets.Add(newTarget);
                                             }
                                         }
@@ -243,7 +256,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                             !x.Conditions.bInvisible && 
                                                             !x.Conditions.bKnockedOut));
 
-                                            logger.WriteLine(DateTime.Now + "SYSTEM target is taunted, reassign target to taunter if able | TaunterCharPK:"+ target.Conditions.Taunted_Character_PK + " | bTaunterTargettable:" + bTaunterTargettable);
+                                            logger.WriteLine(DateTime.Now + " SYSTEM target is taunted, reassign target to taunter if able | TaunterCharPK:"+ target.Conditions.Taunted_Character_PK + " | bTaunterTargettable:" + bTaunterTargettable);
 
                                             if (bTaunterTargettable)
                                             {
@@ -257,15 +270,16 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                 // ensure a target was found, then add it
                                                 if (newTarget != null)
                                                 {
-                                                    logger.WriteLine(DateTime.Now + "SYSTEM taunter is targettable, add to favored targets | newTarget:{" + newTarget.ToString() + "}");
+                                                    logger.WriteLine(DateTime.Now + " SYSTEM taunter is targettable, add to favored targets | newTarget:{" + newTarget + "}");
                                                     FavoredSkillFavoredTargets.Add(newTarget);
                                                 }
                                             }
                                         }
 
+                                        // if character is Blinded
                                         if (currChar.Conditions.bBlinded)
                                         {
-                                            logger.WriteLine(DateTime.Now + "SYSTEM target is blinded, reassign target to random character");
+                                            logger.WriteLine(DateTime.Now + " SYSTEM target is blinded, reassign target to random character");
 
                                             // remove old target from target list
                                             FavoredSkillFavoredTargets.Remove(target);
@@ -277,16 +291,16 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                             // ensure a target was found, then add it
                                             if (newTarget != null)
                                             {
-                                                logger.WriteLine(DateTime.Now + "SYSTEM target acquired, add to favored targets | newTarget:{" + newTarget.ToString() + "}");
+                                                logger.WriteLine(DateTime.Now + " SYSTEM target acquired, add to favored targets | newTarget:{" + newTarget + "}");
                                                 FavoredSkillFavoredTargets.Add(newTarget);
                                             }
                                         }
                                     }
 
-                                    // ensure at least one target exists after validation
-                                    if (FavoredSkillFavoredTargets.Count == 0)
+                                    // ensure at least one target exists after validation, unless skill is a prepared skill
+                                    if (FavoredSkillFavoredTargets.Count == 0 && !FavoredSkill.Skill_Type.Contains("Special,Prepare"))
                                     {
-                                        logger.WriteLine(DateTime.Now + "SYSTEM no valid targets available - end the turn");
+                                        logger.WriteLine(DateTime.Now + " SYSTEM no valid targets available - end the turn");
                                         currTrackStep = lastTrackStep;
                                     }
                                     break;
@@ -295,8 +309,9 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                     if (FavoredSkill.Skill_Type == "Special,Prepare")
                                     {
                                         // prepare special skill
-                                        logger.WriteLine(DateTime.Now + "SYSTEM favoredskill is special type, prepare it");
+                                        logger.WriteLine(DateTime.Now + " SYSTEM favoredskill is special type, prepare it");
                                         skirmishPreparedSkills.Add(new Prepared_Skills() { Exec_Track_Step = FavoredSkill.Exec_Track_Step, Preparer_Character_FK = currChar.Character_PK, Skill_PK = FavoredSkill.Skill_PK });
+                                        currTrackStep = lastTrackStep;
                                     }
 
                                     CheckSpecialSkills(currTrackStep, currChar);
@@ -305,11 +320,17 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                 #region PERFORM ATTACK ROLL
                                 case 8:
                                     // 8 - special character skills
+                                    if (FavoredSkill.Skill_Type.Contains("Special"))
+                                    {
+                                        // skill is special, code special logic later ...
+                                        // for now, just end the turn
+                                        currTrackStep = lastTrackStep;
+                                    }
                                     CheckSpecialSkills(currTrackStep, currChar);
                                     break;
                                 case 9:
                                     // 9 - determine if attack is rolled with advantage or disadvantage
-                                    logger.WriteLine(DateTime.Now + "SYSTEM preliminary attack calculation | bAttackAdvantage:" + currChar.Conditions.bAttackAdvantage + " | bAttackDisadvantage:" + currChar.Conditions.bAttackDisadvantage);
+                                    logger.WriteLine(DateTime.Now + " SYSTEM preliminary attack calculation | bAttackAdvantage:" + currChar.Conditions.bAttackAdvantage + " | bAttackDisadvantage:" + currChar.Conditions.bAttackDisadvantage);
                                     if (currChar.Conditions.bAttackAdvantage || currChar.Conditions.bAttackDisadvantage)
                                     {
                                         var finalAdvDis = 0; // 0 = roll normally. -1 = roll disadvantage. 1 = roll advantage
@@ -318,7 +339,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                         if (currChar.Conditions.bAttackDisadvantage) finalAdvDis--;
 
                                         // determine final result (coded this way because character could have both advantage & disadvantage)
-                                        logger.WriteLine(DateTime.Now + "SYSTEM final preliminary attack calculation | finalAdvDis:" + finalAdvDis);
+                                        logger.WriteLine(DateTime.Now + " SYSTEM final preliminary attack calculation | finalAdvDis:" + finalAdvDis);
                                         switch (finalAdvDis)
                                         {
                                             case 0:
@@ -338,7 +359,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                     break;
                                 case 10:
                                     // 10 - roll attack dice for attack and add base modifier
-
+                                    
                                     // loop through all targets and perform attacks
                                     foreach (var target in FavoredSkillFavoredTargets)
                                     {
@@ -350,78 +371,84 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                         newCombatLogEntry.Skill_FK = FavoredSkill.Skill_PK;
                                         newCombatLogEntry.Target_Character_FK = target.Character_PK;
                                         newCombatLogEntry.Skirmish_FK = skirmish.Skirmish_PK;
+                                        newCombatLogEntry.tmpDamage_Final_Result = new List<int>();
 
-                                        logger.WriteLine(DateTime.Now + "SYSTEM rolling attack against [" + target.Character_Name + "] ...");
+                                        logger.WriteLine(DateTime.Now + " SYSTEM rolling attack against [" + target.Character_Name + "] ...");
 
-                                        Random rand = new Random();
-
-                                        // perform roll with a d20
-                                        Int32 rollDiceRoll = 0;
-
-                                        // reroll if character has advantage or disadvantage
-                                        if (currChar.Conditions.bAttackAdvantage)
-                                        {
-                                            // perform roll with two d20's, taking the higher roll
-                                            Int32 rollDiceReroll = rand.Next(1, 20);
-
-                                            // record roll data
-                                            newCombatLogEntry.Attack_Values = rollDiceRoll + "," + rollDiceReroll;
-
-                                            if (rollDiceReroll > rollDiceRoll) rollDiceRoll = rollDiceReroll;
-                                        }
-                                        else if (currChar.Conditions.bAttackDisadvantage)
-                                        {
-                                            // perform roll with two d20's, taking the lower roll
-                                            Int32 rollDiceReroll = rand.Next(1, 20);
-
-                                            // record roll data
-                                            newCombatLogEntry.Attack_Values = rollDiceRoll + "," + rollDiceReroll;
-
-                                            if (rollDiceReroll < rollDiceRoll) rollDiceRoll = rollDiceReroll;
-                                        }
-                                        else
+                                        // don't roll if the attack is auto successful or the skill is a heal
+                                        if (!FavoredSkill.bAutoSuccess || FavoredSkill.Skill_Type != "Heal")
                                         {
                                             // perform roll with a d20
-                                            rollDiceRoll = rand.Next(1, 20);
+                                            Int32 rollDiceRoll = 0;
 
-                                            // record roll data
-                                            newCombatLogEntry.Attack_Values = rollDiceRoll.ToString();
+                                            // reroll if character has advantage or disadvantage
+                                            if (currChar.Conditions.bAttackAdvantage)
+                                            {
+                                                // perform roll with two d20's, taking the higher roll
+                                                Int32 rollDiceReroll = rand.Next(1, 20);
+
+                                                // record roll data
+                                                newCombatLogEntry.Attack_Values = rollDiceRoll + "," + rollDiceReroll;
+
+                                                if (rollDiceReroll > rollDiceRoll) rollDiceRoll = rollDiceReroll;
+                                            }
+                                            else if (currChar.Conditions.bAttackDisadvantage)
+                                            {
+                                                // perform roll with two d20's, taking the lower roll
+                                                Int32 rollDiceReroll = rand.Next(1, 20);
+
+                                                // record roll data
+                                                newCombatLogEntry.Attack_Values = rollDiceRoll + "," + rollDiceReroll;
+
+                                                if (rollDiceReroll < rollDiceRoll) rollDiceRoll = rollDiceReroll;
+                                            }
+                                            else
+                                            {
+                                                // perform roll with a d20
+                                                rollDiceRoll = rand.Next(1, 20);
+
+                                                // record roll data
+                                                newCombatLogEntry.Attack_Values = rollDiceRoll.ToString();
+                                            }
+
+                                            logger.WriteLine(DateTime.Now + " SYSTEM roll(s) achieved | Attack_Values:" +
+                                                             newCombatLogEntry.Attack_Values);
+
+                                            // record accolades
+                                            if (rollDiceRoll == 1)
+                                            {
+                                                // critical failure achieved
+                                                UpdateCharacterTrackLog(currChar.Character_PK, "Critical_Fails", 1);
+                                            }
+                                            else if (rollDiceRoll == 20)
+                                            {
+                                                // critical success achieved
+                                                UpdateCharacterTrackLog(currChar.Character_PK, "Critical_Fails", 1);
+                                            }
+
+                                            // add base modifiers
+                                            switch (FavoredSkill.Attribute_FK)
+                                            {
+                                                case "Finesse":
+                                                    rollDiceRoll += currChar.Finesse;
+                                                    break;
+                                                case "Agility":
+                                                    rollDiceRoll += currChar.Agility;
+                                                    break;
+                                                case "Senses":
+                                                    rollDiceRoll += currChar.Senses;
+                                                    break;
+                                                case "Mana":
+                                                    rollDiceRoll += currChar.Mana;
+                                                    break;
+                                            }
+
+                                            // record roll result
+                                            newCombatLogEntry.Attack_Final_Result = rollDiceRoll;
+                                            logger.WriteLine(DateTime.Now + " SYSTEM final attack result with modifier[" +
+                                                             FavoredSkill.Attribute_FK + "] | Attack_Final_Result:" +
+                                                             rollDiceRoll);
                                         }
-
-                                        logger.WriteLine(DateTime.Now + "SYSTEM roll(s) achieved | Attack_Values:" + newCombatLogEntry.Attack_Values);
-
-                                        // record accolades
-                                        if (rollDiceRoll == 1)
-                                        {
-                                            // critical failure achieved
-                                            UpdateCharacterTrackLog(currChar.Character_PK, "Critical_Fails", 1);
-                                        }
-                                        else if (rollDiceRoll == 20)
-                                        {
-                                            // critical success achieved
-                                            UpdateCharacterTrackLog(currChar.Character_PK, "Critical_Fails", 1);
-                                        }
-
-                                        // add base modifiers
-                                        switch (FavoredSkill.Attribute_FK)
-                                        {
-                                            case "Finesse":
-                                                rollDiceRoll += currChar.Finesse;
-                                                break;
-                                            case "Agility":
-                                                rollDiceRoll += currChar.Agility;
-                                                break;
-                                            case "Senses":
-                                                rollDiceRoll += currChar.Senses;
-                                                break;
-                                            case "Mana":
-                                                rollDiceRoll += currChar.Mana;
-                                                break;
-                                        }
-
-                                        // record roll result
-                                        newCombatLogEntry.Attack_Final_Result = rollDiceRoll;
-                                        logger.WriteLine(DateTime.Now + "SYSTEM final attack result with modifier[" + FavoredSkill.Attribute_FK + "] | Attack_Final_Result:" + rollDiceRoll);
 
                                         // record new combat log
                                         globalCombatLog.Add(newCombatLogEntry);
@@ -443,7 +470,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                         Character targetChar = GetCharacter(log.Target_Character_FK);
 
                                         // determine if attack is successful
-                                        logger.WriteLine(DateTime.Now + "SYSTEM calculating if attack was successful ... | Attack_Final_Result:" + log.Attack_Final_Result + " | Target's Dodge:" + targetChar.Dodge);
+                                        logger.WriteLine(DateTime.Now + " SYSTEM calculating if attack was successful ... | Attack_Final_Result:" + log.Attack_Final_Result + " | Target's Dodge:" + targetChar.Dodge);
                                         log.bAttackSuccessful = (log.Attack_Final_Result >= targetChar.Dodge || FavoredSkill.bAutoSuccess);
                                         if (log.bAttackSuccessful)
                                         {
@@ -451,10 +478,10 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                             List<string> rollArray = FavoredSkill.Damage_Roll.Split(',').ToList();
                                             List<int> damageRolls = new List<int>(); // stores all damage rolls
 
-                                            logger.WriteLine(DateTime.Now + "SYSTEM attack successful, rolling damage ...");
+                                            logger.WriteLine(DateTime.Now + " SYSTEM attack successful, rolling damage ...");
                                             foreach (var roll in rollArray)
                                             {
-                                                logger.WriteLine(DateTime.Now + "SYSTEM rolling [" + roll + "]");
+                                                logger.WriteLine(DateTime.Now + " SYSTEM rolling [" + roll + "]");
                                                 string rollSet = roll.Substring(0, roll.IndexOf("+")); // extract "XdX" from "XdX+X"
                                                 Int32 rollDiceAmt = Int32.Parse(rollSet.Substring(0, rollSet.IndexOf("d")));
                                                 Int32 rollDiceType = Int32.Parse(rollSet.Substring(rollSet.IndexOf("d")+ 1));
@@ -464,7 +491,6 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                 // roll dice for each amount required
                                                 for (var x = 1; x <= rollDiceAmt; x++)
                                                 {
-                                                    Random rand = new Random();
                                                     Int32 rollResult = rand.Next(1, rollDiceType);
 
                                                     // record damage roll
@@ -477,10 +503,12 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                 // add modifier
                                                 rollFinalResult += rollModifier;
 
+                                                logger.WriteLine(DateTime.Now + " DEBUG finalResult: " + rollFinalResult);
+
                                                 log.tmpDamage_Final_Result.Add(rollFinalResult);
                                                 log.Damage_Types = FavoredSkill.Damage_Types;
 
-                                                logger.WriteLine(DateTime.Now + "SYSTEM final damage calculation | Damage_Final_Result:" + rollFinalResult + " | Damage_Types:" + FavoredSkill.Damage_Types);
+                                                logger.WriteLine(DateTime.Now + " SYSTEM final damage calculation | Damage_Final_Result:" + rollFinalResult + " | Damage_Types:" + FavoredSkill.Damage_Types);
                                             }
                                         }
                                         else
@@ -512,7 +540,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                         {
                                             var finalDamageResult = dmgRoll;
 
-                                            logger.WriteLine(DateTime.Now + "SYSTEM inflict damage on target | finalDamageResult:" + dmgRoll + " | Vulnerabilities:[" + target.Vulnerabilities + "] | Resistances:[" + target.Resistances + "] | Immunities:[" + target.Immunities + "]");
+                                            logger.WriteLine(DateTime.Now + " SYSTEM inflict damage on target | finalDamageResult:" + dmgRoll + " | Vulnerabilities:[" + target.Vulnerabilities + "] | Resistances:[" + target.Resistances + "] | Immunities:[" + target.Immunities + "]");
 
                                             if (target.Vulnerabilities != null)
                                             {
@@ -545,8 +573,18 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                             }
 
                                             // inflict damage on target
-                                            logger.WriteLine(DateTime.Now + "SYSTEM [" + target.Character_Name + "] taking (" + finalDamageResult + ") damage");
-                                            target.TakeDamage(finalDamageResult);
+                                            if (FavoredSkill.Skill_Type != "Heal")
+                                            {
+                                                // skill type inflicts damage
+                                                logger.WriteLine(DateTime.Now + " SYSTEM [" + target.Character_Name + "] taking (" + finalDamageResult + ") damage");
+                                                target.TakeDamage(finalDamageResult);
+                                            }
+                                            else
+                                            {
+                                                // skill type heals health
+                                                logger.WriteLine(DateTime.Now + " SYSTEM [" + target.Character_Name + "] healing (" + finalDamageResult + ") health");
+                                                target.Heal(finalDamageResult);
+                                            }
 
                                             // accumulate overall damage for combat log
                                             overallDamageResult += finalDamageResult;
@@ -593,7 +631,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                 {
                                                     var affliction = FavoredSkill.Skill_Type.Substring(FavoredSkill.Skill_Type.IndexOf(',') + 1);
 
-                                                    logger.WriteLine(DateTime.Now + "SYSTEM inflict Affliction(" + affliction + ") on target ");
+                                                    logger.WriteLine(DateTime.Now + " SYSTEM inflict Affliction(" + affliction + ") on target ");
 
                                                     switch (affliction)
                                                     {
@@ -616,7 +654,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                 // inflict taunt
                                                 if (FavoredSkill.Skill_Type == "Taunt")
                                                 {
-                                                    logger.WriteLine(DateTime.Now + "SYSTEM inflict Taunt on target");
+                                                    logger.WriteLine(DateTime.Now + " SYSTEM inflict Taunt on target");
                                                     targetChar.Conditions.bTaunted = true;
                                                     targetChar.Conditions.Taunted_Character_PK = currChar.Character_PK;
                                                     log.Conditions = 8;
@@ -632,14 +670,14 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                 #endregion
                             }
 
-                            logger.WriteLine(DateTime.Now + "END TRACK STEP [" + currTrackStep + "] for [" + currChar.Character_Name + "]");
+                            logger.WriteLine(DateTime.Now + " END TRACK STEP [" + currTrackStep + "] for [" + currChar.Character_Name + "]");
                         }
                         #endregion
                         #region COMBAT LOG MANAGEMENT
                         // push combat log to server
                         #endregion
                         #region ACCOLADE MANAGEMENT
-                        logger.WriteLine(DateTime.Now + "SYSTEM Recording character accolades ...");
+                        logger.WriteLine(DateTime.Now + " SYSTEM Recording character accolades ...");
                         foreach (var log in globalCombatLog)
                         {
                             Skill performedSkill = globalSkills.FirstOrDefault(x => x.Skill_PK == log.Skill_FK);
@@ -718,15 +756,21 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                         #endregion
                         #region CHARACTER MANAGEMENT
                         // update character energy for each character that performed a skill in the skirmish
-                        logger.WriteLine(DateTime.Now + " SYSTEM Updating all character energy ...");
+                        logger.WriteLine(DateTime.Now + "  SYSTEM Updating all character energy ...");
                         List<Energy_Consumption> newEnergyValues = globalCombatLog.Select(log => new Energy_Consumption {Character_FK = log.Assasilant_Character_FK, 
                                                                                                                          Campaign_FK = skirmish.Campaign_FK, 
                                                                                                                          Consume_Energy = globalSkills.FirstOrDefault(x => x.Skill_PK == log.Skill_FK).Energy_Cost}).ToList();
-                        controller.UpdateCharacterEnergy(newEnergyValues);
+                        // UNCOMMENT LATER
+                        //controller.UpdateCharacterEnergy(newEnergyValues);
                         #endregion
                     }
                     logger.WriteLine("");
-                    logger.WriteLine(DateTime.Now + "END SKIRMISH");
+                    logger.WriteLine(DateTime.Now + " END SKIRMISH");
+
+                    logger.WriteLine(DateTime.Now + " SYSTEM End Skirmish State of all characters:");
+                    logger.WriteLine(Json.Serialize(globalCharacters));
+
+                    logger.Close();
                 }
 
                 //Show success
@@ -736,7 +780,8 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
             {
                 this.ScheduleHistoryItem.Succeeded = false;
                 this.ScheduleHistoryItem.AddLogNote("ERROR: " + ex.Message);
-                logger.WriteLine(DateTime.Now + "CRITICAL ERROR: " + ex.Message);
+                logger.WriteLine(DateTime.Now + " CRITICAL ERROR: " + ex.Message);
+                logger.Close();
                 this.Errored(ref ex);
                 DotNetNuke.Services.Exceptions.Exceptions.LogException(ex);
             }

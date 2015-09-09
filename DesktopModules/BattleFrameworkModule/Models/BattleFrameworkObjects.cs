@@ -80,14 +80,19 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         // character methods
         public void TakeDamage(int dmgAmt)
         {
-            this.Health -= dmgAmt;
+            Health -= dmgAmt;
 
             // check if knocked out
-            if (this.Health <= 0)
+            if (Health <= 0)
             {
-                this.Health = 0;
-                this.Conditions.bKnockedOut = true;
+                Health = 0;
+                Conditions.bKnockedOut = true;
             }
+        }
+        public void Heal(int healAmt)
+        {
+            Health += healAmt;
+            if (Health > Max_Health) Health = Max_Health;
         }
     }
     public class Character_Track_Log

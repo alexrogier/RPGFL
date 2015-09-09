@@ -14,11 +14,10 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public IList<Accolades> GetAccolades()
         {
             return CBO.FillCollection<Accolades>(DataProvider.Instance().ExecuteReader("RPGFL_GetAccolades")); 
-        } 
+        }
         public IList<Character> GetSkirmishCharacters(int Skirmish_PK)
         {
-            return CBO.FillCollection<Character>(DataProvider.Instance().ExecuteReader("RPGFL_GetSkirmishCharacters")); 
-
+            return CBO.FillCollection<Character>(DataProvider.Instance().ExecuteReader("RPGFL_GetSkirmishCharacters", Skirmish_PK)); 
         }
         public IList<Skirmish> GetCurrentSkirmishes()
         {
