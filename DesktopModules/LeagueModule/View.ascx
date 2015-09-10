@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-3">
             <a href="#">
-                <img src="/portals/0/RPGFL/matchmaking.jpg" class="img-responsive" alt="Responsive image" /></a>
+                <img src="/portals/0/RPGFL/matchmaking.jpg" class="img-responsive" alt="" /></a>
         </div>
         <div class="col-md-6">
             <p>
@@ -15,8 +15,8 @@
             </p>
         </div>
         <div class="col-md-3">
-            <a href="#">
-                <img src="/portals/0/RPGFL/createleague.jpg" class="img-responsive" alt="Responsive image" /></a>
+            <a href="/createleague">
+                <img src="/portals/0/RPGFL/createleague.jpg" class="img-responsive" alt="" /></a>
         </div>
     </div>
     <br />
