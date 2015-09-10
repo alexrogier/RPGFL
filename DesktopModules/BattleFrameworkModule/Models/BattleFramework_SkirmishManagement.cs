@@ -16,8 +16,9 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
             this.ScheduleHistoryItem = oItem;
         }
 
-        // RPGFL Interface
+        #region RPGFL Interface Declaration
         BattleFrameworkController controller = new BattleFrameworkController();
+        Game_State _GAMESTATE = new Game_State();
         IList<Skirmish> globalSkirmishes = new List<Skirmish>();
         IList<Character> globalCharacters = new List<Character>();
         IList<Character_Track_Log> globalCharacterTrackLog = new List<Character_Track_Log>();
@@ -28,6 +29,9 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         IList<Accolades> globalAccolades = new List<Accolades>();
         StreamWriter logger;
         Random rand = new Random();
+        // object array that holds all pending skills triggered by a specific event
+        List<Prepared_Skills> skirmishPreparedSkills = new List<Prepared_Skills>(); 
+        #endregion
 
         public override void DoWork()
         {
@@ -48,12 +52,10 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
                 foreach (Skirmish skirmish in globalSkirmishes)
                 {
+                    #region Skirmish Initialization
                     // create log file for skirmish
                     this.ScheduleHistoryItem.AddLogNote("CREATE LOG FILE");
                     logger = File.CreateText(HttpRuntime.AppDomainAppPath + "/DesktopModules/BattleFrameworkModule/logs/" + skirmish.Skirmish_PK + ".txt");
-                    
-                    // skirmish interface
-                    Int32 activeCharacterPk = -1;
 
                     // get all data for data warehouse object arrays
                     globalCharacters = controller.GetSkirmishCharacters(skirmish.Skirmish_PK);
@@ -64,8 +66,6 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     logger.WriteLine(DateTime.Now + " DATA globalInitTrack: " + Json.Serialize(globalInitTrack));
                     globalVotes = controller.GetVoteDataFromSkirmish(skirmish.Skirmish_PK);
                     logger.WriteLine(DateTime.Now + " DATA globalVotes: " + Json.Serialize(globalVotes));
-                    // object array that holds all pending skills triggered by a specific event
-                    List<Prepared_Skills> skirmishPreparedSkills = new List<Prepared_Skills>();
 
                     logger.WriteLine("");
                     logger.WriteLine(DateTime.Now + " BEGIN CHARACTER INITIALIZATION");
@@ -80,12 +80,32 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                         globalCharacterTrackLog.Add(new Character_Track_Log(){ Character_FK = character.Character_PK });
                     }
                     logger.WriteLine(DateTime.Now + " END CHARACTER INITIALIZATION");
+                    logger.WriteLine("");
+                    logger.WriteLine(DateTime.Now + " BEGIN SKILL INITIALIZATION");
+                    // initialize passive skills
+                    foreach (var skill in globalSkills)
+                    {
+                        if (skill.bIsPassive)
+                        {
+                            logger.WriteLine(DateTime.Now + " PREPARING [" + skill.Skill_Name + "](pk=" + skill.Skill_PK + ") | Preparer: [" + globalCharacters.FirstOrDefault(x => x.Character_PK == globalVotes.FirstOrDefault(y => y.Skill_FK == skill.Skill_PK).Character_FK).Character_Name + "] | Exec_Track_Step: " + skill.Exec_Track_Step);
+                            skirmishPreparedSkills.Add(new Prepared_Skills()
+                            {
+                                Skill_PK = globalVotes.FirstOrDefault(x => x.Skill_FK == skill.Skill_PK).Skill_FK,
+                                Preparer_Character_FK = globalVotes.FirstOrDefault(x => x.Skill_FK == skill.Skill_PK).Character_FK,
+                                Exec_Track_Step = skill.Exec_Track_Step
+                            });
+                        }
+                    }
+                    logger.WriteLine(DateTime.Now + " END SKILL INITIALIZATION");
+                    #endregion
 
                     // perform skills following initiatve track (should already be sorted from SQL)
                     logger.WriteLine("");
                     logger.WriteLine(DateTime.Now + " BEGIN SKIRMISH");
                     foreach (var currAct in globalInitTrack)
                     {
+                        _GAMESTATE.Current_Act_Order == currAct.Act_Order;
+
                         // setup turn track
                         #region TURN TRACK OVERVIEW
                         /**
@@ -125,10 +145,11 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                         
                         #region TURN TRACK 
                         // cycle through turn track
+                        var currChar = GetCharacter(currAct.Character_FK);
                         for (var currTrackStep = 1; currTrackStep <= lastTrackStep; currTrackStep++)
                         {
-                            var currChar = GetCharacter(currAct.Character_FK);
                             logger.WriteLine(DateTime.Now + " BEGIN TRACK STEP [" + currTrackStep + "] for [" + currChar.Character_Name + "]");
+                            _GAMESTATE.Current_Track_Step = currTrackStep;
 
                             switch (currTrackStep)
                             {
@@ -136,7 +157,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                 case 1:
                                     // 1 - set active character to this character
                                     logger.WriteLine("SETTING [" + currChar.Character_Name + "](pk=" + currChar.Character_PK + ") as active character");
-                                    activeCharacterPk = currAct.Character_FK;
+                                    _GAMESTATE.Active_Character = currChar;
                                     break;
                                 case 2:
                                     // 2 - is character stunned?
@@ -156,12 +177,12 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                     logger.WriteLine(DateTime.Now + " SYSTEM Finding favored skill for character to perform ...");
                                     FavoredSkill = GetSkill(globalVotes.OrderByDescending(x => x.Vote_Count).FirstOrDefault(x => x.Character_FK == currChar.Character_PK).Skill_FK);
                                     logger.WriteLine(DateTime.Now + " SYSTEM Found favored skill. Skill_Name: [" + FavoredSkill.Skill_Name + "](pk=" + FavoredSkill.Skill_PK + ")");
+                                    _GAMESTATE.Pending_Skill = FavoredSkill;
                                     break;
                                 case 5:
                                     // 5 - find favored targets for skill
                                     // targets are separated by commas
                                     logger.WriteLine(DateTime.Now + " SYSTEM Finding favored targets for skill ...");
-                                    logger.WriteLine(globalVotes.FirstOrDefault(x => x.Skill_FK == FavoredSkill.Skill_PK && x.Character_FK == currChar.Character_PK).Targets == "");
                                     if(globalVotes.FirstOrDefault(x => x.Skill_FK == FavoredSkill.Skill_PK && x.Character_FK == currChar.Character_PK).Targets == "")
                                     {
                                         logger.WriteLine(DateTime.Now + " SYSTEM No targets for this skill");
@@ -173,9 +194,9 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                     x.Character_FK == currChar.Character_PK).Targets.Split(','), int.Parse);
                                         FavoredSkillFavoredTargets.AddRange(
                                             tmpTargets.Select(target => GetCharacter(target)));
-                                        logger.WriteLine(DateTime.Now + " SYSTEM Found favored targets [" +
-                                                         string.Join(",", FavoredSkillFavoredTargets) + "]");
+                                        logger.WriteLine(DateTime.Now + " SYSTEM Found favored targets [" + Json.Serialize(FavoredSkillFavoredTargets) + "]");
                                     }
+                                    _GAMESTATE.Pending_Targets = FavoredSkillFavoredTargets;
                                     break;
                                 #endregion
                                 #region PRELIMINARY SKILL EXECUTION
@@ -184,10 +205,10 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                     // 6 - target legibility (Invisiblity, Knocked Out, Charmed, ect)
                                     foreach (var target in FavoredSkillFavoredTargets.ToList())
                                     {
-                                        logger.WriteLine(DateTime.Now + " SYSTEM target=[" + target.Character_Name + "] | " +
-                                                                        "bInvisible:" + target.Conditions.bInvisible + " | bKnockedOut:" + target.Conditions.bKnockedOut + 
-                                                                        "bCharmed:" + target.Conditions.bCharmed + " | bTaunted:" + target.Conditions.bTaunted + 
-                                                                        "bBlinded:" + target.Conditions.bBlinded);
+                                        logger.WriteLine(DateTime.Now + " SYSTEM target=[" + target.Character_Name + "] |" +
+                                                                        " bInvisible:" + target.Conditions.bInvisible + " | bKnockedOut:" + target.Conditions.bKnockedOut + 
+                                                                        " bCharmed:" + target.Conditions.bCharmed + " | bTaunted:" + target.Conditions.bTaunted + 
+                                                                        " bBlinded:" + target.Conditions.bBlinded);
 
                                         // check if character has skills to bypass normal targetting rules
                                         CheckSpecialSkills(currTrackStep, currChar);
@@ -322,6 +343,16 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                     // 8 - special character skills
                                     if (FavoredSkill.Skill_Type.Contains("Special"))
                                     {
+                                        if (FavoredSkill.Skill_Type == "Special,Prepare")
+                                        {
+                                            skirmishPreparedSkills.Add(new Prepared_Skills()
+                                            {
+                                                Skill_PK = FavoredSkill.Skill_PK,
+                                                Preparer_Character_FK = currChar.Character_PK,
+                                                Exec_Track_Step = FavoredSkill.Exec_Track_Step
+                                            });
+                                        }
+
                                         // skill is special, code special logic later ...
                                         // for now, just end the turn
                                         currTrackStep = lastTrackStep;
@@ -470,7 +501,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                         Character targetChar = GetCharacter(log.Target_Character_FK);
 
                                         // determine if attack is successful
-                                        logger.WriteLine(DateTime.Now + " SYSTEM calculating if attack was successful ... | Attack_Final_Result:" + log.Attack_Final_Result + " | Target's Dodge:" + targetChar.Dodge);
+                                        logger.WriteLine(DateTime.Now + " SYSTEM calculating if attack was successful ... | Attack_Final_Result:" + log.Attack_Final_Result + " | Target's Dodge:" + targetChar.Dodge + " | bAutoSuccess:" +FavoredSkill.bAutoSuccess );
                                         log.bAttackSuccessful = (log.Attack_Final_Result >= targetChar.Dodge || FavoredSkill.bAutoSuccess);
                                         if (log.bAttackSuccessful)
                                         {
@@ -502,8 +533,6 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
                                                 // add modifier
                                                 rollFinalResult += rollModifier;
-
-                                                logger.WriteLine(DateTime.Now + " DEBUG finalResult: " + rollFinalResult);
 
                                                 log.tmpDamage_Final_Result.Add(rollFinalResult);
                                                 log.Damage_Types = FavoredSkill.Damage_Types;
@@ -791,23 +820,234 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         {
             return globalCharacters.FirstOrDefault(x => x.Character_PK == Character_PK);
         }
-        public List<Skill> GetSkillsForTrackStep(int Track_Step)
-        {
-            return globalSkills.Where(skill => skill.Exec_Track_Step == Track_Step).ToList();
-        }
         public Skill GetSkill(int Skill_PK)
         {
             return globalSkills.FirstOrDefault(x => x.Skill_PK == Skill_PK);
         }
-        public void CheckSpecialSkills(int Track_Step, Character Current_Character)
+        public List<Prepared_Skills> GetPreparedSkillsForTrackStep(int Track_Step)
         {
-            foreach (var skill in GetSkillsForTrackStep(Track_Step)) ExecuteSkill(skill, Current_Character);
+            return skirmishPreparedSkills.Where(skill => skill.Exec_Track_Step == Track_Step).ToList();
         }
-        public void ExecuteSkill(Skill currSkill, Character currChar)
+        public void CheckSpecialSkills(int Track_Step)
         {
-
+            foreach (var skill in GetPreparedSkillsForTrackStep(Track_Step)) ExecuteSkill(skill);
         }
+        public void ExecuteSkill(Prepared_Skills currSkill)
+        {
+            Character skillOwner = globalCharacters.FirstOrDefault(x => x.Character_PK == currSkill.Preparer_Character_FK);
 
+            // ensure skillOwner is not Stunned or KnockedOut
+            if (skillOwner.Conditions.bStunned || skillOwner.Conditions.bKnockedOut) return;
+
+            logger.WriteLine(DateTime.Now + " SYSTEM INTERRUPT [" + skillOwner.Character_Name + "] interupts with [" + globalSkills.FirstOrDefault(x => x.Skill_PK == currSkill.Skill_PK).Skill_Name + "]");
+
+            // hardcoded operations for special skills
+            switch (currSkill.Skill_PK)
+            {
+                case 1:
+                    #region Paladin's Protection
+                    // Redirect 2 damage from all attack actions performed against each ally to this character
+                    foreach (var target in _GAMESTATE.Pending_Targets.Where(x => x.Guild_FK == skillOwner.Guild_FK &&
+                                                                                 x.Character_PK != skillOwner.Character_PK))
+                    {
+                        var ally = target; // declared because of loop closure
+                        foreach (
+                            var relativeLog in
+                                globalCombatLog.Where(x =>
+                                        x.Target_Character_FK == ally.Character_PK &&
+                                        x.Assasilant_Character_FK == _GAMESTATE.Active_Character.Character_PK))
+                        {
+                            var damageDealt = 0;
+                            if (relativeLog.Damage_Final_Result > 2)
+                            {
+                                damageDealt = 2;
+                                relativeLog.Damage_Final_Result -= damageDealt;
+                            }
+                            else
+                            {
+                                damageDealt = 1;
+                                relativeLog.Damage_Final_Result -= damageDealt;
+                                if (relativeLog.Damage_Final_Result < 0) relativeLog.Damage_Final_Result = 0;
+                            }
+
+                            logger.WriteLine(DateTime.Now + " SYSTEM [" + skillOwner.Character_Name + "] taking (" + damageDealt + ") damage");
+                            skillOwner.TakeDamage(damageDealt);
+
+                            globalCombatLog.Add(new Combat_Log()
+                            {
+                                Action_Order = relativeLog.Action_Order,
+                                Assasilant_Character_FK = _GAMESTATE.Active_Character.Character_PK,
+                                Attack_Final_Result = 0,
+                                Attack_Values = "",
+                                bAttackSuccessful = true,
+                                bInterrupt = true,
+                                Conditions = -1,
+                                Damage_Final_Result = damageDealt,
+                                Damage_Values = damageDealt.ToString(),
+                                Damage_Types = "Physical"
+                            });
+                        }
+                    }
+                    #endregion
+                    break;
+                case 13:
+                    #region Divine Blessing
+                    // At the beginning of your turn, heal all characters on your team by 2 Health
+                    foreach (var target in _GAMESTATE.Pending_Targets.Where(x => x.Guild_FK == skillOwner.Guild_FK &&
+                                                                                 !x.Conditions.bKnockedOut))
+                    {
+                        var ally = target; // declared because of loop closure
+
+                        logger.WriteLine(DateTime.Now + " SYSTEM [" + skillOwner.Character_Name + "] heals [" + ally.Character_Name + "] for (2) Health");
+                        ally.Heal(2);
+
+                        globalCombatLog.Add(new Combat_Log()
+                        {
+                            Action_Order = _GAMESTATE.Current_Act_Order,
+                            Assasilant_Character_FK = skillOwner.Character_PK,
+                            Attack_Final_Result = 0,
+                            Attack_Values = "",
+                            bAttackSuccessful = true,
+                            bInterrupt = true,
+                            Conditions = -1,
+                            Damage_Final_Result = 2,
+                            Damage_Values = "2",
+                            Damage_Types = "Healing"
+                        });
+                    }
+                    #endregion
+                    break;
+                case 17:
+                    // Luck
+                    break;
+                case 21:
+                    // Holy Cure
+                    break;
+                case 25:
+                    // Physical Buffer
+                    break;
+                case 29:
+                    // Agile
+                    break;
+                case 37:
+                    // Blessed Blood
+                    break;
+                case 47:
+                    // Take Action
+                    break;
+                case 56:
+                    // Cloak of the Arcane
+                    break;
+                case 62:
+                    // Radiant Shroud
+                    break;
+                case 70:
+                    // Formless
+                    break;
+                case 74:
+                    // Phylactery Vamp
+                    break;
+                case 81:
+                    // Bodily Regeneration
+                    break;
+                case 85:
+                    // 360 Defense
+                    break;
+                case 88: 
+                    // Ethereal
+                    break;
+                case 95:
+                    // Undead Aura
+                    break;
+                case 99:
+                    // Nauseous Innards
+                    break;
+                case 103:
+                    // Feed The Graves
+                    break;
+                case 110:
+                    // Vampiric Aura
+                    break;
+                case 114:
+                    // We Are Many
+                    break;
+                case 118:
+                    // Purity Scent
+                    break;
+                case 126:
+                    // Parry
+                    break;
+                case 130:
+                    // Cognizant Insight
+                    break;
+                case 135:
+                    // Take Flight
+                    break;
+                case 144:
+                    // Ent Summoning
+                    break;
+                case 149:
+                    // Spirit of the Forest
+                    break;
+                case 158:
+                    // Deep Wounds
+                    break;
+                case 159:
+                    // Shapeshift
+                    break;
+                case 164:
+                    // Camouflage
+                    break;
+                case 168:
+                    // Forgetful
+                    break;
+                case 173:
+                    // Rock Form
+                    break;
+                case 175:
+                    // Goading Hammer Strike
+                    break;
+                case 177:
+                    // Hungry Wildlife
+                    break;
+                case 182:
+                    // Rock Form
+                    break;
+                case 183:
+                    // Crumbling State
+                    break;
+                case 189:
+                    // Small Form
+                    break;
+                case 193:
+                    // Wolf Companion
+                    break;
+                case 194:
+                    // Headshot
+                    break;
+                case 197:
+                    // Ethereal Existence
+                    break;
+                case 207:
+                    // Charging Up
+                    break;
+                case 211:
+                    // Hot Touch
+                    break;
+                case 231:
+                    // Speed Demon
+                    break;
+                case 235:
+                    // Dung Collector
+                    break;
+                case 239:
+                    // Auto Target
+                    break;
+                case 253:
+                    // New Appendages
+                    break;
+            }
+        }
         public void UpdateCharacterTrackLog(int Character_PK, string AccoladeType, int inVal)
         {
             Character_Track_Log updateLog = globalCharacterTrackLog.FirstOrDefault(x => x.Character_FK == Character_PK);

@@ -19,7 +19,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
     }
     public class Combat_Log
     {
-        public int CombatLog_PK { get; set; }
+        public int? CombatLog_PK { get; set; }
         public int Skirmish_FK { get; set; }
         public int Assasilant_Character_FK { get; set; }
         public int Target_Character_FK { get; set; }
@@ -33,6 +33,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public string Damage_Types { get; set; }
         public int Conditions { get; set; }
         public bool bAttackSuccessful { get; set; }
+        public bool bInterrupt { get; set; }
     }
     public class Skill
     {
@@ -55,6 +56,15 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Skill_PK { get; set; }
         public int Preparer_Character_FK { get; set; }
         public int Exec_Track_Step { get; set; }
+    }
+
+    public class Game_State
+    {
+        public Character Active_Character { get; set; }
+        public int Current_Track_Step { get; set; }
+        public int Current_Act_Order { get; set; }
+        public Skill Pending_Skill { get; set; }
+        public List<Character> Pending_Targets { get; set; }
     }
     public class Character
     {

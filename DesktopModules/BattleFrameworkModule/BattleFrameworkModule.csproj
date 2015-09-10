@@ -98,7 +98,6 @@
     <Compile Include="Models\BattleFrameworkObjects.cs" />
     <Compile Include="Models\BattleFramework_SkirmishManagement.cs" />
     <Compile Include="Models\BattleFramework_InitiativeManagement.cs" />
-    <Compile Include="Models\BattleFramework_SpecialSkills.cs" />
     <Compile Include="Models\RouteMapper.cs" />
     <Compile Include="Models\Webservices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
