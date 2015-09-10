@@ -7,6 +7,9 @@
     background-position: center top;
     margin-top: 20%;
 }
+p{
+    font-size: 1.1em !important;
+}
 #header_title{ color: white; }
 #header_subtitle{ color: lightgray; }
 

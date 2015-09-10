@@ -136,6 +136,7 @@
                         <p id="char_6_score" class="offical-black-border text-center">-</p>
 
                     </li>
+                    <br />
                     <li class="ui-state-default mobile-li-ui">
                         <img id="char_7_img" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" alt="" />
                         <p id="char_7_score" class="offical-black-border text-center">-</p>

@@ -796,6 +796,9 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     logger.WriteLine("");
                     logger.WriteLine(DateTime.Now + " END SKIRMISH");
 
+                    logger.WriteLine(DateTime.Now + " SYSTEM End Skirmish Combat Log:");
+                    logger.WriteLine(Json.Serialize(globalCombatLog));
+
                     logger.WriteLine(DateTime.Now + " SYSTEM End Skirmish State of all characters:");
                     logger.WriteLine(Json.Serialize(globalCharacters));
 
