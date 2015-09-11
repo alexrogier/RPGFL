@@ -119,11 +119,13 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Skirmishes_Participated { get; set; }
         public int Health_Regained { get; set; }
         public int Skirmishes_Survived { get; set; }
-        public int Ally_Bonus_Damage { get; set; }
-        public int Enemy_Less_Damage { get; set; }
         public int Afflictions_Inflicted { get; set; }
         public int Initiative_Acted_First { get; set; }
         public int Guild_Win_Bonus { get; set; }
+        public int Blessing_Bestow { get; set; }
+        public int Blessing_Shield_Absorb { get; set; }
+        public int Blessing_Bonus_Damage { get; set; }
+        public int Blessing_Stat_Buff { get; set; }
         public int Series_FK { get; set; }
     }
     public class Initiative_Track
@@ -154,6 +156,16 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Taunted_Character_PK { get; set; }
         public bool bAttackAdvantage { get; set; }
         public bool bAttackDisadvantage { get; set; }
+        public bool bDefendAdvantage { get; set; }
+        public bool bDefendDisadvantage { get; set; }
+        public bool bGuarded { get; set; }
+        public List<int> Guarded_Characters_PK { get; set; }
+        public bool bShielded { get; set; }
+        public int Shield { get; set; }
+        public List<int> Shield_Enchanters_Character_PK { get; set; }
+        public bool bDamageBonus{ get; set; }
+        public List<int> DamageBonus_Enchanters_Character_PK { get; set; }
+        public int DamageBonus { get; set; }
     }
     public class Accolades
     {
