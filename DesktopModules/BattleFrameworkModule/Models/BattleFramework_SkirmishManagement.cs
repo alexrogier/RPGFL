@@ -751,9 +751,91 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                             // inflict damage on target
                                             if (FavoredSkill.Skill_Type != "Heal")
                                             {
+                                                // check for bonus damage
+                                                if (currChar.Conditions.bDamageBonus)
+                                                {
+                                                    foreach (var enchanter in currChar.Conditions.DamageBonus_Enchanters_Character_PK.OrderByDescending(x => x))
+                                                    {
+                                                        // find relative combat log
+                                                        var relativeCombatLog = globalCombatLog.FirstOrDefault(x => x.Target_Character_FK == currChar.Character_PK && x.Assasilant_Character_FK == enchanter);
+                                                        // determine how much damage bonus enchanter granted
+                                                        Int32 grantedBonusDamage = Int32.Parse(globalSkills.FirstOrDefault(x => x.Skill_PK == relativeCombatLog.Skill_FK).Damage_Roll);
+
+                                                        // buff damage
+                                                        finalDamageResult += grantedBonusDamage;
+
+                                                        // record accolades
+                                                        UpdateCharacterTrackLog(enchanter, "Blessing_Bonus_Damage", grantedBonusDamage);
+                                                    }
+                                                    // clear out character bonus damage
+                                                    currChar.Conditions.bDamageBonus = false;
+                                                    currChar.Conditions.DamageBonus = 0;
+                                                    currChar.Conditions.DamageBonus_Enchanters_Character_PK.Clear();
+                                                }
+                                                                                                
                                                 // skill type inflicts damage
                                                 logger.WriteLine(DateTime.Now + " SYSTEM [" + target.Character_Name + "] taking (" + finalDamageResult + ") damage");
-                                                target.TakeDamage(finalDamageResult);
+
+                                                // check for shield
+                                                if (target.Conditions.bShielded)
+                                                {
+                                                    target.Conditions.Shield -= finalDamageResult;
+
+                                                    if (target.Conditions.Shield < 0)
+                                                    {
+                                                        target.TakeDamage(target.Conditions.Shield * -1);
+                                                        target.Conditions.Shield = 0;
+                                                        target.Conditions.bShielded = false;
+                                                        target.Conditions.Shield_Enchanters_Character_PK.Clear();
+                                                    }
+
+                                                    // record accolades for enchanter who granted shield
+                                                    var tmpAttackDmg = finalDamageResult;
+                                                    foreach(var enchanter in target.Conditions.Shield_Enchanters_Character_PK.OrderByDescending(x => x)){
+                                                        // find relative combat log where enchanter shielded target
+                                                        var relativeCombatLog = globalCombatLog.FirstOrDefault(x => x.Target_Character_FK == target.Character_PK && x.Assasilant_Character_FK == enchanter);
+
+                                                        // determine how much shield the enchanter provided
+                                                        Int32 shieldAmtGranted = Int32.Parse(globalSkills.FirstOrDefault(x => x.Skill_PK == relativeCombatLog.Skill_FK).Damage_Roll);
+
+                                                        // accumulate how much damage the target has taken prior to this attack
+                                                        int previousDamage = globalCombatLog.Where(x => x.Target_Character_FK == target.Character_PK && x.Action_Order < currAct.Act_Order).Sum(x => x.Damage_Final_Result);
+
+                                                        // perform calculations
+                                                        tmpAttackDmg -= (shieldAmtGranted - previousDamage);
+                                                        if (tmpAttackDmg > 0)
+                                                        {
+                                                            // shield did not absorb all damage
+
+                                                            UpdateCharacterTrackLog(enchanter, "Blessing_Shield_Absorb", shieldAmtGranted);
+                                                            logger.WriteLine(DateTime.Now + " SYSTEM [" + globalCharacters.FirstOrDefault(x => x.Character_PK == enchanter).Character_Name + "] shielded [" + target.Character_Name + "] for " + shieldAmtGranted + " damage");
+                                                            target.Conditions.Shield_Enchanters_Character_PK.Remove(enchanter);
+                                                        }
+                                                        else
+                                                        {
+                                                            // shield absorbed all damage
+                                                            UpdateCharacterTrackLog(enchanter, "Blessing_Shield_Absorb", finalDamageResult);
+                                                            logger.WriteLine(DateTime.Now + " SYSTEM [" + globalCharacters.FirstOrDefault(x => x.Character_PK == enchanter).Character_Name + "] shielded [" + target.Character_Name + "] for " + finalDamageResult + " damage");
+                                                            break;
+                                                        }
+                                                    }
+
+                                                    // reduce total shield
+                                                    target.Conditions.Shield -= tmpAttackDmg;
+                                                    if (target.Conditions.Shield <= 0)
+                                                    {
+                                                        // clear out shield data if reduced to 0
+                                                        target.Conditions.Shield = 0;
+                                                        target.Conditions.bShielded = false;
+                                                        target.Conditions.Shield_Enchanters_Character_PK.Clear();
+                                                    }
+
+                                                    // take damage if remaining damage after shield calculations
+                                                    if (tmpAttackDmg > 0)
+                                                    {
+                                                        target.TakeDamage(finalDamageResult);
+                                                    }
+                                                }
                                             }
                                             else
                                             {
