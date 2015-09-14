@@ -75,6 +75,9 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                         logger.WriteLine(DateTime.Now + " SETTING [" + character.Character_Name + "] Max_Health to " + character.Health);
                         character.Max_Health = character.Health;
                         character.Conditions = new Conditions();
+                        character.Conditions.Shield_Enchanters_Character_PK = new List<int>();
+                        character.Conditions.DamageBonus_Enchanters_Character_PK = new List<int>();
+                        character.Conditions.Guarded_Characters_PK = new List<int>();
 
                         logger.WriteLine(DateTime.Now + " SYSTEM Creating character track log for character ...");
                         globalCharacterTrackLog.Add(new Character_Track_Log(){ Character_FK = character.Character_PK });
@@ -83,19 +86,19 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     logger.WriteLine("");
                     logger.WriteLine(DateTime.Now + " BEGIN SKILL INITIALIZATION");
                     // initialize passive skills
-                    foreach (var skill in globalSkills)
-                    {
-                        if (skill.bIsPassive)
-                        {
-                            logger.WriteLine(DateTime.Now + " PREPARING [" + skill.Skill_Name + "](pk=" + skill.Skill_PK + ") | Preparer: [" + globalCharacters.FirstOrDefault(x => x.Character_PK == globalVotes.FirstOrDefault(y => y.Skill_FK == skill.Skill_PK).Character_FK).Character_Name + "] | Exec_Track_Step: " + skill.Exec_Track_Step);
-                            skirmishPreparedSkills.Add(new Prepared_Skills()
-                            {
-                                Skill_PK = globalVotes.FirstOrDefault(x => x.Skill_FK == skill.Skill_PK).Skill_FK,
-                                Preparer_Character_FK = globalVotes.FirstOrDefault(x => x.Skill_FK == skill.Skill_PK).Character_FK,
-                                Exec_Track_Step = skill.Exec_Track_Step
-                            });
-                        }
-                    }
+                    //foreach (var skill in globalSkills)
+                    //{
+                    //    if (skill.bIsPassive)
+                    //    {
+                    //        logger.WriteLine(DateTime.Now + " PREPARING [" + skill.Skill_Name + "](pk=" + skill.Skill_PK + ") | Exec_Track_Step: " + skill.Exec_Track_Step);
+                    //        skirmishPreparedSkills.Add(new Prepared_Skills()
+                    //        {
+                    //            Skill_PK = skill.Skill_PK,
+                    //            Preparer_Character_FK = globalVotes.FirstOrDefault(x => x.Skill_FK == skill.Skill_PK).Character_FK,
+                    //            Exec_Track_Step = skill.Exec_Track_Step
+                    //        });
+                    //    }
+                    //}
                     logger.WriteLine(DateTime.Now + " END SKILL INITIALIZATION");
                     #endregion
 
@@ -176,7 +179,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                     // 4 - find favored skill
                                     logger.WriteLine(DateTime.Now + " SYSTEM Finding favored skill for character to perform ...");
                                     FavoredSkill = GetSkill(globalVotes.OrderByDescending(x => x.Vote_Count).FirstOrDefault(x => x.Character_FK == currChar.Character_PK).Skill_FK);
-                                    logger.WriteLine(DateTime.Now + " SYSTEM Found favored skill. Skill_Name: [" + FavoredSkill.Skill_Name + "](pk=" + FavoredSkill.Skill_PK + ")");
+                                    logger.WriteLine(DateTime.Now + " SYSTEM Found favored skill. Skill_Name: [" + FavoredSkill.Skill_Name + "](pk=" + FavoredSkill.Skill_PK + ") | " + Json.Serialize(FavoredSkill));
                                     _GAMESTATE.Pending_Skill = FavoredSkill;
                                     break;
                                 case 5:
@@ -195,17 +198,38 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                             // character can only attack the same target again
                                             var skill = FavoredSkill; // declared because of loop closure
                                             var relativeCombatLog = globalCombatLog.FirstOrDefault(x => x.Assasilant_Character_FK == currChar.Character_PK && x.Skill_FK == skill.Skill_PK);
-                                            FavoredSkillFavoredTargets.Add(GetCharacter(relativeCombatLog.Target_Character_FK));
-                                            logger.WriteLine(DateTime.Now + " SYSTEM performing same attack against same target");
+
+                                             // if relativeCombatLog is null, this is the first time this attack is happening
+                                            if (relativeCombatLog == null)
+                                            {
+                                                var target = globalCharacters.FirstOrDefault(x => x.Character_PK == Int32.Parse(globalVotes.FirstOrDefault(v => v.Character_FK == currChar.Character_PK && v.Skill_FK == FavoredSkill.Skill_PK).Targets) && x.Guild_FK != currChar.Guild_FK && !x.Conditions.bKnockedOut && !x.Conditions.bInvisible);
+                                                FavoredSkillFavoredTargets.Add(target);
+                                                logger.WriteLine(DateTime.Now + " SYSTEM performing same attack against [" + target.Character_Name + "]");
+                                            } else {
+                                                FavoredSkillFavoredTargets.Add(GetCharacter(relativeCombatLog.Target_Character_FK));
+                                                logger.WriteLine(DateTime.Now + " SYSTEM performing same attack against same target");
+                                            }
                                         }
                                         else if (FavoredSkill.Skill_Type == "MultiAttack,Multi")
                                         {
                                             // character must attack a different target than before
                                             var skill = FavoredSkill; // declared because of loop closure
                                             var relativeCombatLog = globalCombatLog.OrderByDescending(x => x.Action_Order).FirstOrDefault(x => x.Assasilant_Character_FK == currChar.Character_PK && x.Skill_FK == skill.Skill_PK);
-                                            var target = globalCharacters.FirstOrDefault(x => x.Character_PK != relativeCombatLog.Target_Character_FK && x.Guild_FK != currChar.Guild_FK && !x.Conditions.bKnockedOut && !x.Conditions.bInvisible);
-                                            FavoredSkillFavoredTargets.Add(target);
-                                            logger.WriteLine(DateTime.Now + " SYSTEM performing same attack against [" + target.Character_Name + "]");
+
+                                            // if relativeCombatLog is null, this is the first time this attack is happening
+                                            if (relativeCombatLog == null)
+                                            {
+                                                var target = globalCharacters.FirstOrDefault(x => x.Character_PK == Int32.Parse(globalVotes.FirstOrDefault(v => v.Character_FK == currChar.Character_PK && v.Skill_FK == FavoredSkill.Skill_PK).Targets) && x.Guild_FK != currChar.Guild_FK && !x.Conditions.bKnockedOut && !x.Conditions.bInvisible);
+                                                FavoredSkillFavoredTargets.Add(target);
+                                                logger.WriteLine(DateTime.Now + " SYSTEM performing same attack against [" + target.Character_Name + "]");
+
+                                            }
+                                            else
+                                            {
+                                                var target = globalCharacters.FirstOrDefault(x => x.Character_PK != relativeCombatLog.Target_Character_FK && x.Guild_FK != currChar.Guild_FK && !x.Conditions.bKnockedOut && !x.Conditions.bInvisible);
+                                                FavoredSkillFavoredTargets.Add(target);
+                                                logger.WriteLine(DateTime.Now + " SYSTEM performing same attack against [" + target.Character_Name + "]");
+                                            }
                                         }
                                         else
                                         {
@@ -304,8 +328,8 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                             }
                                         }
 
-                                        // if character is Taunted
-                                        if (currChar.Conditions.bTaunted)
+                                        // if character is Taunted - AoE skills ignore taunts
+                                        if (currChar.Conditions.bTaunted && FavoredSkill.Max_Targets < 12)
                                         {
                                             // ensure taunter is still a legal target - otherwise maintain favored targets
                                             Boolean bTaunterTargettable = globalCharacters.Contains(globalCharacters.FirstOrDefault(x =>
@@ -313,7 +337,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                             !x.Conditions.bInvisible && 
                                                             !x.Conditions.bKnockedOut));
 
-                                            logger.WriteLine(DateTime.Now + " SYSTEM target is taunted, reassign target to taunter if able | TaunterCharPK:"+ target.Conditions.Taunted_Character_PK + " | bTaunterTargettable:" + bTaunterTargettable);
+                                            logger.WriteLine(DateTime.Now + " SYSTEM character is taunted, reassign target to taunter if able | TaunterCharPK:"+ target.Conditions.Taunted_Character_PK + " | bTaunterTargettable:" + bTaunterTargettable);
 
                                             if (bTaunterTargettable)
                                             {
@@ -399,6 +423,8 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                         newCombatLogEntry.Target_Character_FK = target.Character_PK;
                                         newCombatLogEntry.Skirmish_FK = skirmish.Skirmish_PK;
 
+                                        var bEndTheTurn = false;
+
                                         switch (FavoredSkill.Skill_Type)
                                         {
                                             case "Blessing,Advantage":
@@ -407,6 +433,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                
                                                 // record accolade
                                                 UpdateCharacterTrackLog(currChar.Character_PK, "Blessing_Stat_Buff", 1);
+                                                bEndTheTurn = true;
                                                 break;
                                             case "Blessing,Disadvantage":
                                                 logger.WriteLine(DateTime.Now + " SYSTEM casting Blessing,Disadvantage on [" + target.Character_Name + "]");
@@ -414,6 +441,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
                                                 // record accolade
                                                 UpdateCharacterTrackLog(currChar.Character_PK, "Blessing_Stat_Buff", 1);
+                                                bEndTheTurn = true;
                                                 break;
                                             case "Blessing,Shield":
                                                 logger.WriteLine(DateTime.Now + " SYSTEM casting Blessing,Shield(" + FavoredSkill.Damage_Roll + ") on [" + target.Character_Name + "]");
@@ -421,8 +449,11 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                 target.Conditions.Shield += Int32.Parse(FavoredSkill.Damage_Roll);
                                                 target.Conditions.Shield_Enchanters_Character_PK.Add(currChar.Character_PK);
 
+                                                newCombatLogEntry.Damage_Final_Result = Int32.Parse(FavoredSkill.Damage_Roll);
+
                                                 // record accolade
                                                 UpdateCharacterTrackLog(currChar.Character_PK, "Blessing_Bestow", 1);
+                                                bEndTheTurn = true;
                                                 break;
                                             case "Blessing,Damage":
                                                 logger.WriteLine(DateTime.Now + " SYSTEM casting Blessing,Shield(" + FavoredSkill.Damage_Roll + ") on [" + target.Character_Name + "]");
@@ -430,8 +461,11 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                 target.Conditions.DamageBonus += Int32.Parse(FavoredSkill.Damage_Roll);
                                                 target.Conditions.DamageBonus_Enchanters_Character_PK.Add(currChar.Character_PK);
 
+                                                newCombatLogEntry.Damage_Final_Result = Int32.Parse(FavoredSkill.Damage_Roll);
+
                                                 // record accolade
                                                 UpdateCharacterTrackLog(currChar.Character_PK, "Blessing_Bestow", 1);
+                                                bEndTheTurn = true;
                                                 break;
                                             case "Blessing,AllStats":
                                                 logger.WriteLine(DateTime.Now + " SYSTEM casting Blessing,AllStats(" + FavoredSkill.Damage_Roll + ") on [" + target.Character_Name + "]");
@@ -443,6 +477,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
                                                 // record accolade
                                                 UpdateCharacterTrackLog(currChar.Character_PK, "Blessing_Stat_Buff", 1);
+                                                bEndTheTurn = true;
                                                 break;
                                             case "Blessing,Finesse":
                                                 logger.WriteLine(DateTime.Now + " SYSTEM casting Blessing,Finesse(" + FavoredSkill.Damage_Roll + ") on [" + target.Character_Name + "]");
@@ -450,6 +485,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
                                                 // record accolade
                                                 UpdateCharacterTrackLog(currChar.Character_PK, "Blessing_Stat_Buff", 1);
+                                                bEndTheTurn = true;
                                                 break;
                                             case "Blessing,Agility":
                                                 logger.WriteLine(DateTime.Now + " SYSTEM casting Blessing,Agility(" + FavoredSkill.Damage_Roll + ") on [" + target.Character_Name + "]");
@@ -457,6 +493,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
                                                 // record accolade
                                                 UpdateCharacterTrackLog(currChar.Character_PK, "Blessing_Stat_Buff", 1);
+                                                bEndTheTurn = true;
                                                 break;
                                             case "Blessing,Senses":
                                                 logger.WriteLine(DateTime.Now + " SYSTEM casting Blessing,Senses(" + FavoredSkill.Damage_Roll + ") on [" + target.Character_Name + "]");
@@ -464,6 +501,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
                                                 // record accolade
                                                 UpdateCharacterTrackLog(currChar.Character_PK, "Blessing_Stat_Buff", 1);
+                                                bEndTheTurn = true;
                                                 break;
                                             case "Blessing,Mana":
                                                 logger.WriteLine(DateTime.Now + " SYSTEM casting Blessing,Mana(" + FavoredSkill.Damage_Roll + ") on [" + target.Character_Name + "]");
@@ -471,6 +509,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
                                                 // record accolade
                                                 UpdateCharacterTrackLog(currChar.Character_PK, "Blessing_Stat_Buff", 1);
+                                                bEndTheTurn = true;
                                                 break;
                                             case "Blessing,Dodge":
                                                 logger.WriteLine(DateTime.Now + " SYSTEM casting Blessing,Dodge(" + FavoredSkill.Damage_Roll + ") on [" + target.Character_Name + "]");
@@ -478,6 +517,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
                                                 // record accolade
                                                 UpdateCharacterTrackLog(currChar.Character_PK, "Blessing_Stat_Buff", 1);
+                                                bEndTheTurn = true;
                                                 break;
                                         }
 
@@ -493,11 +533,15 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                 target.Conditions.bGuarded = true;
                                                 target.Conditions.Guarded_Characters_PK.Add(currChar.Character_PK);
                                             }
+                                            bEndTheTurn = true;
+                                        }
+
+                                        if (bEndTheTurn)
+                                        {
+                                            // end the turn
+                                            currTrackStep = lastTrackStep;
                                         }
                                     }
-
-                                    // end the turn
-                                    currTrackStep = lastTrackStep;
                                     break;
                                 case 9:
                                     // 9 - determine if attack is rolled with advantage or disadvantage
@@ -634,7 +678,15 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                     // 11 - determine if attacks are successful and determine damage
 
                                     // get combat logs regarding this character performed favored skill - it is possible this attack targets multiple targets
-                                    var relativeAttackCombatLogs = globalCombatLog.Where(x => x.Action_Order == globalInitTrack.FirstOrDefault(y => y.Character_FK == currChar.Character_PK).Act_Order);
+                                    //var relativeAttackCombatLogs = globalCombatLog.Where(x => x.Action_Order == globalInitTrack.FirstOrDefault(y => y.Character_FK == currChar.Character_PK).Act_Order);
+                                    var relativeAttackCombatLogs = globalCombatLog.Where(x => x.Assasilant_Character_FK == currChar.Character_PK && x.Skill_FK == FavoredSkill.Skill_PK && x.Action_Order == currAct.Act_Order);
+
+                                    if (FavoredSkill.Skill_Type.Contains("MultiAttack"))
+                                    {
+                                        // work around when multiattacking to implant last entry into IEnumerable
+                                        var lastEntry = globalCombatLog.Last(x => x.Assasilant_Character_FK == currChar.Character_PK && x.Skill_FK == FavoredSkill.Skill_PK && x.Action_Order == currAct.Act_Order);
+                                        relativeAttackCombatLogs = globalCombatLog.Where(x => x == lastEntry);
+                                    }
 
                                     foreach (var log in relativeAttackCombatLogs)
                                     {
@@ -652,6 +704,9 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                             logger.WriteLine(DateTime.Now + " SYSTEM attack successful, rolling damage ...");
                                             foreach (var roll in rollArray)
                                             {
+                                                // ignore roll if 0d0+0 (shouldn't deal any damage)
+                                                if (roll == "0d0+0") continue;
+
                                                 logger.WriteLine(DateTime.Now + " SYSTEM rolling [" + roll + "]");
                                                 string rollSet = roll.Substring(0, roll.IndexOf("+")); // extract "XdX" from "XdX+X"
                                                 Int32 rollDiceAmt = Int32.Parse(rollSet.Substring(0, rollSet.IndexOf("d")));
@@ -687,11 +742,14 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                 logger.WriteLine(DateTime.Now + " SYSTEM final damage calculation | Damage_Final_Result:" + rollFinalResult + " | Damage_Types:" + FavoredSkill.Damage_Types);
                                             }
                                         }
-                                        else
-                                        {
-                                            // attack missed, end the turn
-                                            currTrackStep = lastTrackStep;
-                                        }
+                                    }
+
+                                    // all attacks missed, end the turn
+                                    if (relativeAttackCombatLogs.Count(x => x.bAttackSuccessful == true) == 0)
+                                    {
+                                        logger.WriteLine(DateTime.Now + " SYSTEM all attacks missed, end turn");
+                                        // attack missed, end the turn
+                                        currTrackStep = lastTrackStep;
                                     }
                                     break;
                                 case 12:
@@ -702,156 +760,175 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                     // 13 - inflict damage on target
 
                                     // get combat logs regarding this character performed favored skill - it is possible this attack targets multiple targets
-                                    var relativeDamageCombatLogs = globalCombatLog.Where(x => x.Action_Order == globalInitTrack.FirstOrDefault(y => y.Character_FK == currChar.Character_PK).Act_Order);
+                                    var relativeDamageCombatLogs = globalCombatLog.Where(x => x.Assasilant_Character_FK == currChar.Character_PK && x.Skill_FK == FavoredSkill.Skill_PK && x.Action_Order == currAct.Act_Order);
+
+                                    if (FavoredSkill.Skill_Type.Contains("MultiAttack"))
+                                    {
+                                        // work around when multiattacking to implant last entry into IEnumerable
+                                        var lastEntry = globalCombatLog.Last(x => x.Assasilant_Character_FK == currChar.Character_PK && x.Skill_FK == FavoredSkill.Skill_PK && x.Action_Order == currAct.Act_Order);
+                                        relativeAttackCombatLogs = globalCombatLog.Where(x => x == lastEntry);
+                                    }
+
+                                     // skip this step if skill damage is 0d0+0
+                                    if (globalSkills.FirstOrDefault(x => x.Skill_PK == FavoredSkill.Skill_PK).Damage_Roll == "0d0+0") continue;
 
                                     foreach (var log in relativeDamageCombatLogs)
                                     {
-                                        List<int> tmpDamageResults = log.tmpDamage_Final_Result;
-                                        List<int> tmpDamageValues = new List<int>();
-                                        List<string> tmpDamageTypes = log.Damage_Types.Split(',').ToList();
-                                        Character target = GetCharacter(log.Target_Character_FK);
-                                        Int32 overallDamageResult = 0;
-
-                                        foreach (var dmgRoll in tmpDamageResults)
+                                        if (log.bAttackSuccessful)
                                         {
-                                            var finalDamageResult = dmgRoll;
+                                            List<int> tmpDamageResults = log.tmpDamage_Final_Result;
+                                            List<int> tmpDamageValues = new List<int>();
+                                            List<string> tmpDamageTypes = log.Damage_Types.Split(',').ToList();
+                                            Character target = GetCharacter(log.Target_Character_FK);
+                                            Int32 overallDamageResult = 0;
 
-                                            logger.WriteLine(DateTime.Now + " SYSTEM inflict damage on target | finalDamageResult:" + dmgRoll + " | Vulnerabilities:[" + target.Vulnerabilities + "] | Resistances:[" + target.Resistances + "] | Immunities:[" + target.Immunities + "]");
-
-                                            if (target.Vulnerabilities != null)
+                                            foreach (var dmgRoll in tmpDamageResults)
                                             {
-                                                // consider target vulnerabilities
-                                                List<string> vulnerabilities = target.Vulnerabilities.Split(',').ToList();
-                                                var bVulnerableToAttack = tmpDamageTypes.Exists(x => x == vulnerabilities[tmpDamageResults.IndexOf(dmgRoll)]);
+                                                var finalDamageResult = dmgRoll;
 
-                                                // target is vulnerable to damage - deal double damage
-                                                if (bVulnerableToAttack) finalDamageResult += dmgRoll * 2;
-                                            }
+                                                logger.WriteLine(DateTime.Now + " SYSTEM inflict damage on target | finalDamageResult:" + dmgRoll + " | Vulnerabilities:[" + target.Vulnerabilities + "] | Resistances:[" + target.Resistances + "] | Immunities:[" + target.Immunities + "] | " + Json.Serialize(target));
 
-                                            if (target.Resistances != null)
-                                            {
-                                                // consider target resistances
-                                                List<string> resistances = target.Resistances.Split(',').ToList();
-                                                var bResistantToAttack = tmpDamageTypes.Exists(x => x == resistances[tmpDamageResults.IndexOf(dmgRoll)]);
-
-                                                // target is resistance to damage - deal half damage, rounded up
-                                                if (bResistantToAttack) finalDamageResult += (int)Math.Ceiling((double)dmgRoll / 2);
-                                            }
-
-                                            if (target.Immunities != null)
-                                            {
-                                                // consider target immunities
-                                                List<string> immunities = target.Immunities.Split(',').ToList();
-                                                var bImmuneToAttack = tmpDamageTypes.Exists(x => x == immunities[tmpDamageResults.IndexOf(dmgRoll)]);
-
-                                                // target is immune to damage - negate all damage
-                                                if (bImmuneToAttack) finalDamageResult = 0;
-                                            }
-
-                                            // inflict damage on target
-                                            if (FavoredSkill.Skill_Type != "Heal")
-                                            {
-                                                // check for bonus damage
-                                                if (currChar.Conditions.bDamageBonus)
+                                                if (target.Vulnerabilities != null)
                                                 {
-                                                    foreach (var enchanter in currChar.Conditions.DamageBonus_Enchanters_Character_PK.OrderByDescending(x => x))
-                                                    {
-                                                        // find relative combat log
-                                                        var relativeCombatLog = globalCombatLog.FirstOrDefault(x => x.Target_Character_FK == currChar.Character_PK && x.Assasilant_Character_FK == enchanter);
-                                                        // determine how much damage bonus enchanter granted
-                                                        Int32 grantedBonusDamage = Int32.Parse(globalSkills.FirstOrDefault(x => x.Skill_PK == relativeCombatLog.Skill_FK).Damage_Roll);
+                                                    // consider target vulnerabilities
+                                                    List<string> vulnerabilities = target.Vulnerabilities.Split(',').ToList();
+                                                    var bVulnerableToAttack = vulnerabilities.Exists(x => x == tmpDamageTypes[tmpDamageResults.IndexOf(dmgRoll)]);
 
-                                                        // buff damage
-                                                        finalDamageResult += grantedBonusDamage;
-
-                                                        // record accolades
-                                                        UpdateCharacterTrackLog(enchanter, "Blessing_Bonus_Damage", grantedBonusDamage);
-                                                    }
-                                                    // clear out character bonus damage
-                                                    currChar.Conditions.bDamageBonus = false;
-                                                    currChar.Conditions.DamageBonus = 0;
-                                                    currChar.Conditions.DamageBonus_Enchanters_Character_PK.Clear();
+                                                    // target is vulnerable to damage - deal double damage
+                                                    if (bVulnerableToAttack) finalDamageResult += dmgRoll;
                                                 }
-                                                                                                
-                                                // skill type inflicts damage
-                                                logger.WriteLine(DateTime.Now + " SYSTEM [" + target.Character_Name + "] taking (" + finalDamageResult + ") damage");
 
-                                                // check for shield
-                                                if (target.Conditions.bShielded)
+                                                if (target.Resistances != null)
                                                 {
-                                                    target.Conditions.Shield -= finalDamageResult;
+                                                    // consider target resistances
+                                                    List<string> resistances = target.Resistances.Split(',').ToList();
+                                                    var bResistantToAttack = resistances.Exists(x => x == tmpDamageTypes[tmpDamageResults.IndexOf(dmgRoll)]);
 
-                                                    if (target.Conditions.Shield < 0)
+                                                    // target is resistance to damage - deal half damage, rounded up
+                                                    if (bResistantToAttack) finalDamageResult -= (int)Math.Ceiling((double)dmgRoll / 2);
+                                                }
+
+                                                if (target.Immunities != null)
+                                                {
+                                                    // consider target immunities
+                                                    List<string> immunities = target.Immunities.Split(',').ToList();
+                                                    var bImmuneToAttack = immunities.Exists(x => x == tmpDamageTypes[tmpDamageResults.IndexOf(dmgRoll)]);
+
+                                                    // target is immune to damage - negate all damage
+                                                    if (bImmuneToAttack) finalDamageResult = 0;
+                                                }
+
+                                                // inflict damage on target
+                                                if (FavoredSkill.Skill_Type != "Heal")
+                                                {
+                                                    // check for bonus damage
+                                                    if (currChar.Conditions.bDamageBonus)
                                                     {
-                                                        target.TakeDamage(target.Conditions.Shield * -1);
-                                                        target.Conditions.Shield = 0;
-                                                        target.Conditions.bShielded = false;
-                                                        target.Conditions.Shield_Enchanters_Character_PK.Clear();
+                                                        foreach (var enchanter in currChar.Conditions.DamageBonus_Enchanters_Character_PK.OrderByDescending(x => x))
+                                                        {
+                                                            // find relative combat log
+                                                            var relativeCombatLog = globalCombatLog.FirstOrDefault(x => x.Target_Character_FK == currChar.Character_PK && x.Assasilant_Character_FK == enchanter);
+                                                            // determine how much damage bonus enchanter granted
+                                                            Int32 grantedBonusDamage = Int32.Parse(globalSkills.FirstOrDefault(x => x.Skill_PK == relativeCombatLog.Skill_FK).Damage_Roll);
+
+                                                            // buff damage
+                                                            finalDamageResult += grantedBonusDamage;
+
+                                                            // record accolades
+                                                            UpdateCharacterTrackLog(enchanter, "Blessing_Bonus_Damage", grantedBonusDamage);
+                                                        }
+                                                        // clear out character bonus damage
+                                                        currChar.Conditions.bDamageBonus = false;
+                                                        currChar.Conditions.DamageBonus = 0;
+                                                        currChar.Conditions.DamageBonus_Enchanters_Character_PK.Clear();
                                                     }
 
-                                                    // record accolades for enchanter who granted shield
-                                                    var tmpAttackDmg = finalDamageResult;
-                                                    foreach(var enchanter in target.Conditions.Shield_Enchanters_Character_PK.OrderByDescending(x => x)){
-                                                        // find relative combat log where enchanter shielded target
-                                                        var relativeCombatLog = globalCombatLog.FirstOrDefault(x => x.Target_Character_FK == target.Character_PK && x.Assasilant_Character_FK == enchanter);
+                                                    // skill type inflicts damage
+                                                    logger.WriteLine(DateTime.Now + " SYSTEM [" + target.Character_Name + "] taking (" + finalDamageResult + ") damage");
 
-                                                        // determine how much shield the enchanter provided
-                                                        Int32 shieldAmtGranted = Int32.Parse(globalSkills.FirstOrDefault(x => x.Skill_PK == relativeCombatLog.Skill_FK).Damage_Roll);
+                                                    // check for shield
+                                                    if (target.Conditions.bShielded)
+                                                    {
+                                                        target.Conditions.Shield -= finalDamageResult;
 
-                                                        // accumulate how much damage the target has taken prior to this attack
-                                                        int previousDamage = globalCombatLog.Where(x => x.Target_Character_FK == target.Character_PK && x.Action_Order < currAct.Act_Order).Sum(x => x.Damage_Final_Result);
+                                                        if (target.Conditions.Shield < 0)
+                                                        {
+                                                            target.TakeDamage(target.Conditions.Shield * -1);
+                                                            target.Conditions.Shield = 0;
+                                                            target.Conditions.bShielded = false;
+                                                            target.Conditions.Shield_Enchanters_Character_PK.Clear();
+                                                        }
 
-                                                        // perform calculations
-                                                        tmpAttackDmg -= (shieldAmtGranted - previousDamage);
+                                                        // record accolades for enchanter who granted shield
+                                                        var tmpAttackDmg = finalDamageResult;
+                                                        foreach (var enchanter in target.Conditions.Shield_Enchanters_Character_PK.OrderByDescending(x => x))
+                                                        {
+                                                            // find relative combat log where enchanter shielded target
+                                                            var relativeCombatLog = globalCombatLog.FirstOrDefault(x => x.Target_Character_FK == target.Character_PK && x.Assasilant_Character_FK == enchanter);
+
+                                                            // determine how much shield the enchanter provided
+                                                            Int32 shieldAmtGranted = Int32.Parse(globalSkills.FirstOrDefault(x => x.Skill_PK == relativeCombatLog.Skill_FK).Damage_Roll);
+
+                                                            // accumulate how much damage the target has taken prior to this attack
+                                                            int previousDamage = globalCombatLog.Where(x => x.Target_Character_FK == target.Character_PK && x.Action_Order < currAct.Act_Order).Sum(x => x.Damage_Final_Result);
+
+                                                            // perform calculations
+                                                            tmpAttackDmg -= (shieldAmtGranted - previousDamage);
+                                                            if (tmpAttackDmg > 0)
+                                                            {
+                                                                // shield did not absorb all damage
+
+                                                                UpdateCharacterTrackLog(enchanter, "Blessing_Shield_Absorb", shieldAmtGranted);
+                                                                logger.WriteLine(DateTime.Now + " SYSTEM [" + globalCharacters.FirstOrDefault(x => x.Character_PK == enchanter).Character_Name + "] shielded [" + target.Character_Name + "] for " + shieldAmtGranted + " damage");
+                                                                target.Conditions.Shield_Enchanters_Character_PK.Remove(enchanter);
+                                                            }
+                                                            else
+                                                            {
+                                                                // shield absorbed all damage
+                                                                UpdateCharacterTrackLog(enchanter, "Blessing_Shield_Absorb", finalDamageResult);
+                                                                logger.WriteLine(DateTime.Now + " SYSTEM [" + globalCharacters.FirstOrDefault(x => x.Character_PK == enchanter).Character_Name + "] shielded [" + target.Character_Name + "] for " + finalDamageResult + " damage");
+                                                                break;
+                                                            }
+                                                        }
+
+                                                        // reduce total shield
+                                                        target.Conditions.Shield -= tmpAttackDmg;
+                                                        if (target.Conditions.Shield <= 0)
+                                                        {
+                                                            // clear out shield data if reduced to 0
+                                                            target.Conditions.Shield = 0;
+                                                            target.Conditions.bShielded = false;
+                                                            target.Conditions.Shield_Enchanters_Character_PK.Clear();
+                                                        }
+
+                                                        // take damage if remaining damage after shield calculations
                                                         if (tmpAttackDmg > 0)
                                                         {
-                                                            // shield did not absorb all damage
-
-                                                            UpdateCharacterTrackLog(enchanter, "Blessing_Shield_Absorb", shieldAmtGranted);
-                                                            logger.WriteLine(DateTime.Now + " SYSTEM [" + globalCharacters.FirstOrDefault(x => x.Character_PK == enchanter).Character_Name + "] shielded [" + target.Character_Name + "] for " + shieldAmtGranted + " damage");
-                                                            target.Conditions.Shield_Enchanters_Character_PK.Remove(enchanter);
-                                                        }
-                                                        else
-                                                        {
-                                                            // shield absorbed all damage
-                                                            UpdateCharacterTrackLog(enchanter, "Blessing_Shield_Absorb", finalDamageResult);
-                                                            logger.WriteLine(DateTime.Now + " SYSTEM [" + globalCharacters.FirstOrDefault(x => x.Character_PK == enchanter).Character_Name + "] shielded [" + target.Character_Name + "] for " + finalDamageResult + " damage");
-                                                            break;
+                                                            target.TakeDamage(finalDamageResult);
                                                         }
                                                     }
-
-                                                    // reduce total shield
-                                                    target.Conditions.Shield -= tmpAttackDmg;
-                                                    if (target.Conditions.Shield <= 0)
+                                                    else
                                                     {
-                                                        // clear out shield data if reduced to 0
-                                                        target.Conditions.Shield = 0;
-                                                        target.Conditions.bShielded = false;
-                                                        target.Conditions.Shield_Enchanters_Character_PK.Clear();
-                                                    }
-
-                                                    // take damage if remaining damage after shield calculations
-                                                    if (tmpAttackDmg > 0)
-                                                    {
+                                                        // target is not shielded, take damage normally
                                                         target.TakeDamage(finalDamageResult);
                                                     }
                                                 }
-                                            }
-                                            else
-                                            {
-                                                // skill type heals health
-                                                logger.WriteLine(DateTime.Now + " SYSTEM [" + target.Character_Name + "] healing (" + finalDamageResult + ") health");
-                                                target.Heal(finalDamageResult);
+                                                else
+                                                {
+                                                    // skill type heals health
+                                                    logger.WriteLine(DateTime.Now + " SYSTEM [" + target.Character_Name + "] healing (" + finalDamageResult + ") health");
+                                                    target.Heal(finalDamageResult);
+                                                }
+
+                                                // accumulate overall damage for combat log
+                                                overallDamageResult += finalDamageResult;
+                                                tmpDamageValues.Add(finalDamageResult);
                                             }
 
-                                            // accumulate overall damage for combat log
-                                            overallDamageResult += finalDamageResult;
-                                            tmpDamageValues.Add(finalDamageResult);
+                                            // record overall damage
+                                            log.Damage_Final_Result = overallDamageResult;
+                                            log.Damage_Values = tmpDamageValues.ToJson();
                                         }
-
-                                        // record overall damage
-                                        log.Damage_Final_Result = overallDamageResult;
-                                        log.Damage_Values = tmpDamageValues.ToJson();
                                     }
                                     break;
                                 case 14:
@@ -980,6 +1057,10 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                                 x => x.Character_PK == relativeCombatLog.Target_Character_FK)
                                                 .Conditions.bKnockedOut)
                                             currTrackStep = 16;
+
+                                        // remove Taunt if taunted - multi attacks ignore taunts after first attack
+                                        currChar.Conditions.bTaunted = false;
+                                        currChar.Conditions.Taunted_Character_PK = 0;
                                     }
                                     break;
                                 case 17:
@@ -1091,6 +1172,9 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
                     logger.WriteLine(DateTime.Now + " SYSTEM End Skirmish State of all characters:");
                     logger.WriteLine(Json.Serialize(globalCharacters));
+
+                    logger.WriteLine(DateTime.Now + " SYSTEM End Skirmish accolade tracker:");
+                    logger.WriteLine(Json.Serialize(globalCharacterTrackLog));
 
                     logger.Close();
                 }
