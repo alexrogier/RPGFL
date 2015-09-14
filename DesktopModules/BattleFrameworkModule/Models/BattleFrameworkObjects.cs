@@ -38,6 +38,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
     public class Skill
     {
         public int Skill_PK { get; set; }
+        public int Character_FK { get; set; }
         public string Skill_Name { get; set; }
         public string Skill_Description { get; set; }
         public int Energy_Cost { get; set; }
@@ -139,7 +140,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Skill_FK { get; set; }
         public int Character_FK { get; set; }
         public int Skirmish_FK { get; set; }
-        public int Vote_Count { get; set; }
+        public int User_FK { get; set; }
         public string Targets { get; set; }
     }
     public class Conditions
