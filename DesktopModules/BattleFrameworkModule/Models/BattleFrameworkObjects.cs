@@ -21,7 +21,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
     {
         public int? CombatLog_PK { get; set; }
         public int Skirmish_FK { get; set; }
-        public int Assasilant_Character_FK { get; set; }
+        public int Assailant_Character_FK { get; set; }
         public int Target_Character_FK { get; set; }
         public int Skill_FK { get; set; }
         public int Action_Order { get; set; }

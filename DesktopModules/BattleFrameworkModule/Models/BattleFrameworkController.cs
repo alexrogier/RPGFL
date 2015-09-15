@@ -93,7 +93,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     {
                         DataRow newRow = energyData.NewRow();
                         newRow["Skirmish_PK"] = i.Skirmish_FK;
-                        newRow["Assailant_Character_FK"] = i.Assasilant_Character_FK;
+                        newRow["Assailant_Character_FK"] = i.Assailant_Character_FK;
                         newRow["Target_Character_FK"] = i.Target_Character_FK;
                         newRow["Skill_FK"] = i.Skill_FK;
                         newRow["Action_Order"] = i.Action_Order;
