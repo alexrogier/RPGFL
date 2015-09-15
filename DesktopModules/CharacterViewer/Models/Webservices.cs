@@ -49,6 +49,20 @@ namespace Christoc.Modules.ModuleCharacterViewer.Models
 
         [AllowAnonymous]
         [HttpGet]
+        public HttpResponseMessage GetAllSkills(int Character_PK)
+        {
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, controller.GetAllSkills(Character_PK));
+            }
+            catch (Exception exc)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
         public HttpResponseMessage GetUserDraftPriority(int FILTER_userfk)
         {
             try

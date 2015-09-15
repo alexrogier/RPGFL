@@ -176,6 +176,7 @@ function getCharacterData() {
     populateCharacters(charData);
 }
 
+
 function populateCharacters(charData){
     var rowRankHTML_TEMPLATE = '';
     $.ajax({
