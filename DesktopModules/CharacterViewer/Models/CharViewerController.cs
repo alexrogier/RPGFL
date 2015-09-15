@@ -63,6 +63,13 @@ namespace Christoc.Modules.ModuleCharacterViewer.Models
             return masterResults;
         }
 
+        public IList<Skill> GetAllSkills(int Character_PK)
+        {
+            IList<Skill> masterResults = CBO.FillCollection<Skill>(DataProvider.Instance().ExecuteReader("RPGFL_GetAllSkills", Character_PK));
+
+            return masterResults;
+        }
+
         public IList<Character> GetUserDraftPriority(int FILTER_userfk)
         {
             IList<Character> masterResults = CBO.FillCollection<Character>(DataProvider.Instance().ExecuteReader("RPGFL_GetUserDraftPriority", FILTER_userfk));

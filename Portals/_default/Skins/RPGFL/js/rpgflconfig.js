@@ -68,9 +68,44 @@ function _GETCHARACTERDATA(id) {
             $("#charactermodal_stats_vulnerabilities").text(data[0].Vulnerabilities || "None");
             $("#charactermodal_stats_resistances").text(data[0].Resistances || "None");
             $("#charactermodal_stats_resistances").text(data[0].Resistances || "None");
-            // skills
+
         }
     });
+    // skills
+    var skillData = _GETSKILLDATA(id);
+
+    $("#charactermodal_skills").empty();
+    $("#charactermodal_skills").append('<ul style="list-style-type:none;" id="characterskills">');
+
+    for (var skill = 0; skill < skillData.length; skill++)
+    {
+        var PassiveText = "Passive";
+
+        console.log(skillData[skill]);
+        if (skillData[skill].Skill_Type != 'Passive') PassiveText = skillData[skill].Energy_Cost + " Energy";
+
+        $("#characterskills").append("<li><p><strong>" + skillData[skill].Skill_Name + " [" + skillData[skill].Attribute_FK + "] [" + PassiveText + "]</strong> " + skillData[skill].Skill_Description + "</p></li>")
+
+    }
+
+    $("#charactermodal_skills").append("</ul>");
+}
+
+function _GETSKILLDATA(id) {
+    var skillData = null
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/DesktopModules/CharacterViewer/API/ModuleCharacterViewer/GetAllSkills",
+        data: { Character_PK: id },
+        dataType: "json",
+        success: function (data) {
+            skillData = data;
+        }
+    });
+
+    if (skillData == null) return;
+    return skillData;
 }
 
 function _GETLEAGUESETTINGTEXT(setting, val) {
