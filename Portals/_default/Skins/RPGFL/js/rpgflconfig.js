@@ -54,6 +54,7 @@ function _GETCHARACTERDATA(id) {
             // set modal data
             $("#charactermodal_title").text(data[0].Character_Name);
             $("#charactermodal_portrait").attr("src", _GETCHARACTERPORTRAIT(data[0].Character_Name));
+            $("#charactermodal_motto").text(data[0].Title_Desc);
             $("#charactermodal_stats_health").text(data[0].Health);
             $("#charactermodal_stats_dodge").text(data[0].Dodge);
             $("#charactermodal_stats_archetype").text(data[0].Archetype);
@@ -81,7 +82,6 @@ function _GETCHARACTERDATA(id) {
     {
         var PassiveText = "Passive";
 
-        console.log(skillData[skill]);
         if (skillData[skill].Skill_Type != 'Passive') PassiveText = skillData[skill].Energy_Cost + " Energy";
 
         $("#characterskills").append("<li><p><strong>" + skillData[skill].Skill_Name + " [" + skillData[skill].Attribute_FK + "] [" + PassiveText + "]</strong> " + skillData[skill].Skill_Description + "</p></li>")

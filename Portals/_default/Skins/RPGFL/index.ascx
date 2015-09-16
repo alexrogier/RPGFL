@@ -163,8 +163,11 @@
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-6">
+                            <div class="row"">
+                                <em><p class="smallpadding" id="charactermodal_motto"  style="margin: 0px;"></p></em>
+                            </div>
                             <div class="row text-center">
-                                <h4 class="smallpadding">STATS</h4>
+                                <h4 class="smallpadding" style="margin: 0px;">STATS</h4>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 col-md-6">
