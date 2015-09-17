@@ -66,6 +66,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Current_Act_Order { get; set; }
         public Skill Pending_Skill { get; set; }
         public List<Character> Pending_Targets { get; set; }
+        public int Skirmish_FK { get; set; }
     }
     public class Character
     {
