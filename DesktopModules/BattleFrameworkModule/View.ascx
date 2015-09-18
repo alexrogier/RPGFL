@@ -159,7 +159,7 @@
                                         <p class="pill" style="color: black">x / x</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <div class="col-md-2 col-xs-2"></div>
                         <div class="text-left col-md-5 col-xs-5">
