@@ -28,7 +28,7 @@ function character(charData){
     this.Health = charData.Health;
     this.Dodge = charData.Dodge;
     this.Archetype = charData.Archetype;
-    this.Finesse = charData.Finesse;  
+    this.Finesse = charData.Finesse;
     this.Agility = charData.Agility;
     this.Senses = charData.Senses;
     this.Mana = charData.Mana;
