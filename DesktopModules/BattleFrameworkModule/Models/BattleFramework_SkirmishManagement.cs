@@ -1465,113 +1465,21 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
             // hardcoded operations for special skills
             switch (currSkill.Skill_PK)
             {
-                case 1:
-                    #region Paladin's Protection
-                    // Redirect 2 damage from all attack actions performed against each ally to this character
-                    foreach (var target in _GAMESTATE.Pending_Targets.Where(x => x.Guild_FK == skillOwner.Guild_FK && x.Character_PK != skillOwner.Character_PK))
-                    {
-                        var ally = target; // declared because of loop closure
-                        var relativeLog = globalCombatLog.FirstOrDefault(x => x.Target_Character_FK == ally.Character_PK && x.Assailant_Character_FK == _GAMESTATE.Active_Character.Character_PK && _GAMESTATE.Current_Act_Order == x.Action_Order);
-                        
-                        // ignore log if cast skill is friendly
-                        var assailantSkill = globalSkills.FirstOrDefault(x => x.Skill_PK == relativeLog.Skill_FK);
-                        if (assailantSkill.Skill_Type.Contains("Guard") ||
-                            assailantSkill.Skill_Type.Contains("Blessing") ||
-                            assailantSkill.Skill_Type.Contains("Heal")) continue;
-
-                        if (relativeLog.bAttackSuccessful)
-                        {
-                            logger.WriteLine(stopwatch.ElapsedMilliseconds + "ms INTERRUPT Gantar performing Paladin's Protection for [" + ally.Character_Name + "]");
-                            var damageDealt = (relativeLog.tmpDamage_Final_Result[0] > 2 ? 2 : 1);
-                            relativeLog.tmpDamage_Final_Result[0] -= damageDealt;
-                            if (relativeLog.tmpDamage_Final_Result[0] < 0) relativeLog.tmpDamage_Final_Result[0] = 0;
-
-                            globalCombatLog.Add(new Combat_Log()
-                            {
-                                Action_Order = relativeLog.Action_Order,
-                                Skirmish_FK = _GAMESTATE.Skirmish_FK,
-                                Skill_FK = currSkill.Skill_PK,
-                                Assailant_Character_FK = _GAMESTATE.Active_Character.Character_PK,
-                                Target_Character_FK = skillOwner.Character_PK,
-                                Attack_Final_Result = 0,
-                                Attack_Values = "0",
-                                bAttackSuccessful = true,
-                                bInterrupt = true,
-                                Conditions = 0,
-                                Damage_Final_Result = damageDealt,
-                                Damage_Values = damageDealt.ToString(),
-                                tmpDamage_Final_Result = new List<int>(){ damageDealt },
-                                Damage_Types = "Physical"
-                            });
-                        }
-                    }
-
-                    bSkillExecuted = true;
-                    #endregion
-                    break;
-                case 13:
-                    #region Divine Blessing
-                    // At the beginning of your turn, heal all characters on your team by 2 Health
-                    if (_GAMESTATE.Active_Character.Character_PK != skillOwner.Character_PK) return;
-
-                    foreach (var target in globalCharacters.Where(x => x.Guild_FK == skillOwner.Guild_FK &&
-                                                                                 !x.Conditions.bKnockedOut))
-                    {
-                        var ally = target; // declared because of loop closure
-
-                        var healAmt = 0;
-                        if (target.Max_Health - target.Health > 2)
-                        {
-                            healAmt = 2;
-                        }
-                        else if (target.Max_Health - target.Health == 1)
-                        {
-                            healAmt = 1;
-                        }
-
-                        if (healAmt > 0)
-                        {
-                            logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" +
-                                             skillOwner.Character_Name + "] heals [" + ally.Character_Name + "] for (" +
-                                             healAmt + ") Health");
-
-                            globalCombatLog.Add(new Combat_Log()
-                            {
-                                Action_Order = _GAMESTATE.Current_Act_Order,
-                                Skirmish_FK = _GAMESTATE.Skirmish_FK,
-                                Skill_FK = currSkill.Skill_PK,
-                                Assailant_Character_FK = skillOwner.Character_PK,
-                                Target_Character_FK = ally.Character_PK,
-                                Attack_Final_Result = 0,
-                                Attack_Values = "0",
-                                bAttackSuccessful = true,
-                                bInterrupt = true,
-                                Conditions = 0,
-                                Damage_Final_Result = healAmt,
-                                Damage_Values = healAmt.ToString(),
-                                tmpDamage_Final_Result = new List<int>() { healAmt },
-                                Damage_Types = "Healing"
-                            });
-
-                            UpdateCharacterTrackLog(skillOwner.Character_PK, "Health_Regained", healAmt);
-                        }
-                    }
-
-                    bSkillExecuted = true;
-                    #endregion
-                    break;
-                case 17:
+               case 17:
                     #region Luck
                     // When you roll an 18-20 on an attack, deal an additional 1d10 Burning Damage
                     if (_GAMESTATE.Active_Character.Character_PK != skillOwner.Character_PK) return;
 
                     foreach (var log in globalCombatLog.Where(x => x.Assailant_Character_FK == skillOwner.Character_PK && x.Action_Order == _GAMESTATE.Current_Act_Order))
                     {
-                        if (log.Attack_Values.Contains("18") || 
+                        if (log.Attack_Values.Contains("15") || 
+                            log.Attack_Values.Contains("16") || 
+                            log.Attack_Values.Contains("17") || 
+                            log.Attack_Values.Contains("18") || 
                             log.Attack_Values.Contains("19") ||
                             log.Attack_Values.Contains("20"))
                         {
-                            var bonusDamage = rand.Next(1, 11);
+                            var bonusDamage = rand.Next(1, 21);
                             logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" +
                                              skillOwner.Character_Name + "] deals an additional " + bonusDamage + " Burning Damage");
                             log.tmpDamage_Final_Result.Add(bonusDamage);
@@ -1583,10 +1491,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     #endregion
                     break;
                 case 21:
-                    // Holy Cure
-                    break;
-                case 25:
-                    // Physical Buffer
+                    // Holy Protection
                     break;
                 case 29:
                     // Agile
@@ -1642,9 +1547,6 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                 case 130:
                     // Cognizant Insight
                     break;
-                case 135:
-                    // Take Flight
-                    break;
                 case 144:
                     // Ent Summoning
                     break;
@@ -1678,14 +1580,8 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                 case 183:
                     // Crumbling State
                     break;
-                case 189:
-                    // Small Form
-                    break;
                 case 193:
                     // Wolf Companion
-                    break;
-                case 194:
-                    // Headshot
                     break;
                 case 197:
                     // Ethereal Existence
@@ -1695,9 +1591,6 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     break;
                 case 211:
                     // Hot Touch
-                    break;
-                case 231:
-                    // Speed Demon
                     break;
                 case 235:
                     // Dung Collector
