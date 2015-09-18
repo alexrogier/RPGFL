@@ -8,7 +8,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
     public class Skirmish
     {
         public int Skirmish_PK { get; set; }
-        public DateTime SkirmishDate { get; set; }
+        public string Skirmish_Date { get; set; }
         public int Campaign_FK { get; set; }
         public int Guild_1_FK { get; set; }
         public int Guild_2_FK { get; set; }
