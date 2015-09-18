@@ -3,6 +3,7 @@
     // get skirmishpk from url paramter
     skirmishId = getUrlParameter("skirmishid");
     getSkirmishData(skirmishId);
+    populateSkirmishData();
 
     // **** SETUP CHARACTERS ****
     getAllCharacterDataInSkirmish();
@@ -77,17 +78,37 @@ function getAllCharacterDataInSkirmish() {
 
 // skirmish interface
 function skirmish(skirmishData) {
-    this.Skirmish_PK = skirmishData.Skirmish_PK;
-    this.Skirmish_Date = skirmishData.Skirmish_Date;
-    this.Campaign_FK = skirmishData.Campaign_FK;
-    this.Guild_1_FK = skirmishData.Guild_1_FK;
-    this.Guild_2_FK = skirmishData.Guild_2_FK;
-    this.Guild_1_Accolade_Points = skirmishData.Guild_1_Accolade_Points;
-    this.Guild_2_Accolade_Points = skirmishData.Guild_2_Accolade_Points;
-    this.Skirmish_Victor_FK = skirmishData.Skirmish_Victor_FK;
-    this.Series_FK = skirmishData.Series_FK;
+    this.Skirmish_PK = skirmishData[0].Skirmish_PK;
+    this.Skirmish_Date = new Date(skirmishData[0].Skirmish_Date).toDateString("yyyy-mm-dd");
+    this.Campaign_FK = skirmishData[0].Campaign_FK;
+    this.Guild_1_FK = skirmishData[0].Guild_1_FK;
+    this.Guild_2_FK = skirmishData[0].Guild_2_FK;
+    this.Guild_1_Accolade_Points = skirmishData[0].Guild_1_Accolade_Points;
+    this.Guild_2_Accolade_Points = skirmishData[0].Guild_2_Accolade_Points;
+    this.Skirmish_Victor_FK = skirmishData[0].Skirmish_Victor_FK;
+    this.Series_FK = skirmishData[0].Series_FK;
 }
 var globalSkirmish; // holds data regarding this skirmish
+// skirmish methods
+function populateSkirmishData() {
+    $("#guild_1_logo").attr("src", _GETGUILDLOGO(globalSkirmish.Guild_1_FK));
+    $("#guild_2_logo").attr("src", _GETGUILDLOGO(globalSkirmish.Guild_2_FK));
+    $("#skirmish_date").text(globalSkirmish.Skirmish_Date);
+}
+function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+}
 // skirmish ajax handlers
 function getSkirmishData(skirmishPK){
     $.ajax({
@@ -98,7 +119,7 @@ function getSkirmishData(skirmishPK){
             Skirmish_PK: skirmishPK
         },
         dataType: "json",
-        success: function (data) {
+        success: function (data) {       
             globalSkirmish = new skirmish(JSON.parse(data));
         }
     });
