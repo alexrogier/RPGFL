@@ -155,13 +155,24 @@ function populateStandings() {
             $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > img.char_" + i + "_img").attr("src", _GETCHARACTERICON(draftInfo[i - 1].CharacterName));
 
             // rig character images for character viewer
-            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("data-content", "<strong>" + draftInfo[i - 1].CharacterName + "</strong><br/><p>" + draftInfo[i - 1].Archetype + "</p>");
-            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("rel", "popover");
-            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("data-trigger", "hover");
-            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("data-placement", "top");
-            $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img").attr("data-html", "true");
+            var img = $("#table_tbody_standingsdata > tr#standings_data_user_" + currRank.UserPK + "_" + currRank.LeaguePK + " > td > div > .char_" + i + "_img");
+            img.attr("id", "char_" + currRank.UserPK + "_" + currRank.LeaguePK + "_" + draftInfo[i - 1].CharacterPK);
+            document.getElementById($(img).attr("id")).setAttribute("data-charpk", draftInfo[i - 1].CharacterPK);
+            img.attr("rel", "popover");
+            img.attr("data-content", "<strong>" + draftInfo[i - 1].CharacterName + "</strong><br/><em>" + draftInfo[i - 1].Archetype + "</em>");
+            img.attr("data-trigger", "hover");
+            img.attr("data-placement", "top");
+            img.attr("data-html", "true");
+            img.attr("data-toggle", "modal");
+            img.attr("data-target", "#characterPreviewModal");
         }
 
+        // character modal handler
+        $(".char_img").click(function () {
+            _GETCHARACTERDATA(this.getAttribute("data-charpk"));
+        });
+
+        // initialize character image tooltip
         $(".char_img").popover();
     }
 }

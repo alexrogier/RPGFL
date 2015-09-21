@@ -101,6 +101,7 @@ function getLeagueData() {
             }
 
             // populate league user data
+            console.log(JSON.stringify(userData));
             $("#user_" + (user + 1) + "_score").text(userData.Accolade_Points);
             // populate user icon here
         }

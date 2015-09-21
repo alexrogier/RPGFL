@@ -32,6 +32,13 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
         [AllowAnonymous]
         [HttpGet]
+        public HttpResponseMessage GetGuildData()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, controller.GetGuildData().ToJson());
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
         public HttpResponseMessage GetSkillDataFromSkirmishCharacters(int Skirmish_PK)
         {
             return Request.CreateResponse(HttpStatusCode.OK, controller.GetSkillDataFromSkirmishCharacters(Skirmish_PK).ToJson());

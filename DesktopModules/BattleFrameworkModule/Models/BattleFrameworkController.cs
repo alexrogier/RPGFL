@@ -310,6 +310,11 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         {
             return CBO.FillCollection<Skirmish>(DataProvider.Instance().ExecuteReader("RPGFL_GetCurrentSkirmishes")); 
         }
+        public IList<Guild> GetGuildData()
+        {
+            return CBO.FillCollection<Guild>(DataProvider.Instance().ExecuteReader("RPGFL_GetGuildData")); 
+
+        }
         public IList<Initiative_Track> GetInitiativeTrackFromSkirmish(int Skirmish_PK)
         {
             return CBO.FillCollection<Initiative_Track>(DataProvider.Instance().ExecuteReader("RPGFL_GetInitiativeTrackFromSkirmish", Skirmish_PK));
@@ -379,13 +384,11 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
             }
             return true;
         }
-
         public bool UpdateSkirmish(int Skirmish_PK, int Guild1Points, int Guild2Points)
         {
             DataProvider.Instance().ExecuteReader("RPGFL_UpdateSkirmish", Skirmish_PK, Guild1Points, Guild2Points);
             return true;
         }
-
         public bool UpdateUserAccolades(int Skirmish_PK)
         {
             DataProvider.Instance().ExecuteReader("RPGFL_UpdateUserAccolades", Skirmish_PK);

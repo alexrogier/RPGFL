@@ -58,7 +58,6 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Preparer_Character_FK { get; set; }
         public int Exec_Track_Step { get; set; }
     }
-
     public class Game_State
     {
         public Character Active_Character { get; set; }
@@ -181,5 +180,10 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Campaign_FK { get; set; }
         public int Character_FK { get; set; }
         public int Consume_Energy { get; set; }
+    }
+    public class Guild
+    {
+        public int Guild_PK { get; set; }
+        public string Guild_Name { get; set; }
     }
 }

@@ -13,6 +13,9 @@
 
     // **** SETUP SKILLS ****
     getSkillDataFromSkirmishCharacters();
+
+    // **** SETUP GUILDS ****
+    getGuildData();
 });
 
 /****************************************************************************************************
@@ -40,9 +43,20 @@ function character(charData){
     this.Max_Energy = charData.Max_Energy;
 }
 var globalCharactersInSkirmish = []; // character warehouse to store all characters who are in skirmish
+var globalCharactersToMap = []; // indexed list to map where characters are displayed on the page
 // character methods
 function addCharacterToSkirmish(charData) {
     globalCharactersInSkirmish.push(new character(charData));
+}
+function addCharactersToMap(charData) {
+    for (var i = 0; i < charData.length; i++) {
+        var currChar = charData[i];
+        globalCharactersToMap.push(currChar.Character_PK);
+        var guildSlot = (currChar.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2);
+        $("#guild_" + guildSlot + "_char_" + (i <= 11 ? (i + 1) : 11 + (i + 1))).Attr("src", _GETCHARACTERICON(currChar.Character_Name));
+        // set character health
+        // initiate character modal
+    }
 }
 function getCharacterById(charId) {
     // search globalCharactersInSkirmish for matching charpk and return it as a character object
@@ -72,6 +86,8 @@ function getAllCharacterDataInSkirmish() {
     for (var i = 0; i < characterData.length; i++) {
         addCharacterToSkirmish(characterData[i]);
     }
+
+    addCharactersToMap(characterData);
 }
 
 // **** SKIRMISH MANAGEMENT ****
@@ -90,9 +106,7 @@ function skirmish(skirmishData) {
 }
 var globalSkirmish; // holds data regarding this skirmish
 // skirmish methods
-function populateSkirmishData() {
-    $("#guild_1_logo").attr("src", _GETGUILDLOGO(globalSkirmish.Guild_1_FK));
-    $("#guild_2_logo").attr("src", _GETGUILDLOGO(globalSkirmish.Guild_2_FK));
+function populateSkirmishData() { 
     $("#skirmish_date").text(globalSkirmish.Skirmish_Date);
 }
 function getUrlParameter(sParam) {
@@ -121,6 +135,38 @@ function getSkirmishData(skirmishPK){
         dataType: "json",
         success: function (data) {       
             globalSkirmish = new skirmish(JSON.parse(data));
+        }
+    });
+}
+
+// **** GUILD MANAGEMENT ****
+
+// guild interface
+function guild(guildData) {
+    this.Guild_PK = guildData[0].Guild_PK;
+    this.Guild_Name = guildData[0].Guild_Name;
+}
+var globalGuilds; // holds data regarding all guilds
+// guild methods
+function getGuildById(guildId) {
+    return globalGuilds[globalGuilds.indexOf(guildId)];
+}
+function populateGuilds() {
+    $("#guild_1_name").text(getGuildById(globalSkirmish.Guild_1_FK).Guild_Name);
+    $("#guild_2_name").text(getGuildById(globalSkirmish.Guild_2_FK).Guild_Name);
+    $("#guild_1_logo").attr("src", _GETGUILDLOGO(globalSkirmish.Guild_1_FK));
+    $("#guild_2_logo").attr("src", _GETGUILDLOGO(globalSkirmish.Guild_2_FK));
+}
+// skirmish ajax handlers
+function getGuildData() {
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/DesktopModules/BattleFrameworkModule/API/ModuleBattleFramework/GetGuildData",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+            globalGuilds = new guild(JSON.parse(data));
         }
     });
 }

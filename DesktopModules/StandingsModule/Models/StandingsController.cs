@@ -18,7 +18,7 @@ namespace Christoc.Modules.StandingsModule.Models
              *      "Opponent_Knock_Outs"
              *      "Critical_Successes"
              *      "Health_Regained"
-             *      "Enchanter_Hunter" (Ally Bonus Damage + Enemy Less Damage)
+             *      "Enchanter_Hunter"
              *      "Afflictions_Inflicted"
              * @FILTER_context
              *      "SHOWLEAGUE"

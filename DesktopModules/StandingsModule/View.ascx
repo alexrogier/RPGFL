@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="Christoc.Modules.StandingsModule.View" %>
+<%@ Import Namespace="DotNetNuke.Entities.Users" %>
 <script type="text/javascript">
     var userId = '<%= UserController.Instance.GetCurrentUserInfo().UserID %>';
     var displayName = '<%= UserController.Instance.GetCurrentUserInfo().DisplayName %>';
@@ -28,7 +29,6 @@
                             <option value="Enchanter_Hunter">Enchanter / Hunter</option>
                             <option value="Afflictions_Inflicted">Afflictions</option>
                             <option value="Accolade_Action_Vote">Action Voting</option>
-                            <option value="Accolade_Target_Vote">Target Voting</option>
                         </select>
                     </div>
                     <div class="col-md-2 col-xs-2">
