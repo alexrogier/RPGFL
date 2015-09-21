@@ -798,7 +798,6 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
                                     // get combat logs regarding this character performed favored skill - it is possible this attack targets multiple targets
                                     var relativeAttackCombatLogs = globalCombatLog.Where(x => x.Action_Order == globalInitTrack.FirstOrDefault(y => y.Character_FK == currChar.Character_PK).Act_Order && !x.bInterrupt);
-                                    logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  DEBUG relativeAttackCombatLogs " + Json.Serialize(relativeAttackCombatLogs));
 
                                     foreach (var log in relativeAttackCombatLogs)
                                     {
@@ -912,7 +911,6 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
                                     foreach (var log in relativeDamageCombatLogs)
                                     {
-                                        logger.WriteLine("DEBUG " + Json.Serialize(log));
                                         List<int> tmpDamageResults = log.tmpDamage_Final_Result;
                                         List<int> tmpDamageValues = new List<int>();
                                         List<string> tmpDamageTypes = log.Damage_Types.Split(',').ToList();
@@ -1075,9 +1073,15 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                         if (target.Conditions.bKnockedOut)
                                         {
                                             UpdateCharacterTrackLog(assailant.Character_PK, "Opponent_Knock_Outs", 1);
-                                            foreach (var assistant in globalCombatLog.Where(x => x.Target_Character_FK == target.Character_PK && x.Damage_Final_Result > 0 && !x.Damage_Types.Contains("Healing") && x.Assailant_Character_FK != assailant.Character_PK))
+                                            List<Character> Accolade_Assist_Awarded = new List<Character>();
+                                            foreach (var assistant in globalCombatLog.Where(x => x.Target_Character_FK == target.Character_PK && x.Damage_Final_Result > 0 && x.Damage_Types != null && !x.Damage_Types.Contains("Healing") && x.Assailant_Character_FK != assailant.Character_PK))
                                             {
-                                                UpdateCharacterTrackLog(assistant.Assailant_Character_FK, "Assist_Knock_Outs", 1);
+                                                if (!Accolade_Assist_Awarded.Exists(x => x.Character_PK == assistant.Assailant_Character_FK))
+                                                {
+                                                    UpdateCharacterTrackLog(assistant.Assailant_Character_FK, "Assist_Knock_Outs", 1);
+                                                    Accolade_Assist_Awarded.Add(GetCharacter(assistant.Assailant_Character_FK));
+                                                }
+
                                             }
                                         }
                                     }
@@ -1257,32 +1261,6 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                         targetCharacter.Archetype.Contains("Bruiser"))
                                         UpdateCharacterTrackLog(targetCharacter.Character_PK, "Damage_Taken",
                                             log.Damage_Final_Result);
-
-                                    //var characterHealth = targetCharacter.Max_Health;
-                                    //List<int> assistedKnockOuts = new List<int>();
-                                    //foreach (var i in globalCombatLog)
-                                    //{
-                                    //    // iterate through logs to determine if this combat log knocked the target character out
-                                    //    if (i.Target_Character_FK == targetCharacter.Character_PK)
-                                    //    {
-                                    //        characterHealth -= i.Damage_Final_Result;
-                                    //        if (i.Assailant_Character_FK != assailantCharacter.Character_PK && !assistedKnockOuts.Exists(x => x == i.Assailant_Character_FK)) assistedKnockOuts.Add(i.Assailant_Character_FK);
-                                    //    }
-
-                                    //    if (i == log) break;
-                                    //}
-                                    //if (characterHealth <= 0)
-                                    //{
-                                    //    // this combat log knocked the target character out
-                                    //    UpdateCharacterTrackLog(assailantCharacter.Character_PK, "Opponent_Knock_Outs", 1);
-                                    //    foreach (var assistant in assistedKnockOuts)
-                                    //        UpdateCharacterTrackLog(assistant, "Assist_Knock_Outs", 1);
-                                    //}
-                                }
-                                else
-                                {
-                                    // target dodged attack
-                                    UpdateCharacterTrackLog(targetCharacter.Character_PK, "Attacks_Dodged", 1);
                                 }
                                 break;
                             case "Heal":
@@ -1394,7 +1372,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
             catch (Exception ex)
             {
                 this.ScheduleHistoryItem.Succeeded = false;
-                this.ScheduleHistoryItem.AddLogNote("ERROR: " + ex.Message);
+                this.ScheduleHistoryItem.AddLogNote(" ERROR: " + ex.Message);
                 logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  CRITICAL ERROR: " + ex.Message);
                 logger.Close();
                 this.Errored(ref ex);
@@ -1474,7 +1452,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     if (_GAMESTATE.Active_Character.Character_PK != skillOwner.Character_PK) return;
 
                     logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
-                    foreach (var log in globalCombatLog.Where(x => x.Assailant_Character_FK == skillOwner.Character_PK && x.Action_Order == _GAMESTATE.Current_Act_Order))
+                    foreach (var log in globalCombatLog.Where(x => x.Assailant_Character_FK == skillOwner.Character_PK && x.Action_Order == _GAMESTATE.Current_Act_Order).ToList())
                     {
                         // flawed logic? What if character is rolling advantage/disadvantage
                         if ((log.Attack_Values.Contains("15") || 
@@ -1491,9 +1469,9 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                             log.tmpDamage_Final_Result.Add(bonusDamage);
                             log.Damage_Types += ",Burning";
                         }
-                    }
 
-                    bSkillExecuted = true;
+                        bSkillExecuted = true;
+                    }
                     #endregion
                     break;
                 case 21:
@@ -1502,7 +1480,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     foreach (var log in globalCombatLog.Where(x =>
                                     x.Target_Character_FK == skillOwner.Character_PK &&
                                     x.Action_Order == _GAMESTATE.Current_Act_Order &&
-                                    x.Damage_Final_Result > 0))
+                                    x.tmpDamage_Final_Result.Sum() > 0).ToList())
                     {
                         logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
                         var relativeSkill = globalSkills.FirstOrDefault(x => x.Skill_PK == log.Skill_FK);
@@ -1525,24 +1503,26 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     foreach (var log in globalCombatLog.Where(x =>
                         x.Target_Character_FK == skillOwner.Character_PK &&
                         x.Action_Order == _GAMESTATE.Current_Act_Order &&
-                        x.Damage_Final_Result > 0))
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
                     {
+                        if (GetSkill(log.Skill_FK).Skill_Type == "Passive") continue;
+
                         logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
 
                         globalCharacters.FirstOrDefault(x => x.Character_PK == currSkill.Preparer_Character_FK).Dodge++;
 
                         logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] increasing dodge by 1");
+                        bSkillExecuted = true;
                     }
-                    bSkillExecuted = true;
                     #endregion
                     break;
                 case 37:
                     #region Blessed Blood
-                    //  If an enemy deals damage to this character, deal 2d6 True Damage to the assailant
+                    //  If an enemy deals damage to this character, deal 2d6 Poison Damage to the assailant                    
                     foreach (var log in globalCombatLog.Where(x =>
                         x.Target_Character_FK == skillOwner.Character_PK &&
                         x.Action_Order == _GAMESTATE.Current_Act_Order &&
-                        x.Damage_Final_Result > 0))
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
                     {
                         logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
 
@@ -1551,8 +1531,8 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                         Combat_Log newCombatLog = new Combat_Log()
                         {
                             Skirmish_FK = _GAMESTATE.Skirmish_FK,
-                            Assailant_Character_FK = log.Assailant_Character_FK,
-                            Target_Character_FK = skillOwner.Character_PK,
+                            Assailant_Character_FK = skillOwner.Character_PK,
+                            Target_Character_FK = log.Assailant_Character_FK,
                             Skill_FK = currSkill.Skill_PK,
                             Action_Order = _GAMESTATE.Current_Act_Order,
                             Attack_Final_Result = 0,
@@ -1567,8 +1547,8 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                         };
                         
                         globalCombatLog.Add(newCombatLog);
+                        bSkillExecuted = true;
                     }
-                    bSkillExecuted = true;
                     #endregion
                     break;
                 case 56:
@@ -1578,17 +1558,17 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     {
                         logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] becoming Invisible from [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
                         skillOwner.Conditions.bInvisible = true;
+                        bSkillExecuted = true;
                     }
-                    bSkillExecuted = true;
                     #endregion
-                        break;
+                    break;
                 case 62:
                     #region Radiant Shroud
-                        // Whenever an attack action is performed against this character, the assailant is dealt 3d6 True Damage
+                        // Whenever an attack action is performed against this character, the assailant is dealt 3d6 Burning Damage
                     foreach (var log in globalCombatLog.Where(x =>
                         x.Target_Character_FK == skillOwner.Character_PK &&
                         x.Action_Order == _GAMESTATE.Current_Act_Order &&
-                        x.Damage_Final_Result > 0))
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
                     {
                         logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
 
@@ -1597,8 +1577,8 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                         Combat_Log newCombatLog = new Combat_Log()
                         {
                             Skirmish_FK = _GAMESTATE.Skirmish_FK,
-                            Assailant_Character_FK = log.Assailant_Character_FK,
-                            Target_Character_FK = skillOwner.Character_PK,
+                            Assailant_Character_FK = skillOwner.Character_PK,
+                            Target_Character_FK = log.Assailant_Character_FK,
                             Skill_FK = currSkill.Skill_PK,
                             Action_Order = _GAMESTATE.Current_Act_Order,
                             Attack_Final_Result = 0,
@@ -1613,8 +1593,8 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                         };
 
                         globalCombatLog.Add(newCombatLog);
+                        bSkillExecuted = true;
                     }
-                    bSkillExecuted = true;
                     #endregion
                     break;
                 case 70:
@@ -1623,7 +1603,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     foreach (var log in globalCombatLog.Where(x =>
                         x.Target_Character_FK == skillOwner.Character_PK &&
                         x.Action_Order == _GAMESTATE.Current_Act_Order &&
-                        x.Damage_Final_Result > 0))
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
                     {
                         logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
 
@@ -1656,109 +1636,866 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                         };
 
                         globalCombatLog.Add(newCombatLog);
+                        bSkillExecuted = true;
                     }
-                    bSkillExecuted = true;
                     #endregion
                     break;
                 case 74:
-                    // Phylactery Vamp
+                    #region Phylactery Vamp
+                    // This character draws from the life force of each enemy and deals 3 Force Damage to each enemy character at the end of the Skirmish
+
+                    if (_GAMESTATE.Current_Act_Order == 24)
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        foreach (var enemy in globalCharacters.Where(x => x.Guild_FK != GetCharacter(skillOwner.Character_PK).Guild_FK && !x.Conditions.bKnockedOut).ToList())
+                        {
+                            Combat_Log newCombatLog = new Combat_Log(){
+                                Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                                Assailant_Character_FK = skillOwner.Character_PK,
+                                Target_Character_FK = enemy.Character_PK,
+                                Skill_FK = currSkill.Skill_PK,
+                                Action_Order = _GAMESTATE.Current_Act_Order,
+                                Attack_Final_Result = 0,
+                                Attack_Values = "0",
+                                Damage_Final_Result = 3,
+                                tmpDamage_Final_Result = new List<int>() { 3 },
+                                Damage_Values = "3",
+                                Damage_Types = "Force",
+                                Conditions = 0,
+                                bAttackSuccessful = true,
+                                bInterrupt = true
+                            };
+
+                            globalCombatLog.Add(newCombatLog);
+                        }
+
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 81:
-                    // Bodily Regeneration
+                    #region Bodily Regeneration
+                    // This character heals 3d10 + 10 Health when it begins its turn 
+                    if (_GAMESTATE.Active_Character.Character_PK == skillOwner.Character_PK)
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        var healthRegainRoll = rand.Next(3, 31) + 10; // roll 3d10+10
+
+                        Combat_Log newCombatLog = new Combat_Log()
+                        {
+                            Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                            Assailant_Character_FK = skillOwner.Character_PK,
+                            Target_Character_FK = skillOwner.Character_PK,
+                            Skill_FK = currSkill.Skill_PK,
+                            Action_Order = _GAMESTATE.Current_Act_Order,
+                            Attack_Final_Result = 0,
+                            Attack_Values = "0",
+                            Damage_Final_Result = healthRegainRoll,
+                            tmpDamage_Final_Result = new List<int>() { healthRegainRoll },
+                            Damage_Values = healthRegainRoll.ToString(),
+                            Damage_Types = "Healing",
+                            Conditions = 0,
+                            bAttackSuccessful = true,
+                            bInterrupt = true
+                        };
+
+                        globalCombatLog.Add(newCombatLog);
+
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 85:
-                    // 360 Offense
+                    #region 360 Offense
+                    // This character is able to fight from all directions. This character is granted Advantage on all attacks.
+                    if (_GAMESTATE.Active_Character.Character_PK == skillOwner.Character_PK)
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] receiving Advantage on all attacks");
+                        skillOwner.Conditions.bAttackAdvantage = true;
+
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
-                case 88: 
-                    // Ethereal Purge
+                case 88:
+                    #region Ethereal Purge
+                    // Whenever this character begins its turn, deal 5 Force Damage to each enemy character
+                    if (_GAMESTATE.Active_Character.Character_PK == skillOwner.Character_PK)
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        foreach (var enemy in globalCharacters.Where(x => x.Guild_FK != skillOwner.Guild_FK && !x.Conditions.bKnockedOut).ToList())
+                        {
+                            Combat_Log newCombatLog = new Combat_Log()
+                            {
+                                Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                                Assailant_Character_FK = skillOwner.Character_PK,
+                                Target_Character_FK = enemy.Character_PK,
+                                Skill_FK = currSkill.Skill_PK,
+                                Action_Order = _GAMESTATE.Current_Act_Order,
+                                Attack_Final_Result = 0,
+                                Attack_Values = "0",
+                                Damage_Final_Result = 5,
+                                tmpDamage_Final_Result = new List<int>() { 5 },
+                                Damage_Values = "5",
+                                Damage_Types = "Force",
+                                Conditions = 0,
+                                bAttackSuccessful = true,
+                                bInterrupt = true
+                            };
+
+                            globalCombatLog.Add(newCombatLog);
+                        }
+
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 95:
-                    // Undead Aura
+                    #region Undead Aura
+                    // Whenever an attack action is performed against this character, the assailant is dealt 1d10 Poison Damage
+                    foreach (var log in globalCombatLog.Where(x =>
+                        x.Target_Character_FK == skillOwner.Character_PK &&
+                        x.Action_Order == _GAMESTATE.Current_Act_Order &&
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        // generate combat log
+                        var damageDealt = rand.Next(1, 11); // roll 1d10
+                        Combat_Log newCombatLog = new Combat_Log()
+                        {
+                            Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                            Assailant_Character_FK = skillOwner.Character_PK,
+                            Target_Character_FK = log.Assailant_Character_FK,
+                            Skill_FK = currSkill.Skill_PK,
+                            Action_Order = _GAMESTATE.Current_Act_Order,
+                            Attack_Final_Result = 0,
+                            Attack_Values = "0",
+                            Damage_Final_Result = damageDealt,
+                            tmpDamage_Final_Result = new List<int>(){ damageDealt },
+                            Damage_Values = damageDealt.ToString(),
+                            Damage_Types = "Poison",
+                            Conditions = 0,
+                            bAttackSuccessful = true,
+                            bInterrupt = true
+                        };
+
+                        globalCombatLog.Add(newCombatLog);
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 99:
-                    // Nauseous Innards
+                    #region Nauseous Innards
+                    // Whenever an attack action is performed against this character, the assailant is dealt 2d10 Poison Damage
+                    foreach (var log in globalCombatLog.Where(x =>
+                        x.Target_Character_FK == skillOwner.Character_PK &&
+                        x.Action_Order == _GAMESTATE.Current_Act_Order &&
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        // generate combat log
+                        var damageDealt = rand.Next(2, 21); // roll 2d10
+                        Combat_Log newCombatLog = new Combat_Log()
+                        {
+                            Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                            Assailant_Character_FK = skillOwner.Character_PK,
+                            Target_Character_FK = log.Assailant_Character_FK,
+                            Skill_FK = currSkill.Skill_PK,
+                            Action_Order = _GAMESTATE.Current_Act_Order,
+                            Attack_Final_Result = 0,
+                            Attack_Values = "0",
+                            Damage_Final_Result = damageDealt,
+                            tmpDamage_Final_Result = new List<int>(){ damageDealt },
+                            Damage_Values = damageDealt.ToString(),
+                            Damage_Types = "Poison",
+                            Conditions = 0,
+                            bAttackSuccessful = true,
+                            bInterrupt = true
+                        };
+
+                        globalCombatLog.Add(newCombatLog);
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 103:
-                    // Feed The Graves
+                    #region Feed The Graves
+                    // Whenever another character performs an attack action, this character deals 2 Force Damage to all enemy characters 
+
+                    var bPerformingAttack = false;
+                    foreach (var log in globalCombatLog.Where(x => x.Action_Order == _GAMESTATE.Current_Act_Order && _GAMESTATE.Active_Character.Character_PK != skillOwner.Character_PK).ToList())
+                    {
+                        var performedSkill = GetSkill(log.Skill_FK);
+                        if (performedSkill.Skill_Type.Contains("Attack") ||
+                            performedSkill.Skill_Type.Contains("Affliction") ||
+                            performedSkill.Skill_Type.Contains("Taunt"))
+                            bPerformingAttack = true;
+                    }
+
+                    if (bPerformingAttack)
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        foreach (var enemy in globalCharacters.Where(x => x.Guild_FK != GetCharacter(skillOwner.Character_PK).Guild_FK && !x.Conditions.bKnockedOut).ToList())
+                        {
+                            Combat_Log newCombatLog = new Combat_Log()
+                            {
+                                Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                                Assailant_Character_FK = skillOwner.Character_PK,
+                                Target_Character_FK = enemy.Character_PK,
+                                Skill_FK = currSkill.Skill_PK,
+                                Action_Order = _GAMESTATE.Current_Act_Order,
+                                Attack_Final_Result = 0,
+                                Attack_Values = "0",
+                                Damage_Final_Result = 2,
+                                tmpDamage_Final_Result = new List<int>() { 2 },
+                                Damage_Values = "2",
+                                Damage_Types = "Force",
+                                Conditions = 0,
+                                bAttackSuccessful = true,
+                                bInterrupt = true
+                            };
+
+                            globalCombatLog.Add(newCombatLog);
+                        }
+
+                        bSkillExecuted = true;
+                    }
+
+                    #endregion
                     break;
                 case 110:
-                    // Vampiric Aura
+                    #region Vampiric Aura
+                    // Whenever this character is dealt damage from an attack action, the assailant is dealt 1d10 Poison Damage and this character regains Health equal to the damage dealt this way
+                    foreach (var log in globalCombatLog.Where(x =>
+                        x.Target_Character_FK == skillOwner.Character_PK &&
+                        x.Action_Order == _GAMESTATE.Current_Act_Order &&
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        // generate combat log
+                        var damageDealt = rand.Next(1, 11); // roll 1d10
+                        Combat_Log damageCombatLog = new Combat_Log()
+                        {
+                            Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                            Assailant_Character_FK = skillOwner.Character_PK,
+                            Target_Character_FK = log.Assailant_Character_FK,
+                            Skill_FK = currSkill.Skill_PK,
+                            Action_Order = _GAMESTATE.Current_Act_Order,
+                            Attack_Final_Result = 0,
+                            Attack_Values = "0",
+                            Damage_Final_Result = damageDealt,
+                            tmpDamage_Final_Result = new List<int>() { damageDealt },
+                            Damage_Values = damageDealt.ToString(),
+                            Damage_Types = "Poison",
+                            Conditions = 0,
+                            bAttackSuccessful = true,
+                            bInterrupt = true
+                        };
+                        globalCombatLog.Add(damageCombatLog);
+
+                        Combat_Log healCombatLog = new Combat_Log()
+                        {
+                            Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                            Assailant_Character_FK = skillOwner.Character_PK,
+                            Target_Character_FK = skillOwner.Character_PK,
+                            Skill_FK = currSkill.Skill_PK,
+                            Action_Order = _GAMESTATE.Current_Act_Order,
+                            Attack_Final_Result = 0,
+                            Attack_Values = "0",
+                            Damage_Final_Result = damageDealt,
+                            tmpDamage_Final_Result = new List<int>() { damageDealt },
+                            Damage_Values = damageDealt.ToString(),
+                            Damage_Types = "Healing",
+                            Conditions = 0,
+                            bAttackSuccessful = true,
+                            bInterrupt = true
+                        };
+                        globalCombatLog.Add(healCombatLog);
+
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 114:
-                    // We Are Many
+                    #region We Are Many
+                    // This character is granted Advantage on all attacks
+                    if (_GAMESTATE.Active_Character.Character_PK == skillOwner.Character_PK)
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] receiving Advantage on all attacks");
+                        skillOwner.Conditions.bAttackAdvantage = true;
+
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 118:
-                    // Purity Scent
+                    #region Purity Scent
+                    // This creature receives Advantage on Finesse based attack actions
+                    if (_GAMESTATE.Active_Character.Character_PK == skillOwner.Character_PK && _GAMESTATE.Pending_Skill.Attribute_FK == "Finesse")
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] receiving Advantage on Finesse based attacks");
+                        skillOwner.Conditions.bAttackAdvantage = true;
+
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 126:
-                    // Parry
+                    #region Parry
+                    // Whenever this character is dealt damage from an attack action, the assailant is dealt 2d6 + 2 Physical Damage
+                    foreach (var log in globalCombatLog.Where(x =>
+                        x.Target_Character_FK == skillOwner.Character_PK &&
+                        x.Action_Order == _GAMESTATE.Current_Act_Order &&
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        // generate combat log
+                        var damageDealt = rand.Next(2, 13) + 2; // roll 2d6+2
+                        Combat_Log newCombatLog = new Combat_Log()
+                        {
+                            Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                            Assailant_Character_FK = skillOwner.Character_PK,
+                            Target_Character_FK = log.Assailant_Character_FK,
+                            Skill_FK = currSkill.Skill_PK,
+                            Action_Order = _GAMESTATE.Current_Act_Order,
+                            Attack_Final_Result = 0,
+                            Attack_Values = "0",
+                            Damage_Final_Result = damageDealt,
+                            tmpDamage_Final_Result = new List<int>() { damageDealt },
+                            Damage_Values = damageDealt.ToString(),
+                            Damage_Types = "Physical",
+                            Conditions = 0,
+                            bAttackSuccessful = true,
+                            bInterrupt = true
+                        };
+
+                        globalCombatLog.Add(newCombatLog);
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 130:
-                    // Cognizant Insight
+                    #region Cognizant Insight
+                    // Whenever this character is dealt damage by an attack action, prevent 1d10 of the attack’s damage
+                    foreach (var log in globalCombatLog.Where(x =>
+                        x.Target_Character_FK == skillOwner.Character_PK &&
+                        x.Action_Order == _GAMESTATE.Current_Act_Order &&
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        var lessDamage = rand.Next(1, 11);
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] taking " + lessDamage + " less damage from attack");
+                        log.Damage_Final_Result -= lessDamage;
+                        if (log.Damage_Final_Result < 0) log.Damage_Final_Result = 0;
+                        for (var i = 0; i < log.tmpDamage_Final_Result.Count(); i++)
+                        {
+                            var dmgResult = log.tmpDamage_Final_Result[i];
+                            dmgResult -= lessDamage;
+                            if (dmgResult < 0)
+                            {
+                                lessDamage = dmgResult * -1;
+                                dmgResult = 0;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 144:
-                    // Ent Summoning
+                    #region Ent Summoning
+                    // This character summons a large Ent to protect them from harm. After this character performs an action, all damage dealt to this character is halved
+                    foreach (var log in globalCombatLog.Where(x =>
+                        x.Target_Character_FK == skillOwner.Character_PK &&
+                        x.Action_Order == _GAMESTATE.Current_Act_Order &&
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        var lessDamage = (int)Math.Ceiling((double)log.tmpDamage_Final_Result.Sum() / (double)2);
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] taking " + lessDamage + " less damage from attack");
+                        log.Damage_Final_Result -= lessDamage;
+                        if (log.Damage_Final_Result < 0) log.Damage_Final_Result = 0;
+                        for (var i = 0; i < log.tmpDamage_Final_Result.Count(); i++)
+                        {
+                            var dmgResult = log.tmpDamage_Final_Result[i];
+                            dmgResult -= (int)Math.Ceiling((double)dmgResult / (double)2);
+                        }
+
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 149:
-                    // Spirit of the Forest
+                    #region Spirit of the Forest
+                    // Whenever this character performs an attack and the attack result is 20 or greater, this character is healed for 1d10 Health
+                    foreach(var log in globalCombatLog.Where(x => x.Assailant_Character_FK == skillOwner.Character_PK &&
+                                                                  x.Action_Order == _GAMESTATE.Current_Act_Order).ToList())
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        var relativeSkill = GetSkill(log.Skill_FK);
+                        if(relativeSkill.Skill_Type.Contains("Attack") ||
+                            relativeSkill.Skill_Type.Contains("Affliction") ||
+                            relativeSkill.Skill_Type.Contains("Taunt"))
+                        {
+                            if (log.Attack_Final_Result >= 20)
+                            {
+                                // generate combat log
+                                var healthRegained = rand.Next(1, 11); // roll 1d10
+                                Combat_Log newCombatLog = new Combat_Log()
+                                {
+                                    Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                                    Assailant_Character_FK = skillOwner.Character_PK,
+                                    Target_Character_FK = skillOwner.Character_PK,
+                                    Skill_FK = currSkill.Skill_PK,
+                                    Action_Order = _GAMESTATE.Current_Act_Order,
+                                    Attack_Final_Result = 0,
+                                    Attack_Values = "0",
+                                    Damage_Final_Result = healthRegained,
+                                    tmpDamage_Final_Result = new List<int>() { healthRegained },
+                                    Damage_Values = healthRegained.ToString(),
+                                    Damage_Types = "Healing",
+                                    Conditions = 0,
+                                    bAttackSuccessful = true,
+                                    bInterrupt = true
+                                };
+
+                                globalCombatLog.Add(newCombatLog);
+                                bSkillExecuted = true;
+                            }
+                        }
+
+                    }
+                    #endregion
                     break;
                 case 158:
-                    // Deep Wounds
+                    #region Deep Wounds
+                    // Whenever this character takes damage from an attack action, it suffers -1 Finesse
+                    foreach (var log in globalCombatLog.Where(x =>
+                        x.Target_Character_FK == skillOwner.Character_PK &&
+                        x.Action_Order == _GAMESTATE.Current_Act_Order &&
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        skillOwner.Finesse -= 1;
+                        if (skillOwner.Finesse < 0) skillOwner.Finesse = 0;
+
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] suffers -1 Finesse");
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 159:
-                    // Shapeshift
+                    #region Shapeshift
+                    // This character assumes a much more powerful form while at 5 or greater Finesse. All attack actions performed by this character while in its higher form deal an additional 2d10 Physical Damage
+                    if (_GAMESTATE.Active_Character.Character_PK != skillOwner.Character_PK) return;
+                    if (skillOwner.Finesse < 5) return;
+
+                    foreach (var log in globalCombatLog.Where(x =>
+                        x.Assailant_Character_FK == skillOwner.Character_PK &&
+                        x.Action_Order == _GAMESTATE.Current_Act_Order &&
+                        x.bAttackSuccessful).ToList())
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        // generate combat log
+                        var bonusDamage = rand.Next(2, 21); // roll 2d10
+                        log.Damage_Final_Result += bonusDamage;
+                        log.Damage_Types += ",Physical";
+                        log.Damage_Values += "," + bonusDamage.ToString();
+
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] dealing " + bonusDamage + " Physical Damage as bonus damage");
+
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 164:
-                    // Camouflage
+                    #region Camouflage
+                    // This character begins each Skirmish Invisible
+                    if (_GAMESTATE.Current_Act_Order == 1 && !skillOwner.Conditions.bInvisible)
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] becoming Invisible from [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+                        skillOwner.Conditions.bInvisible = true;
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 168:
-                    // Forgetful
+                    #region Forgetful
+                    // This character has a hard time recalling certain things. If this character misses on any attack, this character is dealt 1d10 Physical Damage
+                    foreach(var log in globalCombatLog.Where(x => x.Assailant_Character_FK == skillOwner.Character_PK &&
+                                                                  x.Action_Order == _GAMESTATE.Current_Act_Order &&
+                                                                  !x.bAttackSuccessful).ToList())
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        // generate combat log
+                        var damageDealt = rand.Next(1, 11); // roll 1d10
+                        Combat_Log newCombatLog = new Combat_Log()
+                        {
+                            Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                            Assailant_Character_FK = skillOwner.Character_PK,
+                            Target_Character_FK = skillOwner.Character_PK,
+                            Skill_FK = currSkill.Skill_PK,
+                            Action_Order = _GAMESTATE.Current_Act_Order,
+                            Attack_Final_Result = 0,
+                            Attack_Values = "0",
+                            Damage_Final_Result = damageDealt,
+                            tmpDamage_Final_Result = new List<int>() { damageDealt },
+                            Damage_Values = damageDealt.ToString(),
+                            Damage_Types = "Physical",
+                            Conditions = 0,
+                            bAttackSuccessful = true,
+                            bInterrupt = true
+                        };
+
+                        globalCombatLog.Add(newCombatLog);
+
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] taking " + damageDealt + " Physical Damage for missing attack");
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 173:
-                    // Rock Form
-                    break;
-                case 175:
-                    // Goading Hammer Strike
+                    #region Rock Form
+                    // This character is made of jagged rock, causing any Finesse or Agility based attack actions performed against this character to deal 1d8 + 2 Physical Damage to the assailant
+                    foreach (var log in globalCombatLog.Where(x =>
+                        x.Target_Character_FK == skillOwner.Character_PK &&
+                        x.Action_Order == _GAMESTATE.Current_Act_Order &&
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
+                    {
+                        var assailantSkill = GetSkill(log.Skill_FK);
+                        if (assailantSkill.Attribute_FK != "Finesse" || assailantSkill.Attribute_FK != "Agility") continue;
+
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        // generate combat log
+                        var damageDealt = rand.Next(1, 9) + 2; // roll 2d6+2
+                        Combat_Log newCombatLog = new Combat_Log()
+                        {
+                            Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                            Assailant_Character_FK = skillOwner.Character_PK,
+                            Target_Character_FK = log.Assailant_Character_FK,
+                            Skill_FK = currSkill.Skill_PK,
+                            Action_Order = _GAMESTATE.Current_Act_Order,
+                            Attack_Final_Result = 0,
+                            Attack_Values = "0",
+                            Damage_Final_Result = damageDealt,
+                            tmpDamage_Final_Result = new List<int>() { damageDealt },
+                            Damage_Values = damageDealt.ToString(),
+                            Damage_Types = "Physical",
+                            Conditions = 0,
+                            bAttackSuccessful = true,
+                            bInterrupt = true
+                        };
+
+                        globalCombatLog.Add(newCombatLog);
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 177:
-                    // Hungry Wildlife
+                    #region Hungry Wildlife
+                    // If this character begins the Skirmish with 0 Energy, this character gains Advantage on all attack actions
+                    if (_GAMESTATE.Current_Act_Order == 1)
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] has Advantage on all attacks from [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+                        skillOwner.Conditions.bAttackAdvantage = true;
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 182:
-                    // Rock Form
+                    #region Rock Form
+                    // This character is made of jagged rock, causing any Finesse or Agility based attack actions performed against this character to deal 1d4 + Current Finesse Physical Damage to the assailant
+                    foreach (var log in globalCombatLog.Where(x =>
+                        x.Target_Character_FK == skillOwner.Character_PK &&
+                        x.Action_Order == _GAMESTATE.Current_Act_Order &&
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
+                    {
+                        var assailantSkill = GetSkill(log.Skill_FK);
+                        if (assailantSkill.Attribute_FK != "Finesse" || assailantSkill.Attribute_FK != "Agility") continue;
+
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        // generate combat log
+                        var damageDealt = rand.Next(1, 5) + skillOwner.Finesse; // roll 1d4 + Current Finesse
+                        Combat_Log newCombatLog = new Combat_Log()
+                        {
+                            Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                            Assailant_Character_FK = skillOwner.Character_PK,
+                            Target_Character_FK = log.Assailant_Character_FK,
+                            Skill_FK = currSkill.Skill_PK,
+                            Action_Order = _GAMESTATE.Current_Act_Order,
+                            Attack_Final_Result = 0,
+                            Attack_Values = "0",
+                            Damage_Final_Result = damageDealt,
+                            tmpDamage_Final_Result = new List<int>() { damageDealt },
+                            Damage_Values = damageDealt.ToString(),
+                            Damage_Types = "Physical",
+                            Conditions = 0,
+                            bAttackSuccessful = true,
+                            bInterrupt = true
+                        };
+
+                        globalCombatLog.Add(newCombatLog);
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 183:
-                    // Crumbling State
+                    #region Crumbling State
+                    // This character’s body is ancient and is slowly crumbling away. Whenever this character is dealt damage, it suffers -1 Finesse
+                    foreach (var log in globalCombatLog.Where(x =>
+                        x.Target_Character_FK == skillOwner.Character_PK &&
+                        x.Action_Order == _GAMESTATE.Current_Act_Order &&
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        skillOwner.Finesse -= 1;
+                        if (skillOwner.Finesse < 0) skillOwner.Finesse = 0;
+
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] suffers -1 Finesse");
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 193:
-                    // Wolf Companion
+                    #region Wolf Companion
+                    // This character has a companion that protects them whenever enemies attack them. Whenever a character performs a Finesse or Agility based attack action, deal 2d8 + 2 Physical Damage to the assailant
+                    foreach (var log in globalCombatLog.Where(x =>
+                        x.Target_Character_FK == skillOwner.Character_PK &&
+                        x.Action_Order == _GAMESTATE.Current_Act_Order &&
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        // generate combat log
+                        var damageDealt = rand.Next(2, 17) + 2; // roll 2d8+2
+                        Combat_Log newCombatLog = new Combat_Log()
+                        {
+                            Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                            Assailant_Character_FK = skillOwner.Character_PK,
+                            Target_Character_FK = log.Assailant_Character_FK,
+                            Skill_FK = currSkill.Skill_PK,
+                            Action_Order = _GAMESTATE.Current_Act_Order,
+                            Attack_Final_Result = 0,
+                            Attack_Values = "0",
+                            Damage_Final_Result = damageDealt,
+                            tmpDamage_Final_Result = new List<int>() { damageDealt },
+                            Damage_Values = damageDealt.ToString(),
+                            Damage_Types = "Physical",
+                            Conditions = 0,
+                            bAttackSuccessful = true,
+                            bInterrupt = true
+                        };
+
+                        globalCombatLog.Add(newCombatLog);
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 197:
-                    // Ethereal Existence
+                    #region Ethereal Existence
+                    // This character begins each Skirmish Invisible.
+                    if (_GAMESTATE.Current_Act_Order == 1 && !skillOwner.Conditions.bInvisible)
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] becoming Invisible from [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+                        skillOwner.Conditions.bInvisible = true;
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 207:
-                    // Charging Up
+                    #region Charging Up
+                    // This character receives +1 Finesse whenever an ally performs an action. 
+                    if (_GAMESTATE.Active_Character.Guild_FK == skillOwner.Guild_FK)
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] granted +1 Finesse from [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        skillOwner.Finesse++;
+
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 211:
-                    // Hot Touch
+                    #region Hot Touch
+                    // Whenever this character is dealt damage from an attack action, the assailant is dealt 2d8 Burning Damage
+                    foreach (var log in globalCombatLog.Where(x =>
+                        x.Target_Character_FK == skillOwner.Character_PK &&
+                        x.Action_Order == _GAMESTATE.Current_Act_Order &&
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        // generate combat log
+                        var damageDealt = rand.Next(2, 9); // roll 2d8
+                        Combat_Log newCombatLog = new Combat_Log()
+                        {
+                            Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                            Assailant_Character_FK = skillOwner.Character_PK,
+                            Target_Character_FK = log.Assailant_Character_FK,
+                            Skill_FK = currSkill.Skill_PK,
+                            Action_Order = _GAMESTATE.Current_Act_Order,
+                            Attack_Final_Result = 0,
+                            Attack_Values = "0",
+                            Damage_Final_Result = damageDealt,
+                            tmpDamage_Final_Result = new List<int>() { damageDealt },
+                            Damage_Values = damageDealt.ToString(),
+                            Damage_Types = "Burning",
+                            Conditions = 0,
+                            bAttackSuccessful = true,
+                            bInterrupt = true
+                        };
+
+                        globalCombatLog.Add(newCombatLog);
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 235:
-                    // Dung Collector
+                    #region Dung Collector
+                    // Whenever an enemy performs an action, this character receives +1 Finesse
+                    if (_GAMESTATE.Active_Character.Guild_FK != skillOwner.Guild_FK)
+                    {
+                        if (_GAMESTATE.Pending_Skill.Skill_Type.Contains("Attack") ||
+                            _GAMESTATE.Pending_Skill.Skill_Type.Contains("Affliction") ||
+                            _GAMESTATE.Pending_Skill.Skill_Type.Contains("Taunt"))
+                        {
+                            logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] granted +1 Finesse from [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                            skillOwner.Finesse++;
+
+                            bSkillExecuted = true;
+                        }
+                    }
+                    #endregion
                     break;
                 case 239:
-                    // Auto Target
+                    #region Auto Target
+                    // After this character’s turn, deal 1d4 Force Damage to three random enemies
+                    if (_GAMESTATE.Active_Character.Character_PK == skillOwner.Character_PK)
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        // find three random enemies
+                        var enemyTargets = new List<Character>();
+                        for (var i = 0; i < 3; i++)
+                        {
+                            var randomEnemyTarget = globalCharacters.FirstOrDefault(x => !enemyTargets.Contains(x) && x.Guild_FK != skillOwner.Guild_FK);
+                            if (randomEnemyTarget == null) continue;
+                        }
+
+                        foreach (var enemy in enemyTargets)
+                        {
+                            // generate combat log
+                            var damageDealt = rand.Next(1, 5); // roll 1d4
+                            Combat_Log newCombatLog = new Combat_Log()
+                            {
+                                Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                                Assailant_Character_FK = skillOwner.Character_PK,
+                                Target_Character_FK = enemy.Character_PK,
+                                Skill_FK = currSkill.Skill_PK,
+                                Action_Order = _GAMESTATE.Current_Act_Order,
+                                Attack_Final_Result = 0,
+                                Attack_Values = "0",
+                                Damage_Final_Result = damageDealt,
+                                tmpDamage_Final_Result = new List<int>() { damageDealt },
+                                Damage_Values = damageDealt.ToString(),
+                                Damage_Types = "Force",
+                                Conditions = 0,
+                                bAttackSuccessful = true,
+                                bInterrupt = true
+                            };
+
+                            globalCombatLog.Add(newCombatLog);
+                        }
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 253:
-                    // New Appendages
+                    #region New Appendages
+                    // Whenever this character is damaged by a Finesse or Agility based attack, this character heals for 2d10 Health.
+                    foreach (var log in globalCombatLog.Where(x =>
+                        x.Target_Character_FK == skillOwner.Character_PK &&
+                        x.Action_Order == _GAMESTATE.Current_Act_Order &&
+                        x.tmpDamage_Final_Result.Sum() > 0).ToList())
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] Calculating ... [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        var relativeSkill = GetSkill(log.Skill_FK);
+
+                        if (relativeSkill.Attribute_FK != "Finesse" || relativeSkill.Attribute_FK != "Agility") continue;
+
+                        // generate combat log
+                        var healthRegained = rand.Next(2, 21); // roll 2d10
+                        Combat_Log healCombatLog = new Combat_Log()
+                        {
+                            Skirmish_FK = _GAMESTATE.Skirmish_FK,
+                            Assailant_Character_FK = skillOwner.Character_PK,
+                            Target_Character_FK = skillOwner.Character_PK,
+                            Skill_FK = currSkill.Skill_PK,
+                            Action_Order = _GAMESTATE.Current_Act_Order,
+                            Attack_Final_Result = 0,
+                            Attack_Values = "0",
+                            Damage_Final_Result = healthRegained,
+                            tmpDamage_Final_Result = new List<int>() { healthRegained },
+                            Damage_Values = healthRegained.ToString(),
+                            Damage_Types = "Healing",
+                            Conditions = 0,
+                            bAttackSuccessful = true,
+                            bInterrupt = true
+                        };
+                        globalCombatLog.Add(healCombatLog);
+
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
                 case 261:
-                    // Stealthy
+                    #region Stealthy
+                    // This character becomes Invisible after performing an attack action
+                    if (_GAMESTATE.Active_Character.Character_PK == skillOwner.Character_PK)
+                    {
+                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM [" + skillOwner.Character_Name + "] becoming Invisible from [" + GetSkill(currSkill.Skill_PK).Skill_Name + "]");
+
+                        skillOwner.Conditions.bInvisible = true;
+
+                        bSkillExecuted = true;
+                    }
+                    #endregion
                     break;
             }
 
             if (bSkillExecuted)
             {
                 logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms SYSTEM ExecuteSkill _GAMESTATE: " + Json.Serialize(_GAMESTATE));
-                logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM INTERRUPT [" + skillOwner.Character_Name + "] interupts with [" + globalSkills.FirstOrDefault(x => x.Skill_PK == currSkill.Skill_PK).Skill_Name + "]");
+                logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM INTERRUPT [" + skillOwner.Character_Name + "] interupts with [" + globalSkills.FirstOrDefault(x => x.Skill_PK == currSkill.Skill_PK).Skill_Name + "] " + Json.Serialize(globalSkills.FirstOrDefault(x => x.Skill_PK == currSkill.Skill_PK)));
             }
         }
         public void UpdateCharacterTrackLog(int Character_PK, string AccoladeType, int inVal)
