@@ -32,9 +32,9 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
         [AllowAnonymous]
         [HttpGet]
-        public HttpResponseMessage GetGuildData()
+        public HttpResponseMessage GetAllGuilds()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, controller.GetGuildData().ToJson());
+            return Request.CreateResponse(HttpStatusCode.OK, controller.GetAllGuilds().ToJson());
         }
 
         [AllowAnonymous]
@@ -49,6 +49,13 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public HttpResponseMessage GetCombatLogData(int Skirmish_PK)
         {
             return Request.CreateResponse(HttpStatusCode.OK, controller.GetCombatLogData(Skirmish_PK).ToJson());
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public HttpResponseMessage GetAllCharacterDataInSkirmish(int Skirmish_PK)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, controller.GetAllCharacterDataInSkirmish(Skirmish_PK).ToJson());
         }
     }
 }

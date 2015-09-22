@@ -8,14 +8,15 @@
     // **** SETUP CHARACTERS ****
     getAllCharacterDataInSkirmish();
 
-    // **** SETUP COMBAT LOG ****
-    getCombatLogData();
-
     // **** SETUP SKILLS ****
     getSkillDataFromSkirmishCharacters();
 
     // **** SETUP GUILDS ****
     getGuildData();
+    populateGuilds();
+
+    // **** SETUP COMBAT LOG ****
+    getCombatLogData();
 });
 
 /****************************************************************************************************
@@ -29,6 +30,7 @@ function character(charData){
     this.Character_Name = charData.Character_Name;
     this.Title_Desc = charData.Title_Desc;
     this.Health = charData.Health;
+    this.Max_Health = charData.Health;
     this.Dodge = charData.Dodge;
     this.Archetype = charData.Archetype;
     this.Finesse = charData.Finesse;
@@ -53,10 +55,29 @@ function addCharactersToMap(charData) {
         var currChar = charData[i];
         globalCharactersToMap.push(currChar.Character_PK);
         var guildSlot = (currChar.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2);
-        $("#guild_" + guildSlot + "_char_" + (i <= 11 ? (i + 1) : 11 + (i + 1))).Attr("src", _GETCHARACTERICON(currChar.Character_Name));
         // set character health
+        $("#guild_" + guildSlot + "_char_" + (i <= 11 ? (i + 1) : (i + 1) - 12) + "_healthtext").text(currChar.Health + " / " + currChar.Health);
+
         // initiate character modal
+        var img = $("#guild_" + guildSlot + "_char_" + (i <= 11 ? (i + 1) : (i + 1) - 12));
+        img.attr("src", _GETCHARACTERICON(currChar.Character_Name));
+        document.getElementById($(img).attr("id")).setAttribute("data-charpk", currChar.Character_PK);
+        img.attr("rel", "popover");
+        img.attr("data-content", "<strong>" + currChar.Character_Name + "</strong><br/><em>" + currChar.Archetype + "</em>");
+        img.attr("data-trigger", "hover");
+        img.attr("data-placement", "top");
+        img.attr("data-html", "true");
+        img.attr("data-toggle", "modal");
+        img.attr("data-target", "#characterPreviewModal");
     }
+
+    // character modal handler
+    $(".char_img").click(function () {
+        _GETCHARACTERDATA(this.getAttribute("data-charpk"));
+    });
+
+    // initialize character image tooltip
+    $(".char_img").popover();
 }
 function getCharacterById(charId) {
     // search globalCharactersInSkirmish for matching charpk and return it as a character object
@@ -149,7 +170,12 @@ function guild(guildData) {
 var globalGuilds; // holds data regarding all guilds
 // guild methods
 function getGuildById(guildId) {
-    return globalGuilds[globalGuilds.indexOf(guildId)];
+    for (var i = 0; i < globalGuilds.length; i++) {
+        if (globalGuilds[i].Guild_PK == guildId) {
+            return globalGuilds[i];
+        }
+    }
+    return null;
 }
 function populateGuilds() {
     $("#guild_1_name").text(getGuildById(globalSkirmish.Guild_1_FK).Guild_Name);
@@ -157,16 +183,16 @@ function populateGuilds() {
     $("#guild_1_logo").attr("src", _GETGUILDLOGO(globalSkirmish.Guild_1_FK));
     $("#guild_2_logo").attr("src", _GETGUILDLOGO(globalSkirmish.Guild_2_FK));
 }
-// skirmish ajax handlers
+// guild ajax handlers
 function getGuildData() {
     $.ajax({
         async: false,
         type: "GET",
-        url: "/DesktopModules/BattleFrameworkModule/API/ModuleBattleFramework/GetGuildData",
+        url: "/DesktopModules/BattleFrameworkModule/API/ModuleBattleFramework/GetAllGuilds",
         data: {},
         dataType: "json",
         success: function (data) {
-            globalGuilds = new guild(JSON.parse(data));
+            globalGuilds = JSON.parse(data);
         }
     });
 }

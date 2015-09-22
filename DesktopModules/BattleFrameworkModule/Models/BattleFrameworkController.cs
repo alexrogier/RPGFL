@@ -310,9 +310,9 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         {
             return CBO.FillCollection<Skirmish>(DataProvider.Instance().ExecuteReader("RPGFL_GetCurrentSkirmishes")); 
         }
-        public IList<Guild> GetGuildData()
+        public IList<Guild> GetAllGuilds()
         {
-            return CBO.FillCollection<Guild>(DataProvider.Instance().ExecuteReader("RPGFL_GetGuildData")); 
+            return CBO.FillCollection<Guild>(DataProvider.Instance().ExecuteReader("RPGFL_GetAllGuilds")); 
 
         }
         public IList<Initiative_Track> GetInitiativeTrackFromSkirmish(int Skirmish_PK)
@@ -394,6 +394,9 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
             DataProvider.Instance().ExecuteReader("RPGFL_UpdateUserAccolades", Skirmish_PK);
             return true;
         }
-        
+        public IList<Character> GetAllCharacterDataInSkirmish(int Skirmish_PK)
+        {
+            return CBO.FillCollection<Character>(DataProvider.Instance().ExecuteReader("RPGFL_GetAllCharacterDataInSkirmish", Skirmish_PK));
+        }
     }
 }
