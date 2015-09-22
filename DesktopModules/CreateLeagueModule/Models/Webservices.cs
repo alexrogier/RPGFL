@@ -26,10 +26,13 @@ namespace Christoc.Modules.CreateLeagueModule.Models
         [HttpGet]
         public HttpResponseMessage CreateNewLeague(string League_Name, string League_Description, bool Join_Allow_Anyone, int? Creator_User_FK,
                                                    bool Trade_Day_Enabled, bool Randomize_Enabled, int Game_Mode, int League_Duration, 
-                                                   bool Renew_Duration, string League_Icon, bool System_Public = false)
+                                                   bool Renew_Duration, string League_Icon, string Emails, bool System_Public = false)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, controller.CreateNewLeague(League_Name, League_Description, Join_Allow_Anyone, Creator_User_FK, Trade_Day_Enabled, Randomize_Enabled,
-                                              Game_Mode, League_Duration, Renew_Duration, League_Icon, System_Public).ToJson());
+            int newLeague = controller.CreateNewLeague(League_Name, League_Description, Join_Allow_Anyone,
+                Creator_User_FK, Trade_Day_Enabled, Randomize_Enabled,
+                Game_Mode, League_Duration, Renew_Duration, League_Icon, System_Public);
+            controller.SendEmails(Emails, newLeague);
+            return Request.CreateResponse(HttpStatusCode.OK, newLeague.ToJson());
         }
     }
 }

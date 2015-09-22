@@ -51,6 +51,7 @@ function submitEntries() {
             Renew_Duration: $("#input_leaguerenew").prop("checked"),
             League_Icon: 'none', // fill in later
             System_Public: false,
+            Emails: $("#input_invite").val()
         },
         dataType: "json",
         success: function (data) {

@@ -9,4 +9,11 @@ namespace Christoc.Modules.CreateLeagueModule.Models
     {
         public int League_PK { get; set; }
     }
+
+    public class EmailInvite
+    {
+        public int League_PK { get; set; }
+        public string Email { get; set; }
+        public string Token { get; set; }
+    }
 }

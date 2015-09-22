@@ -13,5 +13,10 @@ namespace Christoc.Modules.LeagueModule.Models
         {
             return CBO.FillCollection<League>(DataProvider.Instance().ExecuteReader("RPGFL_GetLeagues", FILTER_userfk, FILTER_context, FILTER_search));
         }
+        public bool InsertUserIntoMatchmaking(int FILTER_userfk)
+        {
+            DataProvider.Instance().ExecuteReader("RPGFL_InsertUserIntoMatchmaking", FILTER_userfk);
+            return true;
+        }
     }
 }

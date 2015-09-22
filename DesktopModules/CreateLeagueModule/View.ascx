@@ -54,25 +54,25 @@
             <div class="checkbox">
                 <label><input type="checkbox" id="input_leaguerenew" checked="checked" />Renew Enabled</label>
             </div>
-            <p>When Renew League is enabled, this league will automatically be recreated with the same settings</p>
+            <p>With Renew League activated, this league will automatically be recreated with the same settings at the end of the league's duration</p>
         </div>
         <div class="col-md-2 col-xs-2">
             <div class="checkbox">
                 <label><input type="checkbox" id="input_leaguetradeday" checked="checked" />Trade Day Endabled</label>
             </div>
-            <p>With Trade Day activated, players will be able to trade out characters from their active draft with other characters that are not currently drafted.</p>
+            <p>With Trade Day activated, players will be able to trade out characters from their active draft with other characters that are not currently drafted</p>
         </div>
         <div class="col-md-2 col-xs-2">
             <div class="checkbox">
                 <label><input type="checkbox" id="input_leaguerandomize" />Randomize Enabled</label>
             </div>
-            <p>With Randomize activated, players will be given a randomly picked, but balanced, draft instead of drafting their own.</p>
+            <p>With Randomize activated, players will be given a randomly selected draft instead of drafting their own</p>
         </div>
          <div class="col-md-2 col-xs-2">
             <div class="checkbox">
                 <label><input type="checkbox" id="input_leagueinvite" />Invite Only</label>
             </div>
-            <p>Configures whether any player on the site may join this league or if the league is joinable by invite only.</p>
+            <p>Configures whether any player on the site may join this league or if the league is joinable by invite only</p>
         </div>
     </div>
 </div>

@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="Christoc.Modules.LeagueModule.View" %>
+<%@ Import Namespace="DotNetNuke.Entities.Users" %>
 <script type="text/javascript">
     var userId = '<%= UserController.Instance.GetCurrentUserInfo().UserID %>';
 </script>
@@ -6,8 +7,7 @@
 <div class="content">
     <div class="row">
         <div class="col-md-3">
-            <a href="#">
-                <img src="/portals/0/RPGFL/matchmaking.jpg" class="img-responsive" alt="" /></a>
+            <img id="img_matchmaking" src="/portals/0/RPGFL/matchmaking.jpg" class="img-responsive" alt="" />
         </div>
         <div class="col-md-6">
             <p>
@@ -16,7 +16,8 @@
         </div>
         <div class="col-md-3">
             <a href="/createleague">
-                <img src="/portals/0/RPGFL/createleague.jpg" class="img-responsive" alt="" /></a>
+                <img src="/portals/0/RPGFL/createleague.jpg" class="img-responsive" alt="" />
+            </a>
         </div>
     </div>
     <br />

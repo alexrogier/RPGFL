@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 using System.Web;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
@@ -18,6 +21,38 @@ namespace Christoc.Modules.CreateLeagueModule.Models
                                                     League_Name, League_Description, Join_Allow_Anyone, Creator_User_FK, Trade_Day_Enabled,
                                                     Randomize_Enabled, Game_Mode, League_Duration, Renew_Duration, League_Icon, System_Public)
                                                 )[0].League_PK;
+        }
+
+        public void SendEmails(string Emails, int League_PK)
+        {
+            SmtpClient client = new SmtpClient();
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+            client.Timeout = 10000;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential("alexrogier.webit@gmail.com", "rerout11");
+
+            List<string> listOfEmails = Emails.Split(',').ToList();
+            foreach (var email in listOfEmails)
+            {
+                if (email.Contains("@"))
+                {
+                    MailMessage mm = new MailMessage
+                    {
+                        From = new MailAddress("alexrogier.webit@gmail.com", "RPGFL"),
+                        Subject = "RPGFL League Invitation",
+                        BodyEncoding = UTF8Encoding.UTF8,
+                        DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure
+                    };
+
+                    mm.To.Add(new MailAddress(email, email));
+                    var token = CBO.FillCollection<EmailInvite>(DataProvider.Instance().ExecuteReader("RPGFL_CreateEmailInvite", email, League_PK))[0].Token;
+                    mm.Body = token;
+                    client.Send(mm);
+                }
+            }
         }
     }
 }

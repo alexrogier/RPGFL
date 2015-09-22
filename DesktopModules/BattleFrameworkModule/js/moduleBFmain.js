@@ -257,7 +257,7 @@ var globalSkills = []; // skill warehouse that contains all skills each characte
 function addSkillData(skillData) {
     globalSkills.push(new skill(skillData));
 }
-function getSkillById(skillid) {
+function getSkillById(skillId) {
     // search globalSkills for matching skillpk and return it as a skill object
     for (var skill in globalSkills) {
         if (skill.Skill_PK == skillId) return skill;
@@ -301,77 +301,3 @@ function nextActionStep() {
 /****************************************************************************************************
     END Global Interface 
 ****************************************************************************************************/
-
-/****************************************************************************************************
-    DICE ROLLING 
-****************************************************************************************************/
-function rollDice(numOfDice, diceType, baseModifier, bAdvDis) {
-// COMMENTED BECAUSE CODE BELONGS IN BACK END
-
-//    // @numOfDice: number of dice to roll 
-//    // @diceType: what sided die to roll (d4, d6, d8, d10, d12, d20) as an INT value
-//    // @baseModifier: modifier to be added to the final result after all rolls. Default 0
-//    // @bAdvDis: boolean to determine whether to roll dice with advantage or disadvantage. Default None
-//    // Description
-//    // Random number generator that mimics the process of rolling physical dice and returns the result as an object
-
-//    var finalResult = {
-//        totalValue: 0,      // final accumulation value of all dice rolls
-//        rollResults: []     // storage array that contains each individual dice roll
-//    };
-
-//    // roll dice
-//    for (var i = 1; i <= numOfDice; i++) {
-//        switch (bAdvDis) {
-//            case undefined:
-//                // neither advantage or disadvantage
-//                var roll = Math.round(Math.random() * (diceType - 1) + 1);
-//                finalResult.totalValue += roll;
-//                finalResult.rollResults.push(roll);
-//                break;
-//            case 'advantage':
-//                // roll two dice and record the higher value
-//                var roll1 = Math.round(Math.random() * (diceType - 1) + 1);
-//                var roll2 = Math.round(Math.random() * (diceType - 1) + 1);
-//                var betterRoll = (roll1 > roll2 ? roll1 : roll2);
-//                finalResult.totalValue += betterRoll;
-//                finalResult.rollResults.push(betterRoll);
-//                break;
-//            case 'disadvantage':
-//                // roll two dice and record the lower value
-//                var roll1 = Math.round(Math.random() * (diceType - 1) + 1);
-//                var roll2 = Math.round(Math.random() * (diceType - 1) + 1);
-//                var worseRoll = (roll1 < roll2 ? roll1 : roll2);
-//                finalResult.totalValue += worseRoll;
-//                finalResult.rollResults.push(worseRoll);
-//                break;
-//        }
-//    }
-
-//    // add base modifiers
-//    if (typeof baseModifier === 'undefined') baseModifier = 0;
-//    finalResult.totalValue += baseModifier;
-
-//    return finalResult;
-}
-function bCritical(roll, critMin) {
-    // @roll: a singular dice roll to determine if it is a critical success or failure
-    // @critMin: lowest roll result to achieve a critical success on a d20. Default 20
-    // Description
-    // Determines whether a dice roll was a critical success or failure. Will return a -1 if neither are achieved, 1 if a
-    // a critical success was achieved, and 0 if a critical failure was achieved. This function should only be used when rolling
-    // a single d20
-
-    var finalResult = -1;
-    if (typeof critMin === 'undefined') critMin = 20;
-
-    if (roll >= critMin) 
-    { 
-        finalResult = 1; 
-    } 
-    else if(roll == 1){
-        finalResult = 0;
-    }
-
-    return finalResult;
-}

@@ -25,7 +25,30 @@ $(document).ready(function () {
             return false;
         }
     });
+
+    $("#img_matchmaking").click(function() {
+        bootbox.confirm("This will insert you into a random public guild where you will play against strangers with default league settings. Are you sure you want to Matckmake?", function(result) {
+            if (result) {
+                matchmakeUser();
+            } 
+        });
+    });
 });
+
+function matchmakeUser() {
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/DesktopModules/LeagueModule/API/ModuleLeague/InsertUserIntoMatchmaking",
+        data: {
+            FILTER_userfk: userId
+        },
+        dataType: "json",
+        success: function (data) {
+            location.reload();
+        }
+    });
+}
 
 function populateLeagues() {
     var leagueData = null;

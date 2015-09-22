@@ -51,6 +51,7 @@ function populateSkirmishes() {
         // append master standings row template for new table row
         $("#table_tbody_skirmishdata").append('<tr id="skirmish_data_' + currSkirmish.Skirmish_PK + '" class="offical-black-border div-center">' + rowSkirmishHTML_TEMPLATE + '</tr>');
 
+        console.log(currSkirmish);
         if (currSkirmish.Skirmish_Victor_FK != -1) {
             if (currSkirmish.Guild_1_FK == currSkirmish.Skirmish_Victor_FK) {
 
@@ -65,6 +66,8 @@ function populateSkirmishes() {
                 $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_1_winlose").addClass("text_skirmish_lose")
                 $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_2_winlose").addClass("text_skirmish_win")
             }
+        } else {
+            $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p > button.btn").hide();
         }
 
         // insert guild specific values

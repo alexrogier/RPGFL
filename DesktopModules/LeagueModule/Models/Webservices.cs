@@ -35,5 +35,19 @@ namespace Christoc.Modules.LeagueModule.Models
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public HttpResponseMessage InsertUserIntoMatchmaking(int FILTER_userfk)
+        {
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, controller.InsertUserIntoMatchmaking(FILTER_userfk).ToJson());
+            }
+            catch (Exception exc)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+            }
+        }
     }
 }
