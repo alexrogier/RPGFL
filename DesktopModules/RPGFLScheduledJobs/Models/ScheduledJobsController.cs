@@ -17,7 +17,12 @@ namespace Christoc.Modules.RPGFLScheduledJobs.Models
         public Campaign GetActiveCampaign()
         {
             return CBO.FillCollection<Campaign>(DataProvider.Instance().ExecuteReader("RPGFL_GetActiveCampaign"))[0];
+        }
 
+        public bool GetExpiredEmailInvites()
+        {
+            DataProvider.Instance().ExecuteReader("RPGFL_GetExpiredEmailInvites");
+            return true;
         }
 
         public Series CreateNewSeries(int CurrentSeriesPK)

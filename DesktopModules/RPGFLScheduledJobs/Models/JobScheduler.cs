@@ -90,4 +90,42 @@ namespace Christoc.Modules.RPGFLScheduledJobs.Models
             controller.CreateSeriesSkirmishSchedule();
         }
     }
+    public class EmailInviteManagement : SchedulerClient
+    {
+        public EmailInviteManagement(ScheduleHistoryItem oItem)
+            : base()
+        {
+            this.ScheduleHistoryItem = oItem;
+        }
+
+        // RPGFL Interface
+        ScheduledJobsController controller = new ScheduledJobsController();
+        public int SkirmishDeletionInterval = 2; // DEFAULT: 2 | DESC: amount of months from current month to delete old skirmish data from site
+
+        public override void DoWork()
+        {
+            try
+            {
+                //Perform required items for logging
+                this.Progressing();
+
+                //Your code goes here
+                //To log note
+                this.ScheduleHistoryItem.AddLogNote("STARTING JOB");
+
+                // check for email invites older than a month and delete them
+                controller.GetExpiredEmailInvites();
+
+                //Show success
+                this.ScheduleHistoryItem.Succeeded = true;
+            }
+            catch (Exception ex)
+            {
+                this.ScheduleHistoryItem.Succeeded = false;
+                this.ScheduleHistoryItem.AddLogNote("ERROR: " + ex.Message);
+                this.Errored(ref ex);
+                DotNetNuke.Services.Exceptions.Exceptions.LogException(ex);
+            }
+        }
+    }
 }

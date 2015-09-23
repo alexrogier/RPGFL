@@ -44,12 +44,13 @@ namespace Christoc.Modules.CreateLeagueModule.Models
                         From = new MailAddress("alexrogier.webit@gmail.com", "RPGFL"),
                         Subject = "RPGFL League Invitation",
                         BodyEncoding = UTF8Encoding.UTF8,
+                        IsBodyHtml = true,
                         DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure
                     };
 
                     mm.To.Add(new MailAddress(email, email));
                     var token = CBO.FillCollection<EmailInvite>(DataProvider.Instance().ExecuteReader("RPGFL_CreateEmailInvite", email, League_PK))[0].Token;
-                    mm.Body = token;
+                    mm.Body = "You have been invited to join a RPGFL League! <a href=\"http://localhost:31658/RPGFLHome/token?token=" + token + "&email=" + email + "\">Click here</a> to accept the invitation.";
                     client.Send(mm);
                 }
             }

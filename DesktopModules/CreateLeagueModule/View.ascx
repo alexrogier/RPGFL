@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="Christoc.Modules.CreateLeagueModule.View" %>
+<%@ Import Namespace="DotNetNuke.Entities.Users" %>
 <script type="text/javascript">
     var userId = '<%= UserController.Instance.GetCurrentUserInfo().UserID %>';
 </script>

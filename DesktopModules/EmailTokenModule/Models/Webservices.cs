@@ -11,13 +11,13 @@ using DotNetNuke.Web.Api;
 
 namespace Christoc.Modules.EmailTokenModule.Models
 {
-    public class ModuleLeagueController : DnnApiController
+    public class ModuleEmailTokenController : DnnApiController
     {
         EmailTokenController controller = new EmailTokenController();
 
         [AllowAnonymous]
         [HttpGet]
-        public HttpResponseMessage AcceptLeagueInvitation(string Email, string Token)
+        public HttpResponseMessage AttemptLeagueInvitationAcceptance(string Email, string Token)
         {
             try
             {

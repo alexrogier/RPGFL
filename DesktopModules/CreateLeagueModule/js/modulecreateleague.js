@@ -2,6 +2,7 @@
 // @userId - defined in View.ascx
 
 $(document).ready(function () {
+    console.log(userId);
     // handlers
     $("#btn_cancel").click(function () {
         window.location = "/leagues";
