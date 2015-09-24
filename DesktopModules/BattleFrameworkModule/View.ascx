@@ -393,42 +393,42 @@
             <div class="scrollable offical-black-border" style="height: 200px; background-color: darkgray">
                 <hr />
                 <p class="text-center">
-                    <div class="offical-black-border name-container-color">
-                        <h4 class="text-center defenders-of-light">[Gantar the Honorable]</h4>
+                    <div class="offical-black-border name-container-color font-verdana">
+                        <h4 class="text-center defenders-of-light font-verdana">[Gantar the Honorable]</h4>
                     </div>
                     <p class="text-center toppadding">
                         <img src="portals/0/RPGFL/battle_icons/attackicon.png" />
                     </p>
                     <div class="offical-black-border name-container-color">
-                        <h4 class="text-center the-netherling">[Necromancer]</h4>
+                        <h4 class="text-center the-netherling font-verdana">[Necromancer]</h4>
                     </div>
-                    <h5 class="text-center">Roll: x | Dmg: x (Damage type)</h5>
+                    <h5 class="text-center font-verdana">Roll: x | Dmg: x (Damage type)</h5>
                 </p>
                 <hr />
                 <p class="text-center">
-                    <div class="offical-black-border name-container-color">
-                        <h4 class="text-center seed-of-the-grove">[Dwarf Ritualist]</h4>
+                    <div class="offical-black-border name-container-color font-verdana">
+                        <h4 class="text-center seed-of-the-grove font-verdana">[Dwarf Ritualist]</h4>
                     </div>
                     <p class="text-center toppadding">
                         <img src="portals/0/RPGFL/battle_icons/healicon.png" />
                     </p>
                     <div class="offical-black-border name-container-color">
-                        <h4 class="text-center seed-of-the-grove">[Ent Summoner]</h4>
+                        <h4 class="text-center seed-of-the-grove font-verdana">[Ent Summoner]</h4>
                     </div>
-                    <h5 class="text-center">Roll: x | Heal: x </h5>
+                    <h5 class="text-center font-verdana">Roll: x | Heal: x </h5>
                 </p>
                 <hr />
                 <p class="text-center">
                     <div class="offical-black-border name-container-color">
-                        <h4 class="text-center the-netherling">[Lich King]</h4>
+                        <h4 class="text-center the-netherling font-verdana">[Lich King]</h4>
                     </div>
                     <p class="text-center toppadding">
                         <img src="portals/0/RPGFL/battle_icons/casticon.png" />
                     </p>
                     <div class="offical-black-border name-container-color">
-                        <h4 class="text-center seed-of-the-grove">[Ent Summoner]</h4>
+                        <h4 class="text-center seed-of-the-grove font-verdana">[Ent Summoner]</h4>
                     </div>
-                    <h5 class="text-center">Roll: x | Eft: x</h5>
+                    <h5 class="text-center font-verdana">Roll: x | Eft: x</h5>
                 </p>
                 <hr />
             </div>

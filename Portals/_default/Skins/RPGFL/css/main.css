@@ -127,6 +127,7 @@ table.table-padding td{
     height: 1500px;
 }
 /** HELPERS */
+.font-verdana{ font-family:Verdana; }
 .opacity-high{ 	opacity: 0.8;   }
 .borderless { border: none; }
 .pic-border-light{  border: 5px solid black;  }
