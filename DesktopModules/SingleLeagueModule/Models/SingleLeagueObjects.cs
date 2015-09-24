@@ -38,4 +38,11 @@ namespace Christoc.Modules.SingleLeagueModule.Models
         public string Archetype { get; set; }
         public int Accolade_Points { get; set; }
     }
+
+    public class EmailInvite
+    {
+        public int League_PK { get; set; }
+        public string Email { get; set; }
+        public string Token { get; set; }
+    }
 }

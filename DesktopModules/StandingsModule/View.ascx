@@ -24,7 +24,7 @@
                             <option value="Damage_Dealt">Damage Dealt</option>
                             <option value="Damage_Taken">Damage Taken</option>
                             <option value="Opponent_Knock_Outs">Opponent Knockouts</option>
-                            <option value="Critical_Successes">Critical Rolling</option>
+                            <option value="Critical_Rolling">Critical Rolling</option>
                             <option value="Health_Regained">Healing</option>
                             <option value="Enchanter_Hunter">Enchanter / Hunter</option>
                             <option value="Afflictions_Inflicted">Afflictions</option>

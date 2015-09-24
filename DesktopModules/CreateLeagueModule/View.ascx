@@ -81,7 +81,7 @@
     <div class="row">
         <div class="panel-heading">
             <h3 class="panel-title">Invite Friends</h3>
-             <div class="input-group" style="width:100%;">
+                 <div class="input-group" style="width:100%;">
                     <input  type="text" class="form-control" id="input_invite" placeholder="Enter recipient emails here. Seperate emails with a comma." aria-describedby="basic-addon2" />
                 </div>
             </div>

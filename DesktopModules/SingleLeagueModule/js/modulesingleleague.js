@@ -22,6 +22,9 @@ $(document).ready(function () {
     $("#btn_leaveleague").click(function () {
         leaveLeague();
     });
+    $("#btn_invite").click(function() {
+        inviteEmails();
+    });
 });
 
 function getUrlParameter(sParam) {
@@ -87,6 +90,11 @@ function getLeagueData() {
         if (leagueData.Creator_User_Fk == userId) {
             // enable editting controls ONLY IF league has not been activated by the system yet
             bIsLeagueOwner = true;
+        }
+
+        console.log(bIsLeagueOwner);
+        if (bIsLeagueOwner) {
+            $("#div_invite").show();
         }
 
         // loop through league users
@@ -225,4 +233,23 @@ function joinLeague() {
             }
         });
     }
+}
+
+function inviteEmails() {
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/DesktopModules/SingleLeagueModule/API/ModuleSingleLeague/InviteEmails",
+        data: {
+            Emails: $("#input_invite").val(),
+            User_PK: userId,
+            League_PK: leagueId
+        },
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            console.log(JSON.stringify(data));
+            window.location = window.reload();
+        }
+    });
 }

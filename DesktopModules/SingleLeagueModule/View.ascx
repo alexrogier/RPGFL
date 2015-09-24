@@ -53,6 +53,21 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div id="div_invite" style="display: none;" class=" panel panel-default">
+            <div class="panel-body" style="max-width: 425px;margin: 0 auto;">
+                <div class="col-md-8 col-xs-8">
+                    <h3 class="panel-title">Invite Friends</h3>
+                    <div class="input-group" style="width:100%;">
+                        <input type="text" class="form-control" id="input_invite" placeholder="Invite by email here. Seperate emails with commas" aria-describedby="basic-addon2" />
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-4">
+                    <button id="btn_invite" type="button" class="btn primary-button btn-lg">Invite</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="row">

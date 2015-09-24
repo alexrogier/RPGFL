@@ -94,5 +94,20 @@ namespace Christoc.Modules.SingleLeagueModule.Models
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public HttpResponseMessage InviteEmails(string Emails, int User_PK, int League_PK)
+        {
+            try
+            {
+                //controller.InviteEmailsByUser(Emails, User_PK, League_PK);
+                return Request.CreateResponse(HttpStatusCode.OK, controller.InviteEmailsByUser(Emails, User_PK, League_PK));
+            }
+            catch (Exception exc)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+            }
+        }
     }
 }
