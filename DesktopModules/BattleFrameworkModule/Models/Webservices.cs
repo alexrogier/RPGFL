@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Users;
+using DotNetNuke.Services.Scheduling;
 using DotNetNuke.Web.Api;
 
 
@@ -56,6 +57,16 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public HttpResponseMessage GetAllCharacterDataInSkirmish(int Skirmish_PK)
         {
             return Request.CreateResponse(HttpStatusCode.OK, controller.GetAllCharacterDataInSkirmish(Skirmish_PK).ToJson());
+        }
+
+        [HttpGet]
+        public HttpResponseMessage ProcessSkirmish(int Skirmish_PK)
+        {
+            BattleFramework_SkirmishManagement skirmishManager = new BattleFramework_SkirmishManagement(new ScheduleHistoryItem());
+            skirmishManager.Skirmish_PK = Skirmish_PK;
+            skirmishManager.DoWork();
+            //return Request.CreateResponse(HttpStatusCode.OK, controller.GetAllCharacterDataInSkirmish(Skirmish_PK).ToJson());
+            return Request.CreateResponse(HttpStatusCode.OK, "SUCCESS");
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 {
     public class BattleFramework_SkirmishManagement : SchedulerClient
     {
+        public int Skirmish_PK = -1;
         public BattleFramework_SkirmishManagement(ScheduleHistoryItem oItem)
             : base()
         {
@@ -48,8 +49,17 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                 this.ScheduleHistoryItem.AddLogNote("STARTING JOB");
                 stopwatch.Start();
                 
-                // get today's skirmishes
-                globalSkirmishes = controller.GetCurrentSkirmishes();
+                // determine what skirmish to process
+                if (Skirmish_PK == -1)
+                {
+                    // get today's skirmishes
+                    globalSkirmishes = controller.GetCurrentSkirmishes();   
+                }
+                else
+                {
+                    // process a specific skirmish
+                    globalSkirmishes = controller.GetSkirmishData(Skirmish_PK);
+                }
 
                 // get accolades
                 globalAccolades = controller.GetAccolades();
@@ -1234,6 +1244,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     }
                     #region COMBAT LOG MANAGEMENT
                     // push combat log to server
+                    logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms SYSTEM Push combat log to server ...");
                     controller.CreateCombatLogForSkirmish(globalCombatLog);
                     #endregion
                     #region ACCOLADE MANAGEMENT
@@ -1331,9 +1342,11 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     // update guild win bonus for each character track log
                     foreach (var character in globalCharacters.Where(x => x.Guild_FK == victorGuildFK)) UpdateCharacterTrackLog(character.Character_PK, "Guild_Win_Bonus", 1);
 
+                    // logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms SYSTEM Push character track log to server ...");
                     // push character track log to server UNCOMMENT
                     //controller.CreateCharacterTrackLogForSkirmish(globalCharacterTrackLog);
 
+                    // logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms SYSTEM Push accolades to server ...");
                     // update user accolades on server UNCOMMENT
                     //controller.UpdateUserAccolades(skirmish.Skirmish_PK);
                     #endregion
@@ -1347,6 +1360,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                         Consume_Energy = globalSkills.FirstOrDefault(x => x.Skill_PK == log.Skill_FK).Energy_Cost
                     }).ToList();
                     // UNCOMMENT LATER
+                    // logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms SYSTEM Push energy costs to server ...");
                     //controller.UpdateCharacterEnergy(newEnergyValues);
                     #endregion
 

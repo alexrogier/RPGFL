@@ -18,7 +18,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     DataColumn col1 = new DataColumn
                     {
                         DataType = System.Type.GetType("System.Int32"),
-                        ColumnName = "Skirmish_PK"
+                        ColumnName = "Skirmish_FK"
                     };
                     energyData.Columns.Add(col1);
                     DataColumn col2 = new DataColumn
@@ -36,63 +36,69 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     DataColumn col4 = new DataColumn
                     {
                         DataType = System.Type.GetType("System.Int32"),
-                        ColumnName = "Action_Order"
+                        ColumnName = "Skill_FK"
                     };
                     energyData.Columns.Add(col4);
                     DataColumn col5 = new DataColumn
                     {
                         DataType = System.Type.GetType("System.Int32"),
-                        ColumnName = "Attack_Final_Result"
+                        ColumnName = "Action_Order"
                     };
                     energyData.Columns.Add(col5);
                     DataColumn col6 = new DataColumn
                     {
-                        DataType = System.Type.GetType("System.String"),
-                        ColumnName = "Attack_Values"
+                        DataType = System.Type.GetType("System.Int32"),
+                        ColumnName = "Attack_Final_Result"
                     };
                     energyData.Columns.Add(col6);
                     DataColumn col7 = new DataColumn
                     {
-                        DataType = System.Type.GetType("System.Int32"),
-                        ColumnName = "Damage_Final_Result"
+                        DataType = System.Type.GetType("System.String"),
+                        ColumnName = "Attack_Values"
                     };
                     energyData.Columns.Add(col7);
                     DataColumn col8 = new DataColumn
                     {
-                        DataType = System.Type.GetType("System.String"),
-                        ColumnName = "Damage_Values"
+                        DataType = System.Type.GetType("System.Int32"),
+                        ColumnName = "Damage_Final_Result"
                     };
                     energyData.Columns.Add(col8);
                     DataColumn col9 = new DataColumn
                     {
                         DataType = System.Type.GetType("System.String"),
-                        ColumnName = "Damage_Types"
+                        ColumnName = "Damage_Values"
                     };
                     energyData.Columns.Add(col9);
                     DataColumn col10 = new DataColumn
                     {
-                        DataType = System.Type.GetType("System.Int32"),
-                        ColumnName = "Conditions"
+                        DataType = System.Type.GetType("System.String"),
+                        ColumnName = "Damage_Types"
                     };
                     energyData.Columns.Add(col10);
                     DataColumn col11 = new DataColumn
                     {
-                        DataType = System.Type.GetType("System.Boolean"),
-                        ColumnName = "bAttackSuccessful"
+                        DataType = System.Type.GetType("System.Int32"),
+                        ColumnName = "Conditions"
                     };
                     energyData.Columns.Add(col11);
                     DataColumn col12 = new DataColumn
                     {
                         DataType = System.Type.GetType("System.Boolean"),
-                        ColumnName = "bInterrupt"
+                        ColumnName = "bAttackSuccessful"
                     };
                     energyData.Columns.Add(col12);
+                    DataColumn col13 = new DataColumn
+                    {
+                        DataType = System.Type.GetType("System.Boolean"),
+                        ColumnName = "bInterrupt"
+                    };
+                    energyData.Columns.Add(col13);
                     #endregion
 
                     foreach (var i in combatLog)
                     {
                         DataRow newRow = energyData.NewRow();
-                        newRow["Skirmish_PK"] = i.Skirmish_FK;
+                        newRow["Skirmish_FK"] = i.Skirmish_FK;
                         newRow["Assailant_Character_FK"] = i.Assailant_Character_FK;
                         newRow["Target_Character_FK"] = i.Target_Character_FK;
                         newRow["Skill_FK"] = i.Skill_FK;
