@@ -132,7 +132,7 @@ table.table-padding td{
 .borderless { border: none; }
 .pic-border-light{  border: 5px solid black;  }
 .pic-border-assailant{ border: 5px solid #FF6A00;}
-.pic-border-target {border: 5px solid red;}
+.pic-border-target { border: 5px solid red; }
 .text-center { text-align: center; }
 .text-right {text-align:right; }
 .text-left {text-align:left;}

@@ -28,31 +28,29 @@
 // **** CHARACTER MANAGEMENT ****
 
 // character interface
-var character = {
-    initialize: function(charData){
-        this.Character_PK = charData.Character_PK,
-        this.Character_Name = charData.Character_Name;
-        this.Title_Desc = charData.Title_Desc;
-        this.Health = charData.Health;
-        this.Max_Health = charData.Health;
-        this.Dodge = charData.Dodge;
-        this.Archetype = charData.Archetype;
-        this.Finesse = charData.Finesse;
-        this.Agility = charData.Agility;
-        this.Senses = charData.Senses;
-        this.Mana = charData.Mana;
-        this.Immunities = charData.Immunities;
-        this.Vulnerabilities = charData.Vulnerabilities;
-        this.Resistances = charData.Resistances;
-        this.Guild_FK = charData.Guild_FK;
-        this.Initiative = charData.Initiative;
-        this.Max_Energy = charData.Max_Energy;
-        return this;
-    },    
-    takeDamage: function (damage) {
+function character(charData) {
+    this.Character_PK = charData.Character_PK;
+    this.Character_Name = charData.Character_Name;
+    this.Title_Desc = charData.Title_Desc;
+    this.Health = charData.Health;
+    this.Max_Health = charData.Health;
+    this.Dodge = charData.Dodge;
+    this.Archetype = charData.Archetype;
+    this.Finesse = charData.Finesse;
+    this.Agility = charData.Agility;
+    this.Senses = charData.Senses;
+    this.Mana = charData.Mana;
+    this.Immunities = charData.Immunities;
+    this.Vulnerabilities = charData.Vulnerabilities;
+    this.Resistances = charData.Resistances;
+    this.Guild_FK = charData.Guild_FK;
+    this.Initiative = charData.Initiative;
+    this.Max_Energy = charData.Max_Energy;
+    this.takeDamage = function(damage) {
+        console.log(this.Character_Name + " taking " + damage + " damage!");
         this.Health -= damage;
 
-        if (this.Health < 0 ) {
+        if (this.Health < 0) {
             this.Health = 0;
         }
 
@@ -62,8 +60,9 @@ var character = {
         $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthbar").css("width", (this.Health / this.Max_Health) * 64);
         $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthtext").text(this.Health + " / " + this.Max_Health);
         // damage dealing visual affects here
-    },
-    healDamage: function (damage) {
+    };
+    this.healDamage = function(damage) {
+        console.log(this.Character_Name + " healing " + damage + " health!");
         this.Health += damage;
 
         if (this.Health > this.Max_Health) {
@@ -76,19 +75,21 @@ var character = {
         $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthbar").css("width", (this.Health / this.Max_Health) * 64);
         $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthtext").text(this.Health + " / " + this.Max_Health);
         // healing visual affects here
-    },
-    getCharMapSlot: function(){
+    };
+    this.getCharMapSlot = function() {
         var charMapIndex = globalCharactersToMap.indexOf(this.Character_PK) + 1;
         if (charMapIndex > 12) charMapIndex -= 12;
 
-        return $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthbar");
+        return "#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex;
     }
+
+    return this;
 }
 var globalCharactersInSkirmish = []; // character warehouse to store all characters who are in skirmish
 var globalCharactersToMap = []; // indexed list to map where characters are displayed on the page
 // character methods
 function addCharacterToSkirmish(charData) {
-    globalCharactersInSkirmish.push(new character.initialize(charData));
+    globalCharactersInSkirmish.push(new character(charData));
 }
 function addCharactersToMap(charData) {
     for (var i = 0; i < charData.length; i++) {
@@ -122,16 +123,12 @@ function addCharactersToMap(charData) {
 }
 function getCharacterById(charId) {
     // search globalCharactersInSkirmish for matching charpk and return it as a character object
-    console.log("global characters in skirmish: " + (globalCharactersInSkirmish));
-    //for (var char in globalCharactersInSkirmish) {
     for (var i = 0; i < globalCharactersInSkirmish.length; i++) {
         if (globalCharactersInSkirmish[i].Character_PK == charId)
         {
-            console.log(globalCharactersInSkirmish[i]);
             return globalCharactersInSkirmish[i];
         }
     }
-
     return null;
 }
 // character ajax handlers
@@ -250,7 +247,7 @@ function getGuildData() {
 function combatlog(logData) {
     this.CombatLog_PK = logData.CombatLog_PK;
     this.Skirmish_FK = logData.Skirmish_FK;
-    this.Assassilant_Character_FK = logData.Assassilant_Character_FK;
+    this.Assailant_Character_FK = logData.Assailant_Character_FK;
     this.Target_Character_FK = logData.Target_Character_FK;
     this.Skill_FK = logData.Skill_FK;
     this.Action_Order = logData.Action_Order;
@@ -261,7 +258,7 @@ function combatlog(logData) {
     this.Damage_Types = logData.Damage_Types;
     this.Conditions = logData.Conditions;
     this.bAttackSuccessful = logData.bAttackSuccessful;
-    this.bInturrept = logData.bInturrept;
+    this.bInterrupt = logData.bInterrupt;
 }
 var globalCombatLog = []; // combatlog warehouse that contains all the actions to display during the skirmish
 // combatlog methods
@@ -316,10 +313,9 @@ function addSkillData(skillData) {
 }
 function getSkillById(skillId) {
     // search globalSkills for matching skillpk and return it as a skill object
-    for (var skill in globalSkills) {
-        if (skill.Skill_PK == skillId) return skill;
+    for (var i = 0; i < globalSkills.length; i++) {
+        if (globalSkills[i].Skill_PK == skillId) return globalSkills[i];
     }
-
     return null;
 }
 // skill ajax handlers
@@ -347,61 +343,64 @@ function getSkillDataFromSkirmishCharacters() {
 // **** BATTLEFRAMEWORK MANAGEMENT ****
 
 // battleframework interface
-//var lastActionStep = globalCombatLog[globalCombatLog.length - 1].Action_Order;
+var currActionStep = 0;
 var actionWaitInterval = 3000; // amount of miliseconds to wait between executing each action step
 // battleframework methods
 function getRelevantCombatLogs(actionOrder){
     var relevantLogs = [];
-    console.log("Relevant combat logs: " + JSON.stringify(getRelevantCombatLogs));
-    console.log("Action order: " + actionOrder);
+
     for (var i = 0; i < globalCombatLog.length; i++) {
         if (globalCombatLog[i].Action_Order == actionOrder) relevantLogs.push(globalCombatLog[i]);
     }
 
     return relevantLogs;
 }
-
 /****************************************************************************************************
     END Global Interface 
 ****************************************************************************************************/
-function executeSkirmish()
-{
-    for (var actionStep = 1; actionStep <= 24; actionStep++) {
-        turnTimeout(actionStep);
-    }
-}
+function executeSkirmish() {
+    var turnTrack = setInterval(function() {
+        currActionStep++;
+        if (currActionStep > 24) {
+            clearInterval(turnTrack);
 
-function turnTimeout(actionStep)
-{
-    setTimeout(function () {
-        executeTurn(actionStep);
+            // Skirmish Cleanup
+            $(".char_img").removeClass("pic-border-target");
+            $(".char_img").removeClass("pic-border-assailant");
+            $(".char_img").addClass("pic-border-light");
+            console.log("END SKIRMISH");
+
+            return;
+        }
+        executeTurn(currActionStep);
     }, actionWaitInterval);
 }
 
 function executeTurn(actionStep)
 {    
     console.log("Action Step: " + actionStep);
+
+    $(".char_img").removeClass("pic-border-target");
+    $(".char_img").removeClass("pic-border-assailant");
+    $(".char_img").addClass("pic-border-light");
+
     var relevantCombatLogs = getRelevantCombatLogs(actionStep);
     if (relevantCombatLogs.length == 0) return;
-    console.log("Relevant logs: " + JSON.stringify(relevantCombatLogs));
+    
     for (var i = 0; i < relevantCombatLogs.length; i++) {
         var currLog = relevantCombatLogs[i];
-        console.log("currLog: " + JSON.stringify(currLog));
         // HIGHLIGHT CHARACTERS
-        var assailant = getCharacterById(currLog.Assassilant_Character_FK);
+        var assailant = getCharacterById(currLog.Assailant_Character_FK);
         var target = getCharacterById(currLog.Target_Character_FK);
 
-        console.log("Assailant is: " + JSON.stringify(assailant));
-        console.log("Target is: " + JSON.stringify(target));
-        // highlight assailant
-        assailant.getCharMapSlot().removeClass("pic-border-light");
-        assailant.getCharMapSlot().addClass("pic-border-assailant");
         // highlight target
-        target.getCharMapSlot().removeClass("pic-border-light");
-        target.getCharMapSlot().addClass("pic-border-target");
-
-
-
+        $(target.getCharMapSlot()).removeClass("pic-border-light");
+        $(target.getCharMapSlot()).addClass("pic-border-target");
+        // highlight assailant
+        $(assailant.getCharMapSlot()).removeClass("pic-border-light");
+        $(assailant.getCharMapSlot()).removeClass("pic-border-target");
+        $(assailant.getCharMapSlot()).addClass("pic-border-assailant");
+        
         // COMBAT LOG MANAGMENT
 
         // check if attack was successful
@@ -415,7 +414,6 @@ function executeTurn(actionStep)
                 if (skill.Special_Min_Roll != null && skill.Special_Min_Roll <= currLog.Attack_Final_Result) {
                     // show target is taunted or afflicted
                 }
-
             }
             else if (skill.Skill_Type == "Heal") {
                 target.healDamage(currLog.Damage_Final_Result);
@@ -429,11 +427,5 @@ function executeTurn(actionStep)
         }
     }
 
-    // CLEAN UP        
-    $(".pic-border-assailant").addClass("pic-border-light");
-    $(".pic-border-assailant").removeClass("pic-border-assailant");
-    $(".pic-border-target").addClass("pic-border-light");
-    $(".pic-border-target").removeClass("pic-border-target");
-
-    // TIMER
+    // CLEAN UP   
 }

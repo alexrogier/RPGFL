@@ -1234,7 +1234,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     }
                     #region COMBAT LOG MANAGEMENT
                     // push combat log to server
-                    //controller.CreateCombatLogForSkirmish(globalCombatLog);
+                    controller.CreateCombatLogForSkirmish(globalCombatLog);
                     #endregion
                     #region ACCOLADE MANAGEMENT
                     logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM Recording character accolades ...");
