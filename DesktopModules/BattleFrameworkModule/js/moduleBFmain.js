@@ -84,7 +84,6 @@ var character = {
         return $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthbar");
     }
 }
-
 var globalCharactersInSkirmish = []; // character warehouse to store all characters who are in skirmish
 var globalCharactersToMap = []; // indexed list to map where characters are displayed on the page
 // character methods
@@ -123,8 +122,14 @@ function addCharactersToMap(charData) {
 }
 function getCharacterById(charId) {
     // search globalCharactersInSkirmish for matching charpk and return it as a character object
-    for (var char in globalCharactersInSkirmish) {
-        if (char.Character_PK == charId) return char;
+    console.log("global characters in skirmish: " + (globalCharactersInSkirmish));
+    //for (var char in globalCharactersInSkirmish) {
+    for (var i = 0; i < globalCharactersInSkirmish.length; i++) {
+        if (globalCharactersInSkirmish[i].Character_PK == charId)
+        {
+            console.log(globalCharactersInSkirmish[i]);
+            return globalCharactersInSkirmish[i];
+        }
     }
 
     return null;
@@ -385,6 +390,9 @@ function executeTurn(actionStep)
         // HIGHLIGHT CHARACTERS
         var assailant = getCharacterById(currLog.Assassilant_Character_FK);
         var target = getCharacterById(currLog.Target_Character_FK);
+
+        console.log("Assailant is: " + JSON.stringify(assailant));
+        console.log("Target is: " + JSON.stringify(target));
         // highlight assailant
         assailant.getCharMapSlot().removeClass("pic-border-light");
         assailant.getCharMapSlot().addClass("pic-border-assailant");
@@ -392,8 +400,7 @@ function executeTurn(actionStep)
         target.getCharMapSlot().removeClass("pic-border-light");
         target.getCharMapSlot().addClass("pic-border-target");
 
-        console.log("Assailant is: " + JSON.stringify(assailant));
-        console.log("Target is: " + JSON.stringify(target));
+
 
         // COMBAT LOG MANAGMENT
 
