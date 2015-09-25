@@ -76,9 +76,9 @@ p{
 .progress-bar-danger { background-color: #B20000;}
 
 /** color codes for guilds*/
-.defenders-of-light {color:#D7DF01;}
-.the-netherling {color:#585858;}
-.seed-of-the-grove{color:#04B404;}
+.guild1 {color:#D7DF01;}
+.guild2 {color:#585858;}
+.guild3{color:#04B404;}
 .combat-log-color {color:#848484;}
 .name-container-color{background-color:#1C1C1C;}
 
@@ -131,6 +131,8 @@ table.table-padding td{
 .opacity-high{ 	opacity: 0.8;   }
 .borderless { border: none; }
 .pic-border-light{  border: 5px solid black;  }
+.pic-border-assailant{ border: 5px solid #FF6A00;}
+.pic-border-target {border: 5px solid red;}
 .text-center { text-align: center; }
 .text-right {text-align:right; }
 .text-left {text-align:left;}
@@ -139,6 +141,8 @@ table.table-padding td{
 .pill {width: 64px;}
 .inline-block{display:inline-block;}
 .toppadding{padding-top: 10px;}
+.inline{display:inline;}
+.topbotpadding {padding-top: 2px; padding-bottom: 2px;}
 .div-center{ /* -- center-div -- rename to 'div-center' */
     width: 50%;
     margin: 0px;

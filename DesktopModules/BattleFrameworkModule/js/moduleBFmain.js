@@ -17,6 +17,9 @@
 
     // **** SETUP COMBAT LOG ****
     getCombatLogData();
+
+    // **** BEGIN SKIRMISH ****
+    executeSkirmish();
 });
 
 /****************************************************************************************************
@@ -25,7 +28,7 @@
 // **** CHARACTER MANAGEMENT ****
 
 // character interface
-function character(charData){
+function character(charData) {
     this.Character_PK = charData.Character_PK;
     this.Character_Name = charData.Character_Name;
     this.Title_Desc = charData.Title_Desc;
@@ -43,7 +46,45 @@ function character(charData){
     this.Guild_FK = charData.Guild_FK;
     this.Initiative = charData.Initiative;
     this.Max_Energy = charData.Max_Energy;
+
+    this.takeDamage = function (damage) {
+        this.Health -= damage;
+
+        if (this.Health < 0 ) {
+            this.Health = 0;
+        }
+
+        var charMapIndex = globalCharactersToMap.indexOf(this.Character_PK) + 1;
+        if (charMapIndex > 12) charMapIndex -= 12;
+
+        $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthbar").css("width", (this.Health / this.Max_Health) * 64);
+        $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthtext").text(this.Health + " / " + this.Max_Health);
+        // damage dealing visual affects here
+    }
+
+    this.healDamage = function (damage) {
+        this.Health += damage;
+
+        if (this.Health > this.Max_Health) {
+            this.Health = this.Max_Health;
+        }
+
+        var charMapIndex = globalCharactersToMap.indexOf(this.Character_PK) + 1;
+        if (charMapIndex > 12) charMapIndex -= 12;
+
+        $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthbar").css("width", (this.Health / this.Max_Health) * 64);
+        $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthtext").text(this.Health + " / " + this.Max_Health);
+        // healing visual affects here
+    }
+
+    this.getCharMapSlot = function(){
+        var charMapIndex = globalCharactersToMap.indexOf(this.Character_PK) + 1;
+        if (charMapIndex > 12) charMapIndex -= 12;
+
+        return $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthbar");
+    }
 }
+
 var globalCharactersInSkirmish = []; // character warehouse to store all characters who are in skirmish
 var globalCharactersToMap = []; // indexed list to map where characters are displayed on the page
 // character methods
@@ -57,6 +98,7 @@ function addCharactersToMap(charData) {
         var guildSlot = (currChar.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2);
         // set character health
         $("#guild_" + guildSlot + "_char_" + (i <= 11 ? (i + 1) : (i + 1) - 12) + "_healthtext").text(currChar.Health + " / " + currChar.Health);
+       
 
         // initiate character modal
         var img = $("#guild_" + guildSlot + "_char_" + (i <= 11 ? (i + 1) : (i + 1) - 12));
@@ -213,6 +255,8 @@ function combatlog(logData) {
     this.Damage_Values = logData.Damage_Values;
     this.Damage_Types = logData.Damage_Types;
     this.Conditions = logData.Conditions;
+    this.bAttackSuccessful = logData.bAttackSuccessful;
+    this.bInturrept = logData.bInturrept;
 }
 var globalCombatLog = []; // combatlog warehouse that contains all the actions to display during the skirmish
 // combatlog methods
@@ -221,7 +265,7 @@ function addCombatLogEntry(logData) {
 }
 // combatlog ajax handlers
 function getCombatLogData() {
-    var combatlogData = null;
+    var combatLogData = null;
     $.ajax({
         async: false,
         type: "GET",
@@ -231,13 +275,13 @@ function getCombatLogData() {
         },
         dataType: "json",
         success: function (data) {
-            combatlogData = JSON.parse(data);
+            combatLogData = JSON.parse(data);
         }
     });
 
     // add each combatlog entry to the global combat log. SQL has already sorted action order
-    for (var i = 0; i < combatlogData.length; i++) {
-        addCombatLogEntry(combatlogData[i]);
+    for (var i = 0; i < combatLogData.length; i++) {
+        addCombatLogEntry(combatLogData[i]);
     }
 }
 
@@ -246,11 +290,19 @@ function getCombatLogData() {
 // skill interface
 function skill(skillData) {
     this.Skill_PK = skillData.Skill_PK;
+    this.Character_FK = skillData.Character_FK;
     this.Skill_Name = skillData.Skill_Name;
     this.Skill_Description = skillData.Skill_Description;
     this.Energy_Cost = skillData.Energy_Cost;
     this.Attribute_FK = skillData.Attribute_FK;
     this.bIsPassive = skillData.bIsPassive;
+    this.Damage_Roll = skillData.Damage_Roll;
+    this.Damage_Types = skillData.Damage_Types;
+    this.Skill_Type = skillData.Skill_Type;
+    this.Max_Targets = skillData.Max_Targets;
+    this.bAutoSuccess = skillData.bAutoSuccess;
+    this.Special_Min_Roll = skillData.Special_Min_Roll;
+    this.Exec_Track_Step = skillData.Exec_Track_Step;
 }
 var globalSkills = []; // skill warehouse that contains all skills each character in this skirmish can perform
 // skill methods
@@ -290,14 +342,91 @@ function getSkillDataFromSkirmishCharacters() {
 // **** BATTLEFRAMEWORK MANAGEMENT ****
 
 // battleframework interface
-var currentActionStep = 0; // keep track of where the battle is according to the combat log
-var lastActionStep = globalCombatLog[globalCombatLog.length - 1].Action_Order;
-var actionWaitInterval = 3; // amount of seconds to wait between executing each action step
+//var lastActionStep = globalCombatLog[globalCombatLog.length - 1].Action_Order;
+var actionWaitInterval = 3000; // amount of miliseconds to wait between executing each action step
 // battleframework methods
-function nextActionStep() {
-    // advance the actionstep order by 1
-    currentActionStep++;
+function getRelevantCombatLogs(actionOrder){
+    var relevantLogs = [];
+    console.log("Relevant combat logs: " + JSON.stringify(getRelevantCombatLogs));
+    console.log("Action order: " + actionOrder);
+    for (var i = 0; i < globalCombatLog.length; i++) {
+        if (globalCombatLog[i].Action_Order == actionOrder) relevantLogs.push(globalCombatLog[i]);
+    }
+
+    return relevantLogs;
 }
+
 /****************************************************************************************************
     END Global Interface 
 ****************************************************************************************************/
+function executeSkirmish()
+{
+    for (var actionStep = 1; actionStep <= 24; actionStep++) {
+        turnTimeout(actionStep);
+    }
+}
+
+function turnTimeout(actionStep)
+{
+    setTimeout(function () {
+        executeTurn(actionStep);
+    }, actionWaitInterval);
+}
+
+function executeTurn(actionStep)
+{    
+    console.log("Action Step: " + actionStep);
+    var relevantCombatLogs = getRelevantCombatLogs(actionStep);
+    if (relevantCombatLogs.length == 0) return;
+    console.log("Relevant logs: " + JSON.stringify(relevantCombatLogs));
+    for (var i = 0; i < relevantCombatLogs.length; i++) {
+        var currLog = relevantCombatLogs[i];
+        console.log("currLog: " + JSON.stringify(currLog));
+        // HIGHLIGHT CHARACTERS
+        var assailant = getCharacterById(currLog.Assassilant_Character_FK);
+        var target = getCharacterById(currLog.Target_Character_FK);
+        // highlight assailant
+        assailant.getCharMapSlot().removeClass("pic-border-light");
+        assailant.getCharMapSlot().addClass("pic-border-assailant");
+        // highlight target
+        target.getCharMapSlot().removeClass("pic-border-light");
+        target.getCharMapSlot().addClass("pic-border-target");
+
+        console.log("Assailant is: " + JSON.stringify(assailant));
+        console.log("Target is: " + JSON.stringify(target));
+
+        // COMBAT LOG MANAGMENT
+
+        // check if attack was successful
+        if (currLog.bAttackSuccessful) {
+            var skill = getSkillById(currLog.Skill_FK);
+                
+            if (skill.Skill_Type == "Attack" || skill.Skill_Type == "Taunt" || skill.Skill_Type.indexOf("Affliction") > -1) {
+                // hostile action, deal damage
+                target.takeDamage(currLog.Damage_Final_Result);
+
+                if (skill.Special_Min_Roll != null && skill.Special_Min_Roll <= currLog.Attack_Final_Result) {
+                    // show target is taunted or afflicted
+                }
+
+            }
+            else if (skill.Skill_Type == "Heal") {
+                target.healDamage(currLog.Damage_Final_Result);
+            }
+            else if (skill.Skill_Type.indexOf("Guard") > -1) {
+                // show that target is guarded
+            }
+            else if (skill.Skill_Type.indexOf("Blessing") > -1) {
+                //show that target has recieved a blessing
+            }
+        }
+    }
+
+    // CLEAN UP        
+    $(".pic-border-assailant").addClass("pic-border-light");
+    $(".pic-border-assailant").removeClass("pic-border-assailant");
+    $(".pic-border-target").addClass("pic-border-light");
+    $(".pic-border-target").removeClass("pic-border-target");
+
+    // TIMER
+}
