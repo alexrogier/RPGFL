@@ -28,26 +28,28 @@
 // **** CHARACTER MANAGEMENT ****
 
 // character interface
-function character(charData) {
-    this.Character_PK = charData.Character_PK;
-    this.Character_Name = charData.Character_Name;
-    this.Title_Desc = charData.Title_Desc;
-    this.Health = charData.Health;
-    this.Max_Health = charData.Health;
-    this.Dodge = charData.Dodge;
-    this.Archetype = charData.Archetype;
-    this.Finesse = charData.Finesse;
-    this.Agility = charData.Agility;
-    this.Senses = charData.Senses;
-    this.Mana = charData.Mana;
-    this.Immunities = charData.Immunities;
-    this.Vulnerabilities = charData.Vulnerabilities;
-    this.Resistances = charData.Resistances;
-    this.Guild_FK = charData.Guild_FK;
-    this.Initiative = charData.Initiative;
-    this.Max_Energy = charData.Max_Energy;
-
-    this.takeDamage = function (damage) {
+var character = {
+    initialize: function(charData){
+        this.Character_PK = charData.Character_PK,
+        this.Character_Name = charData.Character_Name;
+        this.Title_Desc = charData.Title_Desc;
+        this.Health = charData.Health;
+        this.Max_Health = charData.Health;
+        this.Dodge = charData.Dodge;
+        this.Archetype = charData.Archetype;
+        this.Finesse = charData.Finesse;
+        this.Agility = charData.Agility;
+        this.Senses = charData.Senses;
+        this.Mana = charData.Mana;
+        this.Immunities = charData.Immunities;
+        this.Vulnerabilities = charData.Vulnerabilities;
+        this.Resistances = charData.Resistances;
+        this.Guild_FK = charData.Guild_FK;
+        this.Initiative = charData.Initiative;
+        this.Max_Energy = charData.Max_Energy;
+        return this;
+    },    
+    takeDamage: function (damage) {
         this.Health -= damage;
 
         if (this.Health < 0 ) {
@@ -60,9 +62,8 @@ function character(charData) {
         $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthbar").css("width", (this.Health / this.Max_Health) * 64);
         $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthtext").text(this.Health + " / " + this.Max_Health);
         // damage dealing visual affects here
-    }
-
-    this.healDamage = function (damage) {
+    },
+    healDamage: function (damage) {
         this.Health += damage;
 
         if (this.Health > this.Max_Health) {
@@ -75,9 +76,8 @@ function character(charData) {
         $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthbar").css("width", (this.Health / this.Max_Health) * 64);
         $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthtext").text(this.Health + " / " + this.Max_Health);
         // healing visual affects here
-    }
-
-    this.getCharMapSlot = function(){
+    },
+    getCharMapSlot: function(){
         var charMapIndex = globalCharactersToMap.indexOf(this.Character_PK) + 1;
         if (charMapIndex > 12) charMapIndex -= 12;
 
@@ -89,7 +89,7 @@ var globalCharactersInSkirmish = []; // character warehouse to store all charact
 var globalCharactersToMap = []; // indexed list to map where characters are displayed on the page
 // character methods
 function addCharacterToSkirmish(charData) {
-    globalCharactersInSkirmish.push(new character(charData));
+    globalCharactersInSkirmish.push(new character.initialize(charData));
 }
 function addCharactersToMap(charData) {
     for (var i = 0; i < charData.length; i++) {
