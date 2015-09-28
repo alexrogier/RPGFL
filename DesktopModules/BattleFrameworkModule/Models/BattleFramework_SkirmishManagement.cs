@@ -266,6 +266,52 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                                 case 6:
                                     logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM Determine target legibility");
                                     // 6 - target legibility (Invisiblity, Knocked Out, Charmed, ect)
+
+                                    // no targets acquired during voting, determine random targets
+                                    if (!FavoredSkillFavoredTargets.Any())
+                                    {
+                                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms SYSTEM no targets were acquired in Voting, determine random targets ...");
+
+                                        for (var i = 0; i < FavoredSkill.Max_Targets; i++)
+                                        {
+                                            Character newTarget = new Character();
+                                            if (FavoredSkill.Skill_Type == "Attack" ||
+                                                FavoredSkill.Skill_Type == "Taunt" ||
+                                                FavoredSkill.Skill_Type.Contains("Affliction"))
+                                            {
+                                                // assign target to random enemy
+                                                newTarget = globalCharacters.FirstOrDefault(x => x.Guild_FK != currChar.Guild_FK && 
+                                                                                                !x.Conditions.bKnockedOut && 
+                                                                                                !x.Conditions.bInvisible &&
+                                                                                                !FavoredSkillFavoredTargets.Exists(y => y.Character_PK == x.Character_PK));
+                                            }
+
+                                            if (FavoredSkill.Skill_Type == "Heal")
+                                            {
+                                                // assign target to random friendly character (can include self)
+                                                newTarget = globalCharacters.FirstOrDefault(x => x.Guild_FK == currChar.Guild_FK &&
+                                                                                                !x.Conditions.bKnockedOut &&
+                                                                                                !x.Conditions.bInvisible &&
+                                                                                                !FavoredSkillFavoredTargets.Exists(y => y.Character_PK == x.Character_PK));
+                                            }
+
+                                            if (FavoredSkill.Skill_Type.Contains("Blessing") ||
+                                                FavoredSkill.Skill_Type.Contains("Guard"))
+                                            {
+                                                // assign target to random ally
+                                                newTarget = globalCharacters.FirstOrDefault(x => x.Guild_FK == currChar.Guild_FK &&
+                                                                                                x.Character_PK != currChar.Character_PK &&
+                                                                                                !x.Conditions.bKnockedOut &&
+                                                                                                !x.Conditions.bInvisible &&
+                                                                                                !FavoredSkillFavoredTargets.Exists(y => y.Character_PK == x.Character_PK));
+                                            }
+
+                                            if(newTarget != null) FavoredSkillFavoredTargets.Add(newTarget);
+                                        }
+
+                                        logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms SYSTEM new targets: " + Json.Serialize(FavoredSkillFavoredTargets));
+                                    }
+
                                     foreach (var target in FavoredSkillFavoredTargets.ToList())
                                     {
                                         logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM target=[" + target.Character_Name + "] |" +
@@ -1342,13 +1388,13 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     // update guild win bonus for each character track log
                     foreach (var character in globalCharacters.Where(x => x.Guild_FK == victorGuildFK)) UpdateCharacterTrackLog(character.Character_PK, "Guild_Win_Bonus", 1);
 
-                    // logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms SYSTEM Push character track log to server ...");
+                     logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms SYSTEM Push character track log to server ...");
                     // push character track log to server UNCOMMENT
-                    //controller.CreateCharacterTrackLogForSkirmish(globalCharacterTrackLog);
+                    controller.CreateCharacterTrackLogForSkirmish(globalCharacterTrackLog);
 
-                    // logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms SYSTEM Push accolades to server ...");
+                     logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms SYSTEM Push accolades to server ...");
                     // update user accolades on server UNCOMMENT
-                    //controller.UpdateUserAccolades(skirmish.Skirmish_PK);
+                    controller.UpdateUserAccolades(skirmish.Skirmish_PK);
                     #endregion
                     #region CHARACTER MANAGEMENT
                     // update character energy for each character that performed a skill in the skirmish
@@ -1365,7 +1411,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     #endregion
 
                     // update skirmish
-                    //controller.UpdateSkirmish(skirmish.Skirmish_PK, skirmish.Guild_1_Accolade_Points, skirmish.Guild_2_Accolade_Points);
+                    controller.UpdateSkirmish(skirmish.Skirmish_PK, skirmish.Guild_1_Accolade_Points, skirmish.Guild_2_Accolade_Points);
 
                     logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms  SYSTEM End Skirmish Combat Log:");
                     logger.WriteLine(Json.Serialize(globalCombatLog));
@@ -1407,7 +1453,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
             if (!relativeVotes.Any())
             {
                 // nobody voted for this character, perform 0 energy skill
-                FavoredSkill = GetSkill(globalSkills.FirstOrDefault(x => x.Energy_Cost == 0 && x.Character_FK == Character_PK).Skill_PK);
+                FavoredSkill = GetSkill(globalSkills.FirstOrDefault(x => x.Energy_Cost == 0 && x.Character_FK == Character_PK && !x.bIsPassive).Skill_PK);
             }
             else
             {

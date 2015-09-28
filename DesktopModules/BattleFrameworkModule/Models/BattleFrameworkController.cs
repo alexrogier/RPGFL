@@ -287,12 +287,12 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
                     using (var connection = new SqlConnection(DataProvider.Instance().ConnectionString))
                     {
-                        using (var command = new SqlCommand("RPGFL_CreateCombatLogForSkirmish", connection))
+                        using (var command = new SqlCommand("RPGFL_CreateCharacterTrackLogForSkirmish", connection))
                         {
                             //Setup Parameters
                             command.CommandType = CommandType.StoredProcedure;
                             var tableParam = new SqlParameter("@AccoladeLog", accoladeData);
-                            tableParam.TypeName = "dbo.RPGFL_CombatLog";
+                            tableParam.TypeName = "dbo.RPGFL_AccoladeLog";
                             tableParam.SqlDbType = SqlDbType.Structured;
                             command.Parameters.Add(tableParam);
 

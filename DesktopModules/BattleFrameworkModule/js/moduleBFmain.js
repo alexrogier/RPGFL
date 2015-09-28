@@ -60,6 +60,31 @@ function character(charData) {
         $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthbar").css("width", (this.Health / this.Max_Health) * 64);
         $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthtext").text(this.Health + " / " + this.Max_Health);
         // damage dealing visual affects here
+
+        // IMAGE RUMBLE - causes horrible browser performance
+        //var animTime = 100,
+	    //    rotateDeg = 10;
+        //$({ deg: 0 }).animate({ deg: rotateDeg }, {
+        //    duration: animTime,
+        //    step: function (now) {
+        //        $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex).css({
+        //            transform: 'rotate(' + now + 'deg)'
+        //        });
+        //    }, done: function () {
+        //        $({ deg: 0 }).animate({ deg: -rotateDeg }, {
+        //            duration: animTime,
+        //            step: function (now) {
+        //                $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex).css({
+        //                    transform: 'rotate(' + now + 'deg)'
+        //                });
+        //            }, done: function () {
+        //                $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex).css({
+        //                    transform: 'rotate(0deg)'
+        //                });
+        //            }
+        //        });
+        //    }
+        //});
     };
     this.healDamage = function(damage) {
         console.log(this.Character_Name + " healing " + damage + " health!");
