@@ -41,8 +41,15 @@
 
                     <div class="row">
                         <div class="text-right col-md-5 col-xs-5">
+                            <div class="row">                                                         
+                                <div id="guild_1_char_1_statusbar">
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
-                                <img id="guild_1_char_1" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img id="guild_1_char_1" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
                             <div class="row">
                                 <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -54,6 +61,13 @@
                         </div>
                         <div class="col-md-2 col-xs-2"></div>
                         <div class="text-left col-md-5 col-xs-5">
+                            <div class="row">                                                         
+                                <div id="guild_1_char_2_statusbar">
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_1_char_2" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -68,6 +82,13 @@
                     </div>
                     <div class="row">
                         <div class="text-right col-md-5 col-xs-5">
+                            <div class="row">                                                         
+                                <div id="guild_1_char_3_statusbar">
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_1_char_3" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -81,6 +102,13 @@
                         </div>
                         <div class="col-md-2 col-xs-2"></div>
                         <div class="text-left col-md-5 col-xs-5">
+                           <div class="row">                                                         
+                                <div id="guild_1_char_4_statusbar">
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_1_char_4" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -95,6 +123,13 @@
                     </div>
                     <div class="row">
                         <div class="text-right col-md-5 col-xs-5">
+                            <div class="row">                                                         
+                                <div id="guild_1_char_5_statusbar">
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_1_char_5" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -108,6 +143,13 @@
                         </div>
                         <div class="col-md-2 col-xs-2"></div>
                         <div class="text-left col-md-5 col-xs-5">
+                           <div class="row">                                                         
+                                <div id="guild_1_char_6_statusbar">
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_1_char_6" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -122,6 +164,13 @@
                     </div>
                     <div class="row">
                         <div class="text-right col-md-5 col-xs-5">
+                            <div class="row">                                                         
+                                <div id="guild_1_char_7_statusbar">
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_1_char_7" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -135,6 +184,13 @@
                         </div>
                         <div class="col-md-2 col-xs-2"></div>
                         <div class="text-left col-md-5 col-xs-5">
+                           <div class="row">                                                         
+                                <div id="guild_1_char_8_statusbar">
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_1_char_8" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -149,6 +205,13 @@
                     </div>
                     <div class="row">
                         <div class="text-right col-md-5 col-xs-5">
+                            <div class="row">                                                         
+                                <div id="guild_1_char_9_statusbar">
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_1_char_9" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -162,6 +225,13 @@
                         </div>
                         <div class="col-md-2 col-xs-2"></div>
                         <div class="text-left col-md-5 col-xs-5">
+                           <div class="row">                                                         
+                                <div id="guild_1_char_10_statusbar">
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_1_char_10" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -176,6 +246,13 @@
                     </div>
                     <div class="row">
                         <div class="text-right col-md-5 col-xs-5">
+                            <div class="row">                                                         
+                                <div id="guild_1_char_11_statusbar">
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_1_char_11" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -189,6 +266,13 @@
                         </div>
                         <div class="col-md-2 col-xs-2"></div>
                         <div class="text-left col-md-5 col-xs-5">
+                           <div class="row">                                                         
+                                <div id="guild_1_char_12_statusbar">
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_1_char_12" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -221,6 +305,13 @@
                     </div>
                     <div class="row">
                         <div class="text-right col-md-5 col-xs-5">
+                            <div class="row">                                                         
+                                <div id="guild_2_char_1_statusbar">
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_2_char_1" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -234,8 +325,15 @@
                         </div>
                         <div class="col-md-2 col-xs-2"></div>
                         <div class="text-left col-md-5 col-xs-5">
+                           <div class="row">                                                         
+                                <div id="guild_2_char_2_statusbar">
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
-                                <img id="guild_2_char_2" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img id="guild_2_char_2" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
                             <div class="row">
                                 <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -248,6 +346,13 @@
                     </div>
                     <div class="row">
                         <div class="text-right col-md-5 col-xs-5">
+                            <div class="row">                                                         
+                                <div id="guild_2_char_3_statusbar">
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_2_char_3" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -261,6 +366,13 @@
                         </div>
                         <div class="col-md-2 col-xs-2"></div>
                         <div class="text-left col-md-5 col-xs-5">
+                           <div class="row">                                                         
+                                <div id="guild_2_char_4_statusbar">
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_2_char_4" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -275,6 +387,13 @@
                     </div>
                     <div class="row">
                         <div class="text-right col-md-5 col-xs-5">
+                            <div class="row">                                                         
+                                <div id="guild_2_char_5_statusbar">
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_2_char_5" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -288,6 +407,13 @@
                         </div>
                         <div class="col-md-2 col-xs-2"></div>
                         <div class="text-left col-md-5 col-xs-5">
+                           <div class="row">                                                         
+                                <div id="guild_2_char_6_statusbar">
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_2_char_6" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -302,6 +428,13 @@
                     </div>
                     <div class="row">
                         <div class="text-right col-md-5 col-xs-5">
+                            <div class="row">                                                         
+                                <div id="guild_2_char_7_statusbar">
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_2_char_7" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -315,6 +448,13 @@
                         </div>
                         <div class="col-md-2 col-xs-2"></div>
                         <div class="text-left col-md-5 col-xs-5">
+                           <div class="row">                                                         
+                                <div id="guild_2_char_8_statusbar">
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_2_char_8" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -329,6 +469,13 @@
                     </div>
                     <div class="row">
                         <div class="text-right col-md-5 col-xs-5">
+                            <div class="row">                                                         
+                                <div id="guild_2_char_9_statusbar">
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_2_char_9" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -342,6 +489,13 @@
                         </div>
                      <div class="col-md-2 col-xs-2"></div>
                         <div class="text-left col-md-5 col-xs-5">
+                           <div class="row">                                                         
+                                <div id="guild_2_char_10_statusbar">
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_2_char_10" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -356,6 +510,13 @@
                     </div>
                     <div class="row">
                         <div class="text-right col-md-5 col-xs-5">
+                            <div class="row">                                                         
+                                <div id="guild_2_char_11_statusbar">
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsleft" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_2_char_11" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -369,6 +530,13 @@
                         </div>
                     <div class="col-md-2 col-xs-2"></div>
                         <div class="text-left col-md-5 col-xs-5">
+                           <div class="row">                                                         
+                                <div id="guild_2_char_12_statusbar">
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                <img class="statusbarsright" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                </div>
+                            </div>
                             <div class="row">
                                 <img id="guild_2_char_12" class="char_img pic-border-light" src="portals/0/RPGFL/standings_avatar_64x64.jpg" />
                             </div>
@@ -390,12 +558,7 @@
     <div class="panel-body">
         <div class="col-md-3 col-xs-3"></div>
         <div class="col-md-6 col-xs-6">
-            <div class="primary-button scrollable offical-black-border" style="height: 200px;">
-                <div class="text-center topbotpadding offical-black-border name-container-color font-verdana">
-                    <p class="inline text-center guild1 font-verdana">Gantar the Honorable</p>
-                    <img class="inline" src="/portals/0/RPGFL/battle_icons/attackicon.png" />
-                    <p class="inline text-center guild2 font-verdana">Necromancer</p>
-                </div>
+            <div id="combatlogcontainer" class="primary-button scrollable offical-black-border" style="height: 200px;">
             </div>
         </div>
     </div>

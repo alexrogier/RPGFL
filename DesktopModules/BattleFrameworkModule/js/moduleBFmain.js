@@ -265,6 +265,15 @@ var globalCombatLog = []; // combatlog warehouse that contains all the actions t
 function addCombatLogEntry(logData) {
     globalCombatLog.push(new combatlog(logData));
 }
+function getCombatLogById(logId) {
+    for (var i = 0; i < globalCombatLog.length; i++) {
+        if (globalCombatLog[i].CombatLog_PK == logId)
+        {
+            return globalCombatLog[i];
+        }
+    }
+    return null;
+}
 // combatlog ajax handlers
 function getCombatLogData() {
     var combatLogData = null;
@@ -413,6 +422,7 @@ function executeTurn(actionStep)
 
                 if (skill.Special_Min_Roll != null && skill.Special_Min_Roll <= currLog.Attack_Final_Result) {
                     // show target is taunted or afflicted
+                    target.takeDamage(currLog.Conditions);
                 }
             }
             else if (skill.Skill_Type == "Heal") {
@@ -420,12 +430,44 @@ function executeTurn(actionStep)
             }
             else if (skill.Skill_Type.indexOf("Guard") > -1) {
                 // show that target is guarded
+
             }
             else if (skill.Skill_Type.indexOf("Blessing") > -1) {
                 //show that target has recieved a blessing
             }
         }
+
+        displayCombatResult(currLog.CombatLog_PK);
     }
 
     // CLEAN UP   
+}
+
+function displayCombatResult(combatLogPk)
+{
+    var log = getCombatLogById(combatLogPk);
+    var skillType = getSkillById(log.Skill_FK).Skill_Type;
+    var logIcon;
+
+    if (skillType == 'Attack' || skillType.indexOf('Affliction') > -1 || skillType == 'Taunt' || skillType == 'Passive') {
+        logIcon = '/portals/0/RPGFL/battle_icons/attackicon.png';
+    } else if (skillType.indexOf('Blessing') > -1) {
+        logIcon = '/portals/0/RPGFL/battle_icons/casticon.png';
+    } else if (skillType == 'Heal') {
+        logIcon = '/portals/0/RPGFL/battle_icons/healicon.png';
+    } else if (skillType.indexOf('Guard') > -1) {
+        logIcon = '/portals/0/RPGFL/battle_icons/guardicon.png';
+    } 
+    var assailant = getCharacterById(log.Assailant_Character_FK);
+    var target = getCharacterById(log.Target_Character_FK);
+
+    // Use accordian collapsable 
+
+    var logHTML = '<div class="text-center topbotpadding offical-black-border name-container-color font-verdana">' +
+                    '<p class="inline text-center guild'+ assailant.Guild_FK +' font-verdana">'+ assailant.Character_Name +'</p>' +
+                    ' <img class="inline" src="'+ logIcon +'" /> ' +
+                    '<p class="inline text-center guild' + target.Guild_FK + ' font-verdana">' + target.Character_Name + '</p>' +
+                '</div>';
+    $('#combatlogcontainer').html(logHTML + $('#combatlogcontainer').html());
+    // create additional information 
 }
