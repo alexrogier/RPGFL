@@ -400,6 +400,11 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
             DataProvider.Instance().ExecuteReader("RPGFL_UpdateUserAccolades", Skirmish_PK);
             return true;
         }
+        public bool UpdateUserSkirmishExperience(int Skirmish_PK)
+        {
+            DataProvider.Instance().ExecuteReader("RPGFL_UpdateUserSkirmishExperience", Skirmish_PK);
+            return true;
+        }
         public IList<Character> GetAllCharacterDataInSkirmish(int Skirmish_PK)
         {
             return CBO.FillCollection<Character>(DataProvider.Instance().ExecuteReader("RPGFL_GetAllCharacterDataInSkirmish", Skirmish_PK));

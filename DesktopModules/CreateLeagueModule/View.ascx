@@ -45,8 +45,6 @@
             <h4>League Duration</h4>
             <select class="form-control" id="dropdown_leagueduration">
                 <option value="1">1 Campaign</option>
-                <option value="2">2 Campaigns</option>
-                <option value="3">3 Campaigns</option>
                 <option selected="selected" value="4">Series Long</option>
             </select>
             <p>Select the duration of how long the league will last</p>

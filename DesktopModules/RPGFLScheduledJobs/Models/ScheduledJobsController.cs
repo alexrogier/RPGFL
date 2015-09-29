@@ -50,6 +50,12 @@ namespace Christoc.Modules.RPGFLScheduledJobs.Models
             return true;
         }
 
+        public bool CreateLeagueCharacterDraft()
+        {
+            DataProvider.Instance().ExecuteReader("RPGFL_CreateLeagueCharacterDraft");
+            return true;
+        }
+
         public bool DeleteArchivedSkirmishesFromInterval(int DeleteInterval)
         {
             DataProvider.Instance().ExecuteReader("RPGFL_DeleteArchivedSkirmishesFromInterval", DeleteInterval);
