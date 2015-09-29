@@ -46,13 +46,23 @@ function character(charData) {
     this.Guild_FK = charData.Guild_FK;
     this.Initiative = charData.Initiative;
     this.Max_Energy = charData.Max_Energy;
+    this.Conditions = {
+        bTaunted: false,
+        bAfflicted: false,
+        bBlessed: false,
+        bCharmed: false,
+        bBlinded: false,
+        bInvisible: false,
+        bKnockedOut: false,
+        bGuarded: false,
+        bStunned: false
+    };
     this.takeDamage = function(damage) {
         console.log(this.Character_Name + " taking " + damage + " damage!");
         this.Health -= damage;
 
-        if (this.Health < 0) {
-            this.Health = 0;
-        }
+        if (this.Health < 0) this.Health = 0;
+        if (this.Health == 0) this.recieveCondition("Knocked_Out");
 
         var charMapIndex = globalCharactersToMap.indexOf(this.Character_PK) + 1;
         if (charMapIndex > 12) charMapIndex -= 12;
@@ -101,13 +111,219 @@ function character(charData) {
         $("#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex + "_healthtext").text(this.Health + " / " + this.Max_Health);
         // healing visual affects here
     };
-    this.getCharMapSlot = function() {
+    this.getCharMapSlot = function () {
         var charMapIndex = globalCharactersToMap.indexOf(this.Character_PK) + 1;
         if (charMapIndex > 12) charMapIndex -= 12;
 
         return "#guild_" + (this.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2) + "_char_" + charMapIndex;
-    }
+    };
+    this.populateConditions = function () {
+        //reset status bar
+        $(this.getCharMapSlot() + '_statusbar').empty();
+        //Do they have more than 3 conditions?
+        
+        //populate with current conditions
+        var tauntedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_taunted.jpg" />'
+        var afflictedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_afflicted.jpg" />'
+        var blessedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_blessed.jpg" />'
+        var charmedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_charmed.jpg" />'
+        var blindedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_blinded.jpg" />'
+        var invisibleHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_invisible.jpg" />'
+        var guardedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_guarded.jpg" />'
+        var stunnedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_stunned.jpg" />'
+        var elipseHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_elipse.jpg" />'
+        var numOfConditions = 0;
+        var bUseElipse = (this.numOfConditions() >= 4 );
+        var conditions = ['Afflicted', 'Blessed', 'Taunted', 'Charmed', 'Blinded', 'Invisible', 'Guarded', 'Stunned'];
 
+        for (var i = 0; i < conditions.length; i++) {
+            switch (conditions[i]) {
+                case 'Afflicted':
+                    if (this.Conditions.bAfflicted) {
+                        numOfConditions++;
+                        $(this.getCharMapSlot() + '_statusbar').append(afflictedHTML);
+                    }
+                    break;
+                case 'Blessed':
+                    if (this.Conditions.bBlessed) {
+                        numOfConditions++;
+                        $(this.getCharMapSlot() + '_statusbar').append(blessedHTML);
+                    }
+                    break;
+                case 'Taunted':
+                    if (this.Conditions.bTaunted) {
+                        numOfConditions++;
+                        if (numOfConditions == 3 && bUseElipse) {
+                            $(this.getCharMapSlot() + '_statusbar').append(elipseHTML);
+                            //append nature of condition in text form
+                        } else {
+                            if (numOfConditions < 4) {
+                                $(this.getCharMapSlot() + '_statusbar').append(tauntedHTML);
+                            } else {
+                                //append nature of condition in text form
+                            }
+                        }
+                    }
+                    break;
+                case 'Charmed':
+                    if (this.Conditions.bCharmed) {
+                        numOfConditions++;
+                        if (numOfConditions == 3 && bUseElipse) {
+                            $(this.getCharMapSlot() + '_statusbar').append(elipseHTML);
+                            //append nature of condition in text form
+                        } else {
+                            if (numOfConditions < 4) {
+                                $(this.getCharMapSlot() + '_statusbar').append(charmedHTML);
+                            } else {
+                                //append nature of condition in text form
+                            }
+                        }
+                    }
+                    break;
+                case 'Blinded':
+                    if (this.Conditions.bBlinded) {
+                        numOfConditions++;
+                        if (numOfConditions == 3 && bUseElipse) {
+                            $(this.getCharMapSlot() + '_statusbar').append(elipseHTML);
+                            //append nature of condition in text form
+                        } else {
+                            if (numOfConditions < 4) {
+                                $(this.getCharMapSlot() + '_statusbar').append(blindedHTML);
+                            } else {
+                                //append nature of condition in text form
+                            }
+                        }
+                    }
+                    break;
+                case 'Invisible':
+                    if (this.Conditions.bInvisible) {
+                        numOfConditions++;
+                        if (numOfConditions == 3 && bUseElipse) {
+                            $(this.getCharMapSlot() + '_statusbar').append(elipseHTML);
+                            //append nature of condition in text form
+                        } else {
+                            if (numOfConditions < 4) {
+                                $(this.getCharMapSlot() + '_statusbar').append(invisibleHTML);
+                            } else {
+                                //append nature of condition in text form
+                            }
+                        }
+                    }
+                    break;
+                case 'Guarded':
+                    if (this.Conditions.bGuarded) {
+                        numOfConditions++;
+                        if (numOfConditions == 3 && bUseElipse) {
+                            $(this.getCharMapSlot() + '_statusbar').append(elipseHTML);
+                            //append nature of condition in text form
+                        } else {
+                            if (numOfConditions < 4) {
+                                $(this.getCharMapSlot() + '_statusbar').append(guardedHTML);
+                            } else {
+                                //append nature of condition in text form
+                            }
+                        }
+                    }
+                    break;
+                case 'Stunned':
+                    if (this.Conditions.bStunned) {
+                        numOfConditions++;
+                        if (numOfConditions == 3 && bUseElipse) {
+                            $(this.getCharMapSlot() + '_statusbar').append(elipseHTML);
+                            //append nature of condition in text form
+                        } else {
+                            if (numOfConditions < 4) {
+                                $(this.getCharMapSlot() + '_statusbar').append(stunnedHTML);
+                            } else {
+                                //append nature of condition in text form
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+        if (this.Conditions.bKnockedOut) {
+            // grey out character picture here
+        }
+    };
+    this.recieveCondition = function (condition) {
+        switch (condition) {
+            case 'Afflicted':
+                this.Conditions.bAfflicted = true;
+                break;
+            case 'Blessed':
+                this.Conditions.bBlessed = true;
+                break;
+            case 'Taunted':
+                this.Conditions.bTaunted = true;
+                break;
+            case 'Charmed':
+                this.Conditions.bCharmed = true;
+                break;
+            case 'Blinded':
+                this.Conditions.bBlinded = true;
+                break;
+            case 'Invisible':
+                this.Conditions.bInvisible = true;
+                break;
+            case 'Guarded':
+                this.Conditions.bGuarded = true;
+                break;
+            case 'Stunned':
+                this.Conditions.bStunned = true;
+                break;
+            case 'Knocked_Out':
+                this.Conditions.bKnockedOut = true;
+                break;
+        }
+        this.populateConditions();
+    };
+    this.removeCondition = function (condition) {
+        switch (condition) {
+            case 'Afflicted':
+                this.Conditions.bAfflicted = false;
+                break;
+            case 'Blessed':
+                this.Conditions.bBlessed = false;
+                break;
+            case 'Taunted':
+                this.Conditions.bTaunted = false;
+                break;
+            case 'Charmed':
+                this.Conditions.bCharmed = false;
+                break;
+            case 'Blinded':
+                this.Conditions.bBlinded = false;
+                break;
+            case 'Invisible':
+                this.Conditions.bInvisible = false;
+                break;
+            case 'Guarded':
+                this.Conditions.bGuarded = false;
+                break;
+            case 'Stunned':
+                this.Conditions.bStunned = false;
+                break;
+            case 'Knocked_Out':
+                this.Conditions.bKnockedOut = false;
+                break;
+        }
+        this.populateConditions();
+    };
+    this.numOfConditions = function () {
+        var numConditions = 0;
+
+        if (this.Conditions.bTaunted) numConditions++;
+        if (this.Conditions.bAfflicted) numConditions++;
+        if (this.Conditions.bBlessed) numConditions++;
+        if (this.Conditions.bCharmed) numConditions++;
+        if (this.Conditions.bBlinded) numConditions++;
+        if (this.Conditions.bInvisible) numConditions++;
+        if (this.Conditions.bGuarded) numConditions++;
+        if (this.Conditions.bStunned) numConditions++;
+
+        return numConditions;
+    };
     return this;
 }
 var globalCharactersInSkirmish = []; // character warehouse to store all characters who are in skirmish
@@ -447,7 +663,12 @@ function executeTurn(actionStep)
 
                 if (skill.Special_Min_Roll != null && skill.Special_Min_Roll <= currLog.Attack_Final_Result) {
                     // show target is taunted or afflicted
-                    target.takeDamage(currLog.Conditions);
+                    if (skill.Skill_Type == "Taunt") {
+                        target.recieveCondition("Taunted");
+                    } else if (skill.Skill_Type.indexOf("Affliction") > -1) {
+                        target.recieveCondition("Afflicted");
+                        // write additional affliction logic - charmed, blinded, stunned etc
+                    }
                 }
             }
             else if (skill.Skill_Type == "Heal") {
@@ -455,10 +676,11 @@ function executeTurn(actionStep)
             }
             else if (skill.Skill_Type.indexOf("Guard") > -1) {
                 // show that target is guarded
-
+                target.recieveCondition("Guarded");
             }
             else if (skill.Skill_Type.indexOf("Blessing") > -1) {
                 //show that target has recieved a blessing
+                target.recieveCondition("Blessed");
             }
         }
 

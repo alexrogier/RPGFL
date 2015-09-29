@@ -143,8 +143,7 @@ table.table-padding td{
 .toppadding{padding-top: 10px;}
 .inline{display:inline;}
 .topbotpadding {padding-top: 2px; padding-bottom: 2px;}
-.statusbarsleft {width: 21px; height 21px; display: inline-block; float: right;}
-.statusbarsright {width: 21px; height 21px; display: inline-block; float: left;}
+.statusbaricon {width: 21px; height: 21px;}
 .div-center{ /* -- center-div -- rename to 'div-center' */
     width: 50%;
     margin: 0px;
