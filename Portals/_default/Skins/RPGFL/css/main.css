@@ -145,6 +145,7 @@ table.table-padding td{
 .inline{display:inline;}
 .topbotpadding {padding-top: 2px; padding-bottom: 2px;}
 .statusbaricon {width: 21px; height: 21px;}
+.conditionbar{height: 21px;}
 .div-center{ /* -- center-div -- rename to 'div-center' */
     width: 50%;
     margin: 0px;

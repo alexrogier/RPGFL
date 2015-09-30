@@ -58,7 +58,6 @@ function character(charData) {
         bStunned: false
     };
     this.takeDamage = function(damage) {
-        console.log(this.Character_Name + " taking " + damage + " damage!");
         this.Health -= damage;
 
         if (this.Health < 0) this.Health = 0;
@@ -97,7 +96,6 @@ function character(charData) {
         //});
     };
     this.healDamage = function(damage) {
-        console.log(this.Character_Name + " healing " + damage + " health!");
         this.Health += damage;
 
         if (this.Health > this.Max_Health) {
@@ -136,7 +134,8 @@ function character(charData) {
         var bUseElipse = (this.numOfConditions() >= 4 );
         var conditions = ['Afflicted', 'Blessed', 'Taunted', 'Charmed', 'Blinded', 'Invisible', 'Guarded', 'Stunned'];
 
-        for (var i = 0; i < conditions.length; i++) {
+
+        for (var i = 0; i < conditions.length; i++) {            
             switch (conditions[i]) {
                 case 'Afflicted':
                     if (this.Conditions.bAfflicted) {
@@ -654,12 +653,12 @@ function executeTurn(actionStep)
         // COMBAT LOG MANAGMENT
 
         // check if attack was successful
-        if (currLog.bAttackSuccessful) {
-            var skill = getSkillById(currLog.Skill_FK);
-                
+        var skill = getSkillById(currLog.Skill_FK);
+        if (currLog.bAttackSuccessful || skill.Skill_Type.indexOf("Guard") > -1 || skill.Skill_Type.indexOf("Blessing") > -1) {           
             if (skill.Skill_Type == "Attack" || skill.Skill_Type == "Taunt" || skill.Skill_Type.indexOf("Affliction") > -1) {
                 // hostile action, deal damage
                 target.takeDamage(currLog.Damage_Final_Result);
+                target.removeCondition("Guarded");
 
                 if (skill.Special_Min_Roll != null && skill.Special_Min_Roll <= currLog.Attack_Final_Result) {
                     // show target is taunted or afflicted
@@ -668,7 +667,7 @@ function executeTurn(actionStep)
                     } else if (skill.Skill_Type.indexOf("Affliction") > -1) {
                         target.recieveCondition("Afflicted");
                         // write additional affliction logic - charmed, blinded, stunned etc
-                    }
+                    } 
                 }
             }
             else if (skill.Skill_Type == "Heal") {
@@ -683,7 +682,6 @@ function executeTurn(actionStep)
                 target.recieveCondition("Blessed");
             }
         }
-
         displayCombatResult(currLog.CombatLog_PK);
     }
 
@@ -707,7 +705,6 @@ function displayCombatResult(combatLogPk)
     } 
     var assailant = getCharacterById(log.Assailant_Character_FK);
     var target = getCharacterById(log.Target_Character_FK);
-
     // Use accordian collapsable 
 
     var logHTML = '<div class="text-center topbotpadding offical-black-border name-container-color font-verdana">' +

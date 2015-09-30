@@ -43,10 +43,7 @@
                         <div class="col-md-1 col-xs-1"></div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_1_char_1_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_1_char_1_statusbar">                                                                                                                                                                                    
                                 </div>
                             </div>
                             <div class="row">
@@ -62,10 +59,7 @@
                         </div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_1_char_2_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_1_char_2_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -86,10 +80,7 @@
                         <div class="col-md-1 col-xs-1"></div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_1_char_3_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_1_char_3_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -105,10 +96,7 @@
                         </div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_1_char_4_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_1_char_4_statusbar">                                                                                                                                                                                     
                                 </div>
                             </div>
                             <div class="row">
@@ -129,10 +117,7 @@
                         <div class="col-md-1 col-xs-1"></div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_1_char_5_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_1_char_5_statusbar">                                                                                                                                                                                     
                                 </div>
                             </div>
                             <div class="row">
@@ -148,10 +133,7 @@
                         </div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_1_char_6_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_1_char_6_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -172,10 +154,7 @@
                         <div class="col-md-1 col-xs-1"></div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_1_char_7_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_1_char_7_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -191,10 +170,7 @@
                         </div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_1_char_8_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_1_char_8_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -210,15 +186,11 @@
                         </div>
                         <div class="col-md-1 col-xs-1"></div>
                     </div>
-
                     <div class="text-center row">
                         <div class="col-md-1 col-xs-1"></div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_1_char_9_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_1_char_9_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -234,10 +206,7 @@
                         </div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_1_char_10_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_1_char_10_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -258,10 +227,7 @@
                         <div class="col-md-1 col-xs-1"></div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_1_char_11_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_1_char_11_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -277,10 +243,7 @@
                         </div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_1_char_12_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_1_char_12_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -319,10 +282,7 @@
                         <div class="col-md-1 col-xs-1"></div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_2_char_1_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_2_char_1_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -338,10 +298,7 @@
                         </div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_2_char_2_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_2_char_2_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -362,10 +319,7 @@
                         <div class="col-md-1 col-xs-1"></div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_2_char_3_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_2_char_3_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -381,10 +335,7 @@
                         </div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_2_char_4_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_2_char_4_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -404,10 +355,7 @@
                         <div class="col-md-1 col-xs-1"></div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_2_char_5_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_2_char_5_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -423,10 +371,7 @@
                         </div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_2_char_6_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_2_char_6_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -446,10 +391,7 @@
                         <div class="col-md-1 col-xs-1"></div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_2_char_7_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_2_char_7_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -465,10 +407,7 @@
                         </div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_2_char_8_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_2_char_8_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -488,10 +427,7 @@
                         <div class="col-md-1 col-xs-1"></div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_2_char_9_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_2_char_9_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -507,10 +443,7 @@
                         </div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_2_char_10_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_2_char_10_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -530,10 +463,7 @@
                         <div class="col-md-1 col-xs-1"></div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_2_char_11_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_2_char_11_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
@@ -549,10 +479,7 @@
                         </div>
                         <div class="col-md-5 col-xs-5">
                             <div class="row">                                                         
-                                <div id="guild_2_char_12_statusbar">
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                 
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                <img class="statusbaricon" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />                                                     
+                                <div class="conditionbar" id="guild_2_char_12_statusbar">                                                                                                                                                                                      
                                 </div>
                             </div>
                             <div class="row">
