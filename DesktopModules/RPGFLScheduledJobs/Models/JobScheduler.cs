@@ -57,6 +57,8 @@ namespace Christoc.Modules.RPGFLScheduledJobs.Models
                     // old campaign has ended, create character data for new one
                     this.ScheduleHistoryItem.AddLogNote("DoWork: setup character energy for newly active campaign");
                     controller.CreateNewCampaignDataForCharacters();
+                    // perform character drafting logic for leagues
+                    controller.CreateLeagueCharacterDraft();
                 }
                 #endregion
 

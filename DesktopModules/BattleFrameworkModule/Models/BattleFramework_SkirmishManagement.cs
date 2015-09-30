@@ -1409,6 +1409,10 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     // logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms SYSTEM Push energy costs to server ...");
                     //controller.UpdateCharacterEnergy(newEnergyValues);
                     #endregion
+                    #region USER EXPERIENCE MANAGEMENT
+                    // record user experience
+                    controller.UpdateUserSkirmishExperience(skirmish.Skirmish_PK);
+                    #endregion
 
                     // update skirmish
                     controller.UpdateSkirmish(skirmish.Skirmish_PK, skirmish.Guild_1_Accolade_Points, skirmish.Guild_2_Accolade_Points);
