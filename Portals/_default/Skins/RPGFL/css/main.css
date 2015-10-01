@@ -76,10 +76,10 @@ p{
 .progress-bar-danger { background-color: #B20000;}
 
 /** color codes for guilds*/
-.guild1 {color:#D7DF01;}
-.guild2 {color:#585858;}
-.guild3{color:#04B404;}
-.guild4{color:#FF6600;}]
+.guild1 {color:#D7DF01;} /** Defenders of Light */
+.guild2 {color:#585858;} /** The Netherling */
+.guild3{color:#04B404;} /** Seed of the Grove */
+.guild4{color:#FF6600;} /** Artificer Guild */
 .combat-log-color {color:#848484;}
 .name-container-color{background-color:#1C1C1C;}
 
