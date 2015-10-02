@@ -66,6 +66,7 @@ function populateSkirmishes() {
                 $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_1_winlose").addClass("text_skirmish_lose")
                 $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p.guild_2_winlose").addClass("text_skirmish_win")
             }
+            $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p > a.btn").attr("href", "/Mock-Module-Pages/Module-BATTLEFRAMEWORK?skirmishid=" + currSkirmish.Skirmish_PK) // change to official battleframework page later!
         } else {
             $("#table_tbody_skirmishdata > tr#skirmish_data_" + currSkirmish.Skirmish_PK + " > td > p > button.btn").hide();
         }
