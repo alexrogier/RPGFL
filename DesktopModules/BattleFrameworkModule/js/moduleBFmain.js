@@ -59,7 +59,8 @@ function character(charData) {
     };
     this.takeDamage = function(damage) {
         this.Health -= damage;
-
+        
+        console.log(this.Character_Name + this.Health);
         if (this.Health < 0) this.Health = 0;
         if (this.Health == 0) {
             this.recieveCondition("Knocked_Out");
@@ -282,6 +283,7 @@ function character(charData) {
                 break;
             case 'Knocked_Out':
                 this.Conditions.bKnockedOut = true;
+                $(this.getCharMapSlot()).addClass("knockedout");
                 break;
         }
         this.populateConditions();
