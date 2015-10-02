@@ -80,6 +80,12 @@ p{
 .guild2 {color:#585858;} /** The Netherling */
 .guild3{color:#04B404;} /** Seed of the Grove */
 .guild4{color:#FF6600;} /** Artificer Guild */
+.knockedout {opacity: .5;}
+.overlayImage{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
 .combat-log-color {color:#848484;}
 .name-container-color{background-color:#1C1C1C;}
 

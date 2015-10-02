@@ -61,7 +61,16 @@ function character(charData) {
         this.Health -= damage;
 
         if (this.Health < 0) this.Health = 0;
-        if (this.Health == 0) this.recieveCondition("Knocked_Out");
+        if (this.Health == 0) {
+            this.recieveCondition("Knocked_Out");
+            this.removeCondition("Taunted");
+            this.removeCondition("Blessed");
+            this.removeCondition("Charmed");
+            this.removeCondition("Blinded");
+            this.removeCondition("Invisible");
+            this.removeCondition("Guarded");
+            this.removeCondition("Stunned");
+        }
 
         var charMapIndex = globalCharactersToMap.indexOf(this.Character_PK) + 1;
         if (charMapIndex > 12) charMapIndex -= 12;
@@ -121,15 +130,15 @@ function character(charData) {
         //Do they have more than 3 conditions?
         
         //populate with current conditions
-        var tauntedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_taunted.jpg" />'
-        var afflictedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_afflicted.jpg" />'
-        var blessedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_blessed.jpg" />'
-        var charmedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_charmed.jpg" />'
-        var blindedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_blinded.jpg" />'
-        var invisibleHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_invisible.jpg" />'
-        var guardedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_guarded.jpg" />'
-        var stunnedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_stunned.jpg" />'
-        var elipseHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_elipse.jpg" />'
+        var tauntedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_taunted.png" />'
+        var afflictedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_afflicted.png" />'
+        var blessedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_blessed.png" />'
+        var charmedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_charmed.png" />'
+        var blindedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_blinded.png" />'
+        var invisibleHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_invisible.png" />'
+        var guardedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_guarded.png" />'
+        var stunnedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_stunned.png" />'
+        var elipseHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_elipse.png" />'
         var numOfConditions = 0;
         var bUseElipse = (this.numOfConditions() >= 4 );
         var conditions = ['Afflicted', 'Blessed', 'Taunted', 'Charmed', 'Blinded', 'Invisible', 'Guarded', 'Stunned'];
