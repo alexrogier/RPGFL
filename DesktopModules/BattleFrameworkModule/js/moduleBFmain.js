@@ -58,11 +58,20 @@ function character(charData) {
         bStunned: false
     };
     this.takeDamage = function(damage) {
-        console.log(this.Character_Name + " taking " + damage + " damage!");
         this.Health -= damage;
-
+        
+        console.log(this.Character_Name + this.Health);
         if (this.Health < 0) this.Health = 0;
-        if (this.Health == 0) this.recieveCondition("Knocked_Out");
+        if (this.Health == 0) {
+            this.recieveCondition("Knocked_Out");
+            this.removeCondition("Taunted");
+            this.removeCondition("Blessed");
+            this.removeCondition("Charmed");
+            this.removeCondition("Blinded");
+            this.removeCondition("Invisible");
+            this.removeCondition("Guarded");
+            this.removeCondition("Stunned");
+        }
 
         var charMapIndex = globalCharactersToMap.indexOf(this.Character_PK) + 1;
         if (charMapIndex > 12) charMapIndex -= 12;
@@ -97,7 +106,6 @@ function character(charData) {
         //});
     };
     this.healDamage = function(damage) {
-        console.log(this.Character_Name + " healing " + damage + " health!");
         this.Health += damage;
 
         if (this.Health > this.Max_Health) {
@@ -123,20 +131,21 @@ function character(charData) {
         //Do they have more than 3 conditions?
         
         //populate with current conditions
-        var tauntedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_taunted.jpg" />'
-        var afflictedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_afflicted.jpg" />'
-        var blessedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_blessed.jpg" />'
-        var charmedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_charmed.jpg" />'
-        var blindedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_blinded.jpg" />'
-        var invisibleHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_invisible.jpg" />'
-        var guardedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_guarded.jpg" />'
-        var stunnedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_stunned.jpg" />'
-        var elipseHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_elipse.jpg" />'
+        var tauntedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_taunted.png" />'
+        var afflictedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_afflicted.png" />'
+        var blessedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_blessed.png" />'
+        var charmedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_charmed.png" />'
+        var blindedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_blinded.png" />'
+        var invisibleHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_invisible.png" />'
+        var guardedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_guarded.png" />'
+        var stunnedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_stunned.png" />'
+        var elipseHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_elipse.png" />'
         var numOfConditions = 0;
         var bUseElipse = (this.numOfConditions() >= 4 );
         var conditions = ['Afflicted', 'Blessed', 'Taunted', 'Charmed', 'Blinded', 'Invisible', 'Guarded', 'Stunned'];
 
-        for (var i = 0; i < conditions.length; i++) {
+
+        for (var i = 0; i < conditions.length; i++) {            
             switch (conditions[i]) {
                 case 'Afflicted':
                     if (this.Conditions.bAfflicted) {
@@ -274,6 +283,7 @@ function character(charData) {
                 break;
             case 'Knocked_Out':
                 this.Conditions.bKnockedOut = true;
+                $(this.getCharMapSlot()).addClass("knockedout");
                 break;
         }
         this.populateConditions();
@@ -654,12 +664,12 @@ function executeTurn(actionStep)
         // COMBAT LOG MANAGMENT
 
         // check if attack was successful
-        if (currLog.bAttackSuccessful) {
-            var skill = getSkillById(currLog.Skill_FK);
-                
+        var skill = getSkillById(currLog.Skill_FK);
+        if (currLog.bAttackSuccessful || skill.Skill_Type.indexOf("Guard") > -1 || skill.Skill_Type.indexOf("Blessing") > -1) {           
             if (skill.Skill_Type == "Attack" || skill.Skill_Type == "Taunt" || skill.Skill_Type.indexOf("Affliction") > -1) {
                 // hostile action, deal damage
                 target.takeDamage(currLog.Damage_Final_Result);
+                target.removeCondition("Guarded");
 
                 if (skill.Special_Min_Roll != null && skill.Special_Min_Roll <= currLog.Attack_Final_Result) {
                     // show target is taunted or afflicted
@@ -668,7 +678,7 @@ function executeTurn(actionStep)
                     } else if (skill.Skill_Type.indexOf("Affliction") > -1) {
                         target.recieveCondition("Afflicted");
                         // write additional affliction logic - charmed, blinded, stunned etc
-                    }
+                    } 
                 }
             }
             else if (skill.Skill_Type == "Heal") {
@@ -683,7 +693,6 @@ function executeTurn(actionStep)
                 target.recieveCondition("Blessed");
             }
         }
-
         displayCombatResult(currLog.CombatLog_PK);
     }
 
@@ -707,7 +716,6 @@ function displayCombatResult(combatLogPk)
     } 
     var assailant = getCharacterById(log.Assailant_Character_FK);
     var target = getCharacterById(log.Target_Character_FK);
-
     // Use accordian collapsable 
 
     var logHTML = '<div class="text-center topbotpadding offical-black-border name-container-color font-verdana">' +
