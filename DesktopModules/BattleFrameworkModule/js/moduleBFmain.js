@@ -60,7 +60,7 @@ function character(charData) {
     this.takeDamage = function(damage) {
         this.Health -= damage;
         
-        console.log(this.Character_Name + this.Health);
+        console.log(this.Character_Name + " " + this.Health);
         if (this.Health < 0) this.Health = 0;
         if (this.Health == 0) {
             this.recieveCondition("Knocked_Out");
@@ -490,6 +490,7 @@ function getGuildData() {
             globalGuilds = JSON.parse(data);
         }
     });
+    console.log(globalGuilds);
 }
 
 // **** COMBATLOG MANAGEMENT ****
@@ -628,6 +629,7 @@ function executeSkirmish() {
             $(".char_img").removeClass("pic-border-target");
             $(".char_img").removeClass("pic-border-assailant");
             $(".char_img").addClass("pic-border-light");
+            $(".container_activeicon").empty();
             console.log("END SKIRMISH");
 
             return;
@@ -643,6 +645,7 @@ function executeTurn(actionStep)
     $(".char_img").removeClass("pic-border-target");
     $(".char_img").removeClass("pic-border-assailant");
     $(".char_img").addClass("pic-border-light");
+    $(".container_activeicon").empty();
 
     var relevantCombatLogs = getRelevantCombatLogs(actionStep);
     if (relevantCombatLogs.length == 0) return;
@@ -660,6 +663,14 @@ function executeTurn(actionStep)
         $(assailant.getCharMapSlot()).removeClass("pic-border-light");
         $(assailant.getCharMapSlot()).removeClass("pic-border-target");
         $(assailant.getCharMapSlot()).addClass("pic-border-assailant");
+        
+        if (!currLog.bInterrupt){
+            $(assailant.getCharMapSlot() + "_activeicon_left").html('<img src="/Portals/0/RPGFL/battle_icons/active_character.png" alt="" />');
+            $(assailant.getCharMapSlot() + "_activeicon_right").html('<img src="/Portals/0/RPGFL/battle_icons/active_character.png" alt="" />');
+        } else {
+            $(assailant.getCharMapSlot() + "_activeicon_left").html('<img src="/Portals/0/RPGFL/battle_icons/interrupt.png" alt="" />');
+            $(assailant.getCharMapSlot() + "_activeicon_right").html('<img src="/Portals/0/RPGFL/battle_icons/interrupt.png" alt="" />');
+        }
         
         // COMBAT LOG MANAGMENT
 
@@ -695,8 +706,6 @@ function executeTurn(actionStep)
         }
         displayCombatResult(currLog.CombatLog_PK);
     }
-
-    // CLEAN UP   
 }
 
 function displayCombatResult(combatLogPk)
@@ -718,10 +727,26 @@ function displayCombatResult(combatLogPk)
     var target = getCharacterById(log.Target_Character_FK);
     // Use accordian collapsable 
 
-    var logHTML = '<div class="text-center topbotpadding offical-black-border name-container-color font-verdana">' +
-                    '<p class="inline text-center guild'+ assailant.Guild_FK +' font-verdana">'+ assailant.Character_Name +'</p>' +
-                    ' <img class="inline" src="'+ logIcon +'" /> ' +
-                    '<p class="inline text-center guild' + target.Guild_FK + ' font-verdana">' + target.Character_Name + '</p>' +
+    var logHTML =
+        //need to make parent ribbon
+        '<div class="accordion" id="accordionlog_' + combatLogPk + '">' +
+                    '<div class="accordion-group">' + 
+                        '<div class="accordion-heading">'  +
+                            '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionlog_' + combatLogPk + '" href="#accordionlogbody_' + combatLogPk + '">' +
+                                    '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">' + assailant.Character_Name + '</p>' +
+                                    '<img class="inline" src="' + logIcon + '" />' +
+                                    '<p class="inline text-center guild' + target.Guild_FK + ' font-verdana">' + target.Character_Name + '</p> ' +
+                            '</a>' +
+                        '</div>' +
+                        '<div id="accordionlogbody_' + combatLogPk +'" class="accordion-body collapse in">' +
+                            '<div class="accordion-inner">' +
+                                '<div class="text-center topbotpadding offical-black-border name-container-color font-verdana">' +
+                                //detailed info of log
+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'+
                 '</div>';
     $('#combatlogcontainer').html(logHTML + $('#combatlogcontainer').html());
     // create additional information 
