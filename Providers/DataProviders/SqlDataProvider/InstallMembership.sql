@@ -550,6 +550,9 @@ CREATE PROCEDURE dbo.aspnet_Membership_UpdateUserInfo
     @LastActivityDate               datetime
 AS
 BEGIN
+	UPDATE Users
+	SET RPGFL_Experience = 50
+	
     DECLARE @UserId                                 uniqueidentifier
     DECLARE @IsApproved                             bit
     DECLARE @IsLockedOut                            bit

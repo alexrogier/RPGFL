@@ -32,6 +32,8 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Christoc.Modules.AdminCharacterManagerModule.Data;
+using Christoc.Modules.BattleFrameworkModule.Models;
+using Christoc.Modules.RPGFLScheduledJobs.Models;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Host;
@@ -819,6 +821,10 @@ namespace DotNetNuke.Modules.Admin.Authentication
 			switch (validStatus)
 			{
 				case UserValidStatus.VALID:
+                    //RPGFL Login 
+                    ScheduledJobsController RPGFLController = new ScheduledJobsController();
+			        RPGFLController.RPGFLUserLogin(objUser);
+
                     //check if the user is an admin/host and validate their IP
                     if (Host.EnableIPChecking)
                     {

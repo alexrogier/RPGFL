@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
+using DotNetNuke.Entities.Users;
 
 namespace Christoc.Modules.RPGFLScheduledJobs.Models
 {
@@ -61,5 +62,10 @@ namespace Christoc.Modules.RPGFLScheduledJobs.Models
             DataProvider.Instance().ExecuteReader("RPGFL_DeleteArchivedSkirmishesFromInterval", DeleteInterval);
             return true;
         }
+		
+		public bool RPGFLUserLogin(UserInfo user){
+			DataProvider.Instance().ExecuteReader("RPGFL_UpdateDailyLogin", user.UserID);
+            return true;
+		}
     }
 }
