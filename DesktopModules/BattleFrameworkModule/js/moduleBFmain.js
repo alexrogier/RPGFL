@@ -5,6 +5,12 @@
     getSkirmishData(skirmishId);
     populateSkirmishData();
 
+    if (globalSkirmish.Skirmish_Victor_FK == -1 && new Date(globalSkirmish.Skirmish_Date) > new Date()) {
+        // future skirmish
+        $('#battleskirmish').empty();
+        $('#battleskirmish').append('<p class="text-center">Sorry, this skirmish is not ready for voting. Please check back later.</p>');
+        return;
+    }
     // **** SETUP CHARACTERS ****
     getAllCharacterDataInSkirmish();
 
@@ -17,9 +23,15 @@
 
     // **** SETUP COMBAT LOG ****
     getCombatLogData();
-
+    
+    
+    if (globalSkirmish.Skirmish_Victor_FK != -1) {
     // **** BEGIN SKIRMISH ****
     executeSkirmish();
+    } else {
+        // start voting
+    }
+
 });
 
 /****************************************************************************************************
@@ -46,6 +58,7 @@ function character(charData) {
     this.Guild_FK = charData.Guild_FK;
     this.Initiative = charData.Initiative;
     this.Max_Energy = charData.Max_Energy;
+    this.bVote = false;
     this.Conditions = {
         bTaunted: false,
         bAfflicted: false,
@@ -411,7 +424,8 @@ function getAllCharacterDataInSkirmish() {
 // skirmish interface
 function skirmish(skirmishData) {
     this.Skirmish_PK = skirmishData[0].Skirmish_PK;
-    this.Skirmish_Date = new Date(skirmishData[0].Skirmish_Date).toDateString("yyyy-mm-dd");
+    this.Skirmish_Date = new Date(skirmishData[0].Skirmish_Date);
+    console.log(skirmishData[0].Skirmish_Date);
     this.Campaign_FK = skirmishData[0].Campaign_FK;
     this.Guild_1_FK = skirmishData[0].Guild_1_FK;
     this.Guild_2_FK = skirmishData[0].Guild_2_FK;
@@ -423,7 +437,7 @@ function skirmish(skirmishData) {
 var globalSkirmish; // holds data regarding this skirmish
 // skirmish methods
 function populateSkirmishData() { 
-    $("#skirmish_date").text(globalSkirmish.Skirmish_Date);
+    $("#skirmish_date").text(globalSkirmish.Skirmish_Date.toDateString("yyyy-mm-dd"));
 }
 function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -751,3 +765,4 @@ function displayCombatResult(combatLogPk)
     $('#combatlogcontainer').html(logHTML + $('#combatlogcontainer').html());
     // create additional information 
 }
+

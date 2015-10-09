@@ -40,6 +40,13 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
 
         [AllowAnonymous]
         [HttpGet]
+        public HttpResponseMessage GetCharacterDraftByUser(int User_PK)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, controller.GetCharacterDraftByUser(User_PK).ToJson());
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
         public HttpResponseMessage GetSkillDataFromSkirmishCharacters(int Skirmish_PK)
         {
             return Request.CreateResponse(HttpStatusCode.OK, controller.GetSkillDataFromSkirmishCharacters(Skirmish_PK).ToJson());
@@ -57,6 +64,13 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public HttpResponseMessage GetAllCharacterDataInSkirmish(int Skirmish_PK)
         {
             return Request.CreateResponse(HttpStatusCode.OK, controller.GetAllCharacterDataInSkirmish(Skirmish_PK).ToJson());
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public HttpResponseMessage GetInitiativeTrackFromSkirmish(int Skirmish_PK)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, controller.GetInitiativeTrackFromSkirmish(Skirmish_PK).ToJson());
         }
 
         [HttpGet]

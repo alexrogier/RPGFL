@@ -17,6 +17,13 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         public int Skirmish_Victor_FK { get; set; }
         public int Series_FK { get; set; }
     }
+    public class Draft_Table
+    {
+        public int User_FK { get; set; }
+        public int League_FK { get; set; }
+        public int Character_FK { get; set; }
+        public int Accolade_Action_Vote { get; set; }
+    }
     public class Combat_Log
     {
         public int? CombatLog_PK { get; set; }
