@@ -40,35 +40,26 @@
                             <div class="col-md-1 col-xs-1"></div>
                         </div>
 
+
                         <div class="text-center row">
                             <div class="col-md-1 col-xs-1"></div>
                             <div class="col-md-5 col-xs-5">
                                 <div class="row">
-                                    <div class="conditionbar" id="guild_1_char_1_statusbar">
+                                    <div class="conditionbar" style="height:25px; width: 64px; border-top: 3px solid black; 
+                                    border-right: 3px solid black; border-left: 3px solid black; border-top-right-radius: 10px; border-top-left-radius: 10px;
+                                    background-color: gray; margin-left: 54px;" id="guild_1_char_1_statusbar">
                                     </div>
                                 </div>
+                                <div style="position: relative">
+                                    <img id="guild_1_char_1" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
+                                    <div id="guild_1_char_1_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_1_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                </div>
                                 <div class="row">
-                                    <div class="col-md-2 col-xs-2">
-                                        <p>1</p>
-                                    </div>
-                                    <div class="col-md-5 col-xs-5">
-                                        <div class="row">
-                                            <div style="position: relative">
-                                                <img id="guild_1_char_1" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                                <div id="guild_1_char_1_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                                <div id="guild_1_char_1_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
-                                            </div>
+                                    <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
+                                        <div id="guild_1_char_1_healthbar" class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 64px; background-color: #B20000">
+                                            <p id="guild_1_char_1_healthtext" class="pill" style="color: black">x / x</p>
                                         </div>
-                                        <div class="row">
-                                            <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
-                                                <div id="guild_1_char_1_healthbar" class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 64px; background-color: #B20000">
-                                                    <p id="guild_1_char_1_healthtext" class="pill" style="color: black">x / x</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5 col-xs-5">
-                                        <div style="height: 100%; background-color: gray; width: 100%; border-top: 3px solid black; border-right: 2px solid black; border-bottom: 3px solid black; border-top-right-radius: 10px; border-bottom-right-radius: 10px;"></div>
                                     </div>
                                 </div>
                             </div>

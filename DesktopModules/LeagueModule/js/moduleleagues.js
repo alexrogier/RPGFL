@@ -27,7 +27,7 @@ $(document).ready(function () {
     });
 
     $("#img_matchmaking").click(function() {
-        bootbox.confirm("This will insert you into a random public guild where you will play against strangers with default league settings. Are you sure you want to Matckmake?", function(result) {
+        bootbox.confirm("This will insert you into a random public guild where you will play against strangers with default league settings. Are you sure you want to Matchmake?", function(result) {
             if (result) {
                 matchmakeUser();
             } 
