@@ -24,12 +24,14 @@
     // **** SETUP COMBAT LOG ****
     getCombatLogData();
     
-    
+    console.log(globalSkirmish.Skirmish_Victor_FK);
     if (globalSkirmish.Skirmish_Victor_FK != -1) {
     // **** BEGIN SKIRMISH ****
-    executeSkirmish();
+        executeSkirmish();
     } else {
         // start voting
+        getInitiativeData(globalSkirmish.Skirmish_PK);
+        populateActionStep();
     }
 
 });
@@ -425,7 +427,6 @@ function getAllCharacterDataInSkirmish() {
 function skirmish(skirmishData) {
     this.Skirmish_PK = skirmishData[0].Skirmish_PK;
     this.Skirmish_Date = new Date(skirmishData[0].Skirmish_Date);
-    console.log(skirmishData[0].Skirmish_Date);
     this.Campaign_FK = skirmishData[0].Campaign_FK;
     this.Guild_1_FK = skirmishData[0].Guild_1_FK;
     this.Guild_2_FK = skirmishData[0].Guild_2_FK;
@@ -435,6 +436,7 @@ function skirmish(skirmishData) {
     this.Series_FK = skirmishData[0].Series_FK;
 }
 var globalSkirmish; // holds data regarding this skirmish
+var globalInitative;
 // skirmish methods
 function populateSkirmishData() { 
     $("#skirmish_date").text(globalSkirmish.Skirmish_Date.toDateString("yyyy-mm-dd"));
@@ -453,6 +455,12 @@ function getUrlParameter(sParam) {
         }
     }
 }
+function populateActionStep() {
+    for (var i = 0; i < globalInitative.length; i++) {
+        var actionStep = globalInitative[i];        
+        $(getCharacterById(actionStep.Character_FK).getCharMapSlot() + "_activeicon_left").append('<p>' + actionStep.Act_Order + '</p>');
+    }
+}
 // skirmish ajax handlers
 function getSkirmishData(skirmishPK){
     $.ajax({
@@ -465,6 +473,21 @@ function getSkirmishData(skirmishPK){
         dataType: "json",
         success: function (data) {       
             globalSkirmish = new skirmish(JSON.parse(data));
+        }
+    });
+}
+function getInitiativeData(skirmishPK) {
+    console.log("Anything");
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/DesktopModules/BattleFrameworkModule/API/ModuleBattleFramework/GetInitiativeTrackFromSkirmish",
+        data: {
+            Skirmish_PK: globalSkirmish.Skirmish_PK
+        },
+        dataType: "json",
+        success: function (data) {
+            globalInitative = JSON.parse(data);
         }
     });
 }

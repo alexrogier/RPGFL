@@ -52,8 +52,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_1_char_1" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_1_char_1_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_1_char_1_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_1_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_1_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -70,8 +70,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_1_char_2" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_1_char_2_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_1_char_2_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_2_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_2_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -93,8 +93,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_1_char_3" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_1_char_3_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_1_char_3_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_3_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_3_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -111,8 +111,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_1_char_4" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_1_char_4_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_1_char_4_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_4_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_4_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -134,8 +134,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_1_char_5" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_1_char_5_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_1_char_5_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_5_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_5_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -152,8 +152,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_1_char_6" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_1_char_6_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_1_char_6_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_6_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_6_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -175,8 +175,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_1_char_7" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_1_char_7_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_1_char_7_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_7_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_7_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -193,8 +193,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_1_char_8" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_1_char_8_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_1_char_8_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_8_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_8_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -215,8 +215,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_1_char_9" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_1_char_9_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_1_char_9_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_9_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_9_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -233,8 +233,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_1_char_10" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_1_char_10_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_1_char_10_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_10_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_10_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -256,8 +256,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_1_char_11" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_1_char_11_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_1_char_11_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_11_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_11_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -274,8 +274,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_1_char_12" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_1_char_12_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_1_char_12_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_12_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_1_char_12_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -315,8 +315,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_2_char_1" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_2_char_1_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_2_char_1_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_1_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_1_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -333,8 +333,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_2_char_2" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_2_char_2_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_2_char_2_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_2_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_2_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -355,8 +355,8 @@
                                     </div>
                                     <div style="position: relative">
                                         <img id="guild_2_char_3" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                        <div id="guild_2_char_3_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                        <div id="guild_2_char_3_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                        <div id="guild_2_char_3_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                        <div id="guild_2_char_3_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                     </div>
                                     <div class="row">
                                         <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -374,8 +374,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_2_char_4" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_2_char_4_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_2_char_4_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_4_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_4_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -397,8 +397,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_2_char_5" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_2_char_5_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_2_char_5_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_5_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_5_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -415,8 +415,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_2_char_6" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_2_char_6_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_2_char_6_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_6_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_6_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -438,8 +438,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_2_char_7" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_2_char_7_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_2_char_7_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_7_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_7_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -456,8 +456,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_2_char_8" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_2_char_8_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_2_char_8_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_8_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_8_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -479,8 +479,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_2_char_9" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_2_char_9_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_2_char_9_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_9_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_9_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -497,8 +497,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_2_char_10" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_2_char_10_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_2_char_10_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_10_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_10_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -520,8 +520,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_2_char_11" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_2_char_11_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_2_char_11_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_11_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_11_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
@@ -538,8 +538,8 @@
                                 </div>
                                 <div style="position: relative">
                                     <img id="guild_2_char_12" class="char_img pic-border-light" src="/portals/0/RPGFL/standings_avatar_64x64.jpg" />
-                                    <div id="guild_2_char_12_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
-                                    <div id="guild_2_char_12_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_12_activeicon_right" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: 29%; z-index: 10;"></div>
+                                    <div id="guild_2_char_12_activeicon_left" class="container_activeicon" style="position: absolute; width: 100%; height: 100%; top: -8%; left: -29%; z-index: 10;"></div>
                                 </div>
                                 <div class="row">
                                     <div class="progress offical-black-border pill text-center inline-block text-right" style="background-color: #d9534f">
