@@ -768,23 +768,47 @@ function displayCombatResult(combatLogPk)
         //need to make parent ribbon
         '<div class="accordion" id="accordionlog_' + combatLogPk + '">' +
                     '<div class="accordion-group">' + 
-                        '<div class="accordion-heading">'  +
+                        '<div class="accordion-heading parent-accordion">'  +
                             '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionlog_' + combatLogPk + '" href="#accordionlogbody_' + combatLogPk + '">' +
-                                    '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">' + assailant.Character_Name + '</p>' +
+                                    '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">  ' + assailant.Character_Name + '  </p>' +
                                     '<img class="inline" src="' + logIcon + '" />' +
-                                    '<p class="inline text-center guild' + target.Guild_FK + ' font-verdana">' + target.Character_Name + '</p> ' +
                             '</a>' +
                         '</div>' +
-                        '<div id="accordionlogbody_' + combatLogPk +'" class="accordion-body collapse in">' +
-                            '<div class="accordion-inner">' +
-                                '<div class="text-center topbotpadding offical-black-border name-container-color font-verdana">' +
-                                //detailed info of log
 
-                                '</div>'+
+                        '<div id="accordionlogbody_' + combatLogPk +'" class="accordion-body collapse">' +
+                            '<div class="accordion-inner">' +
+                                '<div class="accordion" id="accordionlog_' + combatLogPk + '">' +
+                                  '<div class="accordion-group">' +
+                                    '<div class="accordion-heading child-accordion">' +
+                                        '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionlog_' + combatLogPk + '" href="#collapseInner_' + combatLogPk + '">' +
+                                          '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">  ' + assailant.Character_Name + '  </p>' +
+                                          '<img class="inline" src="' + logIcon + '" />' +
+                                          '<p class="inline text-center guild' + target.Guild_FK + ' font-verdana">  ' + target.Character_Name + '  </p> ' +
+                                      '</a>' +
+                                     '</div>' +
+                                     '<div>' +
+                                     '<div id="collapseInner_' + combatLogPk + '" class="accordion-body collapse">' +
+                                       '<div class="accordion-inner text-center">' +
+                                        '<p>Attack roll: X | Damage roll: X</p>' +
+                                      '</div>' +
+                                    '</div>'+
+                                  '</div>'+
+                                '</div>'+      
+                              '</div>'+
                             '</div>'+
-                        '</div>'+
-                    '</div>'+
-                '</div>';
+                          '</div>'+
+                        '</div>' +
+                        '</div>'
+
+
+                //                '<div class="text-center topbotpadding offical-black-border name-container-color font-verdana">' +
+                //                //detailed info of log
+
+                //                '</div>'+
+                //            '</div>'+
+                //        '</div>'+
+                //    '</div>'+
+                //'</div>';
     $('#combatlogcontainer').html(logHTML + $('#combatlogcontainer').html());
     // create additional information 
 }

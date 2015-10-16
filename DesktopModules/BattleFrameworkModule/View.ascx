@@ -585,4 +585,34 @@
             <div class="col-md-3 col-xs-3"></div>
         </div>
     </div>
+
+<div class="accordion" id="accordion1">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo">
+        Gantar the Honorable (attack)
+      </a>
+    </div>
+    <div id="collapseTwo" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <div class="accordion" id="accordion2">
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseInnerOne">
+                <p>     Gantar the Honorable (attack) Necromancer</p>
+              </a>
+            </div>
+            <div id="collapseInnerOne" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <p>Attack roll: X | Damage roll: X</p>
+              </div>
+            </div>
+          </div>
+        </div>          
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </div>
