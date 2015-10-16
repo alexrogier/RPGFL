@@ -791,7 +791,7 @@ function displayCombatResult(combatLogPk)
                                        '<div class="accordion-inner text-center">' +
                                         '<p>Attack roll: X | Damage roll: X</p>' +
                                       '</div>' +
-                                    '</div>'+
+                                    '</div>' +
                                   '</div>'+
                                 '</div>'+      
                               '</div>'+
