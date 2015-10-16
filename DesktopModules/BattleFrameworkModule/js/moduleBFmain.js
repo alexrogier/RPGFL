@@ -795,7 +795,7 @@ function displayCombatResult(combatLogPk)
                                   '</div>'+ 
                                 '</div>'+      
                               '</div>'+
-                            '</div>'+ 
+                            '</div>'+
                           '</div>'+
                         '</div>' +
                         '</div>'
