@@ -784,7 +784,7 @@ function displayCombatResult(combatLogPk)
                                           '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">  ' + assailant.Character_Name + '  </p>' +
                                           '<img class="inline" src="' + logIcon + '" />' +
                                           '<p class="inline text-center guild' + target.Guild_FK + ' font-verdana">  ' + target.Character_Name + '  </p> ' +
-                                      '</a>' +
+                                      '</a>'+
                                      '</div>' +
                                      '<div>' +
                                      '<div id="collapseInner_' + combatLogPk + '" class="accordion-body collapse">' +
