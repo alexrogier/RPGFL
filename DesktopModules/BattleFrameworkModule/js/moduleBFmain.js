@@ -792,7 +792,7 @@ function displayCombatResult(combatLogPk)
                                         '<p>Attack roll: X | Damage roll: X</p>' +
                                       '</div>' +
                                     '</div>'+
-                                  '</div>'+
+                                  '</div>'+ 
                                 '</div>'+      
                               '</div>'+
                             '</div>'+ 
