@@ -687,6 +687,42 @@ function executeTurn(actionStep)
     var relevantCombatLogs = getRelevantCombatLogs(actionStep);
     if (relevantCombatLogs.length == 0) return;
     
+    var assailant, logIcon, skillType;
+
+    for (var i = 0; i < relevantCombatLogs.length; i++) {
+        var currLog = relevantCombatLogs[i];
+
+        if (currLog.bInterrupt == false) {
+            assailant = getCharacterById(currLog.Assailant_Character_FK);
+            skillType = getSkillById(currLog.Skill_FK).Skill_Type;
+        }
+    }
+
+    
+    if (skillType == 'Attack' || skillType.indexOf('Affliction') > -1 || skillType == 'Taunt' || skillType == 'Passive') {
+        logIcon = '/portals/0/RPGFL/battle_icons/attackicon.png';
+    } else if (skillType.indexOf('Blessing') > -1) {
+        logIcon = '/portals/0/RPGFL/battle_icons/casticon.png';
+    } else if (skillType == 'Heal') {
+        logIcon = '/portals/0/RPGFL/battle_icons/healicon.png';
+    } else if (skillType.indexOf('Guard') > -1) {
+        logIcon = '/portals/0/RPGFL/battle_icons/guardicon.png';
+    }
+
+    var logHTML =
+    '<div class="accordion" id="accordionlog_actionstep' + actionStep + '">' +
+            '<div class="accordion-group">' +
+                '<div class="accordion-heading parent-accordion">' +
+                    '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionlog_actionstep' + actionStep + '" href="#accordionlogbody_actionstep' + actionStep + '">' +
+                            '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">  ' + assailant.Character_Name + '  </p>' +
+                            '<img class="inline" src="' + logIcon + '" />' +
+                    '</a>' +
+                '</div>' +
+            '</div>';
+
+    $('#combatlogcontainer').html(logHTML + $('#combatlogcontainer').html());
+
+
     for (var i = 0; i < relevantCombatLogs.length; i++) {
         var currLog = relevantCombatLogs[i];
         // HIGHLIGHT CHARACTERS
@@ -699,8 +735,8 @@ function executeTurn(actionStep)
         // highlight assailant
         $(assailant.getCharMapSlot()).removeClass("pic-border-light");
         $(assailant.getCharMapSlot()).removeClass("pic-border-target");
-        $(assailant.getCharMapSlot()).addClass("pic-border-assailant");
-        
+        $(assailant.getCharMapSlot()).addClass("pic-border-assailant");        
+
         if (!currLog.bInterrupt){
             $(assailant.getCharMapSlot() + "_activeicon_left").html('<img src="/Portals/0/RPGFL/battle_icons/active_character.png" alt="" />');
             $(assailant.getCharMapSlot() + "_activeicon_right").html('<img src="/Portals/0/RPGFL/battle_icons/active_character.png" alt="" />');
@@ -741,15 +777,14 @@ function executeTurn(actionStep)
                 target.recieveCondition("Blessed");
             }
         }
-        displayCombatResult(currLog.CombatLog_PK);
+        displayCombatResult(currLog, actionStep);
     }
 }
 
-function displayCombatResult(combatLogPk)
+function displayCombatResult(currLog, actionStep)
 {
-    var log = getCombatLogById(combatLogPk);
-    var skillType = getSkillById(log.Skill_FK).Skill_Type;
-    var logIcon;
+    var skillType = getSkillById(currLog.Skill_FK).Skill_Type;
+    var logIcon;    
 
     if (skillType == 'Attack' || skillType.indexOf('Affliction') > -1 || skillType == 'Taunt' || skillType == 'Passive') {
         logIcon = '/portals/0/RPGFL/battle_icons/attackicon.png';
@@ -760,45 +795,37 @@ function displayCombatResult(combatLogPk)
     } else if (skillType.indexOf('Guard') > -1) {
         logIcon = '/portals/0/RPGFL/battle_icons/guardicon.png';
     } 
-    var assailant = getCharacterById(log.Assailant_Character_FK);
-    var target = getCharacterById(log.Target_Character_FK);
+    var assailant = getCharacterById(currLog.Assailant_Character_FK);
+    var target = getCharacterById(currLog.Target_Character_FK);
     // Use accordian collapsable 
+
 
     var logHTML =
         //need to make parent ribbon
-        '<div class="accordion" id="accordionlog_' + combatLogPk + '">' +
-                    '<div class="accordion-group">' + 
-                        '<div class="accordion-heading parent-accordion">'  +
-                            '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionlog_' + combatLogPk + '" href="#accordionlogbody_' + combatLogPk + '">' +
-                                    '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">  ' + assailant.Character_Name + '  </p>' +
-                                    '<img class="inline" src="' + logIcon + '" />' +
-                            '</a>' +
-                        '</div>' +
 
-                        '<div id="accordionlogbody_' + combatLogPk +'" class="accordion-body collapse">' +
+                        '<div id="#accordionlogbody_actionstep' + actionStep + '" class="accordion-body collapse">' +
                             '<div class="accordion-inner">' +
-                                '<div class="accordion" id="accordionlog_' + combatLogPk + '">' +
+                                '<div class="accordion" id="accordionlog_' + currLog.CombatLog_PK + '">' +
                                   '<div class="accordion-group">' +
                                     '<div class="accordion-heading child-accordion">' +
-                                        '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionlog_' + combatLogPk + '" href="#collapseInner_' + combatLogPk + '">' +
+                                        '<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordionlog_' + currLog.CombatLog_PK + '" href="#collapseInner_' + currLog.CombatLog_PK + '">' +
                                           '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">  ' + assailant.Character_Name + '  </p>' +
                                           '<img class="inline" src="' + logIcon + '" />' +
                                           '<p class="inline text-center guild' + target.Guild_FK + ' font-verdana">  ' + target.Character_Name + '  </p> ' +
-                                      '</a>'+
+                                      '</a>' +
                                      '</div>' +
                                      '<div>' +
-                                     '<div id="collapseInner_' + combatLogPk + '" class="accordion-body collapse">' +
-                                       '<div class="accordion-inner text-center">' +
-                                        '<p>Attack roll: X | Damage roll: X</p>' +
-                                      '</div>' +
-                                    '</div>'+
-                                  '</div>'+ 
-                                '</div>'+      
-                              '</div>'+
-                            '</div>'+
-                          '</div>'+
-                        '</div>' +
-                        '</div>'
+                                         '<div id="collapseInner_' + currLog.CombatLog_PK + '" class="accordion-body collapsed">' +
+                                              '<div class="accordion-inner text-center">' +
+                                                   '<p>Attack roll: ' + + ' | Damage roll: ' + + '</p>' +
+                                              '</div>' +
+                                         '</div>' +
+                                     '</div>' +
+                                  '</div>' +
+                               '</div>' +
+                            '</div>';
+                          '</div>' +
+                        '</div>';
 
 
                 //                '<div class="text-center topbotpadding offical-black-border name-container-color font-verdana">' +
@@ -809,7 +836,7 @@ function displayCombatResult(combatLogPk)
                 //        '</div>'+
                 //    '</div>'+
                 //'</div>';
-    $('#combatlogcontainer').html(logHTML + $('#combatlogcontainer').html());
+    $('#accordionlog_actionstep' + actionStep).html(logHTML + $('#accordionlog_actionstep' + actionStep).html());
     // create additional information 
 }
 
