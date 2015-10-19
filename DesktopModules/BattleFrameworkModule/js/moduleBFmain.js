@@ -655,24 +655,22 @@ function getRelevantCombatLogs(actionOrder) {
     END Global Interface 
 ****************************************************************************************************/
 function executeSkirmish() {
-    var turnTrack = setInterval(function () {
+    var turnTrack = setTimeout(function () {
         currActionStep++;
-        if (currActionStep > 24) {
-            clearInterval(turnTrack);
+        executeTurn(currActionStep);
 
+        if (currActionStep > 24) {
             // Skirmish Cleanup
             $(".char_img").removeClass("pic-border-target");
             $(".char_img").removeClass("pic-border-assailant");
             $(".char_img").addClass("pic-border-light");
             $(".container_activeicon").empty();
             console.log("END SKIRMISH");
-
-            return;
+        } else {
+            executeSkirmish();
         }
-        executeTurn(currActionStep);
     }, actionWaitInterval);
 }
-
 function executeTurn(actionStep) {
     console.log("Action Step: " + actionStep);
 
@@ -709,11 +707,14 @@ function executeTurn(actionStep) {
     var logHTML =
     '<div class="accordion" id="accordionlog_actionstep' + actionStep + '">' +
         '<div class="accordion-group">' +
-            '<div class="accordion-heading parent-accordion collapse in">' +
-                    '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionlog_actionstep' + actionStep + '" href="#accordionlogbody_actionstep' + actionStep + '">' +
-                    '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">  ' + assailant.Character_Name + '  </p>' +
+            '<div class="accordion-heading">' +
+                '<a class="accordion-toggle" data-toggle="collapse" data-parent="combatlogcontainer" href="#accordionbody_' + actionStep + '">' +
+                    '<span>' + actionStep + ')</span><p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">  ' + assailant.Character_Name + '  </p>' +
                     '<img class="inline" src="' + logIcon + '" />' +
                 '</a>' +
+            '</div>' +
+            '<div id="accordionbody_' + actionStep + '" class="accordion-body collapse">' +
+                '<div class="accordion-inner text-center"></div>' +
             '</div>' +
         '</div>' +
     '</div>';
@@ -792,28 +793,25 @@ function displayCombatResult(currLog, actionStep) {
     }
     var assailant = getCharacterById(currLog.Assailant_Character_FK);
     var target = getCharacterById(currLog.Target_Character_FK);
-    // Use accordian collapsable 
-
-
+    
     var logHTML =
     '<div class="accordion" id="accordionlog_' + currLog.CombatLog_PK + '">' +
         '<div class="accordion-group">' +
-            '<div class="accordion-heading child-accordion">' +
-                '<a class="accordion-toggle collapsed in" data-toggle="collapse" data-parent="#accordionlog_' + currLog.CombatLog_PK + '" href="#collapseInner_' + currLog.CombatLog_PK + '">' +
-                        '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">' + assailant.Character_Name + '  </p>' +
+            '<div class="accordion-heading">' +
+                '<a class="accordion-toggle" data-toggle="collapse" data-parent="accordionbody_' + actionStep + '" href="#collapseInner_' + currLog.CombatLog_PK + '">' +
+                    '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">' + assailant.Character_Name + '  </p>' +
                     '<img class="inline" src="' + logIcon + '" />' +
                     '<p class="inline text-center guild' + target.Guild_FK + ' font-verdana">' + target.Character_Name + '  </p>' +
                 '</a>' +
             '</div>' +
             '<div id="collapseInner_' + currLog.CombatLog_PK + '" class="accordion-body collapse">' +
                 '<div class="accordion-inner text-center">' +
-                    '<p>Attack roll: | Damage roll: </p>' +
+                    '<p>Attack roll: ' + currLog.Attack_Final_Result + ' | Damage roll: ' + currLog.Damage_Final_Result + ' </p>' +
                 '</div>' +
             '</div>' +
         '</div>' +
     '</div>';
 
-    $('#accordionlog_actionstep' + actionStep).append(logHTML);
-    // create additional information 
+    $('#accordionbody_' + actionStep + ' .accordion-inner').html(logHTML + $('#accordionbody_' + actionStep + ' .accordion-inner').html());
 }
 
