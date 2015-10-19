@@ -43,9 +43,6 @@ p{
     width: 14%;
     margin: auto;
 }
-.collapsed{
-    display: none;
-}
 
 /** EDIT PROFILE */
 /** hide various profile settings that RPGFL doesn't need to show/use */
@@ -70,7 +67,7 @@ p{
     padding-left: 20px;
     padding-bottom: 10px;
     padding-right: 10px;
-    padding-top: 10px;
+    padding-top: 10px; 
 }
 .pillbackgroundcolor { background-color: #d9534f;}
 .progress-bar-danger { background-color: #B20000;}
@@ -88,6 +85,8 @@ p{
 }
 .combat-log-color {color:#848484;}
 .name-container-color{background-color:#1C1C1C;}
+.parent-accordion{ background-color: gray; text-align: center;}
+.child-accordion{background-color:lightgray; text-align: center; }
 
 
 /** SKIRMISH PAGE **/

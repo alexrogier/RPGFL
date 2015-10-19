@@ -45,9 +45,8 @@
                             <div class="col-md-1 col-xs-1"></div>
                             <div class="col-md-5 col-xs-5">
                                 <div class="row">
-                                    <div class="conditionbar" style="height:25px; width: 64px; border-top: 3px solid black; 
-                                    border-right: 3px solid black; border-left: 3px solid black; border-top-right-radius: 10px; border-top-left-radius: 10px;
-                                    background-color: gray; margin-left: 54px;" id="guild_1_char_1_statusbar">
+                                    <div class="conditionbar" style="height: 25px; width: 64px; border-top: 3px solid black; border-right: 3px solid black; border-left: 3px solid black; border-top-right-radius: 10px; border-top-left-radius: 10px; background-color: gray; margin-left: 54px;"
+                                        id="guild_1_char_1_statusbar">
                                     </div>
                                 </div>
                                 <div style="position: relative">
@@ -561,25 +560,6 @@
             <div class="col-md-3 col-xs-3"></div>
             <div class="col-md-6 col-xs-6">
                 <div id="combatlogcontainer" class="primary-button scrollable offical-black-border" style="height: 200px;">
-
-                    <div class="accordion" id="accordion_">
-                        <div class="accordion-group">
-                            <div class="accordion-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#accordionbody_"></a>
-                            </div>
-                            <div id="accordionbody_" class="accordion-body collapse in">
-                                <div class="accordion-inner">
-                                    <div class="text-center topbotpadding offical-black-border name-container-color font-verdana">
-                                        <p class="inline text-center guild'+ assailant.Guild_FK +' font-verdana">'+ assailant.Character_Name +'</p>
-                                        <img class="inline" src="'+ logIcon +'" />
-
-                                        <p class="inline text-center guild' + target.Guild_FK + ' font-verdana">' + target.Character_Name + '</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
             <div class="col-md-3 col-xs-3"></div>
