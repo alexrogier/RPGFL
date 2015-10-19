@@ -23,10 +23,10 @@
 
     // **** SETUP COMBAT LOG ****
     getCombatLogData();
-    
+
     console.log(globalSkirmish.Skirmish_Victor_FK);
     if (globalSkirmish.Skirmish_Victor_FK != -1) {
-    // **** BEGIN SKIRMISH ****
+        // **** BEGIN SKIRMISH ****
         executeSkirmish();
     } else {
         // start voting
@@ -72,9 +72,9 @@ function character(charData) {
         bGuarded: false,
         bStunned: false
     };
-    this.takeDamage = function(damage) {
+    this.takeDamage = function (damage) {
         this.Health -= damage;
-        
+
         console.log(this.Character_Name + " " + this.Health);
         if (this.Health < 0) this.Health = 0;
         if (this.Health == 0) {
@@ -97,7 +97,7 @@ function character(charData) {
 
         // IMAGE RUMBLE - causes horrible browser performance
         //var animTime = 100,
-	    //    rotateDeg = 10;
+        //    rotateDeg = 10;
         //$({ deg: 0 }).animate({ deg: rotateDeg }, {
         //    duration: animTime,
         //    step: function (now) {
@@ -120,7 +120,7 @@ function character(charData) {
         //    }
         //});
     };
-    this.healDamage = function(damage) {
+    this.healDamage = function (damage) {
         this.Health += damage;
 
         if (this.Health > this.Max_Health) {
@@ -144,7 +144,7 @@ function character(charData) {
         //reset status bar
         $(this.getCharMapSlot() + '_statusbar').empty();
         //Do they have more than 3 conditions?
-        
+
         //populate with current conditions
         var tauntedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_taunted.png" />'
         var afflictedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_afflicted.png" />'
@@ -156,11 +156,11 @@ function character(charData) {
         var stunnedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_stunned.png" />'
         var elipseHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_elipse.png" />'
         var numOfConditions = 0;
-        var bUseElipse = (this.numOfConditions() >= 4 );
+        var bUseElipse = (this.numOfConditions() >= 4);
         var conditions = ['Afflicted', 'Blessed', 'Taunted', 'Charmed', 'Blinded', 'Invisible', 'Guarded', 'Stunned'];
 
 
-        for (var i = 0; i < conditions.length; i++) {            
+        for (var i = 0; i < conditions.length; i++) {
             switch (conditions[i]) {
                 case 'Afflicted':
                     if (this.Conditions.bAfflicted) {
@@ -364,7 +364,7 @@ function addCharactersToMap(charData) {
         var guildSlot = (currChar.Guild_FK == globalSkirmish.Guild_1_FK ? 1 : 2);
         // set character health
         $("#guild_" + guildSlot + "_char_" + (i <= 11 ? (i + 1) : (i + 1) - 12) + "_healthtext").text(currChar.Health + " / " + currChar.Health);
-       
+
 
         // initiate character modal
         var img = $("#guild_" + guildSlot + "_char_" + (i <= 11 ? (i + 1) : (i + 1) - 12));
@@ -390,8 +390,7 @@ function addCharactersToMap(charData) {
 function getCharacterById(charId) {
     // search globalCharactersInSkirmish for matching charpk and return it as a character object
     for (var i = 0; i < globalCharactersInSkirmish.length; i++) {
-        if (globalCharactersInSkirmish[i].Character_PK == charId)
-        {
+        if (globalCharactersInSkirmish[i].Character_PK == charId) {
             return globalCharactersInSkirmish[i];
         }
     }
@@ -438,7 +437,7 @@ function skirmish(skirmishData) {
 var globalSkirmish; // holds data regarding this skirmish
 var globalInitative;
 // skirmish methods
-function populateSkirmishData() { 
+function populateSkirmishData() {
     $("#skirmish_date").text(globalSkirmish.Skirmish_Date.toDateString("yyyy-mm-dd"));
 }
 function getUrlParameter(sParam) {
@@ -457,12 +456,12 @@ function getUrlParameter(sParam) {
 }
 function populateActionStep() {
     for (var i = 0; i < globalInitative.length; i++) {
-        var actionStep = globalInitative[i];        
+        var actionStep = globalInitative[i];
         $(getCharacterById(actionStep.Character_FK).getCharMapSlot() + "_activeicon_left").append('<p>' + actionStep.Act_Order + '</p>');
     }
 }
 // skirmish ajax handlers
-function getSkirmishData(skirmishPK){
+function getSkirmishData(skirmishPK) {
     $.ajax({
         async: false,
         type: "GET",
@@ -471,7 +470,7 @@ function getSkirmishData(skirmishPK){
             Skirmish_PK: skirmishPK
         },
         dataType: "json",
-        success: function (data) {       
+        success: function (data) {
             globalSkirmish = new skirmish(JSON.parse(data));
         }
     });
@@ -556,8 +555,7 @@ function addCombatLogEntry(logData) {
 }
 function getCombatLogById(logId) {
     for (var i = 0; i < globalCombatLog.length; i++) {
-        if (globalCombatLog[i].CombatLog_PK == logId)
-        {
+        if (globalCombatLog[i].CombatLog_PK == logId) {
             return globalCombatLog[i];
         }
     }
@@ -644,7 +642,7 @@ function getSkillDataFromSkirmishCharacters() {
 var currActionStep = 0;
 var actionWaitInterval = 3000; // amount of miliseconds to wait between executing each action step
 // battleframework methods
-function getRelevantCombatLogs(actionOrder){
+function getRelevantCombatLogs(actionOrder) {
     var relevantLogs = [];
 
     for (var i = 0; i < globalCombatLog.length; i++) {
@@ -657,7 +655,7 @@ function getRelevantCombatLogs(actionOrder){
     END Global Interface 
 ****************************************************************************************************/
 function executeSkirmish() {
-    var turnTrack = setInterval(function() {
+    var turnTrack = setInterval(function () {
         currActionStep++;
         if (currActionStep > 24) {
             clearInterval(turnTrack);
@@ -675,8 +673,7 @@ function executeSkirmish() {
     }, actionWaitInterval);
 }
 
-function executeTurn(actionStep)
-{    
+function executeTurn(actionStep) {
     console.log("Action Step: " + actionStep);
 
     $(".char_img").removeClass("pic-border-target");
@@ -686,7 +683,7 @@ function executeTurn(actionStep)
 
     var relevantCombatLogs = getRelevantCombatLogs(actionStep);
     if (relevantCombatLogs.length == 0) return;
-    
+
     var assailant, logIcon, skillType;
 
     for (var i = 0; i < relevantCombatLogs.length; i++) {
@@ -698,7 +695,7 @@ function executeTurn(actionStep)
         }
     }
 
-    
+
     if (skillType == 'Attack' || skillType.indexOf('Affliction') > -1 || skillType == 'Taunt' || skillType == 'Passive') {
         logIcon = '/portals/0/RPGFL/battle_icons/attackicon.png';
     } else if (skillType.indexOf('Blessing') > -1) {
@@ -711,17 +708,16 @@ function executeTurn(actionStep)
 
     var logHTML =
     '<div class="accordion" id="accordionlog_actionstep' + actionStep + '">' +
-            '<div class="accordion-group">' +
-                '<div class="accordion-heading parent-accordion">' +
+        '<div class="accordion-group">' +
+            '<div class="accordion-heading parent-accordion collapse in">' +
                     '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionlog_actionstep' + actionStep + '" href="#accordionlogbody_actionstep' + actionStep + '">' +
-                            '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">  ' + assailant.Character_Name + '  </p>' +
-                            '<img class="inline" src="' + logIcon + '" />' +
-                    '</a>' +
-                '</div>' +
-            '</div>';
-
+                    '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">  ' + assailant.Character_Name + '  </p>' +
+                    '<img class="inline" src="' + logIcon + '" />' +
+                '</a>' +
+            '</div>' +
+        '</div>' +
+    '</div>';
     $('#combatlogcontainer').html(logHTML + $('#combatlogcontainer').html());
-
 
     for (var i = 0; i < relevantCombatLogs.length; i++) {
         var currLog = relevantCombatLogs[i];
@@ -735,21 +731,21 @@ function executeTurn(actionStep)
         // highlight assailant
         $(assailant.getCharMapSlot()).removeClass("pic-border-light");
         $(assailant.getCharMapSlot()).removeClass("pic-border-target");
-        $(assailant.getCharMapSlot()).addClass("pic-border-assailant");        
+        $(assailant.getCharMapSlot()).addClass("pic-border-assailant");
 
-        if (!currLog.bInterrupt){
+        if (!currLog.bInterrupt) {
             $(assailant.getCharMapSlot() + "_activeicon_left").html('<img src="/Portals/0/RPGFL/battle_icons/active_character.png" alt="" />');
             $(assailant.getCharMapSlot() + "_activeicon_right").html('<img src="/Portals/0/RPGFL/battle_icons/active_character.png" alt="" />');
         } else {
             $(assailant.getCharMapSlot() + "_activeicon_left").html('<img src="/Portals/0/RPGFL/battle_icons/interrupt.png" alt="" />');
             $(assailant.getCharMapSlot() + "_activeicon_right").html('<img src="/Portals/0/RPGFL/battle_icons/interrupt.png" alt="" />');
         }
-        
+
         // COMBAT LOG MANAGMENT
 
         // check if attack was successful
         var skill = getSkillById(currLog.Skill_FK);
-        if (currLog.bAttackSuccessful || skill.Skill_Type.indexOf("Guard") > -1 || skill.Skill_Type.indexOf("Blessing") > -1) {           
+        if (currLog.bAttackSuccessful || skill.Skill_Type.indexOf("Guard") > -1 || skill.Skill_Type.indexOf("Blessing") > -1) {
             if (skill.Skill_Type == "Attack" || skill.Skill_Type == "Taunt" || skill.Skill_Type.indexOf("Affliction") > -1) {
                 // hostile action, deal damage
                 target.takeDamage(currLog.Damage_Final_Result);
@@ -762,7 +758,7 @@ function executeTurn(actionStep)
                     } else if (skill.Skill_Type.indexOf("Affliction") > -1) {
                         target.recieveCondition("Afflicted");
                         // write additional affliction logic - charmed, blinded, stunned etc
-                    } 
+                    }
                 }
             }
             else if (skill.Skill_Type == "Heal") {
@@ -781,10 +777,9 @@ function executeTurn(actionStep)
     }
 }
 
-function displayCombatResult(currLog, actionStep)
-{
+function displayCombatResult(currLog, actionStep) {
     var skillType = getSkillById(currLog.Skill_FK).Skill_Type;
-    var logIcon;    
+    var logIcon;
 
     if (skillType == 'Attack' || skillType.indexOf('Affliction') > -1 || skillType == 'Taunt' || skillType == 'Passive') {
         logIcon = '/portals/0/RPGFL/battle_icons/attackicon.png';
@@ -794,49 +789,31 @@ function displayCombatResult(currLog, actionStep)
         logIcon = '/portals/0/RPGFL/battle_icons/healicon.png';
     } else if (skillType.indexOf('Guard') > -1) {
         logIcon = '/portals/0/RPGFL/battle_icons/guardicon.png';
-    } 
+    }
     var assailant = getCharacterById(currLog.Assailant_Character_FK);
     var target = getCharacterById(currLog.Target_Character_FK);
     // Use accordian collapsable 
 
 
     var logHTML =
-        //need to make parent ribbon
+    '<div class="accordion" id="accordionlog_' + currLog.CombatLog_PK + '">' +
+        '<div class="accordion-group">' +
+            '<div class="accordion-heading child-accordion">' +
+                '<a class="accordion-toggle collapsed in" data-toggle="collapse" data-parent="#accordionlog_' + currLog.CombatLog_PK + '" href="#collapseInner_' + currLog.CombatLog_PK + '">' +
+                        '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">' + assailant.Character_Name + '  </p>' +
+                    '<img class="inline" src="' + logIcon + '" />' +
+                    '<p class="inline text-center guild' + target.Guild_FK + ' font-verdana">' + target.Character_Name + '  </p>' +
+                '</a>' +
+            '</div>' +
+            '<div id="collapseInner_' + currLog.CombatLog_PK + '" class="accordion-body collapse">' +
+                '<div class="accordion-inner text-center">' +
+                    '<p>Attack roll: | Damage roll: </p>' +
+                '</div>' +
+            '</div>' +
+        '</div>' +
+    '</div>';
 
-                        '<div id="#accordionlogbody_actionstep' + actionStep + '" class="accordion-body collapse">' +
-                            '<div class="accordion-inner">' +
-                                '<div class="accordion" id="accordionlog_' + currLog.CombatLog_PK + '">' +
-                                  '<div class="accordion-group">' +
-                                    '<div class="accordion-heading child-accordion">' +
-                                        '<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordionlog_' + currLog.CombatLog_PK + '" href="#collapseInner_' + currLog.CombatLog_PK + '">' +
-                                          '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">  ' + assailant.Character_Name + '  </p>' +
-                                          '<img class="inline" src="' + logIcon + '" />' +
-                                          '<p class="inline text-center guild' + target.Guild_FK + ' font-verdana">  ' + target.Character_Name + '  </p> ' +
-                                      '</a>' +
-                                     '</div>' +
-                                     '<div>' +
-                                         '<div id="collapseInner_' + currLog.CombatLog_PK + '" class="accordion-body collapsed">' +
-                                              '<div class="accordion-inner text-center">' +
-                                                   '<p>Attack roll: ' + + ' | Damage roll: ' + + '</p>' +
-                                              '</div>' +
-                                         '</div>' +
-                                     '</div>' +
-                                  '</div>' +
-                               '</div>' +
-                            '</div>';
-                          '</div>' +
-                        '</div>';
-
-
-                //                '<div class="text-center topbotpadding offical-black-border name-container-color font-verdana">' +
-                //                //detailed info of log
-
-                //                '</div>'+
-                //            '</div>'+
-                //        '</div>'+
-                //    '</div>'+
-                //'</div>';
-    $('#accordionlog_actionstep' + actionStep).html(logHTML + $('#accordionlog_actionstep' + actionStep).html());
+    $('#accordionlog_actionstep' + actionStep).append(logHTML);
     // create additional information 
 }
 
