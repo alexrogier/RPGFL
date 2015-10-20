@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-2 col-xs-2 smallpadding">
+                <div class="col-md-2 col-xs-2 smallpadding" style="padding-left: 0px">
                     <img alt="" src="/portals/0/RPGFL/skirmish_tall_175x770.jpg" class="pic-border-light" />
                 </div>
             </div>
