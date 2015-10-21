@@ -559,7 +559,7 @@
         <div class="panel-body">
             <div class="col-md-3 col-xs-3"></div>
             <div class="col-md-6 col-xs-6">
-                <div id="combatlogcontainer" class="primary-button scrollable offical-black-border" style="height: 200px;">
+                <div id="combatlogcontainer" class="scrollable offical-black-border" style="height: 200px; background-color: lightgray">
                 </div>
             </div>
             <div class="col-md-3 col-xs-3"></div>

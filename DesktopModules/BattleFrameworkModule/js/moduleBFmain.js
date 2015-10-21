@@ -707,7 +707,7 @@ function executeTurn(actionStep) {
     var logHTML =
     '<div class="accordion" id="accordionlog_actionstep' + actionStep + '">' +
         '<div class="accordion-group">' +
-            '<div class="accordion-heading">' +
+            '<div class="accordion-heading top-accordion">' +
                 '<a class="accordion-toggle" data-toggle="collapse" data-parent="combatlogcontainer" href="#accordionbody_' + actionStep + '">' +
                     '<span>' + actionStep + ')</span><p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">  ' + assailant.Character_Name + '  </p>' +
                     '<img class="inline" src="' + logIcon + '" />' +
@@ -797,7 +797,7 @@ function displayCombatResult(currLog, actionStep) {
     var logHTML =
     '<div class="accordion" id="accordionlog_' + currLog.CombatLog_PK + '">' +
         '<div class="accordion-group">' +
-            '<div class="accordion-heading">' +
+            '<div class="accordion-heading middle-accordion">' +
                 '<a class="accordion-toggle" data-toggle="collapse" data-parent="accordionbody_' + actionStep + '" href="#collapseInner_' + currLog.CombatLog_PK + '">' +
                     '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">' + assailant.Character_Name + '  </p>' +
                     '<img class="inline" src="' + logIcon + '" />' +
@@ -805,8 +805,8 @@ function displayCombatResult(currLog, actionStep) {
                 '</a>' +
             '</div>' +
             '<div id="collapseInner_' + currLog.CombatLog_PK + '" class="accordion-body collapse">' +
-                '<div class="accordion-inner text-center">' +
-                    '<p>Attack roll: ' + currLog.Attack_Final_Result + ' | Damage roll: ' + currLog.Damage_Final_Result + ' </p>' +
+                '<div class="accordion-inner bottom-accordion">' +
+                    '<p>Attack roll: ' + '<span data-toggle="tooltip" data-placement="top" title="' + currLog.Attack_Values + '  ">' + currLog.Attack_Final_Result + '</span> | Damage roll: ' + '<span data-toggle="tooltip" data-placement="top" title="' + currLog.Damage_Values + '  ">' + currLog.Damage_Final_Result + ' </span></p>' +
                 '</div>' +
             '</div>' +
         '</div>' +
