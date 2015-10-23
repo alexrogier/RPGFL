@@ -24,10 +24,12 @@
     // **** SETUP COMBAT LOG ****
     getCombatLogData();
 
-    console.log(globalSkirmish.Skirmish_Victor_FK);
+    //console.log(globalSkirmish.Skirmish_Victor_FK);
     if (globalSkirmish.Skirmish_Victor_FK != -1) {
         // **** BEGIN SKIRMISH ****
-        executeSkirmish();
+        var trackManager = new turnTrackManager();
+        trackManager.buildDisplayQueue();
+        showDisplayQueue(trackManager);
     } else {
         // start voting
         getInitiativeData(globalSkirmish.Skirmish_PK);
@@ -475,7 +477,6 @@ function getSkirmishData(skirmishPK) {
     });
 }
 function getInitiativeData(skirmishPK) {
-    console.log("Anything");
     $.ajax({
         async: false,
         type: "GET",
@@ -525,7 +526,7 @@ function getGuildData() {
             globalGuilds = JSON.parse(data);
         }
     });
-    console.log(globalGuilds);
+    //console.log(globalGuilds);
 }
 
 // **** COMBATLOG MANAGEMENT ****
@@ -638,7 +639,8 @@ function getSkillDataFromSkirmishCharacters() {
 // **** BATTLEFRAMEWORK MANAGEMENT ****
 
 // battleframework interface
-var actionWaitInterval = 3000; // amount of miliseconds to wait between executing each action step
+var actionWaitInterval = 100; // amount of miliseconds to wait between executing each action step
+var currActionStep = 1; // tracks current action step
 // battleframework methods
 function getRelevantCombatLogs(actionOrder) {
     var relevantLogs = [];
@@ -652,21 +654,185 @@ function getRelevantCombatLogs(actionOrder) {
 /****************************************************************************************************
     END Global Interface 
 ****************************************************************************************************/
-function executeSkirmish() {
-    for (var turnTrack = 1; turnTrack <= 24; turnTrack++) {
-        executeTurn(turnTrack);
-    }
+function turnTrackManager() {
+    this.displayQueue = [];
+    this.buildDisplayQueue = function () {
+        for (var actionstep = 1; actionstep <= 24; actionstep++) {
+            var actionStepLogs = getRelevantCombatLogs(actionstep);
+            if (actionStepLogs.length == 0) continue;
 
-    // Skirmish Cleanup
-    $(".char_img").removeClass("pic-border-target");
-    $(".char_img").removeClass("pic-border-assailant");
-    $(".char_img").addClass("pic-border-light");
-    $(".container_activeicon").empty();
-    console.log("END SKIRMISH");
+            var assailant, interrupters = [];
+
+            for (var i = 0; i < actionStepLogs.length; i++) {
+                var currLog = actionStepLogs[i];
+                if (currLog.bInterrupt == false) {
+                    assailant = getCharacterById(currLog.Assailant_Character_FK);
+                } else {
+                    if (interrupters.indexOf(getCharacterById(currLog.Assailant_Character_FK) > -1)) interrupters.push(getCharacterById(currLog.Assailant_Character_FK));
+                }
+            }
+
+
+            //get main characters logs
+            var assailantLogs = [];
+
+            for (var i = 0; i < actionStepLogs.length; i++) {
+                var currLog = actionStepLogs[i];
+
+                if (assailant.Character_PK == currLog.Assailant_Character_FK && currLog.bInterrupt == false) {
+                    assailantLogs.push(currLog);
+                }
+            }
+
+            //get interrupter logs
+            var interrupterLogs = [];
+
+            for (var x = 0; x < interrupters.length; x++) {
+                var interrupter = interrupters[x];
+                //if (interrupter.Character_PK == assailant.Character_PK) {
+                //    continue;
+                //}
+                var batchLogs = []; 
+
+                for (var i = 0; i < actionStepLogs.length; i++) {
+                    var currLog = actionStepLogs[i];
+
+                    if (interrupter.Character_PK == currLog.Assailant_Character_FK && currLog.bInterrupt == true) {
+                        batchLogs.push(currLog);
+                    }
+                }
+
+                interrupterLogs.push(batchLogs);
+            }
+            this.displayQueue.push(assailantLogs);
+
+            for (var i = 0; i < interrupterLogs.length; i++) {
+                this.displayQueue.push(interrupterLogs[i]);
+            }
+        }       
+    }
+    this.displayTracker = 0;
+
+    this.endSkirmish = function () {
+        // Skirmish Cleanup
+        $(".char_img").removeClass("pic-border-target");
+        $(".char_img").removeClass("pic-border-assailant");
+        $(".char_img").addClass("pic-border-light");
+        $(".container_activeicon").empty();
+        console.log("END SKIRMISH");
+    };
+    return this;
+}
+function showDisplayQueue(trackManager) {
+    setTimeout(function () {
+        var displayLogs = trackManager.displayQueue[trackManager.displayTracker];
+        if (displayLogs[0].Action_Order != currActionStep) currActionStep = displayLogs[0].Action_Order;
+        console.log(currActionStep);
+        console.log(displayLogs);
+        displayActionStep(currActionStep);
+        displayCombatResult(displayLogs);
+
+        trackManager.displayTracker++;
+        if (trackManager.displayTracker < trackManager.displayQueue.length) {
+            showDisplayQueue(trackManager);
+        } else {
+            trackManager.endSkirmish();
+        }
+    }, actionWaitInterval);
 
 }
-function executeTurn(actionStep) {
-    console.log("Action Step: " + actionStep);
+function displayCombatResult(displayLogs) {
+    for (var i = 0; i < displayLogs.length; i++) {
+        var currLog = displayLogs[i];
+        var skillType = getSkillById(currLog.Skill_FK).Skill_Type;
+        var logIcon;
+
+        var assailant = getCharacterById(currLog.Assailant_Character_FK);
+        var target = getCharacterById(currLog.Target_Character_FK);
+
+        // highlight target
+        $(target.getCharMapSlot()).removeClass("pic-border-light");
+        $(target.getCharMapSlot()).addClass("pic-border-target");
+        // highlight assailant
+        $(assailant.getCharMapSlot()).removeClass("pic-border-light");
+        $(assailant.getCharMapSlot()).removeClass("pic-border-target");
+        $(assailant.getCharMapSlot()).addClass("pic-border-assailant");
+
+        if (!currLog.bInterrupt) {
+            $(assailant.getCharMapSlot() + "_activeicon_left").html('<img src="/Portals/0/RPGFL/battle_icons/active_character.png" alt="" />');
+            $(assailant.getCharMapSlot() + "_activeicon_right").html('<img src="/Portals/0/RPGFL/battle_icons/active_character.png" alt="" />');
+        } else {
+            $(assailant.getCharMapSlot() + "_activeicon_left").html('<img src="/Portals/0/RPGFL/battle_icons/interrupt.png" alt="" />');
+            $(assailant.getCharMapSlot() + "_activeicon_right").html('<img src="/Portals/0/RPGFL/battle_icons/interrupt.png" alt="" />');
+        }
+
+        // COMBAT LOG MANAGMENT
+
+        // check if attack was successful
+        var skill = getSkillById(currLog.Skill_FK);
+        if (currLog.bAttackSuccessful || skill.Skill_Type.indexOf("Guard") > -1 || skill.Skill_Type.indexOf("Blessing") > -1) {
+            if (skill.Skill_Type == "Attack" || skill.Skill_Type == "Taunt" || skill.Skill_Type.indexOf("Affliction") > -1) {
+                // hostile action, deal damage
+                target.takeDamage(currLog.Damage_Final_Result);
+                target.removeCondition("Guarded");
+
+                if (skill.Special_Min_Roll != null && skill.Special_Min_Roll <= currLog.Attack_Final_Result) {
+                    // show target is taunted or afflicted
+                    if (skill.Skill_Type == "Taunt") {
+                        target.recieveCondition("Taunted");
+                    } else if (skill.Skill_Type.indexOf("Affliction") > -1) {
+                        target.recieveCondition("Afflicted");
+                        // write additional affliction logic - charmed, blinded, stunned etc
+                    }
+                }
+            }
+            else if (skill.Skill_Type == "Heal") {
+                target.healDamage(currLog.Damage_Final_Result);
+            }
+            else if (skill.Skill_Type.indexOf("Guard") > -1) {
+                // show that target is guarded
+                target.recieveCondition("Guarded");
+            }
+            else if (skill.Skill_Type.indexOf("Blessing") > -1) {
+                //show that target has recieved a blessing
+                target.recieveCondition("Blessed");
+            }
+        }
+
+
+        if (skillType == 'Attack' || skillType.indexOf('Affliction') > -1 || skillType == 'Taunt' || skillType == 'Passive') {
+            logIcon = '/portals/0/RPGFL/battle_icons/attackicon.png';
+        } else if (skillType.indexOf('Blessing') > -1) {
+            logIcon = '/portals/0/RPGFL/battle_icons/casticon.png';
+        } else if (skillType == 'Heal') {
+            logIcon = '/portals/0/RPGFL/battle_icons/healicon.png';
+        } else if (skillType.indexOf('Guard') > -1) {
+            logIcon = '/portals/0/RPGFL/battle_icons/guardicon.png';
+        }
+
+        var logHTML =
+        '<div class="accordion" id="accordionlog_' + currLog.CombatLog_PK + '">' +
+            '<div class="accordion-group">' +
+                '<div class="accordion-heading middle-accordion">' +
+                    '<a class="accordion-toggle" data-toggle="collapse" data-parent="accordionbody_' + currLog.Action_Order + '" href="#collapseInner_' + currLog.CombatLog_PK + '">' +
+                        '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">' + assailant.Character_Name + '  </p>' +
+                        '<img class="inline" src="' + logIcon + '" />' +
+                        '<p class="inline text-center guild' + target.Guild_FK + ' font-verdana">' + target.Character_Name + '  </p>' +
+                    '</a>' +
+                '</div>' +
+                '<div id="collapseInner_' + currLog.CombatLog_PK + '" class="accordion-body collapse">' +
+                    '<div class="accordion-inner bottom-accordion">' +
+                        '<p>Attack roll: ' + '<span data-toggle="tooltip" data-placement="top" title="' + currLog.Attack_Values + '  ">' + currLog.Attack_Final_Result + '</span> | Damage roll: ' + '<span data-toggle="tooltip" data-placement="top" title="' + currLog.Damage_Values + '  ">' + currLog.Damage_Final_Result + ' </span></p>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>';
+
+        $('#accordionbody_' + currLog.Action_Order + ' .accordion-inner').html(logHTML + $('#accordionbody_' + currLog.Action_Order + ' .accordion-inner').html());
+    }
+}
+function displayActionStep(actionStep) {
+    //console.log("Action Step: " + actionStep);
 
     $(".char_img").removeClass("pic-border-target");
     $(".char_img").removeClass("pic-border-assailant");
@@ -676,19 +842,15 @@ function executeTurn(actionStep) {
     var relevantCombatLogs = getRelevantCombatLogs(actionStep);
     if (relevantCombatLogs.length == 0) return;
 
-    var assailant, logIcon, skillType, interrupters = [];
+    var assailant, logIcon, skillType;
 
     for (var i = 0; i < relevantCombatLogs.length; i++) {
         var currLog = relevantCombatLogs[i];
         if (currLog.bInterrupt == false) {
             assailant = getCharacterById(currLog.Assailant_Character_FK);
             skillType = getSkillById(currLog.Skill_FK).Skill_Type;
-        } else {
-            if (interrupters.indexOf(getCharacterById(currLog.Assailant_Character_FK) > -1)) interrupters.push(getCharacterById(currLog.Assailant_Character_FK));
-        }
+        } 
     }
-
-
     if (skillType == 'Attack' || skillType.indexOf('Affliction') > -1 || skillType == 'Taunt' || skillType == 'Passive') {
         logIcon = '/portals/0/RPGFL/battle_icons/attackicon.png';
     } else if (skillType.indexOf('Blessing') > -1) {
@@ -715,121 +877,4 @@ function executeTurn(actionStep) {
     '</div>';
     $('#combatlogcontainer').html(logHTML + $('#combatlogcontainer').html());
 
-    var mainCharAction = setTimeout(function () {
-        // show main characters actions
-        for (var i = 0; i < relevantCombatLogs.length; i++) {
-            var currLog = relevantCombatLogs[i];
-
-            if (assailant.Character_PK == currLog.Assailant_Character_FK) {
-                displayCombatResult(currLog);
-            }
-        }
-    }, actionWaitInterval);
-
-    for (var i = 0; i < interrupters.length; i++) {
-        var currInterrupter = interrupters[i];
-
-        var interruptCharAction = setTimeout(function () {
-            $(".char_img").removeClass("pic-border-target");
-            $(".char_img").removeClass("pic-border-assailant");
-            $(".char_img").addClass("pic-border-light");
-            $(".container_activeicon").empty();
-            for (var i = 0; i < relevantCombatLogs.length; i++) {
-                var currLog = relevantCombatLogs[i];
-
-                if (currInterrupter.Character_PK == currLog.Assailant_Character_FK) {
-                    displayCombatResult(currLog);
-                }
-            }
-        }, actionWaitInterval);
-    }
 }
-
-function displayCombatResult(currLog) {
-    var skillType = getSkillById(currLog.Skill_FK).Skill_Type;
-    var logIcon;
-
-    var assailant = getCharacterById(currLog.Assailant_Character_FK);
-    var target = getCharacterById(currLog.Target_Character_FK);
-
-    // highlight target
-    $(target.getCharMapSlot()).removeClass("pic-border-light");
-    $(target.getCharMapSlot()).addClass("pic-border-target");
-    // highlight assailant
-    $(assailant.getCharMapSlot()).removeClass("pic-border-light");
-    $(assailant.getCharMapSlot()).removeClass("pic-border-target");
-    $(assailant.getCharMapSlot()).addClass("pic-border-assailant");
-
-    if (!currLog.bInterrupt) {
-        $(assailant.getCharMapSlot() + "_activeicon_left").html('<img src="/Portals/0/RPGFL/battle_icons/active_character.png" alt="" />');
-        $(assailant.getCharMapSlot() + "_activeicon_right").html('<img src="/Portals/0/RPGFL/battle_icons/active_character.png" alt="" />');
-    } else {
-        $(assailant.getCharMapSlot() + "_activeicon_left").html('<img src="/Portals/0/RPGFL/battle_icons/interrupt.png" alt="" />');
-        $(assailant.getCharMapSlot() + "_activeicon_right").html('<img src="/Portals/0/RPGFL/battle_icons/interrupt.png" alt="" />');
-    }
-
-    // COMBAT LOG MANAGMENT
-
-    // check if attack was successful
-    var skill = getSkillById(currLog.Skill_FK);
-    if (currLog.bAttackSuccessful || skill.Skill_Type.indexOf("Guard") > -1 || skill.Skill_Type.indexOf("Blessing") > -1) {
-        if (skill.Skill_Type == "Attack" || skill.Skill_Type == "Taunt" || skill.Skill_Type.indexOf("Affliction") > -1) {
-            // hostile action, deal damage
-            target.takeDamage(currLog.Damage_Final_Result);
-            target.removeCondition("Guarded");
-
-            if (skill.Special_Min_Roll != null && skill.Special_Min_Roll <= currLog.Attack_Final_Result) {
-                // show target is taunted or afflicted
-                if (skill.Skill_Type == "Taunt") {
-                    target.recieveCondition("Taunted");
-                } else if (skill.Skill_Type.indexOf("Affliction") > -1) {
-                    target.recieveCondition("Afflicted");
-                    // write additional affliction logic - charmed, blinded, stunned etc
-                }
-            }
-        }
-        else if (skill.Skill_Type == "Heal") {
-            target.healDamage(currLog.Damage_Final_Result);
-        }
-        else if (skill.Skill_Type.indexOf("Guard") > -1) {
-            // show that target is guarded
-            target.recieveCondition("Guarded");
-        }
-        else if (skill.Skill_Type.indexOf("Blessing") > -1) {
-            //show that target has recieved a blessing
-            target.recieveCondition("Blessed");
-        }
-    }
-
-
-    if (skillType == 'Attack' || skillType.indexOf('Affliction') > -1 || skillType == 'Taunt' || skillType == 'Passive') {
-        logIcon = '/portals/0/RPGFL/battle_icons/attackicon.png';
-    } else if (skillType.indexOf('Blessing') > -1) {
-        logIcon = '/portals/0/RPGFL/battle_icons/casticon.png';
-    } else if (skillType == 'Heal') {
-        logIcon = '/portals/0/RPGFL/battle_icons/healicon.png';
-    } else if (skillType.indexOf('Guard') > -1) {
-        logIcon = '/portals/0/RPGFL/battle_icons/guardicon.png';
-    }
-    
-    var logHTML =
-    '<div class="accordion" id="accordionlog_' + currLog.CombatLog_PK + '">' +
-        '<div class="accordion-group">' +
-            '<div class="accordion-heading middle-accordion">' +
-                '<a class="accordion-toggle" data-toggle="collapse" data-parent="accordionbody_' + currLog.Action_Order + '" href="#collapseInner_' + currLog.CombatLog_PK + '">' +
-                    '<p class="inline text-center guild' + assailant.Guild_FK + ' font-verdana">' + assailant.Character_Name + '  </p>' +
-                    '<img class="inline" src="' + logIcon + '" />' +
-                    '<p class="inline text-center guild' + target.Guild_FK + ' font-verdana">' + target.Character_Name + '  </p>' +
-                '</a>' +
-            '</div>' +
-            '<div id="collapseInner_' + currLog.CombatLog_PK + '" class="accordion-body collapse">' +
-                '<div class="accordion-inner bottom-accordion">' +
-                    '<p>Attack roll: ' + '<span data-toggle="tooltip" data-placement="top" title="' + currLog.Attack_Values + '  ">' + currLog.Attack_Final_Result + '</span> | Damage roll: ' + '<span data-toggle="tooltip" data-placement="top" title="' + currLog.Damage_Values + '  ">' + currLog.Damage_Final_Result + ' </span></p>' +
-                '</div>' +
-            '</div>' +
-        '</div>' +
-    '</div>';
-
-    $('#accordionbody_' + currLog.Action_Order + ' .accordion-inner').html(logHTML + $('#accordionbody_' + currLog.Action_Order + ' .accordion-inner').html());
-}
-
