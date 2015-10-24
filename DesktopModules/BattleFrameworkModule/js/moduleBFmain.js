@@ -24,7 +24,6 @@
     // **** SETUP COMBAT LOG ****
     getCombatLogData();
 
-    //console.log(globalSkirmish.Skirmish_Victor_FK);
     if (globalSkirmish.Skirmish_Victor_FK != -1) {
         // **** BEGIN SKIRMISH ****
         var trackManager = new turnTrackManager();
@@ -35,7 +34,6 @@
         getInitiativeData(globalSkirmish.Skirmish_PK);
         populateActionStep();
     }
-
 });
 
 /****************************************************************************************************
@@ -526,7 +524,6 @@ function getGuildData() {
             globalGuilds = JSON.parse(data);
         }
     });
-    //console.log(globalGuilds);
 }
 
 // **** COMBATLOG MANAGEMENT ****
@@ -640,7 +637,7 @@ function getSkillDataFromSkirmishCharacters() {
 
 // battleframework interface
 var actionWaitInterval = 100; // amount of miliseconds to wait between executing each action step
-var currActionStep = 1; // tracks current action step
+var currActionStep = 0; // tracks current action step
 // battleframework methods
 function getRelevantCombatLogs(actionOrder) {
     var relevantLogs = [];
@@ -663,15 +660,20 @@ function turnTrackManager() {
 
             var assailant, interrupters = [];
 
+            console.log(" ");
             for (var i = 0; i < actionStepLogs.length; i++) {
                 var currLog = actionStepLogs[i];
                 if (currLog.bInterrupt == false) {
                     assailant = getCharacterById(currLog.Assailant_Character_FK);
                 } else {
-                    if (interrupters.indexOf(getCharacterById(currLog.Assailant_Character_FK) > -1)) interrupters.push(getCharacterById(currLog.Assailant_Character_FK));
+                    // check if interrupter is already in array
+                    var bExists = false;
+                    for (var j = 0; j < interrupters.length; j++) {
+                        if (interrupters[j].Character_PK == getCharacterById(currLog.Assailant_Character_FK).Character_PK) bExists = true;
+                    }
+                    if (!bExists) interrupters.push(getCharacterById(currLog.Assailant_Character_FK));
                 }
             }
-
 
             //get main characters logs
             var assailantLogs = [];
@@ -689,9 +691,6 @@ function turnTrackManager() {
 
             for (var x = 0; x < interrupters.length; x++) {
                 var interrupter = interrupters[x];
-                //if (interrupter.Character_PK == assailant.Character_PK) {
-                //    continue;
-                //}
                 var batchLogs = []; 
 
                 for (var i = 0; i < actionStepLogs.length; i++) {
@@ -704,11 +703,14 @@ function turnTrackManager() {
 
                 interrupterLogs.push(batchLogs);
             }
-            this.displayQueue.push(assailantLogs);
 
+            // push logs to displayQueue
+            this.displayQueue.push(assailantLogs);
             for (var i = 0; i < interrupterLogs.length; i++) {
                 this.displayQueue.push(interrupterLogs[i]);
             }
+            console.log(assailantLogs);
+            console.log(interrupterLogs);
         }       
     }
     this.displayTracker = 0;
@@ -726,11 +728,15 @@ function turnTrackManager() {
 function showDisplayQueue(trackManager) {
     setTimeout(function () {
         var displayLogs = trackManager.displayQueue[trackManager.displayTracker];
-        if (displayLogs[0].Action_Order != currActionStep) currActionStep = displayLogs[0].Action_Order;
-        console.log(currActionStep);
-        console.log(displayLogs);
-        displayActionStep(currActionStep);
-        displayCombatResult(displayLogs);
+
+        // determine if new action step has been reached
+        if (displayLogs[0].Action_Order == currActionStep) {
+            displayCombatResult(displayLogs);
+        } else {
+            currActionStep = displayLogs[0].Action_Order
+            displayActionStep(currActionStep);
+            displayCombatResult(displayLogs);
+        }
 
         trackManager.displayTracker++;
         if (trackManager.displayTracker < trackManager.displayQueue.length) {
@@ -832,8 +838,6 @@ function displayCombatResult(displayLogs) {
     }
 }
 function displayActionStep(actionStep) {
-    //console.log("Action Step: " + actionStep);
-
     $(".char_img").removeClass("pic-border-target");
     $(".char_img").removeClass("pic-border-assailant");
     $(".char_img").addClass("pic-border-light");
@@ -841,6 +845,9 @@ function displayActionStep(actionStep) {
 
     var relevantCombatLogs = getRelevantCombatLogs(actionStep);
     if (relevantCombatLogs.length == 0) return;
+
+    console.log(actionStep);
+    console.log(relevantCombatLogs);
 
     var assailant, logIcon, skillType;
 
