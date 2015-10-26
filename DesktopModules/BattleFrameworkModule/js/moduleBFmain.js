@@ -23,6 +23,10 @@
 
     // **** SETUP COMBAT LOG ****
     getCombatLogData();
+    
+    // **** SETUP ACCOLADE MANAGEMENT **** 
+    globalAccoladeManager = accoladeManager();
+    getAccoladeData();
 
     if (globalSkirmish.Skirmish_Victor_FK != -1) {
         // **** BEGIN SKIRMISH ****
@@ -648,6 +652,53 @@ function getRelevantCombatLogs(actionOrder) {
 
     return relevantLogs;
 }
+
+// **** ACCOLADE MANAGEMENT **** 
+
+// accolade interface
+function accoladeManager() {
+    this.grantAccolade = function (inChar, value, accoladeType) {
+        var pointTotal = 0;
+        switch (accoladeType) {
+            case "Damage_Dealt":
+                pointTotal = this.accoladeTypes.damageDealt * value;
+                break;
+                // create a case for each accolade type. In database in accolades table. There is a column for the script identifier. Must match case.
+        };
+        if (inChar.Guild_FK == globalSkirmish.Guild_1_FK) {
+            // increase guild1 score
+        } else {
+            //increase guild2 score
+        }
+        // update value on the page
+    };
+    this.accoladeTypes = {
+        damageDealt: 0, 
+        // need to define all accolade types here. In accolades table. Seperated by comma
+    };
+}
+var globalAccoladeManager;
+// accolade methods
+
+// accolade ajax handlers
+function getAccoladeData() {
+    // ajax handler to read accolade point amount for each type of accolade
+    var accoladeData = null;
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/DesktopModules/BattleFrameworkModule/API/ModuleBattleFramework/GetAccolades",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+            accoladeData = JSON.parse(data);
+        }
+    });
+    if (accoladeData = null) return;
+    globalAccoladeManager.accoladeType.damageDealt = accoladeData[0].Accolade_Point_Value
+    // assign accolade point value for each type of accolades. Based on getAccolade in stored procedures
+   
+}
 /****************************************************************************************************
     END Global Interface 
 ****************************************************************************************************/
@@ -781,6 +832,8 @@ function displayCombatResult(displayLogs) {
                 // hostile action, deal damage
                 target.takeDamage(currLog.Damage_Final_Result);
                 target.removeCondition("Guarded");
+                //granting accolades for damage dealt. Logic needs to happen for each type of accolade
+                globalAccoladeManager.grantAccolade(assailant, currLog.Damage_Final_Result, "Damage_Dealt");
 
                 if (skill.Special_Min_Roll != null && skill.Special_Min_Roll <= currLog.Attack_Final_Result) {
                     // show target is taunted or afflicted
