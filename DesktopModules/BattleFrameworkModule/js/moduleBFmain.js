@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     // **** SETUP SKIRMISH ****
     // get skirmishpk from url paramter
-    skirmishId = getUrlParameter("skirmishid");
+    var skirmishId = getUrlParameter("skirmishid");
     getSkirmishData(skirmishId);
     populateSkirmishData();
 
@@ -36,6 +36,11 @@
     } else {
         // start voting
         getInitiativeData(globalSkirmish.Skirmish_PK);
+
+        // **** SETUP VOTE DATA ****
+        getUserVoteData();
+        getUserCharacters();
+
         populateActionStep();
     }
 });
@@ -149,15 +154,15 @@ function character(charData) {
         //Do they have more than 3 conditions?
 
         //populate with current conditions
-        var tauntedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_taunted.png" />'
-        var afflictedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_afflicted.png" />'
-        var blessedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_blessed.png" />'
-        var charmedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_charmed.png" />'
-        var blindedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_blinded.png" />'
-        var invisibleHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_invisible.png" />'
-        var guardedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_guarded.png" />'
-        var stunnedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_stunned.png" />'
-        var elipseHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_elipse.png" />'
+        var tauntedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_taunted.png" />';
+        var afflictedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_afflicted.png" />';
+        var blessedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_blessed.png" />';
+        var charmedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_charmed.png" />';
+        var blindedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_blinded.png" />';
+        var invisibleHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_invisible.png" />';
+        var guardedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_guarded.png" />';
+        var stunnedHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_stunned.png" />';
+        var elipseHTML = '<img src="/Portals/0/RPGFL/battle_icons/condition_elipse.png" />';
         var numOfConditions = 0;
         var bUseElipse = (this.numOfConditions() >= 4);
         var conditions = ['Afflicted', 'Blessed', 'Taunted', 'Charmed', 'Blinded', 'Invisible', 'Guarded', 'Stunned'];
@@ -275,31 +280,31 @@ function character(charData) {
     };
     this.recieveCondition = function (condition) {
         switch (condition) {
-            case 'Afflicted':
+            case "Afflicted":
                 this.Conditions.bAfflicted = true;
                 break;
-            case 'Blessed':
+            case "Blessed":
                 this.Conditions.bBlessed = true;
                 break;
-            case 'Taunted':
+            case "Taunted":
                 this.Conditions.bTaunted = true;
                 break;
-            case 'Charmed':
+            case "Charmed":
                 this.Conditions.bCharmed = true;
                 break;
-            case 'Blinded':
+            case "Blinded":
                 this.Conditions.bBlinded = true;
                 break;
-            case 'Invisible':
+            case "Invisible":
                 this.Conditions.bInvisible = true;
                 break;
-            case 'Guarded':
+            case "Guarded":
                 this.Conditions.bGuarded = true;
                 break;
-            case 'Stunned':
+            case "Stunned":
                 this.Conditions.bStunned = true;
                 break;
-            case 'Knocked_Out':
+            case "Knocked_Out":
                 this.Conditions.bKnockedOut = true;
                 $(this.getCharMapSlot()).addClass("knockedout");
                 break;
@@ -308,31 +313,31 @@ function character(charData) {
     };
     this.removeCondition = function (condition) {
         switch (condition) {
-            case 'Afflicted':
+            case "Afflicted":
                 this.Conditions.bAfflicted = false;
                 break;
-            case 'Blessed':
+            case "Blessed":
                 this.Conditions.bBlessed = false;
                 break;
-            case 'Taunted':
+            case "Taunted":
                 this.Conditions.bTaunted = false;
                 break;
-            case 'Charmed':
+            case "Charmed":
                 this.Conditions.bCharmed = false;
                 break;
-            case 'Blinded':
+            case "Blinded":
                 this.Conditions.bBlinded = false;
                 break;
-            case 'Invisible':
+            case "Invisible":
                 this.Conditions.bInvisible = false;
                 break;
-            case 'Guarded':
+            case "Guarded":
                 this.Conditions.bGuarded = false;
                 break;
-            case 'Stunned':
+            case "Stunned":
                 this.Conditions.bStunned = false;
                 break;
-            case 'Knocked_Out':
+            case "Knocked_Out":
                 this.Conditions.bKnockedOut = false;
                 break;
         }
@@ -445,12 +450,12 @@ function populateSkirmishData() {
 }
 function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
+        sURLVariables = sPageURL.split("&"),
         sParameterName,
         i;
 
     for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
+        sParameterName = sURLVariables[i].split("=");
 
         if (sParameterName[0] === sParam) {
             return sParameterName[1] === undefined ? true : sParameterName[1];
@@ -460,7 +465,7 @@ function getUrlParameter(sParam) {
 function populateActionStep() {
     for (var i = 0; i < globalInitative.length; i++) {
         var actionStep = globalInitative[i];
-        $(getCharacterById(actionStep.Character_FK).getCharMapSlot() + "_activeicon_left").append('<p>' + actionStep.Act_Order + '</p>');
+        $(getCharacterById(actionStep.Character_FK).getCharMapSlot() + "_activeicon_left").append("<p>" + actionStep.Act_Order + "</p>");
     }
 }
 // skirmish ajax handlers
@@ -478,7 +483,7 @@ function getSkirmishData(skirmishPK) {
         }
     });
 }
-function getInitiativeData(skirmishPK) {
+function getInitiativeData() {
     $.ajax({
         async: false,
         type: "GET",
@@ -694,10 +699,65 @@ function getAccoladeData() {
             accoladeData = JSON.parse(data);
         }
     });
-    if (accoladeData = null) return;
+    if (accoladeData == null) return;
     globalAccoladeManager.accoladeType.damageDealt = accoladeData[0].Accolade_Point_Value
     // assign accolade point value for each type of accolades. Based on getAccolade in stored procedures
-   
+}
+
+// **** VOTE MANAGEMENT ****
+// vote interface
+var globalVoteData; // warehouse for all vote data for characters in skirmish
+var globalUserDraftCharacters = []; // warehouse for all characters this user has drafted
+// vote methods
+// vote ajax handlers
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//  NOTES FOR DUSTIN
+// + getUserVoteData will give you all vote data by the user they've submitted. Keep in mind, this will come up with nothing
+// if they haven't submitted any votes yet
+// + getUserCharacters will provide you with all the characters the user has drafted. Some of the returned characters will
+// not be in the skirmish.
+// Overall, I suggest you look at the storedprocedure if you have any questions on what data is being returned for you
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+function getUserVoteData() {
+    // get vote data by user
+    var voteData = null;
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/DesktopModules/BattleFrameworkModule/API/ModuleBattleFramework/GetVoteDataFromSkirmish",
+        data: {
+            Skirmish_PK: globalSkirmish.Skirmish_PK,
+            User_PK: userId
+        },
+        dataType: "json",
+        success: function (data) {
+            voteData = JSON.parse(data);
+        }
+    });
+    if (voteData == null) return;
+    globalVoteData = voteData;
+}
+function getUserCharacters() {
+    // get vote data by user
+    var charData = null;
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/DesktopModules/BattleFrameworkModule/API/ModuleBattleFramework/GetCharacterDraftByUser",
+        data: {
+            User_PK: userId
+        },
+        dataType: "json",
+        success: function (data) {
+            charData = JSON.parse(data);
+        }
+    });
+    if (charData == null) return;
+    
+    for (var i = 0; i < charData.length; i++) {
+        globalUserDraftCharacters.push(getCharacterById(charData[i].Character_FK));
+    }
 }
 /****************************************************************************************************
     END Global Interface 
@@ -711,7 +771,6 @@ function turnTrackManager() {
 
             var assailant, interrupters = [];
 
-            console.log(" ");
             for (var i = 0; i < actionStepLogs.length; i++) {
                 var currLog = actionStepLogs[i];
                 if (currLog.bInterrupt == false) {
@@ -784,7 +843,7 @@ function showDisplayQueue(trackManager) {
         if (displayLogs[0].Action_Order == currActionStep) {
             displayCombatResult(displayLogs);
         } else {
-            currActionStep = displayLogs[0].Action_Order
+            currActionStep = displayLogs[0].Action_Order;
             displayActionStep(currActionStep);
             displayCombatResult(displayLogs);
         }
@@ -859,14 +918,14 @@ function displayCombatResult(displayLogs) {
         }
 
 
-        if (skillType == 'Attack' || skillType.indexOf('Affliction') > -1 || skillType == 'Taunt' || skillType == 'Passive') {
-            logIcon = '/portals/0/RPGFL/battle_icons/attackicon.png';
-        } else if (skillType.indexOf('Blessing') > -1) {
-            logIcon = '/portals/0/RPGFL/battle_icons/casticon.png';
-        } else if (skillType == 'Heal') {
-            logIcon = '/portals/0/RPGFL/battle_icons/healicon.png';
-        } else if (skillType.indexOf('Guard') > -1) {
-            logIcon = '/portals/0/RPGFL/battle_icons/guardicon.png';
+        if (skillType == "Attack" || skillType.indexOf("Affliction") > -1 || skillType == "Taunt" || skillType == "Passive") {
+            logIcon = "/portals/0/RPGFL/battle_icons/attackicon.png";
+        } else if (skillType.indexOf("Blessing") > -1) {
+            logIcon = "/portals/0/RPGFL/battle_icons/casticon.png";
+        } else if (skillType == "Heal") {
+            logIcon = "/portals/0/RPGFL/battle_icons/healicon.png";
+        } else if (skillType.indexOf("Guard") > -1) {
+            logIcon = "/portals/0/RPGFL/battle_icons/guardicon.png";
         }
 
         var logHTML =
@@ -887,7 +946,7 @@ function displayCombatResult(displayLogs) {
             '</div>' +
         '</div>';
 
-        $('#accordionbody_' + currLog.Action_Order + ' .accordion-inner').html(logHTML + $('#accordionbody_' + currLog.Action_Order + ' .accordion-inner').html());
+        $("#accordionbody_" + currLog.Action_Order + " .accordion-inner").html(logHTML + $("#accordionbody_" + currLog.Action_Order + " .accordion-inner").html());
     }
 }
 function displayActionStep(actionStep) {
@@ -911,14 +970,15 @@ function displayActionStep(actionStep) {
             skillType = getSkillById(currLog.Skill_FK).Skill_Type;
         } 
     }
-    if (skillType == 'Attack' || skillType.indexOf('Affliction') > -1 || skillType == 'Taunt' || skillType == 'Passive') {
-        logIcon = '/portals/0/RPGFL/battle_icons/attackicon.png';
-    } else if (skillType.indexOf('Blessing') > -1) {
-        logIcon = '/portals/0/RPGFL/battle_icons/casticon.png';
-    } else if (skillType == 'Heal') {
-        logIcon = '/portals/0/RPGFL/battle_icons/healicon.png';
-    } else if (skillType.indexOf('Guard') > -1) {
-        logIcon = '/portals/0/RPGFL/battle_icons/guardicon.png';
+
+    if (skillType == "Attack" || skillType.indexOf("Affliction") > -1 || skillType == "Taunt" || skillType == "Passive") {
+        logIcon = "/portals/0/RPGFL/battle_icons/attackicon.png";
+    } else if (skillType.indexOf("Blessing") > -1) {
+        logIcon = "/portals/0/RPGFL/battle_icons/casticon.png";
+    } else if (skillType == "Heal") {
+        logIcon = "/portals/0/RPGFL/battle_icons/healicon.png";
+    } else if (skillType.indexOf("Guard") > -1) {
+        logIcon = "/portals/0/RPGFL/battle_icons/guardicon.png";
     }
 
     var logHTML =
@@ -935,6 +995,5 @@ function displayActionStep(actionStep) {
             '</div>' +
         '</div>' +
     '</div>';
-    $('#combatlogcontainer').html(logHTML + $('#combatlogcontainer').html());
-
+    $("#combatlogcontainer").html(logHTML + $("#combatlogcontainer").html());
 }
