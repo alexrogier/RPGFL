@@ -783,7 +783,8 @@ function getAccoladeData() {
         }
     });
     if (accoladeData == null) return;
-    globalAccoladeManager.accoladeType.damageDealt = accoladeData[0].Accolade_Point_Value
+    console.log(globalAccoladeManager);
+    globalAccoladeManager.accoladeTypes.damageDealt = accoladeData[0].Accolade_Point_Value
     // assign accolade point value for each type of accolades. Based on getAccolade in stored procedures
 }
 
@@ -970,8 +971,10 @@ function displayCombatResult(displayLogs) {
         }
 
         // COMBAT LOG MANAGMENT
-        var userVote = getUserVoteData();
-        var userChar = getUserCharacters();
+        // DUSTIN: Why are you calling these here? These only need to be called once. They're being called hundreds of times. This is displayCombatResult, WHY would this
+        // code even go here??? This is irrelevent code to vote data ... 
+        //var userVote = getUserVoteData();
+        //var userChar = getUserCharacters();
         // check if attack was successful
         var skill = getSkillById(currLog.Skill_FK);
         if (currLog.bAttackSuccessful || skill.Skill_Type.indexOf("Guard") > -1 || skill.Skill_Type.indexOf("Blessing") > -1) {

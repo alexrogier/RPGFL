@@ -80,7 +80,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
                     logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms DATA globalSkills: " + Json.Serialize(globalSkills));
                     globalInitTrack = controller.GetInitiativeTrackFromSkirmish(skirmish.Skirmish_PK);
                     logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms DATA globalInitTrack: " + Json.Serialize(globalInitTrack));
-                    globalVotes = controller.GetVoteDataFromSkirmish(skirmish.Skirmish_PK);
+                    globalVotes = controller.GetVoteDataFromSkirmish(skirmish.Skirmish_PK, null);
                     logger.WriteLine(DateTime.Today + " " + stopwatch.ElapsedMilliseconds + "ms DATA globalVotes: " + Json.Serialize(globalVotes));
 
                     // reset warehouses

@@ -340,7 +340,7 @@ namespace Christoc.Modules.BattleFrameworkModule.Models
         {
             return CBO.FillCollection<Combat_Log>(DataProvider.Instance().ExecuteReader("RPGFL_GetCombatLogData", Skirmish_PK));
         }
-        public IList<Votes> GetVoteDataFromSkirmish(int Skirmish_PK, int User_PK)
+        public IList<Votes> GetVoteDataFromSkirmish(int Skirmish_PK, int? User_PK)
         {
             return CBO.FillCollection<Votes>(DataProvider.Instance().ExecuteReader("RPGFL_GetVoteDataFromSkirmish", Skirmish_PK, User_PK));
         }
