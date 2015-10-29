@@ -25,7 +25,7 @@
     getCombatLogData();
     
     // **** SETUP ACCOLADE MANAGEMENT **** 
-    globalAccoladeManager = accoladeManager();
+    globalAccoladeManager = new accoladeManager();
     getAccoladeData();
 
     if (globalSkirmish.Skirmish_Victor_FK != -1) {
@@ -664,22 +664,105 @@ function getRelevantCombatLogs(actionOrder) {
 function accoladeManager() {
     this.grantAccolade = function (inChar, value, accoladeType) {
         var pointTotal = 0;
+        var guildOneScore = 0;
+        var guildTwoScore = 0;
         switch (accoladeType) {
             case "Damage_Dealt":
                 pointTotal = this.accoladeTypes.damageDealt * value;
                 break;
-                // create a case for each accolade type. In database in accolades table. There is a column for the script identifier. Must match case.
+            case "Damage_Taken":
+                pointTotal = this.accoladeTypes.damageTaken * value;
+                break;
+            case "Opponent_Knock_Outs":
+                pointTotal = this.accoladeTypes.opponentKnockOuts * value;
+                break;
+            case "Assist_Knock_Outs":
+                pointTotal = this.accoladeTypes.assistKnockOuts * value;
+                break;
+            case "Attacks_Dodged":
+                pointTotal = this.accoladeTypes.attacksDodged * value;
+                break;
+            case "Critical_Successes":
+                pointTotal = this.accoladeTypes.criticalSuccesses * value;
+                break;
+            case "Health_Regained":
+                pointTotal = this.accoladeTypes.healthRegained * value;
+                break;
+            case "Critical_Fails":
+                pointTotal = this.accoladeTypes.criticalFails * value;
+                break;
+            case "Self_Knock_Outs":
+                pointTotal = this.accoladeTypes.selfKnockOuts * value;
+                break;
+            case "Skirmishes_Survived":
+                pointTotal = this.accoladeTypes.skirmishSurvived * value;
+                break;
+            case "Ally_Bonus_Damage":
+                pointTotal = this.accoladeTypes.allyBonusDamage * value;
+                break;
+            case "Afflictions_Inflicted":
+                pointTotal = this.accoladeTypes.afflictionsInflicted * value;
+                break;
+            case "Initative_Acted_First":
+                pointTotal = this.accoladeTypes.initativeActedFirst * value;
+                break;
+            case "User_Action_Vote":
+                pointTotal = this.accoladeTypes.userActionVote * value;
+                break;
+            case "User_Target_Vote":
+                pointTotal = this.accoladeTypes.userTargetVote * value;
+                break;
+            case "Guild_Win_Bonus":
+                pointTotal = this.accoladeTypes.guildWinBonus * value;
+                break;
+            case "Blessing_Bestow":
+                pointTotal = this.accoladeTypes.blessingBestow * value;
+                break;
+            case "Blessing_Shield_Absorb":
+                pointTotal = this.accoladeTypes.blessingShieldAbsord * value;
+                break;
+            case "Blessing_Bonus_Damage":
+                pointTotal = this.accoladeTypes.blessingBonusDamage * value;
+                break;
+            case "Blessing_Stat_Buff":
+                pointTotal = this.accoladeTypes.blessingStatBuff * value;
+                break;
+                // create a case for each accolade type. In database in accolades table. There is a column for the script identifier. Must match case. **
         };
         if (inChar.Guild_FK == globalSkirmish.Guild_1_FK) {
+            guildOneScore = guildOneScore + pointTotal;
             // increase guild1 score
         } else {
+            guildTwoScore = guildTwoScore + pointTotal;
             //increase guild2 score
         }
+        $("guild_1_score").text(guildOneScore);
+        $("guild_2_score").text(guildTwoScore);
         // update value on the page
     };
     this.accoladeTypes = {
-        damageDealt: 0, 
-        // need to define all accolade types here. In accolades table. Seperated by comma
+        damageDealt: 0,
+        damageTaken: 0,
+        opponentKnockOuts: 0,
+        assistKnockOuts: 0,
+        attacksDodged: 0,
+        criticalSuccesses: 0,
+        healthRegained: 0,
+        criticalFails: 0,
+        selfKnockOuts: 0,
+        skirmishSurvived: 0,
+        allyBonusDamage: 0,
+        afflictionsInflicted: 0,
+        initativeActedFirst: 0,
+        userActionVote: 0,
+        userTargetVote: 0,
+        guildWinBonus: 0,
+        blessingBestow: 0,
+        blessingShieldAbsord: 0,
+        blessingBonusDamage: 0,
+        blessingStatBuff: 0,
+
+        // need to define all accolade types here. In accolades table. Seperated by comma **
     };
 }
 var globalAccoladeManager;
@@ -887,7 +970,8 @@ function displayCombatResult(displayLogs) {
         }
 
         // COMBAT LOG MANAGMENT
-
+        var userVote = getUserVoteData();
+        var userChar = getUserCharacters();
         // check if attack was successful
         var skill = getSkillById(currLog.Skill_FK);
         if (currLog.bAttackSuccessful || skill.Skill_Type.indexOf("Guard") > -1 || skill.Skill_Type.indexOf("Blessing") > -1) {
@@ -897,6 +981,20 @@ function displayCombatResult(displayLogs) {
                 target.removeCondition("Guarded");
                 //granting accolades for damage dealt. Logic needs to happen for each type of accolade
                 globalAccoladeManager.grantAccolade(assailant, currLog.Damage_Final_Result, "Damage_Dealt");
+                globalAccoladeManager.grantAccolade(target, currLog.Damage_Final_Result, "Damage_Taken");
+                globalAccoladeManager.grantAccolade(assailant, currLog.bAttackSuccessful, "Opponent_Knock_Outs");
+                globalAccoladeManager.grantAccolade(assailant, currLog.bAttackSuccessful, "Assist_Knock_Outs");
+                globalAccoladeManager.grantAccolade(target, !currLog.bAttackSuccessful, "Attacks_Dodged");
+                globalAccoladeManager.grantAccolade(assailant, currLog.Attack_Values = 20, "Critical_Successes");
+                globalAccoladeManager.grantAccolade(assailant, currLog.Attack_Values = 1, "Critical_Fails");
+                globalAccoladeManager.grantAccolade(assailant, currLog.bAttackSuccessful, "Self_Knock_Outs");
+                globalAccoladeManager.grantAccolade(assailant, currLog.bAttackSuccessful, "Skirmishes_Survived");
+                globalAccoladeManager.grantAccolade(assailant, currLog.actionOrder = 1, "Initative_Acted_First");
+                // add user active vote here
+                // add user target vote here
+                // add guild win bonus here
+
+
 
                 if (skill.Special_Min_Roll != null && skill.Special_Min_Roll <= currLog.Attack_Final_Result) {
                     // show target is taunted or afflicted
@@ -905,11 +1003,13 @@ function displayCombatResult(displayLogs) {
                     } else if (skill.Skill_Type.indexOf("Affliction") > -1) {
                         target.recieveCondition("Afflicted");
                         // write additional affliction logic - charmed, blinded, stunned etc
+                        globalAccoladeManager.grantAccolade(assailant, currLog.Damage_Final_Result, "Afflictions_Inflicted");
                     }
                 }
             }
             else if (skill.Skill_Type == "Heal") {
                 target.healDamage(currLog.Damage_Final_Result);
+                globalAccoladeManager.grantAccolade(assailant, currLog.Damage_Final_Result, "Health_Regained");
             }
             else if (skill.Skill_Type.indexOf("Guard") > -1) {
                 // show that target is guarded
@@ -918,6 +1018,11 @@ function displayCombatResult(displayLogs) {
             else if (skill.Skill_Type.indexOf("Blessing") > -1) {
                 //show that target has recieved a blessing
                 target.recieveCondition("Blessed");
+                globalAccoladeManager.grantAccolade(assailant, currLog.Damage_Final_Result, "Ally_Bonus_Damage");
+                globalAccoladeManager.grantAccolade(assailant, currLog.bAttackSuccessful, "Blessing_Bestow");
+                globalAccoladeManager.grantAccolade(assailant, currLog.Damage_Final_Result, "Blessing_Shield_Absorb");
+                globalAccoladeManager.grantAccolade(assailant, currLog.Damage_Final_Result, "Blessing_Bonus_Damage");
+                globalAccoladeManager.grantAccolade(assailant, currLog.bAttackSuccessful, "Blessing_Stat_Buff");
             }
         }
 
