@@ -659,13 +659,13 @@ function getRelevantCombatLogs(actionOrder) {
 }
 
 // **** ACCOLADE MANAGEMENT **** 
+var guildOneScore = 0;
+var guildTwoScore = 0;
 
 // accolade interface
 function accoladeManager() {
     this.grantAccolade = function (inChar, value, accoladeType) {
         var pointTotal = 0;
-        var guildOneScore = 0;
-        var guildTwoScore = 0;
         switch (accoladeType) {
             case "Damage_Dealt":
                 pointTotal = this.accoladeTypes.damageDealt * value;
@@ -736,9 +736,13 @@ function accoladeManager() {
             guildTwoScore = guildTwoScore + pointTotal;
             //increase guild2 score
         }
-        $("guild_1_score").text(guildOneScore);
-        $("guild_2_score").text(guildTwoScore);
+        $("#guild_1_score").text(guildOneScore);
+        $("#guild_2_score").text(guildTwoScore);
         // update value on the page
+        //console.log("Guild 2 Score: " + guildTwoScore);
+        //console.log("Guild 1 Score: " + guildOneScore);
+        console.log("Point Total: " + pointTotal + " Action step " + currActionStep);
+
     };
     this.accoladeTypes = {
         damageDealt: 0,
@@ -758,7 +762,7 @@ function accoladeManager() {
         userTargetVote: 0,
         guildWinBonus: 0,
         blessingBestow: 0,
-        blessingShieldAbsord: 0,
+        blessingShieldAbsorb: 0,
         blessingBonusDamage: 0,
         blessingStatBuff: 0,
 
@@ -772,6 +776,7 @@ var globalAccoladeManager;
 function getAccoladeData() {
     // ajax handler to read accolade point amount for each type of accolade
     var accoladeData = null;
+    var Accolade_Point_Value = 0;
     $.ajax({
         async: false,
         type: "GET",
@@ -784,8 +789,30 @@ function getAccoladeData() {
     });
     if (accoladeData == null) return;
     console.log(globalAccoladeManager);
-    globalAccoladeManager.accoladeTypes.damageDealt = accoladeData[0].Accolade_Point_Value
+    globalAccoladeManager.accoladeTypes.damageDealt = accoladeData[1].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.damageTaken = accoladeData[2].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.opponentKnockOuts = accoladeData[3].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.assistKnockOuts = accoladeData[4].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.attacksDodged = accoladeData[5].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.criticalSuccesses = accoladeData[6].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.healthRegained = accoladeData[7].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.criticalFails = accoladeData[8].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.selfKnockOuts = accoladeData[9].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.skirmishSurvived = accoladeData[10].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.allyBonusDamage = accoladeData[11].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.afflictionsInflicted = accoladeData[12].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.initativeActedFirst = accoladeData[13].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.userActionVote = accoladeData[14].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.userTargetVote = accoladeData[15].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.guildWinBonus = accoladeData[16].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.blessingBestow = accoladeData[17].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.blessingShieldAbsorb = accoladeData[18].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.blessingBonusDamage = accoladeData[19].Accolade_Point_Value;
+    // globalAccoladeManager.accoladeTypes.blessingStatBuff = accoladeData[20].Accolade_Point_Value;
+
+
     // assign accolade point value for each type of accolades. Based on getAccolade in stored procedures
+
 }
 
 // **** VOTE MANAGEMENT ****
@@ -1028,7 +1055,6 @@ function displayCombatResult(displayLogs) {
                 globalAccoladeManager.grantAccolade(assailant, currLog.bAttackSuccessful, "Blessing_Stat_Buff");
             }
         }
-
 
         if (skillType == "Attack" || skillType.indexOf("Affliction") > -1 || skillType == "Taunt" || skillType == "Passive") {
             logIcon = "/portals/0/RPGFL/battle_icons/attackicon.png";
