@@ -789,26 +789,26 @@ function getAccoladeData() {
     });
     if (accoladeData == null) return;
     console.log(globalAccoladeManager);
-    globalAccoladeManager.accoladeTypes.damageDealt = accoladeData[1].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.damageTaken = accoladeData[2].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.opponentKnockOuts = accoladeData[3].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.assistKnockOuts = accoladeData[4].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.attacksDodged = accoladeData[5].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.criticalSuccesses = accoladeData[6].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.healthRegained = accoladeData[7].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.criticalFails = accoladeData[8].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.selfKnockOuts = accoladeData[9].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.skirmishSurvived = accoladeData[10].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.allyBonusDamage = accoladeData[11].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.afflictionsInflicted = accoladeData[12].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.initativeActedFirst = accoladeData[13].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.userActionVote = accoladeData[14].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.userTargetVote = accoladeData[15].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.guildWinBonus = accoladeData[16].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.blessingBestow = accoladeData[17].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.blessingShieldAbsorb = accoladeData[18].Accolade_Point_Value;
-    globalAccoladeManager.accoladeTypes.blessingBonusDamage = accoladeData[19].Accolade_Point_Value;
-    // globalAccoladeManager.accoladeTypes.blessingStatBuff = accoladeData[20].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.damageDealt = accoladeData[0].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.damageTaken = accoladeData[1].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.opponentKnockOuts = accoladeData[2].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.assistKnockOuts = accoladeData[3].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.attacksDodged = accoladeData[4].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.criticalSuccesses = accoladeData[5].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.healthRegained = accoladeData[6].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.criticalFails = accoladeData[7].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.selfKnockOuts = accoladeData[8].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.skirmishSurvived = accoladeData[9].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.allyBonusDamage = accoladeData[10].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.afflictionsInflicted = accoladeData[11].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.initativeActedFirst = accoladeData[12].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.userActionVote = accoladeData[13].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.userTargetVote = accoladeData[14].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.guildWinBonus = accoladeData[15].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.blessingBestow = accoladeData[16].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.blessingShieldAbsorb = accoladeData[17].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.blessingBonusDamage = accoladeData[18].Accolade_Point_Value;
+    globalAccoladeManager.accoladeTypes.blessingStatBuff = accoladeData[19].Accolade_Point_Value;
 
 
     // assign accolade point value for each type of accolades. Based on getAccolade in stored procedures
